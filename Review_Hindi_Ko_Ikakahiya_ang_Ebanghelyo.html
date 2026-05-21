@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Hindi Ko Ikakahiya ang Ebanghelyo</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  /* Increased padding to account for the taller audio player */
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  /* TOP BAR */
+  .topbar{background:var(--green);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:17px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.68;margin-top:2px;}
+
+  /* BOTTOM NAV */
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--green);}
+
+  /* ADVANCED AUDIO PLAYER CSS */
+  .audio-player {
+    position: fixed;
+    bottom: 68px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 400px;
+    background: var(--purple-dark);
+    border-radius: 20px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(38, 33, 92, 0.4);
+    z-index: 99;
+    color: white;
+	    /* ADDED FOR FADE EFFECT */
+    transition: opacity 0.5s ease; 
+  }
+  
+  /* ADDED CLASS TO MAKE IT TRANSPARENT */
+  .audio-player.dimmed {
+    opacity: 0.15; 
+  }
+  .player-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .play-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--green);
+    border: none;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .play-btn:active { background: var(--green-dark); }
+  .audio-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .audio-title {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .speed-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .speed-btn:active { background: rgba(255,255,255,0.3); }
+  
+  .player-bottom {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .audio-time {
+    font-size: 10px;
+    color: var(--purple-light);
+    opacity: 0.9;
+    font-variant-numeric: tabular-nums; /* Keeps numbers aligned */
+    white-space: nowrap;
+  }
+  /* Custom Seek Bar */
+  .seek-bar {
+    flex: 1;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.2);
+    outline: none;
+    accent-color: var(--green); /* Modern way to color the slider */
+  }
+  .seek-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--green);
+    cursor: pointer;
+  }
+  .seek-bar::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--green);
+    cursor: pointer;
+    border: none;
+  }
+
+  /* SECTION */
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* Content Styling (Unchanged) */
+  .hero{background:linear-gradient(150deg,var(--green-dark) 0%,var(--green) 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:21px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.7;}
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+  .body{font-size:14px;color:var(--text);line-height:1.78;margin:14px 14px 0;}
+  .body strong{font-weight:600;}
+  .body em{font-style:italic;}
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.red p{color:var(--red);}
+  .hl.blue p{color:var(--blue);}
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{background:var(--orange-light);padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.blue{background:var(--blue);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+  .recap-grid{margin:14px 14px 0;display:grid;gap:9px;}
+  .recap-card{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:10px;align-items:flex-start;}
+  .rc-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .rc-num.g{background:var(--green);}
+  .rc-num.p{background:var(--purple);}
+  .rc-num.o{background:var(--orange);}
+  .recap-card h4{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;}
+  .recap-card p{font-size:12px;color:var(--gray);line-height:1.55;}
+  .faith-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .faith-title{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:11px;text-align:center;}
+  .faith-parts{display:flex;gap:8px;}
+  .faith-part{flex:1;background:rgba(255,255,255,0.12);border-radius:8px;padding:10px 8px;text-align:center;}
+  .fp-word{font-size:13px;font-weight:700;color:#A8F0D8;margin-bottom:3px;}
+  .fp-desc{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.4;}
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:15px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · May 8</div>
+  <h1>Hindi Ko Ikakahiya ang Ebanghelyo</h1>
+  <div class="ref">Romans 1:16–17 · Personal na Pagbabalik-aral</div>
+</div>
+
+<div class="audio-player" id="audio-container">
+  <div class="player-top">
+    <button class="play-btn" id="play-pause-btn">▶</button>
+    <div class="audio-info">
+      <div class="audio-title">Sermon Audio</div>
+    </div>
+    <button class="speed-btn" id="speed-btn">1.0x</button>
+  </div>
+  
+  <div class="player-bottom">
+    <div class="audio-time" id="current-time">0:00</div>
+    <input type="range" id="seek-bar" class="seek-bar" value="0" min="0" step="1">
+    <div class="audio-time" id="total-time">0:00</div>
+  </div>
+</div>
+
+<audio id="sermon-audio" preload="metadata">
+  <source src="https://archive.org/download/hindi-ko-ikakahiya-ang-ebanghelyo/Hindi_Ko_Ikakahiya_ang_Ebanghelyo.m4a" type="audio/mp4">
+  Your browser does not support the audio element.
+</audio>
+
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--green)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--green)">1</div>
+    <div class="nl">Naranasan</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--purple)">2</div>
+    <div class="nl">Kapangyarihan</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--orange)">3</div>
+    <div class="nl">Para sa Lahat</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--green-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material · May 8</div>
+    <h2>Hindi Ko Ikakahiya ang Ebanghelyo</h2>
+    <div class="href">Romans 1:16–17 · Ang Tapang sa Pagpapahayag ng Magandang Balita</div>
+  </div>
+
+  <div class="vbox">
+    <p>"Hindi ko ikakahiya ang Magandang Balita, dahil ito ang kapangyarihan ng Diyos sa ikaliligtas ng lahat ng sumasampalataya sa Kanya — una ang mga Hudyo at gayun din ang mga Hentil. Sapagkat ipinapahayag sa Magandang Balita kung paano itinuturing ng Diyos na matuwid ang tao sa paningin Niya. Ito'y sa pamamagitan ng pananampalataya buhat sa simula hanggang sa wakas. Gaya ng sinasabi sa kasulatan, mabubuhay sa pananampalataya ang matuwid."</p>
+    <cite>— Romans 1:16–17 (ASD)</cite>
+  </div>
+
+  <div class="sec-lbl">Recap mula sa nakaraang session</div>
+  <div class="card">
+    <p>Ang session na ito ay nagsimula sa pagbabalik-aral ng nakaraang pag-aaral: <strong>Pakikinig at Pagbubunga (Marcos 4:13–20).</strong> Tatlong puntos ang binanggit bilang pundasyon bago pumasok sa bagong paksa:</p>
+  </div>
+  <div class="recap-grid">
+    <div class="recap-card">
+      <div class="rc-num g">S</div>
+      <div>
+        <h4>Sinupin ang Salita ng Diyos</h4>
+        <p>Huwag balewalain o ipagwalang-bahala ang mga narinig na aral — tanggapin ito nang may paggalang.</p>
+      </div>
+    </div>
+    <div class="recap-card">
+      <div class="rc-num p">P</div>
+      <div>
+        <h4>Pag-ugatin ang Salita ng Diyos</h4>
+        <p>Hayaang tumimo sa puso sa pamamagitan ng meditasyon, pagsunod, at aktibong pagsasabuhay.</p>
+      </div>
+    </div>
+    <div class="recap-card">
+      <div class="rc-num o">I</div>
+      <div>
+        <h4>Ipagtanggol ang Salita ng Diyos</h4>
+        <p>Anuman ang dumating na pagsubok — hindi tayo sumusuko. Lucas 1:37: "Walang imposible sa Diyos."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <p><strong>Bagong pag-aaral:</strong> Sa panahon natin ngayon, madaling magsalita tungkol sa trabaho, pamilya, o mga pang-araw-araw na bagay. Pero kapag usapan na ang tungkol sa Diyos — bigla na lang tayong nagiging tahimik. <em>Naka-silent mode. Naka-mute.</em></p>
+    <p>Layunin ng pag-aaral na ito: <strong>Maunawaan kung bakit hindi natin dapat ikahiya ang Ebanghelyo — at magkaroon ng tapang na ipahayag ito.</strong></p>
+  </div>
+
+  <div class="quote-box">
+    <p>"Hindi ko ikakahiya ang Magandang Balita, dahil ito ang kapangyarihan ng Diyos sa ikaliligtas ng lahat ng sumasampalataya."</p>
+    <cite>— Romans 1:16 · Deklarasyon ni Apostol Pablo</cite>
+  </div>
+
+  <div class="sec-lbl">Tatlong Dahilan — Bakit Hindi Natin Dapat Ikahiya ang Ebanghelyo</div>
+  <div class="sum-cards">
+    <div class="sum-card">
+      <div class="sd g">1</div>
+      <div>
+        <div class="s-title">Ito ang ating naranasan — ang tunay na kaligtasan</div>
+        <div class="s-desc">Ang tunay na mananampalataya ay hindi ikakahiya ang Ebanghelyo dahil ito ang katotohanan na personal na naranasan niya.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">2</div>
+      <div>
+        <div class="s-title">Ito ay kapangyarihan ng Diyos para sa kaligtasan</div>
+        <div class="s-desc">Ang Ebanghelyo ay hindi simpleng mensahe lamang — ito ay kapangyarihan ng Diyos na nagbabago ng buhay.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">3</div>
+      <div>
+        <div class="s-title">Ito ay para sa lahat ng tao — sa pamamagitan ng pananampalataya</div>
+        <div class="s-desc">Ang Ebanghelyo ay walang pinipili — Hudyo at Hentil, mayaman at mahirap, "karapat-dapat" o hindi.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--green);">
+    <div class="snum">1</div>
+    <div>
+      <h2>Hindi natin ikakahiya ang Ebanghelyo dahil ito ang ating naranasan</h2>
+      <div class="sub">Romans 1:16 · 2 Corinto 5:17 · Matthew 10:32</div>
+    </div>
+  </div>
+
+  <div class="body">Ang pahayag ni Apostol Pablo na <strong>"hindi ko ikakahiya ang Magandang Balita"</strong> ay hindi simpleng salita lamang — ito ay isang <em>deklarasyon ng tapang, paninindigan, at malalim na paniniwala</em> sa kapangyarihan ng Ebanghelyong kanyang naranasan.</div>
+
+  <div class="hl green">
+    <p>Si Pablo ay isang dating umuusig sa mga Kristiyano — nagpapahirap, nangangaral ng kamatayan. Ngunit nang makatagpo niya si Hesus — <strong>radically siya nabago.</strong> Kaya naman siya naglakas-loob na ipangaral ang Ebanghelyo kahit sa harap ng pag-uusig at banta ng kamatayan. <em>Ito ang pinagmulan ng kanyang tapang — ang kanyang personal na karanasan ng kaligtasan.</em></p>
+  </div>
+
+  <div class="body">Ganoon din dapat tayo. <strong>Ang Ebanghelyong naranasan natin — ang kaligtasan, ang pagbabago, ang bagong buhay — ay hindi natin maaaring itago.</strong> Sinabi ng nagtaturo:</div>
+
+  <div class="illus">
+    <div class="illus-hdr">Sinabi ng Nagtaturo</div>
+    <div class="illus-body">
+      <p>"Sa panahon natin ngayon, madaling magsalita tungkol sa trabaho, o sa pamilya, o mga pang-araw-araw na bagay sa buhay. Pero kapag usapan na ang tungkol sa Diyos — bigla na lang tayong nagiging tahimik. Doon lang tayo naka-silent mode, o kaya ay naka-mute."</p>
+      <p>"Pero kapag dating sa social media, nakikita po natin kung paano natin ipinagmamalaki ang trabaho, pamilya. Kapag dating sa salita ng Diyos — bihira natin itong gawin."</p>
+    </div>
+  </div>
+
+  <div class="body">Bakit tayo nananahimik? <strong>Dahil hindi natin isinasabuhay ang Ebanghelyong narinig natin.</strong> Ang tunay na karanasan ng kaligtasan ay natural na lumalabas — tulad ng ilaw na hindi maaaring itago.</div>
+
+  <div class="hl orange">
+    <p><strong>Ang ilaw ay hindi pinapatay para itago.</strong> Mateo 5:14 — "Kayo ang ilaw ng mundo na hindi maitatago, tulad ng isang bayan na nasa tuktok ng bundok." Kapag tinatakpan natin ang ating ilaw — ang ating pananampalataya — paano magiliwanag ang ating paligid?</p>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Halimbawa ng Nagtaturo — Testimony</div>
+    <div class="illus-body">
+      <p>Isang kasamahan sa trabaho ang nagtanong sa isang kapatid: "Bakit hindi ka man lang nababahala sa sitwasyon ko?" Sinabi ng kapatid: "Kasi mayroon akong Diyos na maaasahan sa aking pamumuhay." At dahil sa sagot na iyon — nakita ng nagtanong ang kapangyarihan ng pananampalataya.</p>
+      <p>Isa pang halimbawa: Isang dating sugarol at chickboy na nagbahagi ng kanyang buhay habang nagtatrabaho. Sinabi niya lang kung sino siya dati at kung ano siya ngayon dahil sa Panginoon — at iyon mismo ang naging saksi sa kapangyarihan ng Ebanghelyo.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Mga Sumusuportang Talata</div>
+    <p>"Ang sinumang nakay Kristo ay isa nang bagong nilalang. Wala na ang dati niyang pagkatao — binago na siya."</p>
+    <cite>— 2 Corinto 5:17</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl"></div>
+    <p>"Ang sinumang umamin sa harap ng mga tao na siya'y kabilang sa akin ay ipapakilala ko rin sa harap ng aking Amang nasa langit na siya'y kabilang sa akin."</p>
+    <cite>— Mateo 10:32</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl"></div>
+    <p>"Kung ikakahiya mo ako at ang aking mga salita sa harap ng taksil at makasalanang salinlahing ito, ikakahiya rin siya ng Anak ng Tao pagparito Niya taglay ang kaluwalhatian ng Kanyang Ama."</p>
+    <cite>— Marcos 8:38</cite>
+  </div>
+
+  <div class="hl red">
+    <p><strong>Babala:</strong> Kapag tinatakpan natin ang Ebanghelyo — para na rin nating itinatanggi ang kapangyarihan nito. Sinabi sa Mateo 10:32 — kapag ikinahiya mo Siya sa lupa, ikakahiya ka rin sa harap ng Ama. Gusto ba nating mangyari iyon?</p>
+  </div>
+
+  <div class="truth green">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang tunay na mananampalataya ay hindi ikakahiya ang Ebanghelyo — dahil ito ang katotohanang personal na naranasan niya. Ang kaligtasan ay liwanag na hindi maaaring itago.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--purple);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Hindi natin ikakahiya ang Ebanghelyo dahil ito ay kapangyarihan ng Diyos para sa kaligtasan</h2>
+      <div class="sub">Romans 1:16 · 1 Corinto 1:18 · Ephesians 2:8–9</div>
+    </div>
+  </div>
+
+  <div class="body">Ang Ebanghelyo ay hindi lamang isang magandang kwento, isang relihiyosong doktrina, o isang set ng mga alituntunin. Ito ay <strong>kapangyarihan ng Diyos</strong> — ang salitang ginamit ni Pablo dito ay <em>dunamis</em> sa Griyego, na pinagmulan ng salitang "dynamite." <strong>Ito ay may kapangyarihang magbago ng buhay.</strong></div>
+
+  <div class="hl purple">
+    <p>"Kapag nananahimik tayo dahil sa hiya — para na rin nating sinasabi na ang Ebanghelyo ay hindi malakas o hindi sapat." — Sinabi ng Nagtaturo</p>
+    <p>Ngunit hindi totoo iyon. <strong>Ito ang kapangyarihan ng Diyos na nagbabago ng lugar, ng puso, ng buhay.</strong></p>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Halimbawa ng Nagtaturo — Si Balaam at ang Asno</div>
+    <div class="illus-body">
+      <p>Si Balaam — isang propeta — ay nagpadala ng asno upang sumpain ang Israel. Ngunit tatlong beses na hinampas niya ang asno dahil may anghel na may espada sa daan. Sa ikatlong pagkakataon — <strong>nagsalita ang asno.</strong></p>
+      <p>Ginamit ng Diyos ang isang asno para magsalita — para mabuksan ang bulag na puso ni Balaam. <em>Kung kaya ng Diyos na gamitin ang isang asno para ipahayag ang Kanyang mensahe — kaya rin Niyang gamitin tayo.</em></p>
+      <p>"Kung nagsalita na ang bato para sa kapakanan ng Diyos — mas lalo na tayong mahihiya kung tayo ay tatahimik." Ibig sabihin: kung hindi tayo magsasalita, gagamitin ng Diyos ang iba. At mas masakit iyon para sa atin.</p>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Halimbawa ng Nagtaturo — Si Jose na Mapangarapin</div>
+    <div class="illus-body">
+      <p>Si Jose ay dumaan sa matinding pagsubok — ipinagkanulo ng mga kapatid, nabilanggo nang wala naman siyang kasalanan. Ngunit ginamit ng Diyos ang bawat pagsubok upang <strong>kinisin ang kanyang karakter.</strong></p>
+      <p>Nang makinis na siya — ginawa siyang gobernador ng Ehipto. Ang mga pagsubok ay hindi parusa — kundi <em>proseso ng paghubog</em> upang maging handa para sa mas malaking layunin ng Diyos.</p>
+    </div>
+  </div>
+
+  <div class="body">Ang kapangyarihan ng Ebanghelyo ay makikita sa mga buhay na binago nito. Sinabi ng nagtaturo: <em>"Ang nagbago sa aking buhay ay kapangyarihan ng salita ng aking Diyos."</em> Hindi self-help. Hindi willpower. <strong>Kapangyarihan ng Diyos.</strong></div>
+
+  <div class="sup">
+    <div class="sup-lbl">Sumusuportang Talata</div>
+    <p>"Ang salita tungkol sa krus ay kamangmangan para sa mga nababaon sa kapahamakan. Ngunit sa ating mga naliligtas, ito'y kapangyarihan ng Diyos."</p>
+    <cite>— 1 Corinto 1:18</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl"></div>
+    <p>"Sapagkat dahil sa biyaya ng Diyos ay naligtas kayo nang sumasampalataya kayo kay Kristo. Kaloob ito ng Diyos at hindi galing sa inyo — hindi ito nakasalalay sa inyong mga gawa upang walang ipagmalaki ang sinuman."</p>
+    <cite>— Ephesians 2:8–9</cite>
+  </div>
+
+  <div class="body">Mahalaga: <strong>Hindi tayo naligtas sa pamamagitan ng ating mabubuting gawa.</strong> Naligtas tayo sa pamamagitan ng biyaya ng Diyos sa pamamagitan ng pananampalataya. Ang mabubuting gawa ay <em>resulta</em> ng kaligtasan — hindi <em>dahilan</em> nito.</div>
+
+  <div class="faith-box">
+    <div class="faith-title">Tatlong Sangkap ng Pananampalataya</div>
+    <div class="faith-parts">
+      <div class="faith-part">
+        <div class="fp-word">Paniniwala</div>
+        <div class="fp-desc">Naniniwala sa katotohanan ng Ebanghelyo</div>
+      </div>
+      <div class="faith-part">
+        <div class="fp-word">Pagtitiwala</div>
+        <div class="fp-desc">Nagtitiwala sa kapangyarihan ng Diyos</div>
+      </div>
+      <div class="faith-part">
+        <div class="fp-word">Pagtatalima</div>
+        <div class="fp-desc">Sumusunod sa Kanyang kalooban</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Hebrews 11:6</div>
+    <p>"Kung walang pananampalataya, walang sinuman ang makapagbibigay ng lugod sa Diyos. Sapagkat ang sinumang lumapit sa Kanya ay dapat maniwalang may Diyos at binibigyan Niya ng gantimpala ang mga naghahanap sa Kanya."</p>
+    <cite>— Hebrews 11:6</cite>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang Ebanghelyo ay hindi simpleng mensahe — ito ay kapangyarihan ng Diyos na nagliligtas at nagbabago ng buhay. Kapag itinago natin ito, tinatanggi natin ang kapangyarihan na mismo ang nagbago sa atin.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Hindi natin ikakahiya ang Ebanghelyo dahil ito ay para sa lahat ng tao</h2>
+      <div class="sub">Romans 1:16 · Marcos 16:15 · Juan 3:16 · Acts 4:12</div>
+    </div>
+  </div>
+
+  <div class="body">Sa Romans 1:16, sinabi ni Pablo: <strong>"una ang mga Hudyo at gayun din ang mga Hentil."</strong> Ang Hudyo at Hentil ay simbolo ng <em>buong sangkatauhan</em> — ibig sabihin, ang Ebanghelyo ay para sa lahat. Walang pinipili. Walang excluded.</div>
+
+  <div class="hl orange">
+    <p><strong>Bakit tayo tinawag na magbahagi?</strong> Hindi dahil alam nating kung sino ang tatanggap ng Ebanghelyo — kundi dahil para sa lahat ito. Ang pagpili kung sino ang "karapat-dapat" marinig ay hindi trabaho natin — trabaho ng Banal na Espiritu ang kumilos sa puso ng bawat tao.</p>
+  </div>
+
+  <div class="body">Sinabi ng nagtaturo: <em>"Kapag in-impart na natin ang magandang balita — ang Banal na Espiritu ang kikilos. Ang kapangyarihan ng magandang balita ang magbabago sa puso ng tao para siya ay maligtas."</em></div>
+
+  <div class="sup">
+    <div class="sup-lbl">Marcos 16:15 — Ang Dakilang Utos</div>
+    <p>"Humayo kayo sa buong mundo at ipangaral ang Magandang Balita sa lahat ng tao."</p>
+    <cite>— Marcos 16:15</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Juan 3:16</div>
+    <p>"Gayon na lamang ang pag-ibig ng Diyos sa sanlibutan, na ibinigay Niya ang Kanyang kaisa-isang Anak, upang ang sinumang sumasampalataya sa Kanya ay hindi mapahamak kundi magkaroon ng buhay na walang hanggan."</p>
+    <cite>— Juan 3:16</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Acts 4:12</div>
+    <p>"Walang ibang makakapagligtas sa atin sapagkat walang ibang pangalan sa ilalim ng langit na ibinigay ng Diyos sa mga tao upang tayo ay maligtas."</p>
+    <cite>— Acts 4:12</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Sinabi ng Nagtaturo</div>
+    <div class="illus-body">
+      <p>"Kapag sinasabi ng Ebanghelyo na para sa lahat — ibig sabihin, maging ang taong pinakamalayo sa Diyos, pinakamasama sa ating tingin — maaari pa ring maligtas. Hindi tayo ang magdedesisyon kung sino ang may karapatang marinig ang Magandang Balita."</p>
+      <p>"Maliligtas ka at ang iyong pamilya — Acts 16:31. Kung mabahagi natin ang Ebanghelyo sa ating pamilya, maaari nilang maranasan ang kaligtasang naranasan na natin."</p>
+    </div>
+  </div>
+
+  <div class="body">Sinabi rin ng nagtaturo na may responsibilidad tayo — <em>"kung hindi natin ibabahagi ang magandang balita, nagkakasala tayo."</em> Alam natin ang mabuti — ang magandang balita na dapat ibahagi. Kapag hindi natin ginawa iyon, hindi natin sinunod ang kalooban ng Diyos.</div>
+
+  <div class="hl blue">
+    <p><strong>Ang buhay Kristiyano ay nagsisimula, nagpapatuloy, at magtatagumpay sa pamamagitan ng pananampalataya.</strong> Hindi sa sariling gawa. Hindi sa sariling karunungan. Sa pananampalataya sa Diyos na nagbibigay ng lahat ng kailangan natin. — Romans 1:17</p>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Mateo 6:33</div>
+    <p>"Ngunit higit sa lahat ay pagsikapan ninyong mapasakanyo ang paghahari ng Diyos at mamuhay nang ayon sa Kanyang kalooban, at ibibigay Niya sa inyo ang lahat ng inyong pangangailangan."</p>
+    <cite>— Mateo 6:33</cite>
+  </div>
+
+  <div class="body">Kapag naghari ang Panginoon sa ating buhay at pinanghawakan natin ang Kanyang salita — maaalis natin ang mga bagay na humahadlang sa ating pagsulong. <strong>Humayo, kumilos — ang ilaw ay hindi para itago kundi para magbigay ng liwanag.</strong></div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang Ebanghelyo ay para sa lahat ng tao — walang pinipili, walang huli na. Ang ating responsibilidad ay ibahagi ito. Ang gawain ng pagbabago ng puso ay trabaho ng Banal na Espiritu.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral</div>
+      <h3>Bakit Hindi Natin Dapat Ikahiya ang Ebanghelyo?</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — Ito ang ating naranasan:</strong> Ang tunay na mananampalataya ay hindi ikakahiya ang Ebanghelyo dahil ito ang katotohanang personal na naranasan niya. Katulad ni Pablo na naranasan ang kapangyarihan ng kaligtasan — tayo rin, may sariling kwento ng pagbabago na hindi natin dapat itago.</p>
+      <p><strong>Ikalawa — Ito ay kapangyarihan ng Diyos:</strong> Ang Ebanghelyo ay hindi simpleng mensahe — ito ay dunamis, kapangyarihan ng Diyos na nagbabago ng buhay. Hindi tayo naligtas sa ating sariling gawa kundi sa biyaya ng Diyos sa pamamagitan ng pananampalataya (Ephesians 2:8–9). At ang kapangyarihang iyon ay hindi natin dapat itago.</p>
+      <p><strong>Pangatlo — Ito ay para sa lahat:</strong> Ang Ebanghelyo ay walang pinipili — Hudyo at Hentil, mayaman at mahirap, "maayos" at "sira." Ang ating responsibilidad ay ibahagi ito. Ang Banal na Espiritu ang bahala sa pagbabago ng puso.</p>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Sa mundong puno ng kadiliman at nawalan ng pag-asa — ang Ebanghelyo ang liwanag at pag-asa ng Diyos sa sangkatauhan. Ito ay hindi lamang simpleng mensahe — kundi kapangyarihan ng Diyos na nagliligtas at nagbabago ng buhay."</p>
+    <cite>— Mula sa Sermon</cite>
+  </div>
+
+  <div class="vbox" style="margin-top:14px;">
+    <p>"Sinisinop ba natin ang salita ng Diyos? Ito po kaya ay nag-ugat sa ating mga puso? Pinagtatanggol po ba natin ito? Kung pinagtatanggol natin ito — ang Ebanghelyo — hindi natin ikakahiya ang Magandang Balita sa lahat ng tao. Sapagkat ang Ebanghelyo ay kaligtasan ng bawat isa na dapat maranasan ng lahat ng tao."</p>
+    <cite>— Panalangin at Pagtatapos ng Nagtaturo</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, patawarin Mo kami sa mga pagkakataong pinili naming manahimik habang ang iba ay naghahanap ng pag-asa na nasa amin na. Turuan Mo kaming maging matapang sa pagpapahayag ng Ebanghelyo — hindi dahil kami ay perpekto, kundi dahil Ikaw ay makapangyarihan. Gamitin Mo kami — kahit paano, kahit saan, kahit kanino — para maiparating ang Iyong pag-ibig at kaligtasan. Ang Banal na Espiritu ang bahala sa natitirang gawain. Sa pangalan ni Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Hindi ko ikakahiya ang Magandang Balita, dahil ito ang kapangyarihan ng Diyos sa ikaliligtas ng lahat ng sumasampalataya sa Kanya."</p>
+    <cite>— Romans 1:16 · Talatang Iuunawa sa Linggo</cite>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<script>
+// ==== UI LOGIC (TABS) ====
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ==== ADVANCED AUDIO PLAYER SETUP ====
+const audio = document.getElementById('sermon-audio');
+const playBtn = document.getElementById('play-pause-btn');
+const currentTimeDisplay = document.getElementById('current-time');
+const totalTimeDisplay = document.getElementById('total-time');
+const audioTitle = document.querySelector('.audio-title');
+const seekBar = document.getElementById('seek-bar');
+const speedBtn = document.getElementById('speed-btn');
+
+let isDragging = false; // Prevents the timer from fighting the user when scrolling
+const speeds = [0.75, 1.0, 1.25, 1.5, 2.0];
+let currentSpeedIndex = 1; // Starts at 1.0x
+
+// Utility function to format time (e.g. 65 seconds -> 1:05)
+const formatTime = (time) => {
+  if (isNaN(time)) return "0:00";
+  const mins = Math.floor(time / 60);
+  const secs = Math.floor(time % 60);
+  return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+};
+
+// 1. Play and Pause Logic
+playBtn.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play();
+    playBtn.innerHTML = '⏸';
+  } else {
+    audio.pause();
+    playBtn.innerHTML = '▶';
+  }
+});
+
+// 2. Load Metadata (Get the total duration of the audio)
+audio.addEventListener('loadedmetadata', () => {
+  seekBar.max = Math.floor(audio.duration);
+  totalTimeDisplay.innerText = formatTime(audio.duration);
+});
+
+// 3. Update the Timer and Scroll bar as the audio plays
+audio.addEventListener('timeupdate', () => {
+  if (!isDragging) {
+    seekBar.value = Math.floor(audio.currentTime);
+    currentTimeDisplay.innerText = formatTime(audio.currentTime);
+  }
+});
+
+// 4. Handle User Dragging the Scroll/Seek Bar
+seekBar.addEventListener('input', () => {
+  isDragging = true;
+  currentTimeDisplay.innerText = formatTime(seekBar.value);
+});
+
+seekBar.addEventListener('change', () => {
+  audio.currentTime = seekBar.value;
+  isDragging = false;
+});
+
+// 5. Handle Speed Control Button
+speedBtn.addEventListener('click', () => {
+  currentSpeedIndex++;
+  if (currentSpeedIndex >= speeds.length) {
+    currentSpeedIndex = 0; // Loop back to 0.75x
+  }
+  const newSpeed = speeds[currentSpeedIndex];
+  audio.playbackRate = newSpeed;
+  speedBtn.innerText = newSpeed + 'x';
+});
+
+// 6. Reset when audio finishes
+audio.addEventListener('ended', () => {
+  playBtn.innerHTML = '▶';
+  seekBar.value = 0;
+  currentTimeDisplay.innerText = "0:00";
+});
+
+// ==== AUTO-TRANSPARENT (INACTIVITY TIMER) ====
+const audioContainer = document.getElementById('audio-container');
+let inactivityTimer;
+
+// Function na nagpapalinaw sa player at nagre-reset ng timer
+function resetPlayerVisibility() {
+  // 1. Tanggalin ang pagiging transparent (gawing malinaw)
+  audioContainer.classList.remove('dimmed'); 
+  
+  // 2. I-cancel ang lumang timer
+  clearTimeout(inactivityTimer);
+  
+  // 3. Magsimula ng bagong 4-second timer
+  inactivityTimer = setTimeout(() => {
+    // Lalabo lang ito kapag nagpe-play ang audio para hindi ka maabala sa pagbabasa
+    if (!audio.paused) {
+      audioContainer.classList.add('dimmed');
+    }
+  }, 4000); // 4000 milliseconds = 4 seconds
+}
+
+// Pakinggan kung ang user ay nag-scroll, nag-touch sa screen, o nag-click
+window.addEventListener('scroll', resetPlayerVisibility);
+window.addEventListener('touchstart', resetPlayerVisibility);
+window.addEventListener('mousemove', resetPlayerVisibility);
+window.addEventListener('click', resetPlayerVisibility);
+
+// Simulan ang timer pagka-load ng page
+resetPlayerVisibility();
+
+</script>
+</body>
+</html>

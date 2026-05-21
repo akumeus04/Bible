@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Binago Upang Maglingkod</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;--purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;--blue:#185FA5;--blue-light:#E6F1FB;--orange:#BA7517;--orange-light:#FAEEDA;--red:#993C1D;--red-light:#FAECE7;--gray:#5F5E5A;--gray-light:#F5F4F0;--white:#ffffff;--text:#1A1A1A;--border:#E0DED8;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:88px;}
+  .top-bar{background:var(--green);color:white;padding:18px 16px 14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .top-bar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:3px;}
+  .top-bar h1{font-family:'Lora',serif;font-size:19px;font-weight:700;line-height:1.2;}
+  .top-bar .ref{font-size:12px;opacity:0.7;margin-top:2px;}
+  .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 16px rgba(0,0,0,0.08);}
+  .nav-btn{flex:1;padding:9px 2px 11px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nav-btn:active{background:var(--gray-light);}
+  .nav-dot{width:26px;height:26px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;}
+  .nav-lbl{font-size:9px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nav-btn.active .nav-lbl{color:var(--green);}
+  .section{display:none;animation:fi 0.25s ease;}
+  .section.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  .sp{height:14px;}
+  .hero{background:linear-gradient(150deg,var(--green-dark) 0%,var(--green) 100%);padding:26px 18px 22px;text-align:center;color:white;}
+  .hero .h-tag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:11px;}
+  .hero h2{font-family:'Lora',serif;font-size:24px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .h-ref{font-size:13px;opacity:0.72;}
+  .verse-box{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:15px;}
+  .verse-box p{font-family:'Lora',serif;font-size:15px;font-style:italic;color:var(--green-dark);line-height:1.75;}
+  .verse-box cite{display:block;margin-top:9px;font-size:13px;font-weight:600;color:var(--green);font-style:normal;}
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:15px;}
+  .card p{font-size:15px;color:var(--text);line-height:1.75;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+  .sec-hdr{border-radius:13px;margin:14px 14px 0;padding:15px;display:flex;align-items:flex-start;gap:11px;}
+  .sec-hdr .num{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;}
+  .sec-hdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .sec-hdr .sub{font-size:12px;color:rgba(255,255,255,0.72);}
+  .cq-box{background:var(--purple-light);border-left:4px solid var(--purple);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:15px;}
+  .cq-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:7px;}
+  .cq-box p{font-size:15px;font-weight:600;color:var(--purple-dark);line-height:1.55;}
+  .truth-box{border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:7px;}
+  .truth-box p{font-size:15px;font-weight:600;color:white;line-height:1.55;}
+  .lbl-pill{font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;margin:16px 14px 0;padding:4px 11px;display:inline-block;border-radius:20px;}
+  .lbl-pill.grp{background:var(--blue-light);color:var(--blue);}
+  .lbl-pill.slf{background:var(--red-light);color:var(--red);}
+  .lbl-pill.org{background:var(--orange-light);color:var(--orange);}
+  .q-item{background:white;border-radius:12px;margin:9px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .q-top{padding:13px 13px 13px 17px;font-size:15px;font-weight:600;color:var(--text);line-height:1.5;border-left:4px solid var(--blue);cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;-webkit-tap-highlight-color:transparent;}
+  .q-top.slf{border-left-color:var(--red);}
+  .q-top.prp{border-left-color:var(--purple);}
+  .tog{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--gray-light);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--gray);transition:transform 0.2s,background 0.2s;margin-top:2px;}
+  .q-item.open .tog{transform:rotate(180deg);background:var(--green-light);color:var(--green);}
+  .q-ans{display:none;padding:0 14px 13px;border-top:1px solid var(--border);background:#FAFAF8;}
+  .q-item.open .q-ans{display:block;}
+  .ans-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);padding-top:11px;margin-bottom:5px;}
+  .ans-txt{font-size:14px;color:var(--gray);line-height:1.7;}
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{background:var(--orange-light);padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:7px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+  .sup{background:var(--gray-light);border-radius:12px;margin:14px 14px 0;padding:13px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-bottom:7px;}
+  .sup-v{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:5px;}
+  .sup-c{font-size:12px;font-weight:600;color:var(--blue);}
+  .sup-gap{margin-top:10px;}
+  .body-txt{font-size:15px;color:var(--text);line-height:1.75;margin:14px 14px 0;}
+  .lr-box{border-radius:12px;margin:14px 14px 0;overflow:hidden;border:1px solid var(--border);}
+  .lr-hdr{padding:13px 15px;display:flex;align-items:center;gap:11px;}
+  .lr-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-family:'Lora',serif;font-weight:700;flex-shrink:0;color:white;}
+  .lr-box.logos .lr-hdr{background:var(--blue-light);}
+  .lr-box.rhema .lr-hdr{background:var(--green-light);}
+  .lr-box.logos .lr-icon{background:var(--blue);}
+  .lr-box.rhema .lr-icon{background:var(--green);}
+  .lr-title{font-size:14px;font-weight:700;line-height:1.3;}
+  .lr-box.logos .lr-title{color:var(--blue);}
+  .lr-box.rhema .lr-title{color:var(--green-dark);}
+  .lr-body{padding:13px 15px;background:white;}
+  .lr-body p{font-size:14px;color:#333;line-height:1.7;margin-bottom:9px;}
+  .lr-v{font-style:italic;color:var(--gray);font-size:13px;margin-bottom:4px;}
+  .lr-c{font-weight:600;font-size:12px;margin-bottom:9px;}
+  .lr-box.logos .lr-c{color:var(--blue);}
+  .lr-box.rhema .lr-c{color:var(--green);}
+  .lr-feat{border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.6;margin-top:3px;}
+  .lr-box.logos .lr-feat{background:var(--blue-light);color:var(--blue);}
+  .lr-box.rhema .lr-feat{background:var(--green-light);color:var(--green-dark);}
+  .flow{margin:14px 14px 0;background:white;border-radius:12px;border:1px solid var(--border);padding:15px;}
+  .flow-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:13px;text-align:center;}
+  .flow-steps{display:flex;align-items:center;gap:5px;}
+  .flow-step{flex:1;text-align:center;padding:11px 4px;border-radius:10px;}
+  .flow-step.l{background:var(--blue-light);}
+  .flow-step.r{background:var(--purple-light);}
+  .flow-step.p{background:var(--green-light);}
+  .fs-name{font-size:11px;font-weight:700;margin-bottom:3px;}
+  .flow-step.l .fs-name{color:var(--blue);}
+  .flow-step.r .fs-name{color:var(--purple);}
+  .flow-step.p .fs-name{color:var(--green-dark);}
+  .fs-sub{font-size:9px;color:var(--gray);line-height:1.35;}
+  .flow-arr{font-size:16px;color:var(--gray);flex-shrink:0;}
+  .reason-box{background:white;border-radius:12px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .reason-hdr{background:var(--orange-light);padding:10px 14px;font-size:12px;font-weight:700;color:var(--orange);}
+  .r-item{padding:11px 14px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start;}
+  .r-item:last-child{border-bottom:none;}
+  .r-num{width:24px;height:24px;border-radius:50%;background:var(--orange-light);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+  .r-t{font-size:14px;font-weight:700;color:var(--text);}
+  .how-box{background:var(--green-light);border-radius:12px;margin:14px 14px 0;overflow:hidden;border:1px solid #9FE1CB;}
+  .how-hdr{background:var(--green);padding:10px 14px;font-size:12px;font-weight:700;color:white;}
+  .h-item{padding:11px 14px;border-bottom:1px solid #9FE1CB;display:flex;gap:10px;align-items:flex-start;}
+  .h-item:last-child{border-bottom:none;}
+  .h-num{width:24px;height:24px;border-radius:50%;background:var(--green);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+  .h-t{font-size:14px;font-weight:700;color:var(--green-dark);}
+  .people-grid{margin:14px 14px 0;display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+  .p-card{background:white;border-radius:11px;border:1px solid var(--border);padding:11px;}
+  .p-card.full{grid-column:1/-1;background:var(--green-light);border-color:#9FE1CB;}
+  .p-name{font-size:13px;font-weight:700;color:var(--green-dark);margin-bottom:3px;}
+  .p-card.full .p-name{color:var(--green);}
+  .p-desc{font-size:12px;color:var(--gray);line-height:1.5;}
+  .opener-q{background:var(--orange-light);border-left:4px solid var(--orange);border-radius:0 12px 12px 0;margin:9px 14px 0;padding:13px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .oq-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+  .oq-txt{font-size:15px;font-weight:600;color:#412402;line-height:1.5;}
+  .note{background:var(--purple-light);border-radius:10px;padding:11px 14px;margin:14px 14px 0;font-size:13px;color:var(--purple-dark);line-height:1.65;}
+  .kl-box{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;overflow:hidden;}
+  .kl-hdr{background:var(--blue-light);padding:10px 14px;font-size:11px;font-weight:700;color:var(--blue);letter-spacing:0.04em;}
+  .kl-body{padding:13px 14px;}
+  .kl-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;}
+  .kl-item:last-child{margin-bottom:0;}
+  .kl-num{width:24px;height:24px;border-radius:50%;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+  .kl-txt{font-size:14px;color:var(--text);line-height:1.65;}
+  .underline{text-decoration:underline;}
+  .concl-box{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green);padding:15px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:17px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:15px;}
+  .concl-body p{font-size:15px;color:var(--text);line-height:1.75;margin-bottom:11px;}
+  .concl-body p:last-child{margin-bottom:0;}
+  .chain{background:var(--gray-light);border-radius:10px;padding:13px;margin:13px 0;text-align:center;}
+  .chain-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:10px;}
+  .chain-steps{display:flex;align-items:center;justify-content:center;gap:5px;}
+  .ch-step{border-radius:20px;padding:6px 11px;font-size:11px;font-weight:700;color:white;}
+  .ch-step.l{background:var(--blue);}
+  .ch-step.r{background:var(--purple);}
+  .ch-step.p{background:var(--green);}
+  .ch-arr{color:var(--gray);font-size:13px;}
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:17px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:9px;}
+  .prayer p{font-family:'Lora',serif;font-size:15px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:17px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:15px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:9px;}
+  .closing cite{font-size:13px;font-weight:700;color:var(--text);font-style:normal;}
+  .lr-body p:last-child{margin-bottom:0;}
+  
+        /* ADVANCED AUDIO PLAYER CSS */
+  .audio-player {
+    position: fixed;
+    bottom: 68px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 400px;
+    background: var(--purple-dark);
+    border-radius: 20px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(38, 33, 92, 0.4);
+    z-index: 99;
+    color: white;
+	    /* ADDED FOR FADE EFFECT */
+    transition: opacity 0.5s ease; 
+  }
+  
+  /* ADDED CLASS TO MAKE IT TRANSPARENT */
+  .audio-player.dimmed {
+    opacity: 0.15; 
+  }
+  
+  .player-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .play-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--green);
+    border: none;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .play-btn:active { background: var(--green-dark); }
+  .audio-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .audio-title {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .speed-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .speed-btn:active { background: rgba(255,255,255,0.3); }
+  
+  .player-bottom {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .audio-time {
+    font-size: 10px;
+    color: var(--purple-light);
+    opacity: 0.9;
+    font-variant-numeric: tabular-nums; /* Keeps numbers aligned */
+    white-space: nowrap;
+  }
+  /* Custom Seek Bar */
+  .seek-bar {
+    flex: 1;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.2);
+    outline: none;
+    accent-color: var(--green); /* Modern way to color the slider */
+  }
+  .seek-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--green);
+    cursor: pointer;
+  }
+  .seek-bar::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--green);
+    cursor: pointer;
+    border: none;
+  }
+  
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="lbl">Gabay sa Pag-aaral ng Biblia</div>
+  <h1>Binago Upang Maglingkod</h1>
+  <div class="ref">Lucas 8:1–3 · May Gabay na Sagot</div>
+</div>
+
+<div class="bottom-nav">
+  <button class="nav-btn active" onclick="show('intro',this)">
+    <div class="nav-dot" style="background:var(--green)">✦</div>
+    <div class="nav-lbl">Simula</div>
+  </button>
+  <button class="nav-btn" onclick="show('s1',this)">
+    <div class="nav-dot" style="background:var(--blue)">1</div>
+    <div class="nav-lbl">Pakikibahagi</div>
+  </button>
+  <button class="nav-btn" onclick="show('s2',this)">
+    <div class="nav-dot" style="background:var(--purple)">2</div>
+    <div class="nav-lbl">Pagbabago</div>
+  </button>
+  <button class="nav-btn" onclick="show('s3',this)">
+    <div class="nav-dot" style="background:var(--orange)">3</div>
+    <div class="nav-lbl">Paglilingkod</div>
+  </button>
+  <button class="nav-btn" onclick="show('concl',this)">
+    <div class="nav-dot" style="background:var(--green-dark)">✓</div>
+    <div class="nav-lbl">Wakas</div>
+  </button>
+</div>
+
+<!-- INTRO -->
+<div class="section active" id="intro">
+  <div class="hero">
+    <div class="h-tag">Gabay sa Pag-aaral ng Biblia</div>
+    <h2>Binago Upang Maglingkod</h2>
+    <div class="h-ref">Batay sa Lucas 8:1–3</div>
+  </div>
+  
+  <div class="audio-player" id="audio-container">
+  <div class="player-top">
+    <button class="play-btn" id="play-pause-btn">▶</button>
+    <div class="audio-info">
+      <div class="audio-title">Sermon Audio</div>
+    </div>
+    <button class="speed-btn" id="speed-btn">1.0x</button>
+  </div>
+  
+  <div class="player-bottom">
+    <div class="audio-time" id="current-time">0:00</div>
+    <input type="range" id="seek-bar" class="seek-bar" value="0" min="0" step="1">
+    <div class="audio-time" id="total-time">0:00</div>
+  </div>
+</div>
+
+<audio id="sermon-audio" preload="metadata">
+  <source src="https://archive.org/download/binago-upang-maglingkod/Binago_Upang_Maglingkod.mp3" type="audio/mp4">
+  Your browser does not support the audio element.
+</audio>
+
+  <div class="card">
+    <p>Ang Topic: Binago Upang Maglingkod, ay batay sa Lucas 8:1–3. Explain ni Kuya Lito dito - na maraming mga Kristiyano ang kuntento na lamang sa pagtanggap ng mga pagpapala at pakikinig ng Salita ng Diyos, ngunit ang tunay na pananampalataya ay dapat humantong sa aktibong paglilingkod. - So ano ang aktibong paglilingkod?</p>
+  </div>
+
+  <div class="kl-box">
+    <div class="kl-hdr">Nag Tanong din si Kuya Lito na:</div>
+    <div class="kl-body">
+      <div class="kl-item"><div class="kl-num">1</div><div class="kl-txt">Sumusunod po ba tayo? Gumawa po ba tayo sa nais ng Panginoong Diyos?</div></div>
+      <div class="kl-item"><div class="kl-num">2</div><div class="kl-txt">Tunay ba tayo nagsisi sa ating mga kasalanan? Tunay po ba tayo nanampalataya? O tunay po ba tayo binago ng Panginoong Diyos?</div></div>
+      <div class="kl-item"><div class="kl-num">3</div><div class="kl-txt">Paano po ba natin maipapakita na ang ating buhay ay tunay na binago ng Panginoong Hesus?</div></div>
+      <div class="kl-item"><div class="kl-num">4</div><div class="kl-txt">Lastly tinanong niya din sa atin, <span class="underline">if nasa logos pa rin tayo. Or sa rhema na?</span></div></div>
+    </div>
+  </div>
+
+  <div style="margin:12px 14px 0;font-size:12px;font-weight:600;color:var(--gray);">Before ans. Read the main verse.</div>
+
+  <div class="verse-box">
+    <p>"Pagkatapos, nilibot ni Hesus ang mga bayan at mga nayon. Ipinangaral at ipinahayag niya ang Magandang Balita tungkol sa kaharian ng Diyos. Kasama niya ang labindalawang alagad at ilang babaeng pinagaling niya sa sakit at sa masasamang espiritu. Kabilang dito si Maria na taga-Magdala na pinalaya niya mula sa pitong demonyo, si Juana na asawa ni Cuza na katiwala ni Herodes, si Susana, at marami pang iba. Ang mga babaeng ito ay tumutulong sa mga pangangailangan nina Hesus mula sa mga ari-arian nila."</p>
+    <cite>— Lucas 8:1–3 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p><strong>Mahalagang pundasyon:</strong> Si Hesus ay namatay at muling nabuhay — at sa pamamagitan noon, napagtagumpayan na Niya ang lahat. Ang ating paglilingkod ay isang kusang tugon ng pasasalamat sa kung ano na ang ginawa Niya para sa atin.</p>
+    <p><strong>Layunin:</strong> Maunawaan natin na ang tunay na karanasan mula sa ating Panginoong Hesus ay nagbubunga ng pagbabago, pakikibahagi, at tapat na paglilingkod sa Kanyang kaharian.</p>
+  </div>
+
+  <div class="truth-box" style="background:var(--green);">
+    <div class="truth-lbl">Meron Tatlong Bahagi Tayong Tatalakayin:</div>
+    <p>① Sa pamamagitan ng patuloy na pakikibahagi sa gawain ng Diyos<br>② Sa pamamagitan ng tunay na pagbabago ng buhay<br>③ Sa pamamagitan ng kusang-loob na paglilingkod at pagbibigay</p>
+  </div>
+
+  <div class="note"><strong>CQ: Paano natin maipapakita na ang ating buhay ay tunay na binago ng Panginoong Hesus?</strong></div>
+
+  <div class="lbl-pill org" style="margin-top:18px;">PAMBUNGAD NA TANONG</div>
+
+  <div class="opener-q">
+    <div class="oq-lbl">Tanong sa grupo</div>
+    <div class="oq-txt"><strong>Ano ang unang pumapasok sa isip natin kapag narinig ang salitang "paglilingkod"?</strong></div>
+  </div>
+
+  <div class="opener-q">
+    <div class="oq-lbl">Tanong sa grupo</div>
+    <div class="oq-txt"><strong>Sa ating karanasan, kailan tayo nagsimula sa paglilingkod — may pagbabago ba sa atin simula noon?</strong></div>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="section" id="s1">
+  <div class="sec-hdr" style="background:var(--green);">
+    <div class="num">1</div>
+    <div>
+      <h2>Sa pamamagitan ng patuloy na pakikibahagi sa gawain ng Diyos</h2>
+      <div class="sub">Lucas 8:1 — "Nilibot, ipinangaral, at ipinahayag"</div>
+    </div>
+  </div>
+
+  <div class="cq-box">
+    <div class="cq-lbl">PANGUNAHING TANONG</div>
+    <p>Paano tayo, bilang mga alagad ni Kristo na nandito sa Saudi, makakalahok sa aktibong pagpapahayag ng Magandang Balita sa ating paligid?</p>
+  </div>
+
+  <div class="body-txt"><strong>Pansinin ang tatlong salita sa Lucas 8:1:</strong> <em>"nilibot,"</em> <em>"ipinangaral,"</em> at <em>"ipinahayag."</em> Hindi nanatili si Hesus sa isang lugar. Kumilos Siya, lumapit sa mga tao, at dinala ang kaharian ng Diyos sa kanila.<br><br>Tinawag tayo ng Panginoon Hesus hindi lamang upang makinig kundi upang makibahagi sa Kanyang misyon (To spread the Gospel). Ang pagiging alagad ng Panginoon ay hindi passive (walang action) — dapat aktibong sumusunod sa yapak ng Niya.</div>
+
+  <div class="illus">
+    <div class="illus-hdr">HALIMBAWA</div>
+    <div class="illus-body">
+      <p>Parang kape — mainit, mapait sa simula, ngunit kapag hindi ito inumin agad, ito ay lalamig at mawawala na ang aromang kape.</p>
+      <p>Ang pananampalatayang hindi nagbabahagi ay unti-unting ito mawawalan ng sigla at init.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">MGA SUMUSUPORTANG TALATA</div>
+    <div class="sup-v">"Kaya humayo kayo sa lahat ng mga lahi at gawin silang mga alagad ko... Ako'y palagi ninyong kasama hanggang sa katapusan ng mundo."</div>
+    <div class="sup-c">— Mateo 28:19–20</div>
+    <div class="sup-v sup-gap">"Huwag lang kayong makinig ng salita ng Diyos kundi gawin din ninyo ang mga sinasabi nito."</div>
+    <div class="sup-c">— Santiago 1:22</div>
+  </div>
+
+  <div class="truth-box" style="background:var(--green);">
+    <div class="truth-lbl">PANGUNAHING KATOTOHANAN</div>
+    <p>Hindi sapat na alam natin ang Salita ng Diyos — kailangan nating isabuhay ito at ibahagi sa iba.</p>
+  </div>
+
+  <div class="lbl-pill grp">TANONG</div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top">Bakit mahalagang "nilibot" ni Hesus ang mga bayan at nayon — hindi lamang naghintay na lumapit ang mga tao sa Kanya? Ano ang ipinapakita niya tungkol dito?<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Target ans. => "Kumilos"</div>
+      <div class="ans-txt">Ipinakita nito na ang puso ni Hesus ay missional — Siya po ay aktibong naghahanap ng mga nangangailangan.</div>
+    </div>
+  </div>
+
+  <div class="lbl-pill slf">Question-to-Self</div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top slf">Ano ang pumipigil sa atin na kumilos?<span class="tog">▾</span></div>
+    <div class="q-ans"><div class="ans-txt">(Hayaan ang grupo na sumagot at magbahagi ng kanilang personal na karanasan.)</div></div>
+  </div>
+
+  <!-- LOGOS RHEMA -->
+  <div style="margin:18px 14px 0;background:var(--purple);border-radius:12px;padding:15px;text-align:center;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;">Espesyal na Pag-aaral</div>
+    <div style="font-family:'Lora',serif;font-size:17px;font-weight:700;color:white;line-height:1.3;">Logos at Rhema — Dalawang Uri ng Salita ng Diyos</div>
+  </div>
+
+  <div class="body-txt">Bakit binanggit ni Kuya Lito dito ang logos at rhema?<br><br>Dahil sa kanyang obserbasyon, marami sa atin ang matagal nang nakikinig ng Salita ng Diyos — ngunit hindi pa ito nagiging aktibong paglilingkod.</div>
+
+  <div class="lr-box logos">
+    <div class="lr-hdr">
+      <div class="lr-icon">λ</div>
+      <div><div class="lr-title">LOGOS (λόγος) — Ang Nakasulat na Salita ng Diyos</div></div>
+    </div>
+    <div class="lr-body">
+      <p>Ang logos ay ang buong nakasulat na Salita ng Diyos — ang Biblia sa kabuuan. Ito ang pangkalahatang katotohanan ng Diyos na available sa lahat. Kapag binabasa natin ang Biblia, nakikinig ng preaching, o pinag-aaralan ang Salita — tinatanggap natin ang logos.</p>
+      <div class="lr-v">"Sa simula pa ay naroroon na ang Salita (Logos), at ang Salita ay kasama ng Diyos, at ang Salita ay Diyos."</div>
+      <div class="lr-c">— Juan 1:1</div>
+      <div class="lr-v">"Ang Salita (Logos) ay naging tao at namuhay sa ating piling."</div>
+      <div class="lr-c">— Juan 1:14</div>
+      <div class="lr-feat">Pansinin: Si Hesus mismo ang Logos — ang buong pagpapahayag ng Diyos sa sangkatauhan. Ang logos ang pundasyon. Walang rhema kung walang logos.</div>
+    </div>
+  </div>
+
+  <div class="lr-box rhema">
+    <div class="lr-hdr">
+      <div class="lr-icon">ρ</div>
+      <div><div class="lr-title">RHEMA (ῥήμα) — Ang Buhay na Salita na nasa atin sa puso o pamumuhay</div></div>
+    </div>
+    <div class="lr-body">
+      <p>Ang rhema ito ang "buhay na salita" Ang Salita ng Diyos na nasaipamuhay natin.</p>
+      <p>Ito ang logos na naging personal at makapangyarihan sa iyo. (next level ng logos)</p>
+      <div class="lr-v">"Ang tao ay hindi nabubuhay sa tinapay lamang, kundi sa bawat salita (rhema) na nagmumula sa bibig ng Diyos."</div>
+      <div class="lr-c">— Mateo 4:4</div>
+      <div class="lr-v">"Kunin din ninyo ang tabak ng Espiritu, na siyang salita (rhema) ng Diyos."</div>
+      <div class="lr-c">— Efeso 6:17</div>
+      <div class="lr-v">"Ang mga salita (rhema) ko ay espiritu at buhay."</div>
+      <div class="lr-c">— Juan 6:63</div>
+      <div class="lr-feat">Kung ito ay nananatiling pakikinig lamang, iyon ay logos. Pero kapag ito ay pumasok sa ating puso, ito ay rhema — at hinihimok tayong gawin ang narinig natin (then action).</div>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="flow-title">Workflow:</div>
+    <div class="flow-steps">
+      <div class="flow-step l"><div class="fs-name">LOGOS</div><div class="fs-sub">Narinig at Naintindihan</div></div>
+      <div class="flow-arr">➡</div>
+      <div class="flow-step r"><div class="fs-name">RHEMA</div><div class="fs-sub">Naging Buhay sa Puso / Naisasapamuhay</div></div>
+      <div class="flow-arr">➡</div>
+      <div class="flow-step p"><div class="fs-name">PAGLILINGKOD</div><div class="fs-sub">Kumilos at Nagbahagi</div></div>
+    </div>
+  </div>
+
+  <div class="lbl-pill grp" style="margin-top:18px;">Q: Sa Iba (wala po dito), bakit Hindi Nagiging Rhema ang Logos sa kanila? Magbigay ng Example</div>
+
+  <div class="reason-box">
+    <div class="reason-hdr">Mga Dahilan:</div>
+    <div class="r-item"><div class="r-num">1</div><div><div class="r-t">Pusong naging matigas</div></div></div>
+    <div class="r-item"><div class="r-num">2</div><div><div class="r-t">Mga abala ng buhay</div></div></div>
+    <div class="r-item"><div class="r-num">3</div><div><div class="r-t">Hindi pagsunod sa nakaraang rhema</div></div></div>
+    <div class="r-item"><div class="r-num">4</div><div><div class="r-t">Kakulangan ng panalangin at meditasyon</div><div style="font-size:13px;color:var(--gray);margin-top:3px;">Ang pinakakaraniwang sagot ay: comfort zone, takot, ?</div></div></div>
+  </div>
+
+  <div class="lbl-pill grp">Follow-up Q: Paano Nagiging Rhema ang Logos?</div>
+
+  <div class="how-box">
+    <div class="how-hdr">Mga Hakbang:</div>
+    <div class="h-item"><div class="h-num">1</div><div><div class="h-t">Mag aral ng Kanyang Salita, Gawain, BS, etc.</div></div></div>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section" id="s2">
+  <div class="sec-hdr" style="background:var(--purple);">
+    <div class="num">2</div>
+    <div>
+      <h2>Sa pamamagitan ng tunay na pagbabago ng buhay</h2>
+      <div class="sub">Lucas 8:2 — "Pinagaling niya sa sakit at sa masasamang espiritu"</div>
+    </div>
+  </div>
+
+  <div class="cq-box">
+    <div class="cq-lbl">TANONG</div>
+    <p>Paano natin mapapatunayan na tayo ay tunay na binago ni Kristo — hindi lamang sa salita kundi sa ating pag-uugali, desisyon, at relasyon sa iba? (show proof)</p>
+  </div>
+
+  <div class="body-txt">Si Maria Magdalena ay pinalaya mula sa <strong>pitong demonyo</strong> —(7 = kabuuan/spiritual perfection number) ito ang isang larawan ng ganap at matinding pagkakaalipin. Ngunit nang palayin siya ni Hesus, naging isa siya sa mga pinaka-tapat na tagasunod — nanatili hanggang sa krus at <strong>siya ang unang nakakita sa muling nabuhay na Panginoon.</strong><br><br>Note: Ang bilang na "pito" ay nagpapakita ng kabuuan — walang bahagi ng buhay ni Maria ang hindi apektado. Gayunpaman, ang kapangyarihan ni Hesus ay sapat para sa anumang antas ng pagkaalipin.<br><br>Ang dating pinaka-walang-wala ang naging pinaka-tapat. <strong>Ang paglilingkod ay hindi paraan upang maligtas — ito ay bunga ng kaligtasan.</strong></div>
+
+  <div class="illus">
+    <div class="illus-hdr">HALIMBAWA:</div>
+    <div class="illus-body">
+      <p>Testimony - Nakulong dahil sa kasalanan na nagawa, Nakarinig ng Salita - binago ng Panginoon - Preacher Gospel.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">MGA SUMUSUPORTANG TALATA</div>
+    <div class="sup-v">"Ang sinumang nakay Kristo ay isa nang bagong nilalang. Wala na ang dati niyang pagkatao; binago na siya."</div>
+    <div class="sup-c">— 2 Corinto 5:17</div>
+    <div class="sup-v sup-gap">"Ang pananampalataya na walang gawa ay patay."</div>
+    <div class="sup-c">— Santiago 2:17</div>
+  </div>
+
+  <div class="truth-box" style="background:var(--purple);">
+    <div class="truth-lbl">PANGUNAHING KATOTOHANAN</div>
+    <p>Kung tunay tayong binago ng Panginoong Hesus, makikita ito sa ating buhay — sa ating mga gawi, saloobin, at paglilingkod. Hindi ito maaaring itago.</p>
+  </div>
+
+  <div class="lbl-pill grp">TANONG</div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top">Ano ang kahulugan ng "pitong demonyo" sa buhay ni Maria?<br>Sa present times or modern contexts, ano ang maaaring katulad nito?<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Sagot</div>
+      <div class="ans-txt">Sa modernong panahon maaaring mangahulugang: pagkaalipin sa bisyo, sa takot at pagkalungkot, sa mapanirang relasyon, o sa maling pananaw sa sarili.</div>
+    </div>
+  </div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top">Paano natin malalaman kung ang pagbabago ng isang follower ay tunay na gawa ng Diyos, at hindi lamang panandaliang/temporal?<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Sagot</div>
+      <div class="ans-txt">Tatlong palatandaan: (1) Napanatili — hindi lamang isang araw o isang linggo. (2) Nakikita ng iba — ang pamilya at kaibigan ay napansin ang pagkakaiba nang hindi mo kailangang sabihin. (3) May bunga — tulad ng Efeso 2:10, ang mga mabuting gawa ay natural na lumalabas, hindi sapilitan o para sa papuri.</div>
+    </div>
+  </div>
+
+  <div class="lbl-pill slf">Question-to-Self</div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top slf">Nakikita ba ng mga taong malapit sa atin ang pagbabago sa ating buhay mula nang makilala natin ang Panginoon Hesu Kristo?<span class="tog">▾</span></div>
+    <div class="q-ans"><div class="ans-txt">(Hayaan ang grupo na mag-isip at sumagot nang personal.)</div></div>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section" id="s3">
+  <div class="sec-hdr" style="background:var(--orange);">
+    <div class="num">3</div>
+    <div>
+      <h2>Sa pamamagitan ng kusang-loob na paglilingkod at pagbibigay</h2>
+      <div class="sub">Lucas 8:3 — "Tumutulong mula sa mga ari-arian nila"</div>
+    </div>
+  </div>
+
+  <div class="cq-box">
+    <div class="cq-lbl">PANGUNAHING TANONG</div>
+    <p>Paano natin ginagamit ang ating mga ipinagkaloob ng Diyos — pera, oras, talento — bilang aktibong kasangkapan para sa kaharian ng Panginoon at hindi lamang para sa ating sariling kaginhawahan?</p>
+  </div>
+
+  <div class="body-txt">Pansinin ang iba't ibang babae sa Lucas 8:3:</div>
+
+  <div class="people-grid">
+    <div class="p-card"><div class="p-name">Si Maria Magdalena</div><div class="p-desc">Dating alipin ng pitong demonyo</div></div>
+    <div class="p-card"><div class="p-name">Si Juana</div><div class="p-desc">Asawa ni Cuza, katiwala ni Herodes — may posisyon, may kayamanan, may impluwensya sa lipunan</div></div>
+    <div class="p-card"><div class="p-name">Si Susana</div><div class="p-desc">Hindi masyadong kilala, maliit ang nabanggit tungkol sa kanya</div></div>
+    <div class="p-card full"><div class="p-name">"Marami pang iba"</div><div class="p-desc">Hindi man pinangalanan sa kasulatan, ngunit <strong>kilala ng Diyos</strong></div></div>
+  </div>
+
+  <div class="body-txt">Iba't ibang background. Iba't ibang katayuan sa buhay. Ngunit nagkaisa sila sa iisang layunin — suportahan ang misyon ni Hesus mula sa kung ano ang mayroon sila.</div>
+
+  <div class="verse-box">
+    <p>"Ang mga babaeng ito ay tumutulong sa mga pangangailangan nina Hesus mula sa mga ari-arian nila."</p>
+    <cite>— Lucas 8:3 (ASD)</cite>
+  </div>
+
+  <div class="body-txt">Sila po ay hindi nangangaral sa publiko. Hindi sila nakatayo sa harapan ng maraming tao (or nangaral, nakatayo sa harapan - hindi lang recorded sa panahon na iyon?). Ngunit ang kanilang tahimik na paglilingkod sa likod ng eksena ay isa sa mga dahilan kung bakit nagpatuloy ang ministeryo ni Hesus.<br><br>Kung wala sila, walang pagkain, walang suporta, walang pondo para sa paglalakbay.<br><br>Ito ang highlight na nais iparating ng verse na ito sa atin: hindi kailangang nakikita ng lahat para maging mahalaga ang iyong paglilingkod. Ang Diyos ay nakakakita sa atin — at iyon ang sapat.</div>
+
+  <div class="illus">
+    <div class="illus-hdr">HALIMBAWA</div>
+    <div class="illus-body">
+      <p>Sa gawain nalang po example, may mga kapatid man na hindi natin nakikita nakatayo sa harapan sa harap ng congregation. Ngunit tuwing may pagtitipon — sila po ang unang umaaksyon.</p>
+      <p>Sila ang naghahanda ng pagkain. Sila ang nagpafollow up sa iba kung hindi pa nakakarating sa gawain.</p>
+      <p>Sila ang tahimik na nakikinig kapag may kapatiran na may problema at walang mapagkuwentuhan.</p>
+      <p>Sila, Sa mata ng iba, hindi sila napapansin. Ngunit sa mata ng Diyos — sila ay nakikita. Sila ay kilala. At ang kanilang paglilingkod ay alam ng Diyos.</p>
+      <p>Katulad ng "marami pang iba" sa Lucas 8:3 — walang pangalan sa kasulatan, ngunit bahagi ng kasaysayan ng kaligtasan.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">MGA SUMUSUPORTANG TALATA</div>
+    <div class="sup-v">"Anuman ang gawin ninyo, gawin n'yo ito nang buong katapatan na parang ang Panginoon ang pinaglilingkuran n'yo at hindi ang tao."</div>
+    <div class="sup-c">— Colosas 3:23</div>
+    <div class="sup-v sup-gap">"Iniibig ng Diyos ang nagbibigay nang maluwag sa kalooban."</div>
+    <div class="sup-c">— 2 Corinto 9:7</div>
+  </div>
+
+  <div class="truth-box" style="background:var(--orange);">
+    <div class="truth-lbl">PANGUNAHING KATOTOHANAN</div>
+    <p>Ang ating kayamanan, talento, at oras ay hindi lamang para sa sarili — ito ay mga kasangkapan para sa kaharian ng Diyos. Ang bawat isa sa atin ay may maiaambag.</p>
+  </div>
+
+  <div class="lbl-pill slf">Question-to-self</div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top slf">Ano ang mga kakayahan na ibinigay ng Diyos sa atin na hindi pa ganap na ginagamit para sa Kanyang kaharian?<span class="tog">▾</span></div>
+    <div class="q-ans"><div class="ans-txt">(Hayaan ang bawat miyembro na mag-isip at sumagot nang personal.)</div></div>
+  </div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top slf">Naghahanap ba ako ng gantimpala sa aking paglilingkod — o sapat na sa akin na ang Diyos lamang ang nakakakita?<span class="tog">▾</span></div>
+    <div class="q-ans"><div class="ans-txt">(Hayaan ang bawat miyembro na mag-isip at sumagot nang personal.)</div></div>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<!-- CONCLUSION -->
+<div class="section" id="concl">
+  <div class="concl-box">
+    <div class="concl-hdr">
+      <div class="concl-tag">KONKLUSYON</div>
+      <h3>Mula Logos, Tungo sa Rhema, Hanggang Paglilingkod</h3>
+    </div>
+    <div class="concl-body">
+      <p>Sa ating pag-aaral na ito, isang tanong ang nananatili sa ating bawat isa: Hanggang logos pa rin ba tayo — o handa ng maging rhema?</p>
+      <p>Nabasa at narinig natin ang aksiyon na ginawa ng mga kababaihan sa Biblia at ang "marami pang iba" — silay ay iba't ibang tao, iba't ibang background — ngunit iisa ang kanilang ginawa: nang maging rhema sa kanila ang salita ng Panginoon Hesus, -> Sila po ay. Kumilos at. Naglingkod</p>
+      <p>Kaya: Patuloy po tayo na makibahagi sa gawain ng Diyos, na May malinaw at nakikitang pagbabago, Kusang-loob na naglilingkod at nagbibigay. Ang logos ay narinig na po natin. Ang susunod na hakbang ay nasa atin na pong pagpapasya.</p>
+      <div class="chain">
+        <div class="chain-lbl">Logos · Rhema · Paglilingkod</div>
+        <div class="chain-steps">
+          <div class="ch-step l">LOGOS</div>
+          <div class="ch-arr">→</div>
+          <div class="ch-step r">RHEMA</div>
+          <div class="ch-arr">→</div>
+          <div class="ch-step p">PAGLILINGKOD</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="verse-box">
+    <p>"Gayundin naman, pagliwanagin ninyo ang inyong ilaw upang makita ito ng lahat. Sa gayon, masaksihan nila ang inyong mga mabubuting gawa at luluwalhatiin nila ang inyong Amang nasa langit."</p>
+    <cite>— Mateo 5:16 (ASD)</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">PANALANGIN</div>
+    <p>"Panginoong Hesus, salamat po sa Inyong pag-ibig at sa pagbabagong ginawa Ninyo sa aming buhay. Tulad ng mga babaeng Inyong binago sa Lucas 8 — si Maria, si Juana, si Susana, at ang marami pang iba — nais po naming maging tapat at aktibong kasangkapan sa Inyong kaharian. Alam namin na namatay at muling nabuhay Kayo — at sa pamamagitan noon, wala nang makakahadlang sa aming pagsunod. Turuan Ninyo po kaming humayo, magbago, at maglingkod nang kusang-loob — hindi dahil kailangan namin ito para maligtas, kundi dahil minamahal namin Kayo at minamahal Ninyo kami bago pa man kami naglingkod. Dito sa Saudi Arabia, gamitin po Ninyo ang bawat isa sa amin para sa Inyong kaharian. Ang lahat ng papuri at karangalan ay sa Inyo po lamang. Sa pangalan ni Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Nilikha tayo ng Diyos; at sa pakikipag-isa natin kay Kristo Hesus, upang gumawa tayo ng kabutihan na noon pa'y itinalaga na ng Diyos na gawin natin."</p>
+    <cite>— Efeso 2:10 (ASD) · Talatang Iuunawa sa Linggo</cite>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<script>
+// ==== UI LOGIC (TABS) ====
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ==== ADVANCED AUDIO PLAYER SETUP ====
+const audio = document.getElementById('sermon-audio');
+const playBtn = document.getElementById('play-pause-btn');
+const currentTimeDisplay = document.getElementById('current-time');
+const totalTimeDisplay = document.getElementById('total-time');
+const audioTitle = document.querySelector('.audio-title');
+const seekBar = document.getElementById('seek-bar');
+const speedBtn = document.getElementById('speed-btn');
+
+let isDragging = false; // Prevents the timer from fighting the user when scrolling
+const speeds = [0.75, 1.0, 1.25, 1.5, 2.0];
+let currentSpeedIndex = 1; // Starts at 1.0x
+
+// Utility function to format time (e.g. 65 seconds -> 1:05)
+const formatTime = (time) => {
+  if (isNaN(time)) return "0:00";
+  const mins = Math.floor(time / 60);
+  const secs = Math.floor(time % 60);
+  return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+};
+
+// 1. Play and Pause Logic
+playBtn.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play();
+    playBtn.innerHTML = '⏸';
+  } else {
+    audio.pause();
+    playBtn.innerHTML = '▶';
+  }
+});
+
+// 2. Load Metadata (Get the total duration of the audio)
+audio.addEventListener('loadedmetadata', () => {
+  seekBar.max = Math.floor(audio.duration);
+  totalTimeDisplay.innerText = formatTime(audio.duration);
+});
+
+// 3. Update the Timer and Scroll bar as the audio plays
+audio.addEventListener('timeupdate', () => {
+  if (!isDragging) {
+    seekBar.value = Math.floor(audio.currentTime);
+    currentTimeDisplay.innerText = formatTime(audio.currentTime);
+  }
+});
+
+// 4. Handle User Dragging the Scroll/Seek Bar
+seekBar.addEventListener('input', () => {
+  isDragging = true;
+  currentTimeDisplay.innerText = formatTime(seekBar.value);
+});
+
+seekBar.addEventListener('change', () => {
+  audio.currentTime = seekBar.value;
+  isDragging = false;
+});
+
+// 5. Handle Speed Control Button
+speedBtn.addEventListener('click', () => {
+  currentSpeedIndex++;
+  if (currentSpeedIndex >= speeds.length) {
+    currentSpeedIndex = 0; // Loop back to 0.75x
+  }
+  const newSpeed = speeds[currentSpeedIndex];
+  audio.playbackRate = newSpeed;
+  speedBtn.innerText = newSpeed + 'x';
+});
+
+// 6. Reset when audio finishes
+audio.addEventListener('ended', () => {
+  playBtn.innerHTML = '▶';
+  seekBar.value = 0;
+  currentTimeDisplay.innerText = "0:00";
+});
+
+// ==== AUTO-TRANSPARENT (INACTIVITY TIMER) ====
+const audioContainer = document.getElementById('audio-container');
+let inactivityTimer;
+
+// Function na nagpapalinaw sa player at nagre-reset ng timer
+function resetPlayerVisibility() {
+  // 1. Tanggalin ang pagiging transparent (gawing malinaw)
+  audioContainer.classList.remove('dimmed'); 
+  
+  // 2. I-cancel ang lumang timer
+  clearTimeout(inactivityTimer);
+  
+  // 3. Magsimula ng bagong 4-second timer
+  inactivityTimer = setTimeout(() => {
+    // Lalabo lang ito kapag nagpe-play ang audio para hindi ka maabala sa pagbabasa
+    if (!audio.paused) {
+      audioContainer.classList.add('dimmed');
+    }
+  }, 4000); // 4000 milliseconds = 4 seconds
+}
+
+// Pakinggan kung ang user ay nag-scroll, nag-touch sa screen, o nag-click
+window.addEventListener('scroll', resetPlayerVisibility);
+window.addEventListener('touchstart', resetPlayerVisibility);
+window.addEventListener('mousemove', resetPlayerVisibility);
+window.addEventListener('click', resetPlayerVisibility);
+
+// Simulan ang timer pagka-load ng page
+resetPlayerVisibility();
+
+</script>
+</body>
+</html>
