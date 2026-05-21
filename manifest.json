@@ -1,6 +1,7 @@
 {
   "name": "Bible Study",
   "short_name": "BS-JF-CP1",
+  "start_url": "./CP1-BS-JF5.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0d9488",
