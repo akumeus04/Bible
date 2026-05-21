@@ -98,7 +98,7 @@
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
     /* ══════════════════════════════════════════════════════
-       TOAST — centered top on mobile
+       TOAST
     ══════════════════════════════════════════════════════ */
     #notification-bar {
       position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
@@ -108,12 +108,12 @@
     .toast { background: var(--bg-card); border: 1px solid var(--border-gold); border-left: 3px solid var(--gold); border-radius: var(--radius-sm); padding: 8px 14px; font-size: 13px; color: var(--text-primary); box-shadow: var(--shadow); animation: toastIn 0.3s ease; font-family: 'EB Garamond', serif; text-align: center; }
     @keyframes toastIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
 
-/* ══════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════
        MAIN LAYOUT
     ══════════════════════════════════════════════════════ */
     .app-layout { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-	
-	main {
+
+    main {
       display: flex; flex-direction: column; flex: 1;
       overflow: hidden; min-height: 0;
     }
@@ -128,13 +128,13 @@
     #current-song-title { font-family: 'Cinzel', serif; font-size: 14px; font-weight: 600; color: var(--gold-light); letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .verse-count { font-size: 11px; color: var(--text-muted); font-style: italic; white-space: nowrap; flex-shrink: 0; }
 
-/* ── READER ── */
+    /* ── READER ── */
     #lyrics-grid-wrapper {
       flex: 1; overflow-y: auto;
       padding: 16px 16px 80px 16px;
       -webkit-overflow-scrolling: touch;
     }
-    
+
     /* Mobile: single-column reading list */
     #lyrics-grid { display: flex; flex-direction: column; }
 
@@ -148,7 +148,7 @@
     .verse-card:active, .verse-card.selected { background: var(--bg-hover); }
     .verse-card::before { display: none; }
 
-    /* Version badge — shown in multi-version search results */
+    /* Version badge */
     .verse-version-badge {
       display: inline-block; font-family: 'Cinzel', serif; font-size: 9px;
       font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
@@ -156,7 +156,7 @@
       padding: 1px 5px; margin-bottom: 4px;
     }
 
-    /* ── Verse ref row (ref + pin button side-by-side) ── */
+    /* ── Verse ref row ── */
     .verse-ref-row {
       display: flex; align-items: center;
       justify-content: space-between; margin-bottom: 5px;
@@ -186,7 +186,7 @@
        LEFT SIDEBAR (Mobile)
     ══════════════════════════════════════════════════════ */
     #drawer {
-      position: fixed; 
+      position: fixed;
       top: 0; bottom: 0; left: 0; right: auto; z-index: 500;
       width: 280px; max-height: 100vh;
       background: var(--bg-panel);
@@ -215,16 +215,16 @@
     .drawer-section { padding: 10px 0; border-bottom: 1px solid var(--border); }
     .drawer-section:last-child { border-bottom: none; }
 
-select, input[type="text"] {
-  width: 100%; padding: 11px 12px; background: var(--bg-deep);
-  border: 1px solid var(--border); border-radius: var(--radius-sm);
-  color: var(--text-primary); font-family: 'EB Garamond', serif;
-  font-size: 16px; outline: none; transition: border-color 0.2s;
-  -webkit-appearance: none; appearance: none;
-  -webkit-user-select: auto !important;
-  user-select: auto !important;
-  touch-action: manipulation;
-}
+    select, input[type="text"] {
+      width: 100%; padding: 11px 12px; background: var(--bg-deep);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      color: var(--text-primary); font-family: 'EB Garamond', serif;
+      font-size: 16px; outline: none; transition: border-color 0.2s;
+      -webkit-appearance: none; appearance: none;
+      -webkit-user-select: auto !important;
+      user-select: auto !important;
+      touch-action: manipulation;
+    }
     select:focus, input[type="text"]:focus { border-color: var(--gold); }
     select option { background: var(--bg-deep); }
 
@@ -268,7 +268,10 @@ select, input[type="text"] {
     #desktop-sync-btn { display: none !important; }
 
     /* ══════════════════════════════════════════════════════
-       PINNED VERSES (drawer section)
+       PINNED VERSES — Android-optimized
+       Uses real <button> elements so Android Chrome
+       immediately recognises taps without misinterpreting
+       them as scroll gestures inside the drawer.
     ══════════════════════════════════════════════════════ */
     .pinned-section-label {
       font-family: 'Cinzel', serif; font-size: 9px; font-weight: 600;
@@ -276,30 +279,45 @@ select, input[type="text"] {
       color: var(--text-muted); margin-bottom: 6px;
     }
     #pinned-verses-list { display: flex; flex-direction: column; }
-    .pinned-empty {
-      font-size: 12px; color: var(--text-muted); font-style: italic;
-      padding: 4px 0 2px;
-    }
+
+    /* Generous 14 px padding for comfortable Android thumb tapping */
     .pinned-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 8px 0; border-bottom: 1px solid var(--border);
-      transition: background 0.15s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
     }
     .pinned-item:last-child { border-bottom: none; }
-    .pinned-ref {
-      background: none; border: none; padding: 0; text-align: left;
-      font-family: 'Cinzel', serif; font-size: 11px;
-      color: var(--gold-light); letter-spacing: 0.06em;
-      cursor: pointer; flex-grow: 1;
-      -webkit-tap-highlight-color: transparent;
+    .pinned-item:active { background: var(--bg-hover); }
+
+    /* Real <button> — Android Chrome gives instant tap recognition
+       to native button elements; non-interactive elements (span, div)
+       can be swallowed by the browser's scroll-gesture detector. */
+    .pinned-ref-btn {
+      background: transparent;
+      border: none;
+      color: var(--gold-light);
+      font-size: 14px;
+      font-family: 'EB Garamond', Georgia, serif;
+      text-align: left;
+      cursor: pointer;
+      flex-grow: 1;
+      padding: 0;
+      margin: 0;
+      /* Instant tap — no 300 ms scroll-ambiguity delay */
       touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
-    .pinned-ref:active { color: var(--gold); }
+    .pinned-ref-btn:active { color: var(--gold); }
+
     .unpin-btn {
       background: none; border: none; cursor: pointer;
       color: var(--text-muted); font-size: 11px; padding: 4px 6px;
       line-height: 1; transition: color 0.18s;
       -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     .unpin-btn:active { color: #e06060; }
 
@@ -336,9 +354,8 @@ select, input[type="text"] {
 
     .drawer-search-section { display: none; }
 
-
-/* ══════════════════════════════════════════════════════
-       SEARCH OVERLAY (mobile) - FULL SCREEN FIX
+    /* ══════════════════════════════════════════════════════
+       SEARCH OVERLAY (mobile) — FULL SCREEN
     ══════════════════════════════════════════════════════ */
     #search-overlay {
       position: fixed; inset: 0; z-index: 800;
@@ -350,16 +367,16 @@ select, input[type="text"] {
     #search-overlay.open {
       pointer-events: auto; opacity: 1;
     }
-    
+
     #search-overlay-bg { display: none; }
 
-#search-panel {
+    #search-panel {
       flex: 1; display: flex; flex-direction: column;
       padding: 20px 16px 20px;
-      transform: none; 
+      transform: none;
       min-height: 0;
     }
-    
+
     #search-panel-header {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 14px; flex-shrink: 0;
@@ -374,7 +391,7 @@ select, input[type="text"] {
       padding: 0 4px; -webkit-tap-highlight-color: transparent;
     }
     #search-close-btn:active { color: var(--gold); }
-    
+
     #search-overlay-wrap {
       position: relative; flex-shrink: 0;
     }
@@ -393,12 +410,12 @@ select, input[type="text"] {
       touch-action: manipulation;
     }
     #overlay-search-input:focus { border-color: var(--gold); }
-    
+
     #search-hint {
       font-size: 11px; color: var(--text-muted); font-style: italic;
       margin-top: 10px; text-align: center; flex-shrink: 0;
     }
-    
+
     #overlay-suggestions {
       margin-top: 12px; flex: 1;
       background: var(--bg-card); border: 1px solid var(--border);
@@ -427,7 +444,7 @@ select, input[type="text"] {
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
     /* ══════════════════════════════════════════════════════
-       DESKTOP ≥ 700px — restore sidebar layout
+       DESKTOP >= 700px
     ══════════════════════════════════════════════════════ */
     @media (min-width: 700px) {
       .menu-btn { display: none !important; }
@@ -508,25 +525,21 @@ select, input[type="text"] {
 <!-- ══ APP ════════════════════════════════════════════════ -->
 <div class="app-layout">
 
-  <!-- ── BOTTOM DRAWER (mobile) / SIDEBAR (desktop) ───── -->
+  <!-- ── SIDEBAR ───── -->
   <div id="drawer">
-    <!-- Drag handle (mobile only) -->
     <div id="drawer-handle" onclick="toggleDrawer()">
       <div class="drawer-pill"></div>
       <div id="drawer-label">Bible Tools ▲</div>
     </div>
 
-    <!-- Scrollable content -->
     <div id="drawer-body">
 
-      <!-- Version selector -->
       <div class="drawer-section">
         <select id="bible-version-select" onchange="switchBibleVersion(this.value)">
           <option value="" disabled selected>— Select Version —</option>
         </select>
       </div>
 
-      <!-- Navigation: Book / Chapter / Verse -->
       <div class="drawer-section">
         <div class="nav-row">
           <select id="bible-book" onchange="onBookChange()" disabled>
@@ -541,7 +554,6 @@ select, input[type="text"] {
         </div>
       </div>
 
-      <!-- Search — desktop only inside drawer; mobile uses FAB overlay -->
       <div class="drawer-section drawer-search-section">
         <div class="search-wrap">
           <span class="search-icon">🔍</span>
@@ -553,7 +565,6 @@ select, input[type="text"] {
         </div>
       </div>
 
-      <!-- Desktop-only buttons -->
       <div class="drawer-section">
         <button id="desktop-sync-btn" class="btn btn-gold" style="display:none;" onclick="autoSyncFromCloud(true)">☁ Sync from Cloud</button>
         <button class="btn btn-upload">
@@ -563,7 +574,6 @@ select, input[type="text"] {
         <button id="btnSaveBible" class="btn" onclick="saveBibleToDrive()">💾 Save to Drive</button>
       </div>
 
-      <!-- Cache info (desktop only) -->
       <div id="cache-section" class="drawer-section" style="display:none;">
         <div style="font-family:'Cinzel',serif;font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">Local Cache</div>
         <div id="cache-info" style="font-size:13px;color:var(--text-secondary);line-height:2;font-style:italic;">—</div>
@@ -578,10 +588,10 @@ select, input[type="text"] {
         </div>
       </div>
 
-    </div><!-- /drawer-body -->
-  </div><!-- /drawer -->
+    </div>
+  </div>
 
-  <!-- ── MAIN READER ──────────────────────────────────── -->
+  <!-- ── MAIN READER ── -->
   <main>
     <div class="content-topbar">
       <span id="current-song-title" style="color:var(--text-muted);font-style:italic;">Open the Word</span>
@@ -598,10 +608,9 @@ select, input[type="text"] {
     </div>
   </main>
 
-</div><!-- /app-layout -->
+</div>
 
-<!-- Overlay to close drawer by tapping outside -->
-<div id="drawer-overlay" onclick="closeDrawer()"></div>
+<div id="drawer-overlay"></div>
 
 <!-- ══ FLOATING ACTION BUTTONS ════════════════════════════ -->
 <button id="fab-search" class="fab" onclick="openSearchOverlay()" title="Search Scripture">🔍</button>
@@ -628,9 +637,6 @@ select, input[type="text"] {
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCRIPTS
-══════════════════════════════════════════════════════════ -->
 <script>
 // ╔══════════════════════════════════════════════════════════╗
 //  ★ YOUR DEPLOYED APPS SCRIPT URL ★
@@ -651,7 +657,6 @@ window.currentSongData = null;
 let pinnedVerses = [];
 try { pinnedVerses = JSON.parse(localStorage.getItem('pinnedVerses')) || []; } catch(e) { pinnedVerses = []; }
 
-// Parse a verse card name like "John 3:16" or "1 Corinthians 13:4"
 function parseVerseName(name) {
   const m = name.trim().match(/^(.+?)\s+(\d+):(\d+)$/);
   if (!m) return null;
@@ -666,44 +671,26 @@ function savePinned() {
   localStorage.setItem('pinnedVerses', JSON.stringify(pinnedVerses));
 }
 
-// Re-render the pinned list in the drawer
-function renderPinnedVerses() {
-  const container = document.getElementById('pinned-verses-list');
-  if (!container) return;
-  container.innerHTML = '';
+// ════════════════════════════════════════════════════════════
+//  PINNED VERSES — Android-optimized render
+//
+//  Root cause of the mobile failure: Android Chrome running
+//  inside a scrollable container (the drawer) intercepts touch
+//  events on non-interactive elements (span, div) to decide
+//  whether the user is tapping or scrolling. The tap is often
+//  eaten. Native <button> elements bypass this — the browser
+//  always delivers a click event to them immediately.
+//
+//  Two changes vs the original:
+//    1. Verse reference is a <button class="pinned-ref-btn">
+//       with touch-action:manipulation (kills the 300ms delay).
+//    2. Unpin button also gets touch-action:manipulation.
+// ════════════════════════════════════════════════════════════
 
-  if (!pinnedVerses.length) {
-    container.innerHTML = '<div class="pinned-empty">No pinned verses yet.</div>';
-    return;
-  }
 
-  pinnedVerses.forEach((v, index) => {
-    const item = document.createElement('div');
-    item.className = 'pinned-item';
 
-    // Must be <button>, not <span> — iOS Safari suppresses click events
-    // on non-interactive elements (span/div) regardless of cursor CSS.
-    const ref = document.createElement('button');
-    ref.className = 'pinned-ref';
-    ref.textContent = `${v.book} ${v.chapter}:${v.verse}`;
-    ref.onclick = (e) => {
-      e.stopPropagation();
-      executeBibleSearch(v.book, v.chapter, v.verse, null, null);
-    };
 
-    const btn = document.createElement('button');
-    btn.className = 'unpin-btn';
-    btn.title = 'Unpin';
-    btn.textContent = '✕';
-    btn.onclick = (e) => { e.stopPropagation(); unpinVerse(index); };
 
-    item.appendChild(ref);
-    item.appendChild(btn);
-    container.appendChild(item);
-  });
-}
-
-// Toggle pin from a verse card button
 window.togglePin = function(book, chapter, verse) {
   const idx = pinnedVerses.findIndex(p => p.book === book && p.chapter === chapter && p.verse === verse);
   if (idx >= 0) {
@@ -715,7 +702,6 @@ window.togglePin = function(book, chapter, verse) {
   }
   savePinned();
   renderPinnedVerses();
-  // Refresh pin button states in the current grid
   window.renderLyricsGrid();
 };
 
@@ -805,7 +791,7 @@ async function loadBiblesFromLocalCache() {
 }
 
 // ════════════════════════════════════════════════════════════
-//  DRAWER TOGGLE (mobile nav panel)
+//  DRAWER TOGGLE
 // ════════════════════════════════════════════════════════════
 function toggleDrawer() {
   const d = document.getElementById('drawer');
@@ -833,7 +819,7 @@ function closeDrawer() {
 }
 
 // ════════════════════════════════════════════════════════════
-//  SEARCH OVERLAY (mobile FAB search)
+//  SEARCH OVERLAY
 // ════════════════════════════════════════════════════════════
 function openSearchOverlay() {
   const ov = document.getElementById('search-overlay');
@@ -892,7 +878,6 @@ window.handleOverlaySearch = input => {
   sugg.style.display = sugg.children.length > 0 ? 'block' : 'none';
 };
 
-
 // ════════════════════════════════════════════════════════════
 //  NOTIFICATION TOAST
 // ════════════════════════════════════════════════════════════
@@ -910,8 +895,6 @@ window.showNotification = showNotification;
 
 // ════════════════════════════════════════════════════════════
 //  RENDER VERSE GRID
-//  Normal chapter: single version cards
-//  Search result : multi-version cards with version badge
 // ════════════════════════════════════════════════════════════
 window.renderLyricsGrid = () => {
   const grid = document.getElementById('lyrics-grid');
@@ -933,12 +916,10 @@ window.renderLyricsGrid = () => {
     const badge = part.version
       ? `<span class="verse-version-badge">${part.version}</span>` : '';
 
-    // Build pin button if this is a specific verse (name contains chapter:verse)
     const pinData = parseVerseName(part.name);
     let pinBtnHtml = '';
     if (pinData) {
       const pinned = isPinned(pinData.book, pinData.chapter, pinData.verse);
-      // Escape book name for inline onclick (handles "1 Corinthians" etc.)
       const bookEsc = pinData.book.replace(/'/g, "\\'");
       pinBtnHtml = `<button class="pin-verse-btn${pinned ? ' pinned' : ''}"
         onclick="event.stopPropagation();togglePin('${bookEsc}',${pinData.chapter},${pinData.verse})"
@@ -1139,7 +1120,7 @@ window.handleBibleSearchKey = (e, input) => {
 
   const sugg = document.getElementById('bible-suggestions');
   if (sugg) sugg.style.display = 'none';
-  
+
   input.value = '';
   input.blur();
   closeSearchOverlay();
@@ -1307,7 +1288,7 @@ function parseUnknownBibleFormat(rawData, filename) {
 function parseXMLBible(xmlString) {
   const parser = new DOMParser();
   const xmlDoc = parser.parseFromString(xmlString, "text/xml");
-  if (xmlDoc.querySelector("parsererror")) throw new Error("Invalid XML");
+  if (xmlDoc.querySelector("parseerror")) throw new Error("Invalid XML");
   let name = xmlDoc.documentElement.getAttribute('translation') || "XML Bible";
   let books = [];
   xmlDoc.querySelectorAll('book').forEach(b => {
@@ -1379,7 +1360,7 @@ function setFabSpin(on) {
 }
 
 // ════════════════════════════════════════════════════════════
-//  SPLASH HELPERS (null-safe)
+//  SPLASH HELPERS
 // ════════════════════════════════════════════════════════════
 function setSplashTitle(t)  { const el = document.getElementById('splash-title');        if(el) el.textContent = t; }
 function setSplashDesc(d)   { const el = document.getElementById('splash-desc');         if(el) el.textContent = d; }
@@ -1507,7 +1488,7 @@ window.autoSyncFromCloud = async (force = false) => {
 //  PAGE INIT
 // ════════════════════════════════════════════════════════════
 window.addEventListener('load', () => {
-  renderPinnedVerses(); // Restore pinned list from localStorage on startup
+  renderPinnedVerses();
   loadBiblesFromLocalCache().then(hasCached => {
     setTimeout(() => {
       if (hasCached) {
@@ -1523,6 +1504,143 @@ window.addEventListener('load', () => {
     }, 900);
   });
 });
+
+// ════════════════════════════════════════════════════════════
+//  THE DRAWER LOCK PATCH (Run this once)
+// ════════════════════════════════════════════════════════════
+// This upgrades your app's closeDrawer function so we can 
+// tell it to ignore commands when clicking pinned verses.
+if (!window.drawerLockInstalled) {
+    const realCloseDrawer = window.closeDrawer;
+    window.closeDrawer = function() {
+        if (window.isDrawerLockedOpen === true) {
+            console.log("🛡️ Blocked hardcoded closeDrawer command!");
+            return; // Abort closing!
+        }
+        if (typeof realCloseDrawer === "function") {
+            realCloseDrawer();
+        }
+    };
+    window.drawerLockInstalled = true;
+}
+
+// ════════════════════════════════════════════════════════════
+//  PINNED VERSES RENDERER (Ghost-Click Proof)
+// ════════════════════════════════════════════════════════════
+function renderPinnedVerses() {
+  const container = document.getElementById('pinned-verses-list');
+  if (!container) return;
+  container.innerHTML = '';
+
+  if (!pinnedVerses.length) {
+    container.innerHTML = '<div style="padding:10px 16px; color:var(--text-muted); font-size:12px; font-style:italic;">No pinned verses yet.</div>';
+    return;
+  }
+
+  pinnedVerses.forEach((v, index) => {
+    const item = document.createElement('div');
+    item.className = 'pinned-item';
+
+    // 1. The Pinned Verse Button
+    const ref = document.createElement('button');
+    ref.className = 'pinned-ref-btn';
+    ref.textContent = `${v.book} ${v.chapter}:${v.verse}`;
+    
+    // THE FIX: This single function handles both clicks and touches perfectly
+    const handleVerseTap = (e) => {
+      // If the browser tries to fire a Ghost Click, this destroys it!
+      if (e.cancelable) e.preventDefault(); 
+      e.stopPropagation(); 
+      
+      // 🔒 ENGAGE THE LOCK: Block all close commands!
+      window.isDrawerLockedOpen = true;
+      
+      try {
+        if (typeof executeBibleSearch === "function") {
+          executeBibleSearch(v.book, v.chapter, v.verse, null, null);
+        }
+      } catch (err) {
+        console.error("Navigation error:", err);
+      }
+
+      // 🔓 DISENGAGE THE LOCK: Increased to 1.5 seconds to outlast slow mobile loading
+      setTimeout(() => {
+          window.isDrawerLockedOpen = false;
+      }, 1500);
+    };
+
+    // Bind to both touch and click for maximum mobile responsiveness
+    ref.addEventListener('touchend', handleVerseTap, { passive: false });
+    ref.addEventListener('click', handleVerseTap);
+
+
+    // 2. The Unpin button
+    const btn = document.createElement('button');
+    btn.className = 'unpin-btn';
+    btn.title = 'Unpin';
+    btn.textContent = '✕';
+    
+    const handleUnpinTap = (e) => {
+      if (e.cancelable) e.preventDefault();
+      e.stopPropagation(); 
+      
+      window.isDrawerLockedOpen = true;
+      unpinVerse(index);
+      setTimeout(() => { window.isDrawerLockedOpen = false; }, 1500);
+    };
+
+    btn.addEventListener('touchend', handleUnpinTap, { passive: false });
+    btn.addEventListener('click', handleUnpinTap);
+
+    item.appendChild(ref);
+    item.appendChild(btn);
+    container.appendChild(item);
+  });
+}
+
+// ════════════════════════════════════════════════════════════
+//  SECURE DRAWER OVERLAY CLICK HANDLER (Strict Origin)
+// ════════════════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  const overlay = document.getElementById('drawer-overlay');
+  
+  if (overlay) {
+    // Flag to track exactly where the finger first touched the glass
+    let validOverlayTouch = false;
+
+    // 1. When the finger touches down, check if it is explicitly on the dark background
+    const handleTouchStart = (e) => {
+      if (e.target === overlay) {
+        validOverlayTouch = true;
+      } else {
+        validOverlayTouch = false;
+      }
+    };
+
+    // 2. When the finger lifts (or clicks), ONLY close if the touch STARTED on the background
+    const handleOverlayClose = (e) => {
+      if (window.isDrawerLockedOpen === true) return; 
+
+      if (e.target === overlay && validOverlayTouch === true) {
+        if (typeof closeDrawer === "function") {
+          closeDrawer();
+        }
+      }
+      
+      // Reset the flag
+      validOverlayTouch = false;
+    };
+
+    // Bind the touch START events
+    overlay.addEventListener('touchstart', handleTouchStart, { passive: true });
+    overlay.addEventListener('mousedown', handleTouchStart);
+
+    // Bind the touch END events
+    overlay.addEventListener('click', handleOverlayClose);
+    overlay.addEventListener('touchend', handleOverlayClose);
+  }
+});
+
 </script>
 </body>
 </html>
