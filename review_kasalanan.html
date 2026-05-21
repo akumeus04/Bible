@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Ang Kasalanan — Ang Katotohanan</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  /* Increased padding to account for the audio player above the nav */
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  .topbar{background:var(--green);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:17px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.68;margin-top:2px;}
+
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--green);}
+
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  .hero{background:linear-gradient(150deg,#1a0000 0%,#993C1D 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:22px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.7;}
+
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+
+  .vbox.red{background:var(--red-light);border-left-color:var(--red);}
+  .vbox.red p{color:var(--red);}
+  .vbox.red cite{color:var(--red);}
+
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  .body{font-size:14px;color:var(--text);line-height:1.78;margin:14px 14px 0;}
+  .body strong{font-weight:600;}
+  .body em{font-style:italic;}
+
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.red p{color:var(--red);}
+  .hl.blue p{color:var(--blue);}
+
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{background:var(--orange-light);padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.red{background:var(--red);}
+  .truth.blue{background:var(--blue);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .sd.r{background:var(--red);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  .sin-type{background:white;border-radius:12px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .sin-hdr{padding:12px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;}
+  .sin-hdr.green{background:var(--green-light);color:var(--green-dark);}
+  .sin-hdr.red{background:var(--red-light);color:var(--red);}
+  .sin-hdr .sh-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .sin-hdr.green .sh-dot{background:var(--green);}
+  .sin-hdr.red .sh-dot{background:var(--red);}
+  .sin-body{padding:13px 14px;font-size:14px;color:var(--text);line-height:1.75;}
+  .sin-body p+p{margin-top:8px;}
+
+  .warn-box{background:#1a0000;border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .warn-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,100,100,0.75);margin-bottom:7px;}
+  .warn-box p{font-size:14px;color:#FFD0C8;line-height:1.7;}
+  .warn-box p+p{margin-top:8px;}
+  .warn-box strong{color:white;font-weight:700;}
+
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:15px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+
+  .gap-visual{margin:14px 14px 0;background:white;border-radius:12px;border:1px solid var(--border);padding:16px;}
+  .gap-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .gap-row:last-child{margin-bottom:0;}
+  .gap-box{flex:1;border-radius:8px;padding:10px;text-align:center;}
+  .gap-box .gw{font-size:13px;font-weight:700;margin-bottom:3px;}
+  .gap-box .gd{font-size:11px;color:var(--gray);line-height:1.3;}
+  .gap-arr{font-size:18px;color:var(--gray);flex-shrink:0;}
+  .gap-sep{text-align:center;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--red);margin:6px 0;padding:6px;background:var(--red-light);border-radius:8px;}
+
+  /* ADVANCED AUDIO PLAYER CSS */
+  .audio-player {
+    position: fixed;
+    bottom: 68px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 400px;
+    background: var(--purple-dark);
+    border-radius: 20px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(38, 33, 92, 0.4);
+    z-index: 99;
+    color: white;
+    transition: opacity 0.5s ease;
+  }
+  .audio-player.dimmed { opacity: 0.15; }
+  .player-top { display: flex; align-items: center; gap: 12px; }
+  .play-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--red); border: none; color: white;
+    font-size: 16px; display: flex; align-items: center;
+    justify-content: center; cursor: pointer; flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .play-btn:active { background: #7a2e14; }
+  .audio-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .audio-title { font-size: 13px; font-weight: 600; line-height: 1.2; }
+  .speed-btn {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+    color: white; border-radius: 8px; padding: 6px 10px;
+    font-size: 11px; font-weight: 700; cursor: pointer; flex-shrink: 0;
+  }
+  .speed-btn:active { background: rgba(255,255,255,0.3); }
+  .player-bottom { display: flex; align-items: center; gap: 10px; }
+  .audio-time {
+    font-size: 10px; color: var(--purple-light); opacity: 0.9;
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .seek-bar {
+    flex: 1; -webkit-appearance: none; width: 100%; height: 4px;
+    border-radius: 2px; background: rgba(255,255,255,0.2);
+    outline: none; accent-color: var(--red);
+  }
+  .seek-bar::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--red); cursor: pointer;
+  }
+  .seek-bar::-moz-range-thumb {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--red); cursor: pointer; border: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · May 15</div>
+  <h1>Ang Kasalanan — Ang Katotohanan</h1>
+  <div class="ref">Roma 5:12–13 · Genesis 3 · Personal na Pagbabalik-aral</div>
+</div>
+
+<div class="audio-player" id="audio-container">
+  <div class="player-top">
+    <button class="play-btn" id="play-pause-btn">▶</button>
+    <div class="audio-info">
+      <div class="audio-title">Ang Kasalanan — Sermon Audio</div>
+    </div>
+    <button class="speed-btn" id="speed-btn">1.0x</button>
+  </div>
+  <div class="player-bottom">
+    <div class="audio-time" id="current-time">0:00</div>
+    <input type="range" id="seek-bar" class="seek-bar" value="0" min="0" step="1">
+    <div class="audio-time" id="total-time">0:00</div>
+  </div>
+</div>
+
+<audio id="sermon-audio" preload="metadata">
+  <source src="https://archive.org/download/ang-kasalanan/Ang_Kasalanan.m4a" type="audio/mp4">
+  Your browser does not support the audio element.
+</audio>
+
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--green)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--orange)">1</div>
+    <div class="nl">Pinasok</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--purple)">2</div>
+    <div class="nl">Uri</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--red)">3</div>
+    <div class="nl">Mapapatawad</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--green-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<!-- ===== INTRO ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material · May 15</div>
+    <h2>Ang Kasalanan — Ang Katotohanan</h2>
+    <div class="href">Roma 5:12–13 · Genesis 3 · Hebreo 6:4–6</div>
+  </div>
+
+  <div class="vbox">
+    <p>"Pumasok sa sanlibutan ang kasalanan sa pamamagitan ng isang tao at ang kamatayan ay pumasok sa pamamagitan ng kasalanan. At sa gayon ay dumaganap ang kamatayan sa lahat ng tao sapagkat lahat ay nagkasala. Nasa sanlibutan na ang kasalanan bago ibigay ang kautusan. Ngunit kung walang kautusan, ang kasalanan ay hindi ituturing na kasalanan."</p>
+    <cite>— Roma 5:12–13 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p><strong>Bakit pag-aaralan ang kasalanan?</strong> Hindi para panghinaan ang loob — kundi para <strong>maiwasan ito at makapamuhay ng isang matagumpay na buhay Kristiyano.</strong> Ito ang layunin ng pag-aaral na ito.</p>
+    <p>Kailangan nating maunawaan ang kasalanan para maunawaan natin kung bakit kailangan natin ng Tagapagligtas — at kung bakit napakahalaga ng ating ugnayan sa Panginoon Diyos.</p>
+  </div>
+
+  <div class="quote-box">
+    <p>"Ano-ano ba ang katotohanan tungkol sa kasalanan? Para maliwanagan tayo at makapamuhay ng isang matagumpay na buhay Kristiyano."</p>
+    <cite>— Layunin ng Pag-aaral</cite>
+  </div>
+
+  <div class="sec-lbl">Tatlong Pangunahing Katotohanan tungkol sa Kasalanan</div>
+  <div class="sum-cards">
+    <div class="sum-card">
+      <div class="sd o">1</div>
+      <div>
+        <div class="s-title">Ang kasalanan ay pumasok sa sanlibutan sa pamamagitan ng isang tao</div>
+        <div class="s-desc">Roma 5:12–13 · Genesis 3 — Si Adan, ang free will, ang pagsuway, at ang kaakibat na kamatayan.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">2</div>
+      <div>
+        <div class="s-title">Ang sinasadya at hindi sinasadyang pagkakasala</div>
+        <div class="s-desc">May iba't ibang uri ng kasalanan — lahat ay nangangailangan ng pagsisisi at pagpapatawad.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd r">3</div>
+      <div>
+        <div class="s-title">Ang mapapatawad at hindi mapapatawad na kasalanan</div>
+        <div class="s-desc">May kasalanang maaaring patawarin pa — at may kasalanang hindi na. Kailangan ng ingat at pagiging matatag.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <p><strong>Napakahalagang tandaan:</strong> Ang kasalanan ay <em>hindi ginawa ng Diyos.</em> Ito ay bunga ng maling pagpili ng tao. Binigyan tayo ng Diyos ng <strong>free will</strong> — kalayaang pumili — dahil gusto Niyang ang ating paglilingkod sa Kanya ay kusang-loob at buong puso, hindi sapilitan.</p>
+    <p>Tulad ng isang magulang na mas nalulugod sa masunuring anak — nalulugod din ang Diyos sa ating kusang pagsunod sa Kanya. Ngunit mahal Niya ang lahat ng Kanyang mga anak.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 1 ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">1</div>
+    <div>
+      <h2>Ang kasalanan ay pumasok sa sanlibutan sa pamamagitan ng isang tao</h2>
+      <div class="sub">Roma 5:12–13 · Genesis 2–3</div>
+    </div>
+  </div>
+
+  <div class="vbox orange">
+    <p>"Pumasok sa sanlibutan ang kasalanan sa pamamagitan ng isang tao at ang kamatayan ay pumasok sa pamamagitan ng kasalanan. At sa gayon ay dumaganap ang kamatayan sa lahat ng tao sapagkat lahat ay nagkasala."</p>
+    <cite>— Roma 5:12</cite>
+  </div>
+
+  <div class="body">Ang tinutukoy dito ay si <strong>Adan</strong> — hindi si Eva, bagama't siya ang unang kinausap ng ahas. Si Adan ang may direktang responsibilidad dahil <strong>sa kanya ibinigay ng Diyos ang utos.</strong> Siya ang panganay at may pananagutan. Kaya nang magkasala siya, pumasok ang kasalanan sa buong sanlibutan.</div>
+
+  <div class="hl orange">
+    <p><strong>Importante:</strong> Bago pa ibigay ang kautusan ni Moises — nandoon na ang kasalanan. Ngunit kung walang kautusan, ang kasalanan ay hindi ituturing na kasalanan. Parang isang interseksyon na walang traffic light — hindi ka pwedeng bigyan ng violation, pero <em>alam ng iyong budhi</em> kung tama o mali ang ginawa mo. Kapag dumating na ang kautusan, lalo pang nahayag ang kasalanan.</p>
+  </div>
+
+  <div class="sec-lbl">Ang Kwento sa Genesis 2–3</div>
+
+  <div class="vbox">
+    <p>"Sinabi ng Panginoong Yahweh sa tao: Makakain mo ang alinmang bungang kahoy sa hardin, maliban sa bunga ng punong kahoy na nagbibigay kaalaman tungkol sa mabuti at masama. Huwag mong kakainin ang bunga nito sapagkat sa araw na kainin mo iyon ay mamamatay ka."</p>
+    <cite>— Genesis 2:16–17</cite>
+  </div>
+
+  <div class="body">Binigyan ng Diyos ang tao ng <strong>karapatan at responsibilidad</strong> — pangalagaan ang Kanyang mga nilalang at sumunod sa Kanyang utos. Ngunit may isa lamang pagbabawal. At iyon ang pinuntirya ng ahas.</div>
+
+  <div class="illus">
+    <div class="illus-hdr">Paliwanag ng Nagtaturo — Ang Kahulugan ng "Kamatayan"</div>
+    <div class="illus-body">
+      <p>Nung sinabi ng Diyos "mamamatay ka" — hindi ito pisikal na kamatayan agad. Namatay ang <strong>relasyon.</strong></p>
+      <p>Kapag naghihiwalay ang mag-asawa — namatay ang kanilang pagiging mag-asawa. Kapag naghihiwalay ang dalawang magkaibigan — namatay ang pagkakaibigan. <strong>Kapag sumuway ka sa Diyos — namatay ang iyong ugnayan sa Kanya.</strong> Ito ang tinutukoy na kamatayan sa Genesis.</p>
+      <p>Kaya naman nung nagbalik ang alibughang anak, sinabi ng ama: "Dati ay patay ang anak ko — ngayon ay buhay na."</p>
+    </div>
+  </div>
+
+  <div class="body">Ano ang ginising ng ahas sa tao? <strong>Curiosity.</strong> Malamang alam na ng tao na makakasama — ngunit ginawa pa rin niya. Minsan nagkakasala tayo hindi dahil hindi natin alam na masama — <em>kundi dahil gusto nating tikman ang bawal.</em></div>
+
+  <div class="gap-visual">
+    <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:12px;">Ang Epekto ng Kasalanan — Ang Pagkawalay</div>
+    <div class="gap-row">
+      <div class="gap-box" style="background:var(--blue-light);">
+        <div class="gw" style="color:var(--blue);">Diyos</div>
+        <div class="gd">Banal at perpekto</div>
+      </div>
+      <div class="gap-arr">←</div>
+      <div class="gap-box" style="background:var(--green-light);">
+        <div class="gw" style="color:var(--green-dark);">Tao — Bago</div>
+        <div class="gd">Kasama ang Diyos sa Eden</div>
+      </div>
+    </div>
+    <div class="gap-sep">KASALANAN — Pumasok ang Kasalanan</div>
+    <div class="gap-row">
+      <div class="gap-box" style="background:var(--blue-light);">
+        <div class="gw" style="color:var(--blue);">Diyos</div>
+        <div class="gd">Banal at perpekto</div>
+      </div>
+      <div class="gap-arr">⟵&nbsp;GAP&nbsp;⟶</div>
+      <div class="gap-box" style="background:var(--red-light);">
+        <div class="gw" style="color:var(--red);">Tao — Pagkatapos</div>
+        <div class="gd">Pinalayas mula sa Eden</div>
+      </div>
+    </div>
+    <div class="gap-sep" style="background:var(--green-light);color:var(--green-dark);border-radius:8px;margin-top:6px;">HESUS — Inangat ang Agwat</div>
+    <div class="gap-row" style="margin-top:6px;">
+      <div class="gap-box" style="background:var(--blue-light);">
+        <div class="gw" style="color:var(--blue);">Diyos</div>
+        <div class="gd">Banal at perpekto</div>
+      </div>
+      <div class="gap-arr">↔</div>
+      <div class="gap-box" style="background:var(--green-light);">
+        <div class="gw" style="color:var(--green-dark);">Tao — Naligtas</div>
+        <div class="gd">Muling nakipagkasundo sa Diyos</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body" style="margin-top:14px;">Dahil nagkasala ang tao, <strong>natanggap niya ang sinful nature</strong> — isang kapangyarihang hindi nakikita ngunit nararamdaman. Kumikiling sa masama. Ito ang mana natin mula kay Adan. <em>Pero — dahil tayo'y naging Kristiyano na — kaya na nating labanan ang kapangyarihan ng sinful nature.</em> Hindi ito nawala, ngunit hindi na tayo alipin nito.</div>
+
+  <div class="sup">
+    <div class="sup-lbl">Genesis 3:23–24</div>
+    <p>"Kaya pinalayas niya sa hardin ng Eden ang tao upang magbungkal ng lupang kanyang pinagmulan. Pinalayas nga siya ng Diyos at sa dakong silangan ng hardin ng Eden ay naglagay ang Diyos ng bantay na kerubin."</p>
+    <cite>— Genesis 3:23–24</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Paliwanag ng Nagtaturo — Bakit Pinalayas?</div>
+    <div class="illus-body">
+      <p>Hindi sinumpa ng Diyos ang tao — pinalayas Niya sila dahil mahal Niya sila. <strong>Para hindi na nila kainin ang bunga ng punong kahoy ng buhay</strong> — at manatili sa kasalanang iyon magpakailanman. Ang pagpapalayo ay pagbibigay ng pag-asa.</p>
+      <p>Nagbigay pa rin ang Diyos ng provision — ng damit na yari sa balat ng hayop (na nangangailangan ng pagdanak ng dugo — unang pahiwatig ng pag-aalay). Palagi kang pag-aalagaan ng Diyos kahit sa gitna ng iyong kasalanan.</p>
+    </div>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang kasalanan ay hindi ginawa ng Diyos — bunga ito ng maling pagpili ng tao. Ngunit kahit nagkasala tayo, ibinigay ng Diyos ang Tagapagligtas — si Hesus — para maibalik ang dating ugnayan ng Diyos at tao.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 2 ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--purple);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Ang sinasadya at hindi sinasadyang pagkakasala</h2>
+      <div class="sub">Leviticus 4 · Santiago 4:13–17 · Mateo 18:15</div>
+    </div>
+  </div>
+
+  <div class="body">May iba't ibang uri ng kasalanan — ngunit <strong>lahat ay marapat na pagsisiyan.</strong> Walang kapatawaran nang walang pagdadala ng alay. Sa lumang tipan, ito ay mga hayop. Sa bagong tipan — <strong>ang dugo ni Hesus ang solong alay para sa lahat ng kasalanan.</strong></div>
+
+  <!-- HINDI SINASADYA -->
+  <div class="sin-type">
+    <div class="sin-hdr green">
+      <div class="sh-dot"></div>
+      Uri 1 — Hindi Sinasadyang Kasalanan (Kasalanan ng Kamangmangan / Ignorance)
+    </div>
+    <div class="sin-body">
+      <p>Ito ay kasalanang dulot ng <strong>kamangmangan</strong> — hindi mo alam na nagkakasala ka, o hindi mo sinasadya na masaktan ang iyong kapwa.</p>
+      <p>Halimbawa: Nagsabi ka ng isang bagay na nakasakit sa iyong kapatid — nang hindi mo nalalaman. Hindi mo sinasadya. <em>Pero kapag nalaman mo — kailangan mong humingi ng kapatawaran.</em></p>
+      <p>Sabi sa Mateo 18:15 — <strong>"Kung magkasala ang iyong kapatid, puntahan mo siya at kausapin nang sarilinan tungkol sa kanyang kamalian."</strong> Hindi dapat magdisappear. Hindi dapat mag-justify. Kailangan harapin at ayusin.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Leviticus 4:27–28 (Lumang Tipan)</div>
+    <p>"Sabihin mo sa bayan ng Israel kung ano ang dapat nilang gawin kapag sila'y nagkasala o hindi sinasadyang nakalabag sa alinmang utos ni Yahweh..."</p>
+    <cite>— Leviticus 4:27</cite>
+  </div>
+
+  <!-- SINASADYA -->
+  <div class="sin-type" style="margin-top:14px;">
+    <div class="sin-hdr red">
+      <div class="sh-dot"></div>
+      Uri 2 — Sinasadyang Kasalanan (Alam mo, ngunit ginawa mo pa rin)
+    </div>
+    <div class="sin-body">
+      <p>Ito ay mga kasalanang may sapat na kaalaman ang isang tao, subalit <strong>sa kabila nito ay pinili pa rin niyang gawin</strong> ang isang bagay na taliwas sa kalooban ng Diyos.</p>
+      <p>Mayroong dalawang uri ng sinasadyang kasalanan:</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--red);">A</div>
+      <div>
+        <h4>Sin of Commission — Kasalanan ng Paggawa</h4>
+        <p>Mga kasalanang aktibong ginagawa ng tao na labag sa salita at kalooban ng Diyos. Halimbawa: panlilinlang, pagsisinungaling, pananakit ng kapwa, pagnanakaw.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--red);">B</div>
+      <div>
+        <h4>Sin of Omission — Kasalanan ng Hindi Paggawa</h4>
+        <p>"Ang nakakaalam na dapat niyang gawin ang mabuti ngunit hindi iyon ginagawa ay nagkakasala." — Santiago 4:17. Halimbawa: hindi nananalangin, hindi naglilingkod, hindi tumulong sa nangangailangan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Paliwanag ng Nagtaturo</div>
+    <div class="illus-body">
+      <p>"Kung alam mo ang mabuti, hindi mo ginagawa — kasalanan po yon. Kailangan mong manalangin? Hindi ka nananalagin — nagkakasala ka. Kailangan mong maglingkod? Hindi ka naglilingkod — nagkakasala ka."</p>
+      <p>Sabi din sa Santiago 4:13–14: Huwag magplano nang hindi isinama ang Panginoon. <em>"Hindi mo nga alam kung anong mangyari sa araw ng bukas. Ang buhay mo ay parang usok lamang — sandaling lumilitaw at agad nawawala."</em></p>
+      <p>Kapag naging masagana tayo at nakalimutan na natin ang Panginoon — nawawalan na ng puwang si Hesus sa ating buhay. Ang kabuluhan ng buhay ay magkaroon ng takot sa Diyos at maglingkod sa Kanya.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Santiago 4:17</div>
+    <p>"Ang nakakaalam na dapat niyang gawin ang mabuti ngunit hindi iyon ginagawa ay nagkakasala."</p>
+    <cite>— Santiago 4:17</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Mateo 6:14–15</div>
+    <p>"Sapagkat kung patatawarin ninyo ang mga nagkakasala sa inyo, patatawarin din kayo ng inyong Amang nasa langit. Ngunit kung hindi ninyo patatawarin ang iba, hindi din naman kayo patatawarin ng inyong Ama."</p>
+    <cite>— Mateo 6:14–15</cite>
+  </div>
+
+  <div class="hl purple">
+    <p><strong>Ang sinful nature</strong> — mana natin mula kay Adan — ay kumikiling sa masama. Pero bilang isang Kristiyano, <strong>kaya na nating labanan ito.</strong> Hindi ibig sabihin walang pagkakamali — ibig sabihin, unti-unti kang binabago ng Panginoon. Bawat Friday na tinamaan ka sa preaching — napapabuti ka. Ito ang proseso ng paglago.</p>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Lahat ng kasalanan — sinasadya man o hindi — ay nangangailangan ng pagsisisi at kapatawaran. Ang dugo ni Hesus ang tanging alay na katanggap-tanggap sa Diyos para sa kapatawaran ng ating kasalanan.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 3 ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--red);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Ang mapapatawad at hindi mapapatawad na kasalanan</h2>
+      <div class="sub">Mateo 12:31–32 · Hebreo 6:4–6 · 1 Juan 5:16</div>
+    </div>
+  </div>
+
+  <div class="body">May kasalanang maaaring patawarin pa — at may kasalanang hindi na. Mahalagang maunawaan ang pagkakaiba para ingatan natin ang ating pananampalataya.</div>
+
+  <!-- MAPAPATAWAD -->
+  <div class="sin-type">
+    <div class="sin-hdr green">
+      <div class="sh-dot"></div>
+      Mga Kasalanang Mapapatawad Pa
+    </div>
+    <div class="sin-body">
+      <p>Ang layunin ng Diyos ay ibalik ang tao sa Kanya — kaya naman pinadala Niya ang Kanyang Anak. <strong>Sinuman ang magsisi at mananampalataya sa ating Panginoong Hesus ay mapapatawad.</strong></p>
+      <p>Sabi sa Lucas 15 — nagagalak ang mga anghel sa kalangitan sa bawat makasalanang tumatalikod sa kasalanan. <em>Isa lang. Isa pang naliligtas — nagsasaya ang langit.</em></p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Lucas 15 · Mga Talinghaga ng Paghahanap</div>
+    <p>"Iiwanan ang Panginoon ang siyamnaput siyam na tupa at hahanapin ang nag-iisang nawawalang tupa — sapagkat mahalaga. Gayon din ang kagalakan ng mga anghel ng Diyos dahil sa isang makasalanang tumatalikod sa kasalanan."</p>
+    <cite>— Lucas 15:7</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Gawa 8:22</div>
+    <p>"Pagsisihin mo ang iyong kasamaan at manalangin ka sa Panginoon at nang sa gayon ay patawarin ka niya sa iyong masama mong hangarin."</p>
+    <cite>— Gawa 8:22</cite>
+  </div>
+
+  <!-- HINDI MAPAPATAWAD -->
+  <div class="sin-type" style="margin-top:14px;">
+    <div class="sin-hdr red">
+      <div class="sh-dot"></div>
+      Mga Kasalanang Hindi Na Mapapatawad
+    </div>
+    <div class="sin-body">
+      <p>May tatlong uri:</p>
+      <p><strong>① Paglapastangan laban sa Banal na Espiritu (Blasphemy)</strong><br>
+      <strong>② Apostasy — pagtalikod at pagbabalik na imposible</strong><br>
+      <strong>③ Place of No Repentance — patuloy sa pagkakasala hanggang tuluyang tumalikod</strong></p>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <div class="warn-lbl">① Blasphemy laban sa Banal na Espiritu</div>
+    <p>"Kaya't sinasabi ko sa inyo, mapapatawad ang anumang kasalanan at paglapastangan, ngunit hindi patatawarin ang anumang paglapastangan sa Espiritu Santo. Sino mang magsalita laban sa Anak ng Tao ay patatawarin. Ngunit sino mang magsalita laban sa Espiritu Santo ay hindi patatawarin — maging sa panahon ito at sa panahon darating." — <strong>Mateo 12:31–32</strong></p>
+    <p>Ang Banal na Espiritu ay gumagawa sa likod-eksena — Siya ang nagbibigay ng tapang, kaloob, at paggabay sa isang Kristiyano. <strong>Ang sabihing ang gawa ng Banal na Espiritu ay gawa ng diyablo</strong> — ito ang paglapastangan na walang kapatawaran.</p>
+  </div>
+
+  <div class="warn-box" style="margin-top:10px;">
+    <div class="warn-lbl">② Apostasy at Place of No Repentance — Hebreo 6:4–6</div>
+    <p>"Sapagkat ang mga minsan nang naliwanagan, nakalasap ng makalangit na kaloob, nakabahagi ng Banal na Espiritu, nakalasap ng mabuting salita ng Diyos at ng kapangyarihan ng paparating na panahon — at tumalikod — ay imposible na silang ibalik muli sa pagsisisi."</p>
+    <p>Ito ang taong <strong>naranasan na ang lahat</strong> — naliwanagan na, nakalasap ng presensya ng Diyos, nakadama ng kapangyarihan — ngunit <strong>unti-unting nanalamig at nagpasya na talikdan ang pananampalataya.</strong> May point of no repentance — hindi natin alam kung kailan — ngunit ito ay totoo.</p>
+  </div>
+
+  <div class="warn-box" style="margin-top:10px;">
+    <div class="warn-lbl">③ Pagpapatuloy sa Kasalanan hanggang Tuluyang Tumalikod — 1 Juan 5:16</div>
+    <p>"Kung nakakakita kayo ng inyong kapatid na gumagawa ng kasalanang hindi humahantong sa kamatayan, ipanalangin ninyo siya... May kasalanang humahantong sa kamatayan. Hindi ko sinasabing idalangin ninyo ang sino mang gumagawa nito."</p>
+    <p>Ito ay ang kapatid na <strong>pinanindigan na ang kanyang kasalanan</strong> — kahit anong gawin mo, ayaw niya magsisi. Nagpasya na siyang hindi na magbabago. Kapag ang kasalanang ginagawa niya ay humantong na sa kamatayan (espirituwal) at alam ng Panginoon na hindi na siya magbabalik-loob — ito ang pinaka-mabigat.</p>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Paliwanag ng Nagtaturo — Ang Panlalamig</div>
+    <div class="illus-body">
+      <p>"Huwag po nating susubukan ang paunti-unting panlalamig. Walang random na bumibbitaw sa pananampalataya — matagal na silang bumitaw. Hinihintay lang nila na magkaroon ng isang pangyayari para tuloy na silang bumitaw."</p>
+      <p>"Kapag dumako na tayo doon, nawawala na ang pananalangin, nawawala na ang kasabikan sa presensya ng Panginoon. Padalo-dalo na lang — nandiyan pero parang wala."</p>
+      <p>Ang basketball player na nasiko — parang ito na ang hudyat ng kanyang pag-alis. Ngunit ang totoo, <em>matagal na siyang nanalamig bago pa man mangyari ang pangyayaring iyon.</em></p>
+    </div>
+  </div>
+
+  <div class="hl red">
+    <p><strong>Babala:</strong> Huwag ipagpalit ang pangalan ni Hesus na nakadugtong sa ating pangalan (tayo ay tinatawag na Kristiyano) sa kahit anong maliit na pakinabang. Huwag i-compromise ang pananampalataya — kahit trabaho, kahit overtime, kahit pakikisama. <em>"Hindi pa nga kayo nasusubok na mag-alay ng dugo — tapos sa maliit na pagsubok dumudugo na kayo."</em></p>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Hebreo 12:17 — Si Esau at ang Pagbabalik</div>
+    <p>"Alam ninyo ang nangyari pagkatapos. Hiningi niya sa kanyang ama na igawad sa kanya ang pagpapalang nauukol sa panganay. Ngunit ito'y tinanggihan sa kanya sapagkat hindi niya mapabago ang kanyang ginawa kahit ano pa man ang kanyang pakiusap at pagluha."</p>
+    <cite>— Hebreo 12:17</cite>
+  </div>
+
+  <div class="body">Si Esau ay nagpalit ng kanyang karapatang panganay para sa isang mangkok ng sabaw. Nung naiimasmasan siya at nais ibalik ang pagpalang iyon — <strong>hindi na niya maaari.</strong> May mga bagay sa buhay na <em>irreversible</em> — hindi na mapapabago kahit lumuha pa.</div>
+
+  <div class="truth red">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>May kasalanang mapapatawad pa — at mayroong hindi na. Huwag subukin ang hangganan ng biyaya ng Diyos sa pamamagitan ng patuloy na pagkakasala. Ang kamatayan ng Panginoong Hesus lamang ang katanggap-tanggap na alay para sa kapatawaran ng kasalanan ng tao.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral — May 15</div>
+      <h3>Ano ang Katotohanan tungkol sa Kasalanan?</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — Pumasok ang kasalanan sa pamamagitan ng isang tao:</strong> Hindi ginawa ng Diyos ang kasalanan — bunga ito ng maling pagpili ng tao. Ngunit kahit nagkasala tayo, hindi tayo iniwan ng Diyos. Ibinigay Niya ang Tagapagligtas — si Hesus — para muli tayong maibalik sa Kanya.</p>
+      <p><strong>Ikalawa — Lahat ng kasalanan ay nangangailangan ng pagsisisi:</strong> Sinasadya man o hindi, commission man o omission — ang lahat ay nangangailangan ng kapatawaran. Ang dugo ni Hesus ang tanging alay na katanggap-tanggap. Huwag mag-justify. Huwag magdisappear. Harapin at ayusin.</p>
+      <p><strong>Pangatlo — Ingatan ang pananampalataya:</strong> May kasalanang mapapatawad pa — at mayroong hindi na. Huwag subukin ang hangganan. Huwag hayaang ang pananampalataya ay unti-unting nanalamig. Maging matatag at huwag i-compromise ang pangalan ni Hesus sa kahit anong pakinabang.</p>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Ang kasalanan ay isang tanikala na umaalipin sa tao upang hindi niya maranasan ang dakilang pag-ibig at layunin ng Diyos. Ang magandang balita ay makakalaya na ang tao mula rito kung siya ay magsusuko ng kanyang buhay sa Panginoong Hesus."</p>
+    <cite>— Mula sa Sermon</cite>
+  </div>
+
+  <div class="sec-lbl">Ang Solusyon — Si Hesus</div>
+  <div class="card">
+    <p>Mula sa lumang tipan hanggang sa bagong tipan — may plano ang Diyos. Ang plano Niya ay <strong>magkaroon tayo ng buhay na walang hanggan.</strong> Nang pumasok ang kasalanan, nagkaroon ng agwat sa pagitan ng Diyos at ng tao. Ngunit ibinigay ng Diyos ang Kanyang Anak bilang tulay — para maibalik ang dating ugnayan.</p>
+    <p>Si Hesus ay napako sa Krus — at ang Kanyang pag-aalay ay <strong>once and for all.</strong> Kung iaalay natin ang ating sarili bilang handog na buhay sa Panginoon — ang nakikita ng Diyos sa atin ay si Kristo Hesus na namatay sa Krus ng Kalbaryo. At hindi na niya tinuturing tayong kaaway.</p>
+  </div>
+
+  <div class="steps" style="margin-top:14px;">
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">1</div>
+      <div>
+        <h4>Kilalanin ang Kasalanan</h4>
+        <p>Huwag mag-justify. Huwag sisihin ang iba. Matanggap na ang responsibilidad sa sariling kasalanan.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">2</div>
+      <div>
+        <h4>Magsisi at Humingi ng Kapatawaran</h4>
+        <p>Sa Diyos at sa kapwa na nasaktan. Huwag hayaang lumipas ang araw nang hindi naayos ang mga bagay.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">3</div>
+      <div>
+        <h4>Talikdan ang Kasalanan at Manumbalik</h4>
+        <p>Hindi lang pagsisisi — kundi aktibong pagbabago ng direksyon. Bumalik sa Panginoon nang buong puso.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">4</div>
+      <div>
+        <h4>Palakasin ang Pananampalataya</h4>
+        <p>Huwag hayaang nanalamig. Ipagpatuloy ang pagtitipon, pananalangin, at pakikinig sa Salita ng Diyos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, maraming salamat sa araw na ito at sa pagkakataong makapakinig at makapag-aral ng Iyong mga salita. Patuloy Mong binabalaan, tinuturuan, at iniibigin kami sa kabila ng aming mga pagkukulang. Dalangin namin na ang aming narinig ay hindi manatili lamang sa sandaling ito — kundi maranasan namin ito sa aming pamumuhay bilang mga Kristiyano. Na mas magmahal kami sa aming kapwa, mas maglingkod kami sa Iyo, at ibahagi namin sa ibang tao ang dakilang pag-ibig at kabutihan Mong aming naranasan. Sa dakilang pangalan ng aming Panginoong Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Ang sino mang magsisi at sasampalataya sa ating Panginoon ay mapapatawad at mapapalaya na sa kasalanan."</p>
+    <cite>— Gawa 8:22 · Talatang Iuunawa sa Linggo</cite>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<script>
+// ==== UI LOGIC (TABS) ====
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ==== ADVANCED AUDIO PLAYER ====
+const audio = document.getElementById('sermon-audio');
+const playBtn = document.getElementById('play-pause-btn');
+const currentTimeDisplay = document.getElementById('current-time');
+const totalTimeDisplay = document.getElementById('total-time');
+const seekBar = document.getElementById('seek-bar');
+const speedBtn = document.getElementById('speed-btn');
+
+let isDragging = false;
+const speeds = [0.75, 1.0, 1.25, 1.5, 2.0];
+let currentSpeedIndex = 1;
+
+const formatTime = (time) => {
+  if (isNaN(time)) return "0:00";
+  const mins = Math.floor(time / 60);
+  const secs = Math.floor(time % 60);
+  return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+};
+
+playBtn.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play();
+    playBtn.innerHTML = '⏸';
+  } else {
+    audio.pause();
+    playBtn.innerHTML = '▶';
+  }
+});
+
+audio.addEventListener('loadedmetadata', () => {
+  seekBar.max = Math.floor(audio.duration);
+  totalTimeDisplay.innerText = formatTime(audio.duration);
+});
+
+audio.addEventListener('timeupdate', () => {
+  if (!isDragging) {
+    seekBar.value = Math.floor(audio.currentTime);
+    currentTimeDisplay.innerText = formatTime(audio.currentTime);
+  }
+});
+
+seekBar.addEventListener('input', () => {
+  isDragging = true;
+  currentTimeDisplay.innerText = formatTime(seekBar.value);
+});
+
+seekBar.addEventListener('change', () => {
+  audio.currentTime = seekBar.value;
+  isDragging = false;
+});
+
+speedBtn.addEventListener('click', () => {
+  currentSpeedIndex++;
+  if (currentSpeedIndex >= speeds.length) currentSpeedIndex = 0;
+  const newSpeed = speeds[currentSpeedIndex];
+  audio.playbackRate = newSpeed;
+  speedBtn.innerText = newSpeed + 'x';
+});
+
+audio.addEventListener('ended', () => {
+  playBtn.innerHTML = '▶';
+  seekBar.value = 0;
+  currentTimeDisplay.innerText = "0:00";
+});
+
+// ==== AUTO-TRANSPARENT (INACTIVITY TIMER) ====
+const audioContainer = document.getElementById('audio-container');
+let inactivityTimer;
+
+function resetPlayerVisibility() {
+  audioContainer.classList.remove('dimmed');
+  clearTimeout(inactivityTimer);
+  inactivityTimer = setTimeout(() => {
+    if (!audio.paused) {
+      audioContainer.classList.add('dimmed');
+    }
+  }, 4000);
+}
+
+window.addEventListener('scroll', resetPlayerVisibility);
+window.addEventListener('touchstart', resetPlayerVisibility);
+window.addEventListener('mousemove', resetPlayerVisibility);
+window.addEventListener('click', resetPlayerVisibility);
+
+resetPlayerVisibility();
+</script>
+</body>
+</html>
