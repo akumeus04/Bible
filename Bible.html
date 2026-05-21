@@ -115,7 +115,7 @@
 	
 	main {
       display: flex; flex-direction: column; flex: 1;
-      overflow: hidden; min-height: 0; /* Prevents the main screen from stretching past the bottom */
+      overflow: hidden; min-height: 0;
     }
 
     /* ── CHAPTER TOPBAR ── */
@@ -155,8 +155,25 @@
       color: #1a1200; background: var(--gold); border-radius: 3px;
       padding: 1px 5px; margin-bottom: 4px;
     }
-    .verse-ref { font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; display: block; }
+
+    /* ── Verse ref row (ref + pin button side-by-side) ── */
+    .verse-ref-row {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-bottom: 5px;
+    }
+    .verse-ref { font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); display: block; }
     .verse-text { font-size: 18px; line-height: 1.8; color: var(--text-primary); }
+
+    /* ── Pin button on verse cards ── */
+    .pin-verse-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 13px; padding: 2px 4px; line-height: 1;
+      color: var(--text-muted); flex-shrink: 0;
+      transition: color 0.18s, transform 0.18s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .pin-verse-btn:active { transform: scale(1.25); }
+    .pin-verse-btn.pinned { color: var(--gold); }
 
     @keyframes fadeUp { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
 
@@ -204,8 +221,6 @@ select, input[type="text"] {
   color: var(--text-primary); font-family: 'EB Garamond', serif;
   font-size: 16px; outline: none; transition: border-color 0.2s;
   -webkit-appearance: none; appearance: none;
-  
-  /* Fixed Mobile Keyboard handling */
   -webkit-user-select: auto !important;
   user-select: auto !important;
   touch-action: manipulation;
@@ -253,9 +268,44 @@ select, input[type="text"] {
     #desktop-sync-btn { display: none !important; }
 
     /* ══════════════════════════════════════════════════════
+       PINNED VERSES (drawer section)
+    ══════════════════════════════════════════════════════ */
+    .pinned-section-label {
+      font-family: 'Cinzel', serif; font-size: 9px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 6px;
+    }
+    #pinned-verses-list { display: flex; flex-direction: column; }
+    .pinned-empty {
+      font-size: 12px; color: var(--text-muted); font-style: italic;
+      padding: 4px 0 2px;
+    }
+    .pinned-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 0; border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .pinned-item:last-child { border-bottom: none; }
+    .pinned-ref {
+      background: none; border: none; padding: 0; text-align: left;
+      font-family: 'Cinzel', serif; font-size: 11px;
+      color: var(--gold-light); letter-spacing: 0.06em;
+      cursor: pointer; flex-grow: 1;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .pinned-ref:active { color: var(--gold); }
+    .unpin-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-muted); font-size: 11px; padding: 4px 6px;
+      line-height: 1; transition: color 0.18s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .unpin-btn:active { color: #e06060; }
+
+    /* ══════════════════════════════════════════════════════
        FLOATING ACTION BUTTONS
     ══════════════════════════════════════════════════════ */
-    /* Shared FAB base */
     .fab {
       position: fixed; bottom: 24px; z-index: 490;
       width: 50px; height: 50px; border-radius: 50%;
@@ -268,7 +318,6 @@ select, input[type="text"] {
     }
     .fab:active { transform: scale(0.92); }
 
-    /* Cloud sync FAB — right side */
     #fab-sync {
       right: 16px;
       background: linear-gradient(135deg, #b8892a, var(--gold));
@@ -276,7 +325,6 @@ select, input[type="text"] {
     #fab-sync.spinning { animation: fabSpin 1.1s linear infinite; }
     @keyframes fabSpin { to { transform: rotate(360deg); } }
 
-    /* Search FAB — left of sync */
     #fab-search {
       right: 78px;
       background: var(--bg-card);
@@ -286,7 +334,6 @@ select, input[type="text"] {
     }
     #fab-search:active { background: var(--bg-hover); }
 
-    /* Hide drawer search section on mobile — only in overlay */
     .drawer-search-section { display: none; }
 
 
@@ -295,7 +342,7 @@ select, input[type="text"] {
     ══════════════════════════════════════════════════════ */
     #search-overlay {
       position: fixed; inset: 0; z-index: 800;
-      background: var(--bg-panel); /* Solid background, no more dim overlay to accidentally tap */
+      background: var(--bg-panel);
       display: flex; flex-direction: column;
       pointer-events: none; opacity: 0;
       transition: opacity 0.2s ease;
@@ -304,18 +351,15 @@ select, input[type="text"] {
       pointer-events: auto; opacity: 1;
     }
     
-    /* Hide the old background layer */
     #search-overlay-bg { display: none; }
 
-    /* Make the panel take up the entire screen */
 #search-panel {
       flex: 1; display: flex; flex-direction: column;
       padding: 20px 16px 20px;
       transform: none; 
-      min-height: 0; /* CRITICAL FIX: Forces panel to stay on-screen so the list inside can scroll */
+      min-height: 0;
     }
     
-    /* Header row: label + close */
     #search-panel-header {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 14px; flex-shrink: 0;
@@ -331,7 +375,6 @@ select, input[type="text"] {
     }
     #search-close-btn:active { color: var(--gold); }
     
-    /* Input inside overlay */
     #search-overlay-wrap {
       position: relative; flex-shrink: 0;
     }
@@ -351,20 +394,18 @@ select, input[type="text"] {
     }
     #overlay-search-input:focus { border-color: var(--gold); }
     
-    /* Hint text */
     #search-hint {
       font-size: 11px; color: var(--text-muted); font-style: italic;
       margin-top: 10px; text-align: center; flex-shrink: 0;
     }
     
-    /* Suggestions inside overlay - FULL HEIGHT SCROLL */
     #overlay-suggestions {
-      margin-top: 12px; flex: 1; /* Takes all remaining vertical space */
+      margin-top: 12px; flex: 1;
       background: var(--bg-card); border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      overflow-y: auto; max-height: none; /* Removed the restrictive height limit */
+      overflow-y: auto; max-height: none;
       display: none;
-      -webkit-overflow-scrolling: touch; /* Force smooth momentum scrolling on iOS */
+      -webkit-overflow-scrolling: touch;
     }
     #overlay-suggestions .suggestion-item {
       padding: 14px 16px; font-size: 16px; cursor: pointer;
@@ -374,7 +415,6 @@ select, input[type="text"] {
     #overlay-suggestions .suggestion-item:last-child { border-bottom: none; }
     #overlay-suggestions .suggestion-item:active { background: var(--bg-hover); color: var(--gold); }
 
-    /* ── Touch overlay to close drawer ── */
     #drawer-overlay {
       display: none; position: fixed; inset: 0; z-index: 499;
       background: rgba(0,0,0,0.35);
@@ -390,13 +430,11 @@ select, input[type="text"] {
        DESKTOP ≥ 700px — restore sidebar layout
     ══════════════════════════════════════════════════════ */
     @media (min-width: 700px) {
-      /* Hide the mobile menu button on large screens */
       .menu-btn { display: none !important; }
 
       html, body { overflow: auto; height: auto; min-height: 100vh; }
       .app-layout { display: grid; grid-template-columns: 290px 1fr; overflow: visible; }
 
-      /* Sidebar */
       #drawer {
         position: static; transform: none !important; max-height: none;
         border-radius: 0; border-top: none; border-right: 1px solid var(--border);
@@ -407,7 +445,6 @@ select, input[type="text"] {
       #drawer-body { padding: 16px; flex: 1; overflow-y: auto; }
       #drawer-overlay { display: none !important; }
 
-      /* Reader */
       #lyrics-grid-wrapper { padding: 20px 20px 24px; }
       #lyrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
       .verse-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
@@ -416,16 +453,12 @@ select, input[type="text"] {
       .verse-card:hover::before { opacity: 1; }
       .verse-text { font-size: 15px; }
 
-      /* Hide FABs, show desktop sync btn */
       #fab-sync   { display: none; }
       #fab-search { display: none; }
       #desktop-sync-btn { display: flex !important; }
-      /* Show search in drawer on desktop */
       .drawer-search-section { display: block !important; }
-      /* Hide mobile search overlay */
       #search-overlay { display: none !important; }
 
-      /* Show hidden sections on desktop */
       #cache-section { display: block !important; }
       .btn-upload { display: flex !important; }
 
@@ -537,6 +570,14 @@ select, input[type="text"] {
         <button class="btn" style="margin-top:8px;" onclick="clearLocalCache()">🗑 Clear Cache</button>
       </div>
 
+      <!-- ══ PINNED VERSES ══════════════════════════════ -->
+      <div class="drawer-section" id="pinned-section">
+        <div class="pinned-section-label">📌 Pinned Verses</div>
+        <div id="pinned-verses-list">
+          <div class="pinned-empty">No pinned verses yet.</div>
+        </div>
+      </div>
+
     </div><!-- /drawer-body -->
   </div><!-- /drawer -->
 
@@ -603,6 +644,89 @@ let bibles             = {};
 let currentBibleKey    = null;
 let bibleToolsExpanded = true;
 window.currentSongData = null;
+
+// ════════════════════════════════════════════════════════════
+//  PINNED VERSES STATE
+// ════════════════════════════════════════════════════════════
+let pinnedVerses = [];
+try { pinnedVerses = JSON.parse(localStorage.getItem('pinnedVerses')) || []; } catch(e) { pinnedVerses = []; }
+
+// Parse a verse card name like "John 3:16" or "1 Corinthians 13:4"
+function parseVerseName(name) {
+  const m = name.trim().match(/^(.+?)\s+(\d+):(\d+)$/);
+  if (!m) return null;
+  return { book: m[1], chapter: parseInt(m[2]), verse: parseInt(m[3]) };
+}
+
+function isPinned(book, chapter, verse) {
+  return pinnedVerses.some(p => p.book === book && p.chapter === chapter && p.verse === verse);
+}
+
+function savePinned() {
+  localStorage.setItem('pinnedVerses', JSON.stringify(pinnedVerses));
+}
+
+// Re-render the pinned list in the drawer
+function renderPinnedVerses() {
+  const container = document.getElementById('pinned-verses-list');
+  if (!container) return;
+  container.innerHTML = '';
+
+  if (!pinnedVerses.length) {
+    container.innerHTML = '<div class="pinned-empty">No pinned verses yet.</div>';
+    return;
+  }
+
+  pinnedVerses.forEach((v, index) => {
+    const item = document.createElement('div');
+    item.className = 'pinned-item';
+
+    // Must be <button>, not <span> — iOS Safari suppresses click events
+    // on non-interactive elements (span/div) regardless of cursor CSS.
+    const ref = document.createElement('button');
+    ref.className = 'pinned-ref';
+    ref.textContent = `${v.book} ${v.chapter}:${v.verse}`;
+    ref.onclick = (e) => {
+      e.stopPropagation();
+      executeBibleSearch(v.book, v.chapter, v.verse, null, null);
+    };
+
+    const btn = document.createElement('button');
+    btn.className = 'unpin-btn';
+    btn.title = 'Unpin';
+    btn.textContent = '✕';
+    btn.onclick = (e) => { e.stopPropagation(); unpinVerse(index); };
+
+    item.appendChild(ref);
+    item.appendChild(btn);
+    container.appendChild(item);
+  });
+}
+
+// Toggle pin from a verse card button
+window.togglePin = function(book, chapter, verse) {
+  const idx = pinnedVerses.findIndex(p => p.book === book && p.chapter === chapter && p.verse === verse);
+  if (idx >= 0) {
+    pinnedVerses.splice(idx, 1);
+    showNotification(`Unpinned ${book} ${chapter}:${verse}`);
+  } else {
+    pinnedVerses.push({ book, chapter, verse });
+    showNotification(`📌 Pinned ${book} ${chapter}:${verse}`);
+  }
+  savePinned();
+  renderPinnedVerses();
+  // Refresh pin button states in the current grid
+  window.renderLyricsGrid();
+};
+
+function unpinVerse(index) {
+  const v = pinnedVerses[index];
+  pinnedVerses.splice(index, 1);
+  savePinned();
+  renderPinnedVerses();
+  if (v) showNotification(`Unpinned ${v.book} ${v.chapter}:${v.verse}`);
+  window.renderLyricsGrid();
+}
 
 // ════════════════════════════════════════════════════════════
 //  STATIC DATA
@@ -692,7 +816,6 @@ function openDrawer() {
   document.getElementById('drawer').classList.add('open');
   document.getElementById('drawer-overlay').classList.add('show');
   document.getElementById('drawer-label').textContent = '✕ Close';
-  // Dim FABs while drawer is open
   ['fab-sync','fab-search'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.style.opacity = '0'; el.style.pointerEvents = 'none'; }
@@ -703,7 +826,6 @@ function closeDrawer() {
   document.getElementById('drawer').classList.remove('open');
   document.getElementById('drawer-overlay').classList.remove('show');
   document.getElementById('drawer-label').textContent = 'Bible Tools';
-  // Restore FABs
   ['fab-sync','fab-search'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.style.opacity = '1'; el.style.pointerEvents = 'auto'; }
@@ -716,7 +838,6 @@ function closeDrawer() {
 function openSearchOverlay() {
   const ov = document.getElementById('search-overlay');
   ov.classList.add('open');
-  // Autofocus input after animation starts
   setTimeout(() => {
     const inp = document.getElementById('overlay-search-input');
     if (inp) inp.focus();
@@ -732,7 +853,6 @@ function closeSearchOverlay() {
   if (sugg) { sugg.innerHTML = ''; sugg.style.display = 'none'; }
 }
 
-// Mirror of handleBibleSearch but targets overlay-specific elements
 window.handleOverlaySearch = input => {
   const val  = input.value.trim();
   const sugg = document.getElementById('overlay-suggestions');
@@ -813,7 +933,25 @@ window.renderLyricsGrid = () => {
     const badge = part.version
       ? `<span class="verse-version-badge">${part.version}</span>` : '';
 
-    card.innerHTML = `${badge}<span class="verse-ref">${part.name}</span><div class="verse-text">${part.lyrics}</div>`;
+    // Build pin button if this is a specific verse (name contains chapter:verse)
+    const pinData = parseVerseName(part.name);
+    let pinBtnHtml = '';
+    if (pinData) {
+      const pinned = isPinned(pinData.book, pinData.chapter, pinData.verse);
+      // Escape book name for inline onclick (handles "1 Corinthians" etc.)
+      const bookEsc = pinData.book.replace(/'/g, "\\'");
+      pinBtnHtml = `<button class="pin-verse-btn${pinned ? ' pinned' : ''}"
+        onclick="event.stopPropagation();togglePin('${bookEsc}',${pinData.chapter},${pinData.verse})"
+        title="${pinned ? 'Unpin' : 'Pin this verse'}">${pinned ? '📌' : '🔖'}</button>`;
+    }
+
+    card.innerHTML = `${badge}
+      <div class="verse-ref-row">
+        <span class="verse-ref">${part.name}</span>
+        ${pinBtnHtml}
+      </div>
+      <div class="verse-text">${part.lyrics}</div>`;
+
     card.addEventListener('click', () => {
       document.querySelectorAll('.verse-card').forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
@@ -894,7 +1032,6 @@ window.onChapterChange = () => {
   const vSel = document.getElementById('bible-verse');
   vSel.innerHTML = '<option value="" disabled selected>Vs</option>';
   verses.forEach(v => { const o = document.createElement('option'); o.value = v.verse; o.innerText = v.verse; vSel.appendChild(o); });
-  // Auto-close drawer after chapter selected
   closeDrawer();
 };
 
@@ -911,16 +1048,8 @@ window.onVerseChange = () => {
 // ════════════════════════════════════════════════════════════
 //  SEARCH HELPERS
 // ════════════════════════════════════════════════════════════
-
-// Parse a reference — supports:
-//   "John"            → book only
-//   "John 3"          → book + chapter
-//   "John 3:16"       → book + chapter + verse
-//   "John 3:16-20"    → book + chapter + verse range
-//   "1 Cor 13:4-7"    → numbered book + chapter + verse range
 function parseReference(val) {
   const s = val.trim().replace(/\s+/g, ' ');
-  // Regex: (book) (chapter)? (:verseStart)? (-verseEnd)?
   const m = s.match(/^(\d?\s?[a-zA-Z][a-zA-Z\s]*)\s*(\d+)?(?:[:.](\d+)(?:-(\d+))?)?$/);
   if (!m) return null;
   const bookQ = m[1].trim().toLowerCase();
@@ -929,13 +1058,12 @@ function parseReference(val) {
     bookQuery:  bookQ,
     chapQuery:  m[2] ? parseInt(m[2])  : null,
     verseQuery: m[3] ? parseInt(m[3])  : null,
-    verseEnd:   m[4] ? parseInt(m[4])  : null   // null = single verse (or no verse)
+    verseEnd:   m[4] ? parseInt(m[4])  : null
   };
 }
 
-// Find matching books across all versions for a given query
 function findMatchingBooks(bookQuery) {
-  const results = []; // { versionName, book, bookIdx }
+  const results = [];
   Object.keys(bibles).forEach(versionName => {
     const bible = bibles[versionName];
     if (!bible || !bible.books) return;
@@ -947,12 +1075,8 @@ function findMatchingBooks(bookQuery) {
   return results;
 }
 
-// ── HIDE SUGGESTIONS ON CLICK OUTSIDE ─────────────────────
 function hideSuggestionsIfOutside(e) {
-  // CRITICAL FIX: If the user is tapping the search box directly, do NOTHING.
-  // This stops the script from accidentally blurring the keyboard.
   if (e.target && e.target.id === 'bible-search') return;
-
   const searchWrap = document.querySelector('.search-wrap');
   const sugg = document.getElementById('bible-suggestions');
   if (sugg && sugg.style.display === 'block') {
@@ -964,7 +1088,6 @@ function hideSuggestionsIfOutside(e) {
 document.addEventListener('mousedown', hideSuggestionsIfOutside);
 document.addEventListener('touchstart', hideSuggestionsIfOutside, { passive: true });
 
-// ── MAIN SEARCH HANDLER (oninput) ─────────────────────────
 window.handleBibleSearch = input => {
   const val  = input.value.trim();
   const sugg = document.getElementById('bible-suggestions');
@@ -977,7 +1100,6 @@ window.handleBibleSearch = input => {
   const { bookQuery, chapQuery, verseQuery, verseEnd } = ref;
   const matches = findMatchingBooks(bookQuery);
 
-  // De-duplicate by bookName+version
   const seen = new Set();
   matches.forEach(({ versionName, book }) => {
     const key = `${book.name}||${versionName}`;
@@ -1001,7 +1123,6 @@ window.handleBibleSearch = input => {
   sugg.style.display = sugg.children.length > 0 ? 'block' : 'none';
 };
 
-// ── ENTER KEY HANDLER ─────────────────────────────────────
 window.handleBibleSearchKey = (e, input) => {
   if (e.key !== 'Enter') return;
   e.preventDefault();
@@ -1010,12 +1131,10 @@ window.handleBibleSearchKey = (e, input) => {
   const ref = parseReference(val);
   if (!ref) { showNotification('Type a reference like "John 3:16" or "John 3:16-20"'); return; }
 
-  // FIX: Added verseEnd to the destructuring extraction here
-  const { bookQuery, chapQuery, verseQuery, verseEnd } = ref; 
+  const { bookQuery, chapQuery, verseQuery, verseEnd } = ref;
   const matches = findMatchingBooks(bookQuery);
   if (!matches.length) { showNotification(`No book matching "${bookQuery}" found.`); return; }
 
-  // Use the first matched book name (same book exists in all versions)
   const bookName = matches[0].book.name;
 
   const sugg = document.getElementById('bible-suggestions');
@@ -1023,21 +1142,15 @@ window.handleBibleSearchKey = (e, input) => {
   
   input.value = '';
   input.blur();
-  closeSearchOverlay(); // close overlay if search came from FAB
+  closeSearchOverlay();
 
-  executeBibleSearch(bookName, chapQuery, verseQuery, verseEnd, null /* all versions */);
+  executeBibleSearch(bookName, chapQuery, verseQuery, verseEnd, null);
 };
 
-// ── EXECUTE SEARCH ─────────────────────────────────────────
-// versionFilter = null  → show result from ALL versions
-// versionFilter = "NIV" → show only that version
-// verseEnd = null  → single verse; number → verse range
 function executeBibleSearch(bookName, chapQuery, verseQuery, verseEnd, versionFilter) {
   if (verseQuery && chapQuery) {
-    // Specific verse (or range) → show all versions side by side
     loadVerseAllVersions(bookName, chapQuery, verseQuery, verseEnd, versionFilter);
   } else if (chapQuery) {
-    // Whole chapter — pick version (filter or current)
     const ver = versionFilter || currentBibleKey;
     if (!bibles[ver]) return;
     currentBibleKey = ver;
@@ -1052,7 +1165,6 @@ function executeBibleSearch(bookName, chapQuery, verseQuery, verseEnd, versionFi
     loadBibleChapter(bIdx, chapQuery);
     closeDrawer();
   } else {
-    // Book name only — load chapter 1 of all matched versions? Just navigate to book.
     const ver = versionFilter || currentBibleKey;
     currentBibleKey = ver;
     localStorage.setItem("currentBibleKey", ver);
@@ -1068,8 +1180,6 @@ function executeBibleSearch(bookName, chapQuery, verseQuery, verseEnd, versionFi
 
 // ════════════════════════════════════════════════════════════
 //  LOAD VERSE / RANGE ACROSS ALL VERSIONS
-//  verseEnd = null  → single verse
-//  verseEnd = 20    → verse range verseNum..20
 // ════════════════════════════════════════════════════════════
 function loadVerseAllVersions(bookName, chap, verseStart, verseEnd, versionFilter) {
   const parts = [];
@@ -1083,41 +1193,27 @@ function loadVerseAllVersions(bookName, chap, verseStart, verseEnd, versionFilte
     if (!book) return;
 
     if (isRange) {
-      // Collect all verses in range, combine into one card per version
       const rangeVerses = book.verses
         .filter(v => v.chapter === chap && v.verse >= verseStart && v.verse <= verseEnd)
         .sort((a, b) => a.verse - b.verse);
       if (!rangeVerses.length) return;
-
-      // Each verse gets its own card, grouped under the version
       rangeVerses.forEach(v => {
-        parts.push({
-          version: versionName,
-          name:    `${bookName} ${chap}:${v.verse}`,
-          lyrics:  v.text
-        });
+        parts.push({ version: versionName, name: `${bookName} ${chap}:${v.verse}`, lyrics: v.text });
       });
     } else {
-      // Single verse
       const v = book.verses.find(v => v.chapter === chap && v.verse === verseStart);
       if (!v) return;
-      parts.push({
-        version: versionName,
-        name:    `${bookName} ${chap}:${verseStart}`,
-        lyrics:  v.text
-      });
+      parts.push({ version: versionName, name: `${bookName} ${chap}:${verseStart}`, lyrics: v.text });
     }
   });
 
-  if (!parts.length) { showNotification('Verse not found in any version.'); return; }
+  if (!parts.length) { closeDrawer(); showNotification('Verse not found in any version.'); return; }
 
   const refLabel = isRange ? `${chap}:${verseStart}-${verseEnd}` : `${chap}:${verseStart}`;
   const titleSuffix = versionFilter ? ` (${versionFilter})` : ' — All Versions';
 
   window.currentSongData = {
-    type:  'song',
-    title: `${bookName} ${refLabel}${titleSuffix}`,
-    parts: parts
+    type: 'song', title: `${bookName} ${refLabel}${titleSuffix}`, parts
   };
   document.getElementById('current-song-title').innerText = window.currentSongData.title;
   window.renderLyricsGrid();
@@ -1128,8 +1224,7 @@ function loadBibleChapter(bookIdx, chap) {
   const book   = bibles[currentBibleKey].books[bookIdx];
   const verses = book.verses.filter(v => v.chapter === chap).sort((a,b) => a.verse - b.verse);
   window.currentSongData = {
-    type:  'song',
-    title: `${book.name} ${chap} (${currentBibleKey})`,
+    type: 'song', title: `${book.name} ${chap} (${currentBibleKey})`,
     parts: verses.map(v => ({ name: `${book.name} ${chap}:${v.verse}`, lyrics: v.text }))
   };
   document.getElementById('current-song-title').innerText = window.currentSongData.title;
@@ -1190,18 +1285,11 @@ function readFileAsBuffer(file) {
   return new Promise(r => { const rd = new FileReader(); rd.onload = e => r(e.target.result); rd.readAsArrayBuffer(file); });
 }
 
-// Universal parser — handles:
-//   • Raw XML string
-//   • JSON-wrapped XML string  ← your file format
-//   • Plain JSON object
-//   • Array of books
 function parseUnknownBibleFormat(rawData, filename) {
   let parsedData = rawData;
-  // Step 1: If string, try JSON.parse (un-wraps stringified XML)
   if (typeof parsedData === 'string') {
-    try { parsedData = JSON.parse(parsedData); } catch(e) { /* raw text/xml, keep as-is */ }
+    try { parsedData = JSON.parse(parsedData); } catch(e) {}
   }
-  // Step 2: Evaluate result
   if (typeof parsedData === 'string') {
     if (parsedData.trim().startsWith('<')) {
       const bData = parseXMLBible(parsedData); bData.rawXML = parsedData; return bData;
@@ -1371,7 +1459,6 @@ window.autoSyncFromCloud = async (force = false) => {
             for (let i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
             bibleData = parseSQLiteBible(bytes.buffer, json.name);
           } else {
-            // UNIVERSAL PARSER — handles stringified XML inside JSON
             if (typeof rawData === 'string') { try { rawData = JSON.parse(rawData); } catch(e) {} }
             if (typeof rawData === 'string' && rawData.trim().startsWith('<')) {
               bibleData = parseXMLBible(rawData); bibleData.rawXML = rawData;
@@ -1420,6 +1507,7 @@ window.autoSyncFromCloud = async (force = false) => {
 //  PAGE INIT
 // ════════════════════════════════════════════════════════════
 window.addEventListener('load', () => {
+  renderPinnedVerses(); // Restore pinned list from localStorage on startup
   loadBiblesFromLocalCache().then(hasCached => {
     setTimeout(() => {
       if (hasCached) {
