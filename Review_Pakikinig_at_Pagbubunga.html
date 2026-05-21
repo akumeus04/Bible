@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Pakikinig at Pagbubunga</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:82px;}
+
+  /* TOP BAR */
+  .topbar{background:var(--green);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:18px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.68;margin-top:2px;}
+
+  /* BOTTOM NAV */
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--green);}
+
+  /* SECTION */
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* HERO */
+  .hero{background:linear-gradient(150deg,var(--green-dark) 0%,var(--green) 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:22px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.7;}
+
+  /* VERSE BOX */
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+
+  /* WHITE CARD */
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* SECTION HEADER */
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  /* BODY TEXT */
+  .body{font-size:14px;color:var(--text);line-height:1.78;margin:14px 14px 0;}
+  .body strong{font-weight:600;}
+  .body em{font-style:italic;}
+
+  /* HIGHLIGHT BOX */
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.red p{color:var(--red);}
+  .hl.blue p{color:var(--blue);}
+
+  /* ILLUS */
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{background:var(--orange-light);padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:8px;}
+
+  /* SUP VERSE */
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  /* TRUTH BOX */
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  /* WORD FORMULA */
+  .formula{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:16px;}
+  .formula-title{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px;text-align:center;}
+  .formula-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .formula-row:last-child{margin-bottom:0;}
+  .f-word{flex:1;background:rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;text-align:center;}
+  .f-word .fw{font-size:13px;font-weight:700;color:#A8F0D8;}
+  .f-word .fd{font-size:11px;color:rgba(255,255,255,0.55);margin-top:2px;}
+  .f-arr{font-size:16px;color:rgba(255,255,255,0.4);flex-shrink:0;}
+
+  /* SOIL CARDS */
+  .soil-grid{margin:14px 14px 0;display:grid;gap:9px;}
+  .soil-card{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:10px;align-items:flex-start;}
+  .soil-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+  .soil-card h4{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .soil-card p{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* STEPS */
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* HINDRANCE CARDS */
+  .hin-grid{margin:14px 14px 0;display:grid;gap:9px;}
+  .hin-card{background:white;border-radius:11px;border-left:4px solid var(--red);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 12px 12px 14px;}
+  .hin-card h4{font-size:14px;font-weight:700;color:var(--red);margin-bottom:4px;}
+  .hin-card p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* SUMMARY CARDS */
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* CONCL */
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  /* PRAYER */
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  /* CLOSING */
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  .sp{height:14px;}
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:15px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material</div>
+  <h1>Pakikinig at Pagbubunga</h1>
+  <div class="ref">Marcos 4:13–20 · Personal na Pagbabalik-aral</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--green)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--green)">1</div>
+    <div class="nl">Sinupin</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--purple)">2</div>
+    <div class="nl">Ugatin</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--orange)">3</div>
+    <div class="nl">Ipagtanggol</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--green-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<!-- ===== INTRO ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material</div>
+    <h2>Pakikinig at Pagbubunga</h2>
+    <div class="href">Marcos 4:13–20 · Ang Talinghaga ng Binhing Iniyasik</div>
+  </div>
+
+  <div class="vbox">
+    <p>"Ang mga taong nakinig sa mensahe ng Diyos, pagkarinig nila, dumating si Satanas at inalis ang mensahe sa kanila. Ang katulad na mabibigyang-kahulugan sa batuhan ay ang mga taong nakinig at malugod na tumatanggap sa mensahe ng Diyos. Subalit ang mensahe ay hindi tumitimo sa kanilang puso, kaya hindi ito nanatili. Pagdating ng kapighatian at pag-uusig dahil sa mensahe ng Diyos, agad silang sumusuko. Ito naman ang katulad na mabibigyang-kahulugan sa mga damong matinig. May mga taong nakinig sa mensahe ng Diyos, ngunit dahil sa alalahanin sa buhay nito, pagkasilaw sa salapi, o kaya'y pagkahumaling sa ibang mga bagay, ang mensahe ay nawalan ng puwang sa kanilang puso, kaya hindi ito nakapagbunga. Ito naman ang katulad na mabibigyang-kahulugan sa mabuting lupa. May mga taong nakinig at tumatanggap sa mensahe ng Diyos at namumunga ng masakana — may tatlumpung beses, may animnapung beses, at may isang daang beses."</p>
+    <cite>— Marcos 4:15–20 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p><strong>Panimula:</strong> Nagbubunga ba ang ating natututunan o narinig sa ating mga pag-aaral? Iisa lamang ang mensaheng naririnig natin linggu-linggo — ngunit nag-iiba-iba ang pagtanggap, pagkatuto, at paglago ng bawat isa. <strong>Tayo ang may kontrol sa kung paano tatanggapin at paalagain ang salita ng Diyos sa ating puso.</strong></p>
+    <p>Sinabi ng nagtaturo: <em>"Much word, much change. Little word, little change. No word, no change."</em></p>
+  </div>
+
+  <div class="quote-box">
+    <p>"Much word, much change. Little word, little change. No word, no change."</p>
+    <cite>— Salita ng Nagtaturo</cite>
+  </div>
+
+  <div class="sec-lbl">Tatlong Pangunahing Puntos</div>
+  <div class="sum-cards">
+    <div class="sum-card">
+      <div class="sd g">1</div>
+      <div>
+        <div class="s-title">Sinupin ang Salita ng Diyos</div>
+        <div class="s-desc">Huwag balewalain o ipagwalang-bahala ang mga narinig na aral — ito ay may kapangyarihang magbago ng buhay.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">2</div>
+      <div>
+        <div class="s-title">Pagugatin ang Salita ng Diyos</div>
+        <div class="s-desc">Hayaan itong tumimo sa puso sa pamamagitan ng meditasyon, pagsunod, at aktibong pagsasabuhay.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">3</div>
+      <div>
+        <div class="s-title">Ipagtanggol ang Salita ng Diyos</div>
+        <div class="s-desc">Iwasang mabaling ang ating atensyon sa mga hadlang — alalahanin, pag-ibig sa salapi, at mga nakakadistract.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOIL TYPES -->
+  <div class="sec-lbl">Apat na Uri ng Lupa sa Talinghaga</div>
+  <div class="soil-grid">
+    <div class="soil-card">
+      <div class="soil-icon" style="background:#F5F4F0;">🛤️</div>
+      <div>
+        <h4>Lupa sa Daan</h4>
+        <p>Nakarinig ng salita ngunit agad na ninakaw ni Satanas. Saradong isip at puso — hindi natanggap ang mensahe.</p>
+      </div>
+    </div>
+    <div class="soil-card">
+      <div class="soil-icon" style="background:#FAEEDA;">🪨</div>
+      <div>
+        <h4>Batuhan</h4>
+        <p>Malugod na tumanggap ngunit walang ugat. Kapag dumating ang kapighatian at pag-uusig — agad sumusuko.</p>
+      </div>
+    </div>
+    <div class="soil-card">
+      <div class="soil-icon" style="background:#FAECE7;">🌿</div>
+      <div>
+        <h4>Damuhan / Mapalang Lupa</h4>
+        <p>Nakarinig ngunit nalunod ng alalahanin sa buhay, pagkasilaw sa salapi, at pagkahumaling sa ibang bagay.</p>
+      </div>
+    </div>
+    <div class="soil-card" style="border:1px solid #9FE1CB;background:var(--green-light);">
+      <div class="soil-icon" style="background:var(--green);color:white;">🌱</div>
+      <div>
+        <h4 style="color:var(--green-dark);">Mabuting Lupa ✓</h4>
+        <p style="color:#2D7A5A;">Nakinig at tumanggap — nagbunga ng 30, 60, at 100 beses. Ito ang inaasahan sa atin ng Diyos.</p>
+      </div>
+    </div>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 1 ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--green);">
+    <div class="snum">1</div>
+    <div>
+      <h2>Sinupin ang Salita ng Diyos</h2>
+      <div class="sub">Marcos 4:15 — "Dumating si Satanas at inalis ang mensahe"</div>
+    </div>
+  </div>
+
+  <div class="body">Ang salitang <strong>"sinupin"</strong> ay nangangahulugang <strong>huwag ipagwalang-bahala o huwag balewalain.</strong> Kailangan nating tanggapin ang Salita ng Diyos nang may paggalang at seryosidad — dahil ito ang tanging nagtuturo ng kaligtasan at layunin ng Diyos sa walang hanggan.</div>
+
+  <div class="hl green">
+    <p><strong>Ang binhing nalaglag sa daan</strong> = mga taong nakinig sa mensahe ng Diyos. Pagkarinig nila, dumating si Satanas at <strong>ninakaw ang mensahe.</strong></p>
+  </div>
+
+  <div class="body">Pansinin: Hindi inimbitahan si Satanas — <strong>uninvited siya at dumating.</strong> Bakit? Dahil may target siya — ang mga taong:</div>
+
+  <div class="hl purple">
+    <p>• Nagsisikap na unawain ang mensaheng inaaral<br>• Nagiging seryoso at naghahanap ng paglago<br>• Nagnanais na maglingkod at magpagamit sa gawain ng Panginoon</p>
+  </div>
+
+  <div class="body"><em>"Hindi naman siya mag-e-effort dun sa mga ayaw nilang pakinggan o ayaw nilang unawain yung mensahe. Ang gusto ni Satanas ay mawala ang focus sa mensahe para hindi tayo magbago at para tayo ay mapalayo sa Panginoong Hesus."</em></div>
+
+  <div class="sup">
+    <div class="sup-lbl">Sumusuportang Talata</div>
+    <p>"Ang magnanakaw ay pumaparito upang magnakaw, pumatay, at sumira. Naparito ako upang ang mga tupa ay magkaroon ng buhay na sagana at ganap."</p>
+    <cite>— Juan 10:10</cite>
+  </div>
+
+  <div class="body">Ang mga lupang tigang — kung saan ang isip at damdamin ay sarado — ay mga taong <strong>narinig man ang Salita ng Diyos pero hindi ito natanggap.</strong> Walang pagbabago. Walang epekto. Sabi ng nagtaturo:</div>
+
+  <div class="illus">
+    <div class="illus-hdr">Sinabi ng Nagtaturo</div>
+    <div class="illus-body">
+      <p>"Hindi nababago yung dating mainitin ang ulo — mainitin ang ulo din. Yung pikon, pikon pa rin. Yung sarili at walang pagpapatawad, ganun pa rin sila. Kahit nagpapunta sa iglesya tayo pero for the sake lamang na fellowship lang."</p>
+      <p><em>"Walang no change, walang pagbabago, walang epekto sa kanila yung salita ng Diyos."</em></p>
+    </div>
+  </div>
+
+  <div class="body">Kaya kailangan nating <strong>sinupin ang Salita</strong> — tanggapin ito nang buong puso, huwag hayaang maging routine lamang ang pakikinig. Ang Salita ng Diyos ay may kapangyarihang magbago ng buhay — <em>kung hahayaan natin itong gawin ang gawain nito.</em></div>
+
+  <div class="formula">
+    <div class="formula-title">Ang Formula ng Pagbabago</div>
+    <div class="formula-row">
+      <div class="f-word"><div class="fw">Walang Salita</div><div class="fd">No Word</div></div>
+      <div class="f-arr">→</div>
+      <div class="f-word"><div class="fw">Walang Pagbabago</div><div class="fd">No Change</div></div>
+    </div>
+    <div class="formula-row">
+      <div class="f-word"><div class="fw">Kaunting Salita</div><div class="fd">Little Word</div></div>
+      <div class="f-arr">→</div>
+      <div class="f-word"><div class="fw">Kaunting Pagbabago</div><div class="fd">Little Change</div></div>
+    </div>
+    <div class="formula-row">
+      <div class="f-word"><div class="fw">Maraming Salita</div><div class="fd">Much Word</div></div>
+      <div class="f-arr">→</div>
+      <div class="f-word"><div class="fw">Maraming Pagbabago</div><div class="fd">Much Change</div></div>
+    </div>
+  </div>
+
+  <div class="sup" style="margin-top:14px;">
+    <div class="sup-lbl">Sumusuportang Talata</div>
+    <p>"Ang lahat ng kasulatan ay kinasihan ng Diyos at kapaki-pakinabang sa pagtuturo, pagsasaway, pagwawasto, at pagsasanay sa katuwiran, upang ang lingkod ng Diyos ay maging ganap at handa sa bawat mabuting gawa."</p>
+    <cite>— 2 Timoteo 3:16–17</cite>
+  </div>
+
+  <div class="truth green">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang layunin ng salita ng Diyos ay higit na makilala Siya, mapabago ang ating buhay, at maisulong ang Kanyang kaharian. Today we should not be the same — but better than yesterday.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 2 ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--purple);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Pagugatin ang Salita ng Diyos</h2>
+      <div class="sub">Marcos 4:16–17 · Juan 8:31–32</div>
+    </div>
+  </div>
+
+  <div class="body"><strong>"Ang katulad na mabibigyang-kahulugan sa batuhan ay ang mga taong nakinig at malugod na tumanggap sa mensahe ng Diyos. Subalit ang mensahe ay hindi tumitimo sa kanilang puso kaya hindi nanatili."</strong> — Marcos 4:16–17</div>
+
+  <div class="hl purple">
+    <p>Ang ugat ay ang susi. Kahit malugod na tinanggap ang mensahe — kung wala itong ugat, <strong>kapag dumating ang pagsubok at kapighatian ay agad sumusuko.</strong> Kaya kailangan nating aktibong hayaan ang Salita na tumimo sa ating puso.</p>
+  </div>
+
+  <div class="body">Paano nagugat ang salita? Sinabi ng nagtaturo:</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">1</div>
+      <div>
+        <h4>Mag-meditate — Pagnilayan</h4>
+        <p>Hindi lamang marinig kundi bulay-bulayan ang mensahe. Hayaan itong makipag-usap sa iyong partikular na sitwasyon. Huwag basta-basta ibaba ang iyong Biblia pagkatapos ng pag-aaral.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">2</div>
+      <div>
+        <h4>Matuto at Magsanay — Learn and Practice</h4>
+        <p>Ang kaalaman ay hindi sapat — kailangan itong isabuhay. Sabi ng nagtaturo: "Learn, do, reflect." Kailangang maunawaan, matutunan, at isabuhay ang ating pinag-aaralan.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">3</div>
+      <div>
+        <h4>Harapin ang Pagsubok — Face the Test</h4>
+        <p>Ang pagsubok at pasakit ay naglalantad sa tunay na uri ng ating pananampalataya. Huwag agad sumusuko. <em>"Practice more — mag-invest tayo sa salita ng Diyos upang may kalakasan tayo kapag dumating ang pagsubok."</em></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">4</div>
+      <div>
+        <h4>Magkaroon ng Katabi — May Kasama</h4>
+        <p>Hindi tayo nilayong maglakad nang mag-isa. Kailangan may katabi tayo na makakatulong tayo at makakatulong sa atin sa mga mahirap na panahon. <em>"You have something to use in hard times."</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="vbox" style="margin-top:14px;">
+    <p>"Sinabi ni Hesus sa mga Judiong naniniwala sa Kanya: kung tinutupad ninyo ang aking aral, kayo nga ay tunay na mga alagad ko. Makikilala ninyo ang katotohanan at ang katotohanan ang magpapalaya sa inyo."</p>
+    <cite>— Juan 8:31–32</cite>
+  </div>
+
+  <div class="body">Sino ang tunay na alagad? <strong>Ang mga tinutupad ang Kanyang aral — ang mga sinusunod at pinagugat ang Kanyang mga turo.</strong> Hindi lamang ang nakakarinig, kundi ang nagsasabuhay.</div>
+
+  <div class="illus">
+    <div class="illus-hdr">Sinabi ng Nagtaturo</div>
+    <div class="illus-body">
+      <p>"Gaya ng mga sanggol, manabig kayo sa gatas na espirituwal upang lumago kayo sa pananampalataya." — 1 Pedro 2:2</p>
+      <p>Hindi inaasahan na forever kang baby Christian. Inaasahan kang lumago — iapply mo, igaganap mo yung naririnig mo at inaaral sa iyo upang maging ganap ang kaligtasan.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Sumusuportang Talata — Hebrews 5:14</div>
+    <p>"Ngunit ang matigas na pagkain ay para sa may sapat na gulang na matuto nang kumilala ng mabuti at masama."</p>
+    <cite>— Hebrews 5:14</cite>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang ugat ay nagmumula sa aktibong pakikinig, meditasyon, pagsunod, at paghahanda para sa pagsubok. Mag-invest sa Salita ngayon — para may kalakasan tayo bukas.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 3 ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Ipagtanggol ang Salita ng Diyos</h2>
+      <div class="sub">Marcos 4:18–20 — Tatlong Hadlang sa Pagbubunga</div>
+    </div>
+  </div>
+
+  <div class="body"><strong>"Ito naman ang katulad na mabibigyang-kahulugan sa mga damong matinig — may mga taong nakinig sa mensahe ng Diyos, ngunit dahil sa alalahanin sa buhay nito, pagkasilaw sa salapi, o kaya'y pagkahumaling sa ibang mga bagay, ang mensahe ay nawalan ng puwang sa kanilang puso, kaya hindi ito nakapagbunga."</strong> — Marcos 4:18–19</div>
+
+  <div class="body">Tatlong pangunahing hadlang ang binanggit — at ito ang <strong>pumapatay sa pananampalataya:</strong></div>
+
+  <div class="hin-grid">
+    <div class="hin-card">
+      <h4>① Alalahanin sa Buhay</h4>
+      <p>Ang mga pagaalala tungkol sa trabaho, pera, pamilya, at kinabukasan ay maaaring lumunod sa ating pananampalataya. Sinabi sa Mateo 6:31–33 — ito ang mga iniaalala ng mga hindi mananampalataya (hentil). <strong>Hindi na tayo hentil — mayroon tayong Diyos na maasahan.</strong></p>
+    </div>
+    <div class="hin-card">
+      <h4>② Pagkasilaw sa Salapi</h4>
+      <p>Ang pagmamahal sa pera at yaman ay isa sa pinakamabisang paraan ng kaaway para ilihis ang ating puso sa Diyos. Kapag self-sufficient na tayo — madalas ay hindi na tayo umaasa sa Kanya. Maaalala lamang natin ang Panginoon kapag tayo ay nagkakaproblema.</p>
+    </div>
+    <div class="hin-card">
+      <h4>③ Pagkahumaling sa Ibang Bagay</h4>
+      <p>Cellphone, social media, mga relasyon na inuna sa Diyos, o anumang bagay na nangunguna kay Kristo sa ating buhay. Sinabi: "Una, ang Panginoong Hesu Kristo — number two lang ang lahat ng iba pa."</p>
+    </div>
+  </div>
+
+  <div class="sup" style="margin-top:14px;">
+    <div class="sup-lbl">Mateo 6:31–33</div>
+    <p>"Kaya wag kayong mag-alala na sabihing ano ang aming kakainin, iinumin, o dararamtin. Alam ng inyong Amang nasa Langit na kailangan ninyo ang lahat ng iyan. Ngunit higit sa lahat ay pagsikapan ninyong mapasakanyo ang paghahari ng Diyos at mamuhay ng ayon sa Kanyang kalooban, at ibibibigay Niya sa inyo ang lahat ng inyong pangangailangan."</p>
+    <cite>— Mateo 6:31–33</cite>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">1 Juan 2:15–17</div>
+    <p>"Huwag ninyong ibigin ang sanlibutan o ang mga bagay na nasa sanlibutan. Ang umiibig sa sanlibutan ay hindi umiibig sa Ama... Mawawala ang sanlibutan at ang lahat ng tinahuhumalingan nito. Ngunit ang mga sumusunod sa kalooban ng Diyos ay mabubuhay magpakailanman."</p>
+    <cite>— 1 Juan 2:15–17</cite>
+  </div>
+
+  <div class="hl red">
+    <p><strong>Babala ng nagtaturo:</strong> "Kung ang inyong kinakaibigan ay sinasala-ula ang salita ng Diyos at ayaw sa salita — kailangan iwanan natin yun. Kailangang layuan natin ang nagpapahamak sa atin. Para sa Diyos kailangan ipagtanggol natin ang Kanyang salita."</p>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Sinabi ng Nagtaturo</div>
+    <div class="illus-body">
+      <p>"Ang pagyaman at pagkasilaw sa salapi ay malimit na ikababagsak ng pananampalataya sa kasaysayan. Pag tayo ay na-divert sa dapat na focus na inaasahan sa atin — yun ang ipapahamak natin."</p>
+      <p><em>"For what profit is it to a man if he gains the whole world and loses his own soul?" — Mateo 16:26</em></p>
+    </div>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ipagtanggol ang Salita — ibig sabihin, aktibong panatilihing buhay ito sa ating puso sa kabila ng mga hadlang. God is enough for us — huwag hayaang ang mga alalahanin sa buhay ay lumampas sa ating pananampalataya.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral</div>
+      <h3>Paano Mapagbubunga ang Narinig na Salita ng Diyos?</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — Sinupin ang Salita:</strong> Huwag balewalain o ipagwalang-bahala ang mga narinig na aral. Ito ay may kapangyarihang magbago ng buhay — kung hahayaan nating gawin nito ang gawain nito sa ating puso. Much word, much change.</p>
+      <p><strong>Ikalawa — Pagugatin ang Salita:</strong> Hayaan itong tumimo sa puso sa pamamagitan ng meditasyon, pagsunod, at aktibong pagsasabuhay. Mag-invest sa Salita ngayon para may kalakasan tayo sa pagsubok bukas.</p>
+      <p><strong>Pangatlo — Ipagtanggol ang Salita:</strong> Iwasang mabaling ang ating puso sa tatlong pangunahing hadlang — alalahanin sa buhay, pagkasilaw sa salapi, at pagkahumaling sa ibang bagay. God is enough for us.</p>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <p>"Ipinagkaloob ng Diyos ang Kanyang Salita at taglay nito ang kapangyarihan ng Diyos upang magbunga sa ating buhay dito sa daigdig. Ito ang dahilan kung bakit tinatawag tayong mga martir — mga saksi para sa Kanya."</p>
+    <cite>— Mula sa Sermon</cite>
+  </div>
+
+  <div class="vbox">
+    <p>"Kumilos Panginoon — ang espiritu mo Panginoon, magparema ng aming natutunan, narinig Panginoon, ng mga ito ay magugat Panginoon... masinop namin ng matapat Panginoon ang iyong salita at may pagtanggol namin ang inyong salita sa kanino man Panginoon upang kami ay maging kawangis ng Panginoong Hesus."</p>
+    <cite>— Panalangin ng Nagtaturo sa Pagtatapos ng Sermon</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, tulungan Mo kaming maging mabuting lupa — na tatanggap ng Iyong Salita nang may bukas na puso, hayaan itong tumimo at mag-ugat, at mamunga ng 30, 60, at 100 beses. Ipagtanggol Mo kami mula sa mga hadlang na nagpapahamak sa ating pananampalataya. At gawin Mong instrumento kami ng Iyong kaharian dito saan man kami naroon. Sa pangalan ni Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Ang lahat ng kasulatan ay kinasihan ng Diyos at kapaki-pakinabang sa pagtuturo, pagsasaway, pagwawasto, at pagsasanay sa katuwiran, upang ang lingkod ng Diyos ay maging ganap at handa sa bawat mabuting gawa."</p>
+    <cite>— 2 Timoteo 3:16–17 · Talatang Iuunawa sa Linggo</cite>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

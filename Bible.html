@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Smart Bible</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --bg-deep:      #0b0d14;
+      --bg-panel:     #11141f;
+      --bg-card:      #161a28;
+      --bg-hover:     #1e2336;
+      --border:       #2a2f46;
+      --border-gold:  #c9a84c;
+      --gold:         #e0b55a;
+      --gold-light:   #f5d98a;
+      --text-primary: #eee8d5;
+      --text-secondary:#a09a85;
+      --text-muted:   #5a5447;
+      --radius:       10px;
+      --radius-sm:    6px;
+      --shadow:       0 4px 24px rgba(0,0,0,0.55);
+      --header-h:     52px;
+      --topbar-h:     44px;
+      --drawer-peek:  54px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: var(--bg-deep); color: var(--text-primary);
+      display: flex; flex-direction: column;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       SPLASH
+    ══════════════════════════════════════════════════════ */
+    #splash {
+      position: fixed; inset: 0; z-index: 9000;
+      background: var(--bg-deep);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 20px; padding: 24px;
+      transition: opacity 0.5s ease;
+    }
+    #splash.hidden { opacity: 0; pointer-events: none; }
+    .splash-logo {
+      font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: 0.1em;
+    }
+    .splash-sub { font-size: 11px; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; font-style: italic; }
+    .splash-card {
+      background: var(--bg-panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px 18px;
+      width: 100%; max-width: 380px; text-align: center;
+    }
+    .splash-card h3 { font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; color: var(--gold); margin-bottom: 6px; }
+    .splash-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 14px; font-style: italic; }
+    .progress-wrap { background: var(--bg-deep); border: 1px solid var(--border); border-radius: 20px; height: 6px; overflow: hidden; margin-bottom: 8px; }
+    #splash-progress-bar { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 20px; width: 0%; transition: width 0.4s ease; }
+    #splash-status { font-size: 11px; color: var(--text-muted); min-height: 16px; font-style: italic; }
+    #splash-file-list { margin-top: 10px; text-align: left; }
+    .splash-file-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 12px; color: var(--text-secondary); }
+    .splash-file-item:last-child { border-bottom: none; }
+    .file-status-icon { font-size: 12px; width: 16px; text-align: center; flex-shrink: 0; }
+    .splash-skip { margin-top: 14px; background: none; border: 1px solid var(--border); color: var(--text-muted); border-radius: var(--radius-sm); padding: 7px 16px; cursor: pointer; font-family: 'EB Garamond', serif; font-size: 13px; transition: border-color 0.2s, color 0.2s; }
+    .splash-skip:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ══════════════════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════════════════ */
+    header {
+      position: relative; z-index: 100; flex-shrink: 0;
+      height: var(--header-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, #0e1020, #131829);
+    }
+    .header-brand { display: flex; align-items: center; gap: 9px; }
+    .brand-icon { width: 30px; height: 30px; background: linear-gradient(135deg, var(--border-gold), var(--gold-light)); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 0 10px rgba(201,168,76,0.22); }
+    .brand-title { font-family: 'Cinzel', serif; font-size: 17px; font-weight: 700; letter-spacing: 0.06em; background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .brand-sub { display: none; }
+    #cloud-badge { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); font-style: italic; }
+    #cloud-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted); transition: background 0.3s; }
+    #cloud-badge.synced  .dot { background: #4caf7d; }
+    #cloud-badge.syncing .dot { background: var(--gold); animation: pulse 1s infinite; }
+    #cloud-badge.error   .dot { background: #d45a5a; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ══════════════════════════════════════════════════════
+       TOAST — centered top on mobile
+    ══════════════════════════════════════════════════════ */
+    #notification-bar {
+      position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+      z-index: 8999; display: flex; flex-direction: column; gap: 6px;
+      pointer-events: none; width: 88%; max-width: 340px;
+    }
+    .toast { background: var(--bg-card); border: 1px solid var(--border-gold); border-left: 3px solid var(--gold); border-radius: var(--radius-sm); padding: 8px 14px; font-size: 13px; color: var(--text-primary); box-shadow: var(--shadow); animation: toastIn 0.3s ease; font-family: 'EB Garamond', serif; text-align: center; }
+    @keyframes toastIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+
+/* ══════════════════════════════════════════════════════
+       MAIN LAYOUT
+    ══════════════════════════════════════════════════════ */
+    .app-layout { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+	
+	main {
+      display: flex; flex-direction: column; flex: 1;
+      overflow: hidden; min-height: 0; /* Prevents the main screen from stretching past the bottom */
+    }
+
+    /* ── CHAPTER TOPBAR ── */
+    .content-topbar {
+      height: var(--topbar-h); padding: 0 14px;
+      border-bottom: 1px solid var(--border); background: var(--bg-panel);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px; flex-shrink: 0;
+    }
+    #current-song-title { font-family: 'Cinzel', serif; font-size: 14px; font-weight: 600; color: var(--gold-light); letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .verse-count { font-size: 11px; color: var(--text-muted); font-style: italic; white-space: nowrap; flex-shrink: 0; }
+
+/* ── READER ── */
+    #lyrics-grid-wrapper {
+      flex: 1; overflow-y: auto;
+      padding: 16px 16px 80px 16px;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Mobile: single-column reading list */
+    #lyrics-grid { display: flex; flex-direction: column; }
+
+    .verse-card {
+      background: transparent; border: none;
+      border-bottom: 1px solid var(--border);
+      border-radius: 0; padding: 13px 16px; cursor: pointer;
+      transition: background 0.12s; position: relative;
+      animation: fadeUp 0.22s ease both;
+    }
+    .verse-card:active, .verse-card.selected { background: var(--bg-hover); }
+    .verse-card::before { display: none; }
+
+    /* Version badge — shown in multi-version search results */
+    .verse-version-badge {
+      display: inline-block; font-family: 'Cinzel', serif; font-size: 9px;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #1a1200; background: var(--gold); border-radius: 3px;
+      padding: 1px 5px; margin-bottom: 4px;
+    }
+    .verse-ref { font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; display: block; }
+    .verse-text { font-size: 18px; line-height: 1.8; color: var(--text-primary); }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+
+    #empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh; gap: 12px; color: var(--text-muted); text-align: center; padding: 30px; }
+    #empty-state .empty-icon { font-size: 42px; opacity: 0.3; }
+    #empty-state h2 { font-family: 'Cinzel', serif; font-size: 17px; font-weight: 600; color: var(--text-secondary); }
+    #empty-state p { font-size: 13px; max-width: 260px; line-height: 1.7; font-style: italic; }
+
+    /* ══════════════════════════════════════════════════════
+       LEFT SIDEBAR (Mobile)
+    ══════════════════════════════════════════════════════ */
+    #drawer {
+      position: fixed; 
+      top: 0; bottom: 0; left: 0; right: auto; z-index: 500;
+      width: 280px; max-height: 100vh;
+      background: var(--bg-panel);
+      border-top: none;
+      border-right: 1px solid var(--border-gold);
+      border-radius: 0;
+      box-shadow: 6px 0 28px rgba(0,0,0,0.5);
+      transform: translateX(-100%);
+      transition: transform 0.32s cubic-bezier(0.32,0.72,0,1);
+      display: flex; flex-direction: column;
+    }
+    #drawer.open { transform: none !important; }
+
+    #drawer-handle {
+      flex-shrink: 0; height: var(--header-h);
+      display: flex; flex-direction: row; align-items: center; justify-content: flex-end;
+      padding: 0 16px; border-bottom: 1px solid var(--border);
+      cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
+    }
+    .drawer-pill { display: none; }
+    #drawer-label { font-family: 'Cinzel', serif; font-size: 14px; font-weight: 600; color: var(--text-muted); }
+
+    #drawer-body { flex: 1; overflow-y: auto; padding: 4px 16px 32px; }
+
+    /* Controls */
+    .drawer-section { padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .drawer-section:last-child { border-bottom: none; }
+
+select, input[type="text"] {
+  width: 100%; padding: 11px 12px; background: var(--bg-deep);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  color: var(--text-primary); font-family: 'EB Garamond', serif;
+  font-size: 16px; outline: none; transition: border-color 0.2s;
+  -webkit-appearance: none; appearance: none;
+  
+  /* Fixed Mobile Keyboard handling */
+  -webkit-user-select: auto !important;
+  user-select: auto !important;
+  touch-action: manipulation;
+}
+    select:focus, input[type="text"]:focus { border-color: var(--gold); }
+    select option { background: var(--bg-deep); }
+
+    .nav-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 8px; margin-top: 10px; }
+
+    .search-wrap { position: relative; margin-top: 10px; }
+    .search-wrap input { padding-left: 36px; }
+    .search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 15px; pointer-events: none; }
+
+    #bible-suggestions {
+      position: absolute; left: 0; right: 0; top: calc(100% + 4px);
+      background: var(--bg-card); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm); z-index: 600;
+      max-height: 200px; overflow-y: auto; display: none; box-shadow: var(--shadow);
+    }
+    .suggestion-item { padding: 11px 14px; font-size: 15px; cursor: pointer; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 6px; }
+    .suggestion-item:last-child { border-bottom: none; }
+    .suggestion-item:active { background: var(--bg-hover); color: var(--gold); }
+    .sugg-version { font-size: 10px; color: var(--text-muted); font-style: italic; flex-shrink: 0; }
+
+    .divider { height: 1px; background: var(--border); margin: 10px 0; }
+
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--bg-deep); color: var(--text-primary);
+      font-family: 'EB Garamond', serif; font-size: 14px; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      width: 100%; margin-top: 8px;
+    }
+    .btn:active { background: var(--bg-hover); border-color: var(--gold); color: var(--gold); }
+    .btn-gold { background: linear-gradient(135deg, #b8892a, var(--gold)); border-color: var(--gold); color: #1a1200; font-weight: 600; }
+    .btn-gold:active { filter: brightness(1.1); }
+    .btn-upload { position: relative; overflow: hidden; }
+    .btn-upload input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+
+    /* Hidden on mobile */
+    #btnSaveBible  { display: none !important; }
+    .btn-upload    { display: none !important; }
+    #cache-section { display: none !important; }
+    #desktop-sync-btn { display: none !important; }
+
+    /* ══════════════════════════════════════════════════════
+       FLOATING ACTION BUTTONS
+    ══════════════════════════════════════════════════════ */
+    /* Shared FAB base */
+    .fab {
+      position: fixed; bottom: 24px; z-index: 490;
+      width: 50px; height: 50px; border-radius: 50%;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 16px rgba(201,168,76,0.45);
+      transition: transform 0.2s, opacity 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .fab:active { transform: scale(0.92); }
+
+    /* Cloud sync FAB — right side */
+    #fab-sync {
+      right: 16px;
+      background: linear-gradient(135deg, #b8892a, var(--gold));
+    }
+    #fab-sync.spinning { animation: fabSpin 1.1s linear infinite; }
+    @keyframes fabSpin { to { transform: rotate(360deg); } }
+
+    /* Search FAB — left of sync */
+    #fab-search {
+      right: 78px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      color: var(--gold);
+      font-size: 18px;
+    }
+    #fab-search:active { background: var(--bg-hover); }
+
+    /* Hide drawer search section on mobile — only in overlay */
+    .drawer-search-section { display: none; }
+
+
+/* ══════════════════════════════════════════════════════
+       SEARCH OVERLAY (mobile) - FULL SCREEN FIX
+    ══════════════════════════════════════════════════════ */
+    #search-overlay {
+      position: fixed; inset: 0; z-index: 800;
+      background: var(--bg-panel); /* Solid background, no more dim overlay to accidentally tap */
+      display: flex; flex-direction: column;
+      pointer-events: none; opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    #search-overlay.open {
+      pointer-events: auto; opacity: 1;
+    }
+    
+    /* Hide the old background layer */
+    #search-overlay-bg { display: none; }
+
+    /* Make the panel take up the entire screen */
+#search-panel {
+      flex: 1; display: flex; flex-direction: column;
+      padding: 20px 16px 20px;
+      transform: none; 
+      min-height: 0; /* CRITICAL FIX: Forces panel to stay on-screen so the list inside can scroll */
+    }
+    
+    /* Header row: label + close */
+    #search-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px; flex-shrink: 0;
+    }
+    #search-panel-title {
+      font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    }
+    #search-close-btn {
+      background: none; border: none; color: var(--text-muted);
+      font-size: 28px; cursor: pointer; line-height: 1;
+      padding: 0 4px; -webkit-tap-highlight-color: transparent;
+    }
+    #search-close-btn:active { color: var(--gold); }
+    
+    /* Input inside overlay */
+    #search-overlay-wrap {
+      position: relative; flex-shrink: 0;
+    }
+    #search-overlay-icon {
+      position: absolute; left: 12px; top: 50%;
+      transform: translateY(-50%); color: var(--text-muted);
+      font-size: 16px; pointer-events: none;
+    }
+    #overlay-search-input {
+      width: 100%; padding: 13px 14px 13px 40px;
+      background: var(--bg-deep); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm); color: var(--text-primary);
+      font-family: 'EB Garamond', serif; font-size: 18px;
+      outline: none; -webkit-appearance: none;
+      -webkit-user-select: auto !important; user-select: auto !important;
+      touch-action: manipulation;
+    }
+    #overlay-search-input:focus { border-color: var(--gold); }
+    
+    /* Hint text */
+    #search-hint {
+      font-size: 11px; color: var(--text-muted); font-style: italic;
+      margin-top: 10px; text-align: center; flex-shrink: 0;
+    }
+    
+    /* Suggestions inside overlay - FULL HEIGHT SCROLL */
+    #overlay-suggestions {
+      margin-top: 12px; flex: 1; /* Takes all remaining vertical space */
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow-y: auto; max-height: none; /* Removed the restrictive height limit */
+      display: none;
+      -webkit-overflow-scrolling: touch; /* Force smooth momentum scrolling on iOS */
+    }
+    #overlay-suggestions .suggestion-item {
+      padding: 14px 16px; font-size: 16px; cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: baseline; gap: 8px;
+    }
+    #overlay-suggestions .suggestion-item:last-child { border-bottom: none; }
+    #overlay-suggestions .suggestion-item:active { background: var(--bg-hover); color: var(--gold); }
+
+    /* ── Touch overlay to close drawer ── */
+    #drawer-overlay {
+      display: none; position: fixed; inset: 0; z-index: 499;
+      background: rgba(0,0,0,0.35);
+    }
+    #drawer-overlay.show { display: block; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* ══════════════════════════════════════════════════════
+       DESKTOP ≥ 700px — restore sidebar layout
+    ══════════════════════════════════════════════════════ */
+    @media (min-width: 700px) {
+      /* Hide the mobile menu button on large screens */
+      .menu-btn { display: none !important; }
+
+      html, body { overflow: auto; height: auto; min-height: 100vh; }
+      .app-layout { display: grid; grid-template-columns: 290px 1fr; overflow: visible; }
+
+      /* Sidebar */
+      #drawer {
+        position: static; transform: none !important; max-height: none;
+        border-radius: 0; border-top: none; border-right: 1px solid var(--border);
+        box-shadow: none; overflow-y: auto; display: flex;
+      }
+      #drawer-handle { display: none; }
+      #drawer.open { transform: none; }
+      #drawer-body { padding: 16px; flex: 1; overflow-y: auto; }
+      #drawer-overlay { display: none !important; }
+
+      /* Reader */
+      #lyrics-grid-wrapper { padding: 20px 20px 24px; }
+      #lyrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+      .verse-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+      .verse-card::before { display: block; content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--gold), transparent); opacity: 0; transition: opacity 0.2s; }
+      .verse-card:hover { border-color: var(--border-gold); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
+      .verse-card:hover::before { opacity: 1; }
+      .verse-text { font-size: 15px; }
+
+      /* Hide FABs, show desktop sync btn */
+      #fab-sync   { display: none; }
+      #fab-search { display: none; }
+      #desktop-sync-btn { display: flex !important; }
+      /* Show search in drawer on desktop */
+      .drawer-search-section { display: block !important; }
+      /* Hide mobile search overlay */
+      #search-overlay { display: none !important; }
+
+      /* Show hidden sections on desktop */
+      #cache-section { display: block !important; }
+      .btn-upload { display: flex !important; }
+
+      .brand-sub { display: block; font-size: 10px; color: var(--text-muted); letter-spacing: 0.16em; text-transform: uppercase; font-style: italic; }
+      .brand-title { font-size: 20px; }
+      header { height: auto; padding: 14px 24px; }
+      .content-topbar { height: auto; padding: 14px 22px; }
+      #current-song-title { font-size: 17px; }
+      #notification-bar { left: auto; transform: none; right: 20px; top: 14px; width: auto; max-width: 300px; }
+      #lyrics-grid-wrapper { padding-bottom: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ SPLASH ══════════════════════════════════════════════ -->
+<div id="splash">
+  <div class="splash-logo">✦ Smart Bible</div>
+  <div class="splash-sub">Scripture Navigator · Cloud Sync</div>
+  <div class="splash-card">
+    <h3 id="splash-title">Checking Local Cache…</h3>
+    <p id="splash-desc">Looking for previously downloaded Bibles in your browser.</p>
+    <div class="progress-wrap"><div id="splash-progress-bar"></div></div>
+    <div id="splash-status">Initialising…</div>
+    <div id="splash-file-list"></div>
+    <button class="splash-skip" id="splash-skip-btn" onclick="skipSplash()" style="display:none;">
+      Skip — Use Cached Bibles
+    </button>
+  </div>
+</div>
+
+<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<header>
+  <div class="header-brand">
+    <div class="menu-btn" onclick="toggleDrawer()" style="cursor:pointer; font-size:24px; margin-right:8px;">☰</div>
+    <div class="brand-icon">✦</div>
+    <div>
+      <div class="brand-title">Smart Bible</div>
+      <div class="brand-sub">Scripture Navigator</div>
+    </div>
+  </div>
+  <div id="cloud-badge"><div class="dot"></div><span id="cloud-badge-label">Cloud</span></div>
+</header>
+
+<div id="notification-bar"></div>
+
+<!-- ══ APP ════════════════════════════════════════════════ -->
+<div class="app-layout">
+
+  <!-- ── BOTTOM DRAWER (mobile) / SIDEBAR (desktop) ───── -->
+  <div id="drawer">
+    <!-- Drag handle (mobile only) -->
+    <div id="drawer-handle" onclick="toggleDrawer()">
+      <div class="drawer-pill"></div>
+      <div id="drawer-label">Bible Tools ▲</div>
+    </div>
+
+    <!-- Scrollable content -->
+    <div id="drawer-body">
+
+      <!-- Version selector -->
+      <div class="drawer-section">
+        <select id="bible-version-select" onchange="switchBibleVersion(this.value)">
+          <option value="" disabled selected>— Select Version —</option>
+        </select>
+      </div>
+
+      <!-- Navigation: Book / Chapter / Verse -->
+      <div class="drawer-section">
+        <div class="nav-row">
+          <select id="bible-book" onchange="onBookChange()" disabled>
+            <option value="" disabled selected>Book</option>
+          </select>
+          <select id="bible-chapter" onchange="onChapterChange()" disabled>
+            <option value="" disabled selected>Ch</option>
+          </select>
+          <select id="bible-verse" onchange="onVerseChange()" disabled>
+            <option value="" disabled selected>Vs</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Search — desktop only inside drawer; mobile uses FAB overlay -->
+      <div class="drawer-section drawer-search-section">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="bible-search" placeholder="e.g. John 3:16…"
+            oninput="handleBibleSearch(this)"
+            onkeydown="handleBibleSearchKey(event,this)"
+            autocomplete="off" inputmode="search"/>
+          <div id="bible-suggestions"></div>
+        </div>
+      </div>
+
+      <!-- Desktop-only buttons -->
+      <div class="drawer-section">
+        <button id="desktop-sync-btn" class="btn btn-gold" style="display:none;" onclick="autoSyncFromCloud(true)">☁ Sync from Cloud</button>
+        <button class="btn btn-upload">
+          📂 Upload Bible File
+          <input type="file" accept=".json,.xml,.sqlite,.db" onchange="handleBibleUpload(this)"/>
+        </button>
+        <button id="btnSaveBible" class="btn" onclick="saveBibleToDrive()">💾 Save to Drive</button>
+      </div>
+
+      <!-- Cache info (desktop only) -->
+      <div id="cache-section" class="drawer-section" style="display:none;">
+        <div style="font-family:'Cinzel',serif;font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">Local Cache</div>
+        <div id="cache-info" style="font-size:13px;color:var(--text-secondary);line-height:2;font-style:italic;">—</div>
+        <button class="btn" style="margin-top:8px;" onclick="clearLocalCache()">🗑 Clear Cache</button>
+      </div>
+
+    </div><!-- /drawer-body -->
+  </div><!-- /drawer -->
+
+  <!-- ── MAIN READER ──────────────────────────────────── -->
+  <main>
+    <div class="content-topbar">
+      <span id="current-song-title" style="color:var(--text-muted);font-style:italic;">Open the Word</span>
+      <span class="verse-count" id="verse-count-label"></span>
+    </div>
+    <div id="lyrics-grid-wrapper">
+      <div id="lyrics-grid">
+        <div id="empty-state">
+          <div class="empty-icon">📖</div>
+          <h2>Open the Word</h2>
+          <p>Pick a Book and Chapter — or search for a verse across all your Bible versions.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</div><!-- /app-layout -->
+
+<!-- Overlay to close drawer by tapping outside -->
+<div id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<!-- ══ FLOATING ACTION BUTTONS ════════════════════════════ -->
+<button id="fab-search" class="fab" onclick="openSearchOverlay()" title="Search Scripture">🔍</button>
+<button id="fab-sync"   class="fab" onclick="autoSyncFromCloud(true)" title="Sync Bibles from Cloud">☁</button>
+
+<!-- ══ SEARCH OVERLAY (mobile) ════════════════════════════ -->
+<div id="search-overlay">
+  <div id="search-overlay-bg" onclick="closeSearchOverlay()"></div>
+  <div id="search-panel">
+    <div id="search-panel-header">
+      <span id="search-panel-title">Search Scripture</span>
+      <button id="search-close-btn" onclick="closeSearchOverlay()">×</button>
+    </div>
+    <div id="search-overlay-wrap">
+      <span id="search-overlay-icon">🔍</span>
+      <input type="text" id="overlay-search-input"
+        placeholder="e.g. John 3:16 or John 3:16-20"
+        oninput="handleOverlaySearch(this)"
+        onkeydown="handleBibleSearchKey(event, this)"
+        autocomplete="off" inputmode="search"/>
+    </div>
+    <div id="search-hint">Type a reference and press Enter to search all versions</div>
+    <div id="overlay-suggestions"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════════════════════ -->
+<script>
+// ╔══════════════════════════════════════════════════════════╗
+//  ★ YOUR DEPLOYED APPS SCRIPT URL ★
+// ╚══════════════════════════════════════════════════════════╝
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwBlkzL7MfjG4WCFvoOFMpSe4rqwpSM-fCnMhA6WvDTNVwp5YbM_olagybiH1vv22wDUw/exec";
+
+// ════════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════════
+let bibles             = {};
+let currentBibleKey    = null;
+let bibleToolsExpanded = true;
+window.currentSongData = null;
+
+// ════════════════════════════════════════════════════════════
+//  STATIC DATA
+// ════════════════════════════════════════════════════════════
+const STD_BOOKS = [
+  "Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth",
+  "1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther",
+  "Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel",
+  "Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi",
+  "Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians",
+  "1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James",
+  "1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"
+];
+
+// ════════════════════════════════════════════════════════════
+//  SQL.js
+// ════════════════════════════════════════════════════════════
+initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/${f}` })
+  .then(SQL => { window.SQL = SQL; })
+  .catch(e => console.warn("SQL.js failed:", e));
+
+// ════════════════════════════════════════════════════════════
+//  INDEXEDDB CACHE ENGINE
+// ════════════════════════════════════════════════════════════
+const DB_NAME    = "WorshipBibleDB";
+const STORE_NAME = "bibles";
+
+function getDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, 1);
+    req.onupgradeneeded = e => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains(STORE_NAME))
+        db.createObjectStore(STORE_NAME, { keyPath: "name" });
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror   = () => reject(req.error);
+  });
+}
+
+async function saveBibleToLocalCache(bibleData) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const db = await getDB();
+      const tx = db.transaction(STORE_NAME, "readwrite");
+      const store = tx.objectStore(STORE_NAME);
+      if (!bibleData.name) { resolve(false); return; }
+      const req = store.put(bibleData);
+      req.onsuccess = () => resolve(true);
+      req.onerror   = () => reject(req.error);
+    } catch(e) { console.error("Could not save to local cache", e); reject(e); }
+  });
+}
+
+async function loadBiblesFromLocalCache() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const db  = await getDB();
+      const tx  = db.transaction(STORE_NAME, "readonly");
+      const req = tx.objectStore(STORE_NAME).getAll();
+      req.onsuccess = () => {
+        const results = req.result;
+        if (results && results.length > 0) {
+          bibles = {};
+          results.forEach(b => { if(b && b.name) bibles[b.name] = b; });
+          const savedKey = localStorage.getItem("currentBibleKey");
+          currentBibleKey = (savedKey && bibles[savedKey]) ? savedKey : results[0].name;
+          updateBibleSelect();
+          showNotification(`📖 Restored ${results.length} Bible(s) from Cache`);
+          resolve(true);
+        } else { resolve(false); }
+      };
+      req.onerror = () => reject(req.error);
+    } catch(e) { console.error("Could not load from local cache", e); reject(e); }
+  });
+}
+
+// ════════════════════════════════════════════════════════════
+//  DRAWER TOGGLE (mobile nav panel)
+// ════════════════════════════════════════════════════════════
+function toggleDrawer() {
+  const d = document.getElementById('drawer');
+  d.classList.contains('open') ? closeDrawer() : openDrawer();
+}
+
+function openDrawer() {
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('drawer-overlay').classList.add('show');
+  document.getElementById('drawer-label').textContent = '✕ Close';
+  // Dim FABs while drawer is open
+  ['fab-sync','fab-search'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.opacity = '0'; el.style.pointerEvents = 'none'; }
+  });
+}
+
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('show');
+  document.getElementById('drawer-label').textContent = 'Bible Tools';
+  // Restore FABs
+  ['fab-sync','fab-search'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.opacity = '1'; el.style.pointerEvents = 'auto'; }
+  });
+}
+
+// ════════════════════════════════════════════════════════════
+//  SEARCH OVERLAY (mobile FAB search)
+// ════════════════════════════════════════════════════════════
+function openSearchOverlay() {
+  const ov = document.getElementById('search-overlay');
+  ov.classList.add('open');
+  // Autofocus input after animation starts
+  setTimeout(() => {
+    const inp = document.getElementById('overlay-search-input');
+    if (inp) inp.focus();
+  }, 120);
+}
+
+function closeSearchOverlay() {
+  const ov = document.getElementById('search-overlay');
+  ov.classList.remove('open');
+  const inp = document.getElementById('overlay-search-input');
+  if (inp) { inp.blur(); inp.value = ''; }
+  const sugg = document.getElementById('overlay-suggestions');
+  if (sugg) { sugg.innerHTML = ''; sugg.style.display = 'none'; }
+}
+
+// Mirror of handleBibleSearch but targets overlay-specific elements
+window.handleOverlaySearch = input => {
+  const val  = input.value.trim();
+  const sugg = document.getElementById('overlay-suggestions');
+  if (!val || !Object.keys(bibles).length) { sugg.style.display = 'none'; return; }
+
+  const ref = parseReference(val);
+  sugg.innerHTML = '';
+  if (!ref) { sugg.style.display = 'none'; return; }
+
+  const { bookQuery, chapQuery, verseQuery, verseEnd } = ref;
+  const matches = findMatchingBooks(bookQuery);
+
+  const seen = new Set();
+  matches.forEach(({ versionName, book }) => {
+    const key = `${book.name}||${versionName}`;
+    if (seen.has(key)) return; seen.add(key);
+
+    const div = document.createElement('div');
+    div.className = 'suggestion-item';
+    let label = book.name;
+    if (chapQuery)  label += ` ${chapQuery}`;
+    if (verseQuery) { label += `:${verseQuery}`; if (verseEnd) label += `-${verseEnd}`; }
+    div.innerHTML = `<span>${label}</span><span class="sugg-version">${versionName}</span>`;
+
+    div.addEventListener('mousedown', e => e.preventDefault());
+    div.addEventListener('touchstart', () => {}, { passive: true });
+
+    div.onclick = () => {
+      sugg.style.display = 'none';
+      input.value = '';
+      closeSearchOverlay();
+      executeBibleSearch(book.name, chapQuery, verseQuery, verseEnd, versionName);
+    };
+    sugg.appendChild(div);
+  });
+
+  sugg.style.display = sugg.children.length > 0 ? 'block' : 'none';
+};
+
+
+// ════════════════════════════════════════════════════════════
+//  NOTIFICATION TOAST
+// ════════════════════════════════════════════════════════════
+function showNotification(msg, duration = 3500) {
+  const bar   = document.getElementById('notification-bar');
+  const toast = document.createElement('div');
+  toast.className = 'toast'; toast.textContent = msg;
+  bar.appendChild(toast);
+  setTimeout(() => {
+    toast.style.transition = 'opacity 0.3s'; toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+window.showNotification = showNotification;
+
+// ════════════════════════════════════════════════════════════
+//  RENDER VERSE GRID
+//  Normal chapter: single version cards
+//  Search result : multi-version cards with version badge
+// ════════════════════════════════════════════════════════════
+window.renderLyricsGrid = () => {
+  const grid = document.getElementById('lyrics-grid');
+  const data = window.currentSongData;
+  grid.innerHTML = '';
+  if (!data || !data.parts || !data.parts.length) {
+    grid.innerHTML = `<div id="empty-state"><div class="empty-icon">📖</div><h2>Open the Word</h2><p>Pick a Book and Chapter, or search for a verse across all versions.</p></div>`;
+    document.getElementById('verse-count-label').textContent = '';
+    return;
+  }
+  document.getElementById('verse-count-label').textContent =
+    `${data.parts.length} verse${data.parts.length !== 1 ? 's' : ''}`;
+
+  data.parts.forEach((part, idx) => {
+    const card = document.createElement('div');
+    card.className = 'verse-card'; card.id = `part-${idx}`;
+    card.style.animationDelay = `${Math.min(idx * 15, 260)}ms`;
+
+    const badge = part.version
+      ? `<span class="verse-version-badge">${part.version}</span>` : '';
+
+    card.innerHTML = `${badge}<span class="verse-ref">${part.name}</span><div class="verse-text">${part.lyrics}</div>`;
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.verse-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    grid.appendChild(card);
+  });
+};
+
+// ════════════════════════════════════════════════════════════
+//  BIBLE UI HELPERS
+// ════════════════════════════════════════════════════════════
+window.toggleBibleTools = () => {
+  bibleToolsExpanded = !bibleToolsExpanded;
+  const c = document.getElementById('bible-tools-container');
+  const i = document.getElementById('bible-toggle-icon');
+  if (c) c.classList.toggle('collapsed', !bibleToolsExpanded);
+  if (i) i.innerText = bibleToolsExpanded ? '▼' : '◀';
+};
+
+function updateBibleSelect() {
+  const sel = document.getElementById('bible-version-select');
+  sel.innerHTML = '<option value="" disabled>Select Version…</option>';
+  Object.keys(bibles).forEach(name => {
+    const opt = document.createElement('option');
+    opt.value = name; opt.innerText = name; sel.appendChild(opt);
+  });
+  if (currentBibleKey && bibles[currentBibleKey]) {
+    sel.value = currentBibleKey;
+  } else if (Object.keys(bibles).length > 0) {
+    sel.value = Object.keys(bibles)[0];
+    currentBibleKey = sel.value;
+  }
+  document.getElementById('bible-search').disabled = false;
+  ['bible-book','bible-chapter','bible-verse'].forEach(id =>
+    document.getElementById(id).disabled = false);
+  populateBooks();
+  refreshCacheInfo();
+}
+
+function populateBooks() {
+  if (!currentBibleKey || !bibles[currentBibleKey] || !bibles[currentBibleKey].books) return;
+  const sel = document.getElementById('bible-book');
+  sel.innerHTML = '<option value="" disabled selected>Book</option>';
+  bibles[currentBibleKey].books.forEach((b, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx; opt.innerText = b.name; sel.appendChild(opt);
+  });
+  document.getElementById('bible-chapter').innerHTML = '<option value="" disabled selected>Ch</option>';
+  document.getElementById('bible-verse').innerHTML   = '<option value="" disabled selected>Vs</option>';
+}
+
+window.switchBibleVersion = val => {
+  currentBibleKey = val;
+  localStorage.setItem("currentBibleKey", val);
+  populateBooks();
+};
+
+window.onBookChange = () => {
+  const bIdx = document.getElementById('bible-book').value;
+  if (!bIdx || !bibles[currentBibleKey]) return;
+  const book = bibles[currentBibleKey].books[bIdx];
+  if (!book || !book.verses) return;
+  const chapters = [...new Set(book.verses.map(v => v.chapter))].sort((a,b) => a-b);
+  const chSel = document.getElementById('bible-chapter');
+  chSel.innerHTML = '<option value="" disabled selected>Ch</option>';
+  chapters.forEach(c => { const o = document.createElement('option'); o.value = c; o.innerText = c; chSel.appendChild(o); });
+  document.getElementById('bible-verse').innerHTML = '<option value="" disabled selected>Vs</option>';
+  chSel.focus();
+};
+
+window.onChapterChange = () => {
+  const bIdx = document.getElementById('bible-book').value;
+  const chap = parseInt(document.getElementById('bible-chapter').value);
+  loadBibleChapter(bIdx, chap);
+  const verses = bibles[currentBibleKey].books[bIdx].verses
+    .filter(v => v.chapter === chap).sort((a,b) => a.verse - b.verse);
+  const vSel = document.getElementById('bible-verse');
+  vSel.innerHTML = '<option value="" disabled selected>Vs</option>';
+  verses.forEach(v => { const o = document.createElement('option'); o.value = v.verse; o.innerText = v.verse; vSel.appendChild(o); });
+  // Auto-close drawer after chapter selected
+  closeDrawer();
+};
+
+window.onVerseChange = () => {
+  const vNum = parseInt(document.getElementById('bible-verse').value);
+  if (!window.currentSongData) return;
+  const idx = window.currentSongData.parts.findIndex(p => p.name.includes(`:${vNum}`));
+  if (idx !== -1) {
+    const card = document.getElementById(`part-${idx}`);
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+};
+
+// ════════════════════════════════════════════════════════════
+//  SEARCH HELPERS
+// ════════════════════════════════════════════════════════════
+
+// Parse a reference — supports:
+//   "John"            → book only
+//   "John 3"          → book + chapter
+//   "John 3:16"       → book + chapter + verse
+//   "John 3:16-20"    → book + chapter + verse range
+//   "1 Cor 13:4-7"    → numbered book + chapter + verse range
+function parseReference(val) {
+  const s = val.trim().replace(/\s+/g, ' ');
+  // Regex: (book) (chapter)? (:verseStart)? (-verseEnd)?
+  const m = s.match(/^(\d?\s?[a-zA-Z][a-zA-Z\s]*)\s*(\d+)?(?:[:.](\d+)(?:-(\d+))?)?$/);
+  if (!m) return null;
+  const bookQ = m[1].trim().toLowerCase();
+  if (!bookQ) return null;
+  return {
+    bookQuery:  bookQ,
+    chapQuery:  m[2] ? parseInt(m[2])  : null,
+    verseQuery: m[3] ? parseInt(m[3])  : null,
+    verseEnd:   m[4] ? parseInt(m[4])  : null   // null = single verse (or no verse)
+  };
+}
+
+// Find matching books across all versions for a given query
+function findMatchingBooks(bookQuery) {
+  const results = []; // { versionName, book, bookIdx }
+  Object.keys(bibles).forEach(versionName => {
+    const bible = bibles[versionName];
+    if (!bible || !bible.books) return;
+    bible.books.forEach((book, idx) => {
+      if (book.name.toLowerCase().includes(bookQuery))
+        results.push({ versionName, book, bookIdx: idx });
+    });
+  });
+  return results;
+}
+
+// ── HIDE SUGGESTIONS ON CLICK OUTSIDE ─────────────────────
+function hideSuggestionsIfOutside(e) {
+  // CRITICAL FIX: If the user is tapping the search box directly, do NOTHING.
+  // This stops the script from accidentally blurring the keyboard.
+  if (e.target && e.target.id === 'bible-search') return;
+
+  const searchWrap = document.querySelector('.search-wrap');
+  const sugg = document.getElementById('bible-suggestions');
+  if (sugg && sugg.style.display === 'block') {
+    if (searchWrap && !searchWrap.contains(e.target)) {
+      sugg.style.display = 'none';
+    }
+  }
+}
+document.addEventListener('mousedown', hideSuggestionsIfOutside);
+document.addEventListener('touchstart', hideSuggestionsIfOutside, { passive: true });
+
+// ── MAIN SEARCH HANDLER (oninput) ─────────────────────────
+window.handleBibleSearch = input => {
+  const val  = input.value.trim();
+  const sugg = document.getElementById('bible-suggestions');
+  if (!val || !Object.keys(bibles).length) { sugg.style.display = 'none'; return; }
+
+  const ref = parseReference(val);
+  sugg.innerHTML = '';
+  if (!ref) { sugg.style.display = 'none'; return; }
+
+  const { bookQuery, chapQuery, verseQuery, verseEnd } = ref;
+  const matches = findMatchingBooks(bookQuery);
+
+  // De-duplicate by bookName+version
+  const seen = new Set();
+  matches.forEach(({ versionName, book }) => {
+    const key = `${book.name}||${versionName}`;
+    if (seen.has(key)) return; seen.add(key);
+
+    const div = document.createElement('div');
+    div.className = 'suggestion-item';
+    let label = book.name;
+    if (chapQuery)  label += ` ${chapQuery}`;
+    if (verseQuery) { label += `:${verseQuery}`; if (verseEnd) label += `-${verseEnd}`; }
+    div.innerHTML = `<span>${label}</span><span class="sugg-version">${versionName}</span>`;
+
+    div.onclick = () => {
+      sugg.style.display = 'none';
+      input.value = '';
+      executeBibleSearch(book.name, chapQuery, verseQuery, verseEnd, versionName);
+    };
+    sugg.appendChild(div);
+  });
+
+  sugg.style.display = sugg.children.length > 0 ? 'block' : 'none';
+};
+
+// ── ENTER KEY HANDLER ─────────────────────────────────────
+window.handleBibleSearchKey = (e, input) => {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  const val = input.value.trim();
+  if (!val) return;
+  const ref = parseReference(val);
+  if (!ref) { showNotification('Type a reference like "John 3:16" or "John 3:16-20"'); return; }
+
+  // FIX: Added verseEnd to the destructuring extraction here
+  const { bookQuery, chapQuery, verseQuery, verseEnd } = ref; 
+  const matches = findMatchingBooks(bookQuery);
+  if (!matches.length) { showNotification(`No book matching "${bookQuery}" found.`); return; }
+
+  // Use the first matched book name (same book exists in all versions)
+  const bookName = matches[0].book.name;
+
+  const sugg = document.getElementById('bible-suggestions');
+  if (sugg) sugg.style.display = 'none';
+  
+  input.value = '';
+  input.blur();
+  closeSearchOverlay(); // close overlay if search came from FAB
+
+  executeBibleSearch(bookName, chapQuery, verseQuery, verseEnd, null /* all versions */);
+};
+
+// ── EXECUTE SEARCH ─────────────────────────────────────────
+// versionFilter = null  → show result from ALL versions
+// versionFilter = "NIV" → show only that version
+// verseEnd = null  → single verse; number → verse range
+function executeBibleSearch(bookName, chapQuery, verseQuery, verseEnd, versionFilter) {
+  if (verseQuery && chapQuery) {
+    // Specific verse (or range) → show all versions side by side
+    loadVerseAllVersions(bookName, chapQuery, verseQuery, verseEnd, versionFilter);
+  } else if (chapQuery) {
+    // Whole chapter — pick version (filter or current)
+    const ver = versionFilter || currentBibleKey;
+    if (!bibles[ver]) return;
+    currentBibleKey = ver;
+    localStorage.setItem("currentBibleKey", ver);
+    document.getElementById('bible-version-select').value = ver;
+    populateBooks();
+    const bIdx = bibles[ver].books.findIndex(b => b.name === bookName);
+    if (bIdx === -1) return;
+    document.getElementById('bible-book').value = bIdx;
+    window.onBookChange();
+    document.getElementById('bible-chapter').value = chapQuery;
+    loadBibleChapter(bIdx, chapQuery);
+    closeDrawer();
+  } else {
+    // Book name only — load chapter 1 of all matched versions? Just navigate to book.
+    const ver = versionFilter || currentBibleKey;
+    currentBibleKey = ver;
+    localStorage.setItem("currentBibleKey", ver);
+    document.getElementById('bible-version-select').value = ver;
+    populateBooks();
+    const bIdx = bibles[ver].books.findIndex(b => b.name === bookName);
+    if (bIdx === -1) return;
+    document.getElementById('bible-book').value = bIdx;
+    window.onBookChange();
+    closeDrawer();
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  LOAD VERSE / RANGE ACROSS ALL VERSIONS
+//  verseEnd = null  → single verse
+//  verseEnd = 20    → verse range verseNum..20
+// ════════════════════════════════════════════════════════════
+function loadVerseAllVersions(bookName, chap, verseStart, verseEnd, versionFilter) {
+  const parts = [];
+  const versionsToSearch = versionFilter ? [versionFilter] : Object.keys(bibles);
+  const isRange = verseEnd && verseEnd > verseStart;
+
+  versionsToSearch.forEach(versionName => {
+    const bible = bibles[versionName];
+    if (!bible || !bible.books) return;
+    const book = bible.books.find(b => b.name === bookName);
+    if (!book) return;
+
+    if (isRange) {
+      // Collect all verses in range, combine into one card per version
+      const rangeVerses = book.verses
+        .filter(v => v.chapter === chap && v.verse >= verseStart && v.verse <= verseEnd)
+        .sort((a, b) => a.verse - b.verse);
+      if (!rangeVerses.length) return;
+
+      // Each verse gets its own card, grouped under the version
+      rangeVerses.forEach(v => {
+        parts.push({
+          version: versionName,
+          name:    `${bookName} ${chap}:${v.verse}`,
+          lyrics:  v.text
+        });
+      });
+    } else {
+      // Single verse
+      const v = book.verses.find(v => v.chapter === chap && v.verse === verseStart);
+      if (!v) return;
+      parts.push({
+        version: versionName,
+        name:    `${bookName} ${chap}:${verseStart}`,
+        lyrics:  v.text
+      });
+    }
+  });
+
+  if (!parts.length) { showNotification('Verse not found in any version.'); return; }
+
+  const refLabel = isRange ? `${chap}:${verseStart}-${verseEnd}` : `${chap}:${verseStart}`;
+  const titleSuffix = versionFilter ? ` (${versionFilter})` : ' — All Versions';
+
+  window.currentSongData = {
+    type:  'song',
+    title: `${bookName} ${refLabel}${titleSuffix}`,
+    parts: parts
+  };
+  document.getElementById('current-song-title').innerText = window.currentSongData.title;
+  window.renderLyricsGrid();
+  closeDrawer();
+}
+
+function loadBibleChapter(bookIdx, chap) {
+  const book   = bibles[currentBibleKey].books[bookIdx];
+  const verses = book.verses.filter(v => v.chapter === chap).sort((a,b) => a.verse - b.verse);
+  window.currentSongData = {
+    type:  'song',
+    title: `${book.name} ${chap} (${currentBibleKey})`,
+    parts: verses.map(v => ({ name: `${book.name} ${chap}:${v.verse}`, lyrics: v.text }))
+  };
+  document.getElementById('current-song-title').innerText = window.currentSongData.title;
+  window.renderLyricsGrid();
+}
+
+// ════════════════════════════════════════════════════════════
+//  FILE UPLOAD
+// ════════════════════════════════════════════════════════════
+window.handleBibleUpload = async input => {
+  const file = input.files[0];
+  if (!file) return;
+  showNotification("Parsing Bible…");
+  try {
+    let bibleData = null;
+    const nameLower = file.name.toLowerCase();
+    if (nameLower.endsWith('.sqlite') || nameLower.endsWith('.db')) {
+      bibleData = parseSQLiteBible(await readFileAsBuffer(file), file.name);
+    } else {
+      bibleData = parseUnknownBibleFormat(await readFileAsText(file), file.name);
+    }
+    if (bibleData && bibleData.name && bibleData.books) {
+      bibles[bibleData.name] = bibleData;
+      currentBibleKey = bibleData.name;
+      localStorage.setItem("currentBibleKey", currentBibleKey);
+      await saveBibleToLocalCache(bibleData);
+      updateBibleSelect();
+      showNotification(`📖 Loaded: ${bibleData.name}`);
+      document.getElementById('btnSaveBible').style.display = 'block';
+    } else { throw new Error("Invalid Bible Format. Missing 'name' or 'books'."); }
+  } catch(e) { alert("Error: " + e.message); }
+  input.value = "";
+};
+
+// ════════════════════════════════════════════════════════════
+//  CLOUD — SAVE TO DRIVE
+// ════════════════════════════════════════════════════════════
+window.saveBibleToDrive = async () => {
+  if (!currentBibleKey || !bibles[currentBibleKey]) return;
+  showNotification("Uploading to Drive… ☁");
+  const data = bibles[currentBibleKey];
+  const payload = { action: "save", name: `BIBLE_${data.name}.json`, overwrite: true, data: data };
+  try {
+    const res  = await fetch(APPS_SCRIPT_URL + "?action=save", { method: "POST", body: JSON.stringify(payload) });
+    const json = await res.json();
+    if (json.ok) showNotification("✅ Bible Saved to Cloud!");
+    else alert("Save failed: " + json.error);
+  } catch(e) { alert("Error saving: " + e.message); }
+};
+
+// ════════════════════════════════════════════════════════════
+//  FILE READERS & PARSERS
+// ════════════════════════════════════════════════════════════
+function readFileAsText(file) {
+  return new Promise(r => { const rd = new FileReader(); rd.onload = e => r(e.target.result); rd.readAsText(file); });
+}
+function readFileAsBuffer(file) {
+  return new Promise(r => { const rd = new FileReader(); rd.onload = e => r(e.target.result); rd.readAsArrayBuffer(file); });
+}
+
+// Universal parser — handles:
+//   • Raw XML string
+//   • JSON-wrapped XML string  ← your file format
+//   • Plain JSON object
+//   • Array of books
+function parseUnknownBibleFormat(rawData, filename) {
+  let parsedData = rawData;
+  // Step 1: If string, try JSON.parse (un-wraps stringified XML)
+  if (typeof parsedData === 'string') {
+    try { parsedData = JSON.parse(parsedData); } catch(e) { /* raw text/xml, keep as-is */ }
+  }
+  // Step 2: Evaluate result
+  if (typeof parsedData === 'string') {
+    if (parsedData.trim().startsWith('<')) {
+      const bData = parseXMLBible(parsedData); bData.rawXML = parsedData; return bData;
+    }
+    throw new Error("Text file does not appear to be XML or JSON.");
+  } else if (typeof parsedData === 'object' && parsedData !== null) {
+    let bData = parsedData;
+    if (Array.isArray(bData)) bData = { name: filename.replace(/\.[^/.]+$/, ""), books: bData };
+    if (!bData.name && bData.translation) bData.name = bData.translation;
+    return bData;
+  }
+  throw new Error("Unrecognized data format.");
+}
+
+function parseXMLBible(xmlString) {
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+  if (xmlDoc.querySelector("parsererror")) throw new Error("Invalid XML");
+  let name = xmlDoc.documentElement.getAttribute('translation') || "XML Bible";
+  let books = [];
+  xmlDoc.querySelectorAll('book').forEach(b => {
+    const bNum  = parseInt(b.getAttribute('number'));
+    const bName = STD_BOOKS[bNum - 1] || "Book " + bNum;
+    const verses = [];
+    b.querySelectorAll('chapter').forEach(c => {
+      const cNum = parseInt(c.getAttribute('number'));
+      c.querySelectorAll('verse').forEach(v =>
+        verses.push({ chapter: cNum, verse: parseInt(v.getAttribute('number')), text: v.textContent })
+      );
+    });
+    if (verses.length) books.push({ name: bName, verses });
+  });
+  return { name, books };
+}
+
+function parseSQLiteBible(buffer, filename) {
+  if (!window.SQL) throw new Error("SQL Engine not ready");
+  const db = new window.SQL.Database(new Uint8Array(buffer));
+  const bMap = {};
+  STD_BOOKS.forEach((b,i) => bMap[i+1] = b);
+  let res = db.exec("SELECT book_id, chapter, verse, text FROM verse");
+  if (!res.length) res = db.exec("SELECT book_id, chapter, verse, text FROM verses");
+  const tempBooks = {};
+  if (res.length) res[0].values.forEach(row => {
+    const bName = bMap[row[0]] || "Book " + row[0];
+    if (!tempBooks[bName]) tempBooks[bName] = [];
+    tempBooks[bName].push({ chapter: row[1], verse: row[2], text: row[3].replace(/<[^>]*>/g,'') });
+  });
+  db.close();
+  return { name: filename.replace(/\.(sqlite|db)$/i,''), books: Object.keys(tempBooks).map(k => ({ name: k, verses: tempBooks[k] })) };
+}
+
+// ════════════════════════════════════════════════════════════
+//  CACHE INFO & CLEAR
+// ════════════════════════════════════════════════════════════
+function refreshCacheInfo() {
+  const el = document.getElementById('cache-info');
+  if (!el) return;
+  const keys = Object.keys(bibles);
+  el.innerHTML = keys.length ? keys.map(k => `📖 ${k}`).join('<br>') : 'No Bibles in local cache.';
+}
+
+window.clearLocalCache = async () => {
+  if (!confirm('Clear all cached Bibles from this browser?')) return;
+  const req = indexedDB.deleteDatabase(DB_NAME);
+  req.onsuccess = () => {
+    localStorage.removeItem('currentBibleKey'); localStorage.removeItem('cloudSyncDone');
+    bibles = {}; currentBibleKey = null;
+    document.getElementById('bible-version-select').innerHTML = '<option value="" disabled selected>— Select Version —</option>';
+    ['bible-book','bible-chapter','bible-verse'].forEach(id => document.getElementById(id).disabled = true);
+    document.getElementById('current-song-title').textContent = 'Open the Word';
+    window.renderLyricsGrid(); refreshCacheInfo();
+    showNotification('🗑 Cache cleared.');
+  };
+};
+
+// ════════════════════════════════════════════════════════════
+//  CLOUD BADGE & FAB SPIN
+// ════════════════════════════════════════════════════════════
+function setBadge(state, label) {
+  document.getElementById('cloud-badge').className = state;
+  document.getElementById('cloud-badge-label').textContent = label;
+}
+function setFabSpin(on) {
+  const fab = document.getElementById('fab-sync');
+  if (fab) fab.classList.toggle('spinning', on);
+}
+
+// ════════════════════════════════════════════════════════════
+//  SPLASH HELPERS (null-safe)
+// ════════════════════════════════════════════════════════════
+function setSplashTitle(t)  { const el = document.getElementById('splash-title');        if(el) el.textContent = t; }
+function setSplashDesc(d)   { const el = document.getElementById('splash-desc');         if(el) el.textContent = d; }
+function setSplashStatus(s) { const el = document.getElementById('splash-status');       if(el) el.textContent = s; }
+function setProgress(pct)   { const el = document.getElementById('splash-progress-bar'); if(el) el.style.width = pct + '%'; }
+
+function closeSplash() {
+  const el = document.getElementById('splash');
+  if (!el) return;
+  el.classList.add('hidden');
+  setTimeout(() => el.remove(), 500);
+}
+function skipSplash() {
+  closeSplash();
+  if (Object.keys(bibles).length > 0) { updateBibleSelect(); showNotification('📖 Using cached Bibles.'); }
+}
+
+// ════════════════════════════════════════════════════════════
+//  AUTO-SYNC FROM CLOUD
+// ════════════════════════════════════════════════════════════
+window.autoSyncFromCloud = async (force = false) => {
+  if (!force && localStorage.getItem('cloudSyncDone') === '1') { closeSplash(); return; }
+
+  setSplashTitle('Downloading Bible Library');
+  setSplashDesc('Fetching all Bibles from your Google Drive folder and saving to IndexedDB.');
+  setBadge('syncing', 'Syncing…');
+  setFabSpin(true);
+
+  const fileList = document.getElementById('splash-file-list');
+  if (fileList) fileList.innerHTML = '';
+  setProgress(8);
+
+  try {
+    setSplashStatus('Connecting to Google Drive…');
+    const listRes  = await fetch(APPS_SCRIPT_URL + '?action=list&t=' + Date.now());
+    const listData = await listRes.json();
+
+    if (!listData.ok || !listData.files) throw new Error('Cannot reach cloud library.');
+
+    const BIBLE_EXTS = ['.json', '.xml', '.sqlite', '.db'];
+    const bibleFiles = listData.files.filter(f =>
+      BIBLE_EXTS.some(ext => f.name.toLowerCase().endsWith(ext))
+    );
+
+    if (!bibleFiles.length) {
+      setSplashStatus('⚠️ No Bible files found in Drive folder.');
+      setProgress(100); setBadge('error', 'No Bibles'); setFabSpin(false);
+      const sb = document.getElementById('splash-skip-btn'); if(sb) sb.style.display = 'block';
+      return;
+    }
+
+    bibleFiles.forEach(f => {
+      if (!fileList) return;
+      const row = document.createElement('div');
+      row.className = 'splash-file-item'; row.id = `sf-${f.id}`;
+      row.innerHTML = `<span class="file-status-icon">⏳</span><span>${f.name.replace(/^BIBLE_/i,'')}</span>`;
+      fileList.appendChild(row);
+    });
+    const skipBtn = document.getElementById('splash-skip-btn');
+    if (skipBtn) skipBtn.style.display = 'block';
+
+    let done = 0;
+    for (const f of bibleFiles) {
+      const iconEl = document.querySelector(`#sf-${f.id} .file-status-icon`);
+      const setIcon = v => { if (iconEl) iconEl.textContent = v; };
+      setSplashStatus(`Downloading: ${f.name.replace(/^BIBLE_/i,'')}…`);
+      try {
+        const r    = await fetch(APPS_SCRIPT_URL + '?action=getContent&id=' + f.id);
+        const json = await r.json();
+
+        if (json.ok && json.data) {
+          let bibleData = null;
+          let rawData   = json.data;
+
+          if (json.encoding === 'base64') {
+            const binStr = atob(rawData); const bytes = new Uint8Array(binStr.length);
+            for (let i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
+            bibleData = parseSQLiteBible(bytes.buffer, json.name);
+          } else {
+            // UNIVERSAL PARSER — handles stringified XML inside JSON
+            if (typeof rawData === 'string') { try { rawData = JSON.parse(rawData); } catch(e) {} }
+            if (typeof rawData === 'string' && rawData.trim().startsWith('<')) {
+              bibleData = parseXMLBible(rawData); bibleData.rawXML = rawData;
+            } else if (typeof rawData === 'object' && rawData !== null) {
+              bibleData = rawData;
+            } else { throw new Error("Unrecognized data format."); }
+          }
+
+          if (bibleData && Array.isArray(bibleData))
+            bibleData = { name: f.name.replace(/\.[^/.]+$/, ""), books: bibleData };
+          if (bibleData && !bibleData.name && bibleData.translation)
+            bibleData.name = bibleData.translation;
+
+          if (bibleData && bibleData.name && bibleData.books) {
+            bibles[bibleData.name] = bibleData;
+            currentBibleKey = bibleData.name;
+            localStorage.setItem('currentBibleKey', bibleData.name);
+            await saveBibleToLocalCache(bibleData);
+            setIcon('✅');
+          } else {
+            setIcon('⚠️');
+            console.warn(`${f.name}: missing 'name' or 'books'`, bibleData);
+          }
+        } else { setIcon('⚠️'); console.warn('Bad response:', f.name, json); }
+      } catch(err) { setIcon('❌'); console.error('Failed:', f.name, err); }
+      done++;
+      setProgress(8 + Math.round((done / bibleFiles.length) * 88));
+    }
+
+    setProgress(100);
+    updateBibleSelect();
+    localStorage.setItem('cloudSyncDone', '1');
+    setSplashStatus(`✅ ${Object.keys(bibles).length} Bible(s) ready — opening…`);
+    setBadge('synced', 'Synced'); setFabSpin(false);
+    setTimeout(closeSplash, 1200);
+
+  } catch(err) {
+    setSplashStatus('❌ ' + err.message);
+    setBadge('error', 'Error'); setFabSpin(false);
+    const sb2 = document.getElementById('splash-skip-btn'); if(sb2) sb2.style.display = 'block';
+    console.error('autoSyncFromCloud:', err);
+  }
+};
+
+// ════════════════════════════════════════════════════════════
+//  PAGE INIT
+// ════════════════════════════════════════════════════════════
+window.addEventListener('load', () => {
+  loadBiblesFromLocalCache().then(hasCached => {
+    setTimeout(() => {
+      if (hasCached) {
+        setSplashTitle('Cache Restored ✓');
+        setSplashDesc('Your Bibles are ready. Checking cloud for updates…');
+        setSplashStatus(`${Object.keys(bibles).length} Bible(s) in local cache.`);
+        setProgress(50);
+        const sb = document.getElementById('splash-skip-btn'); if(sb) sb.style.display = 'block';
+        autoSyncFromCloud(false);
+      } else {
+        autoSyncFromCloud(false);
+      }
+    }, 900);
+  });
+});
+</script>
+</body>
+</html>

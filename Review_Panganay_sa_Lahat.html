@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Panginoong Hesus, Panganay sa Lahat</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;--white:#fff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:80px;}
+
+  /* TOP BAR */
+  .topbar{background:var(--green);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:18px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.68;margin-top:2px;}
+
+  /* BOTTOM NAV */
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:26px;height:26px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;}
+  .nl{font-size:9px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--green);}
+
+  /* SECTION */
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* HERO */
+  .hero{background:linear-gradient(150deg,var(--green-dark) 0%,var(--green) 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:23px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.7;}
+
+  /* VERSE BOX */
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:15px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+
+  /* WHITE CARD */
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* SECTION HEADER */
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  /* BODY TEXT */
+  .body{font-size:15px;color:var(--text);line-height:1.78;margin:14px 14px 0;}
+  .body strong{font-weight:600;}
+  .body em{font-style:italic;}
+
+  /* HIGHLIGHT BOX */
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl p{font-size:14px;line-height:1.7;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+
+  /* WORD BOX */
+  .wbox{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .wgreek{font-size:26px;font-weight:700;color:white;text-align:center;margin-bottom:3px;letter-spacing:0.05em;}
+  .weng{font-size:11px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:11px;letter-spacing:0.08em;text-transform:uppercase;}
+  .wparts{display:flex;gap:9px;}
+  .wpart{flex:1;background:rgba(255,255,255,0.1);border-radius:8px;padding:10px;text-align:center;}
+  .wpw{font-size:16px;font-weight:700;color:#A8F0D8;margin-bottom:3px;}
+  .wpm{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.4;}
+  .wpd{font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px;}
+
+  /* ILLUS */
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{background:var(--orange-light);padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:8px;}
+
+  /* SUP VERSE */
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  /* TRUTH BOX */
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  /* SUMMARY CARDS */
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* DUAL HL */
+  .dual{display:grid;gap:9px;margin:14px 14px 0;}
+
+  /* CONCL */
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:17px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  /* PRAYER */
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:16px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  /* CLOSING */
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:16px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:8px;}
+  .closing cite{font-size:13px;font-weight:700;color:var(--text);font-style:normal;}
+
+  .sp{height:14px;}
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material</div>
+  <h1>Panginoong Hesus, Panganay sa Lahat</h1>
+  <div class="ref">Colossians 1:15–20 · Personal na Pagbabalik-aral</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--green)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--green)">1</div>
+    <div class="nl">Larawan</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--purple)">2</div>
+    <div class="nl">Panganay</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--orange)">3</div>
+    <div class="nl">Ikalawang Adan</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--green-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<!-- ===== INTRO ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material</div>
+    <h2>Panginoong Hesus, Panganay sa Lahat</h2>
+    <div class="href">Colossians 1:15–20 · Personal na Pagbabalik-aral</div>
+  </div>
+
+  <div class="vbox">
+    <p>"Siya ang larawan ng Diyos na hindi nakikita. Siya ang panganay na anak, na higit sa lahat ng nilikha. Sapagkat sa pamamagitan niya ay nilikha ang lahat ng nasa langit at nasa lupa — nakikita man o hindi — pati ang mga trono, dominasyon, pamahala, at pamamuno. Ang lahat ay nilikha ng Diyos sa pamamagitan niya at para sa kanya. Siya ay nauna sa lahat, at ang lahat ay nananatili sa pamamagitan niya. Siya ang ulo ng iglesya; siya ang simula, ang panganay sa mga muling nabuhay, upang siya ang maging pangunahin sa lahat. Sapagkat ninarapat ng Diyos na ang buo niyang kalikasan ay manatili sa anak. At sa pamamagitan ng anak, ninais ng Diyos na ang lahat ng bagay — maging nasa langit man o nasa lupa — ay makipagkasundo sa Kanya, sa pamamagitan ng dugo ng anak sa krus."</p>
+    <cite>— Colossians 1:15–20 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p><strong>Bakit sinulat ni Pablo ang Colossians?</strong> Dahil may mga nagtatangkang <strong>pahinain ang pagkakilala sa Panginoong Hesus</strong> — binababa ang Kanyang kalagayan, inilalayo ang mga mananampalataya sa tamang pag-unawa kung sino Siya. Kaya isinulat ni Apostol Pablo ang sulat na ito para <strong>patatagin ang pananampalataya</strong> ng mga taga-Colossas.</p>
+    <p><strong>Ang mensahe:</strong> Si Hesus ay hindi lamang isang guro, propeta, o relihiyosong pigura. Siya ang sentro ng lahat ng ginagawa ng Diyos — at walang anumang bagay ang may tunay na saysay kung ito ay hiwalay sa Kanya.</p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Pangunahing Puntos</div>
+  <div class="sum-cards">
+    <div class="sum-card">
+      <div class="sd g">1</div>
+      <div>
+        <div class="s-title">Si Hesus ang Larawan (Eikon) ng Diyos</div>
+        <div class="s-desc">Colossians 1:15 — Ang nakakita sa Kanya ay nakakita na sa Ama. Eksaktong representasyon ng Diyos na hindi nakikita.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">2</div>
+      <div>
+        <div class="s-title">Si Hesus ang Panganay (Prototopos) sa Lahat</div>
+        <div class="s-desc">Colossians 1:15, 17–18 — Hindi titulo ng edad kundi titulo ng karangalan at awtoridad — pangunahin sa lahat.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">3</div>
+      <div>
+        <div class="s-title">Si Hesus ang Ikalawang Adan — Kabayarang Sapat</div>
+        <div class="s-desc">Colossians 1:19–20 · Philippians 2:6–8 — Hinubad Niya ang Kanyang karangalan dahil sa pag-ibig para iligtas tayo.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 1 ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--green);">
+    <div class="snum">1</div>
+    <div>
+      <h2>Si Hesus ang Larawan ng Diyos na Hindi Nakikita</h2>
+      <div class="sub">Colossians 1:15 — "Siya ang larawan ng Diyos na hindi nakikita"</div>
+    </div>
+  </div>
+
+  <div class="body">Ang salitang ginamit ni Pablo para sa "larawan" ay ang Griyegong salitang <strong>eikon (εἰκών)</strong> — pinagmulan ng salitang "icon" sa modernong paggamit. Ang eikon ay hindi lamang isang representasyon o kopya — ito ay ang <strong>eksaktong imahe na nagtataglay ng kalikasan ng orihinal.</strong></div>
+
+  <div class="body">Ibig sabihin — kapag nakita mo si Hesus, nakita mo na ang Ama. Hindi isang mababang bersyon. Hindi isang kopya. Ang buo at buong kalikasan ng Diyos ay naroon sa ating Panginoong Hesus. Kaya naman nang sabihin ni Felipe kay Hesus, <em>"Panginoon, ipakita mo sa amin ang Ama,"</em> ang sagot ni Hesus ay:</div>
+
+  <div class="hl green">
+    <p>"Ang sino man ang nakakita sa akin, ay nakita na ang Ama." — Juan 14:9</p>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Paliwanag ng Pastor</div>
+    <div class="illus-body">
+      <p>Ginamit ng pastor ang halimbawa ng selyo at sabon — ang markang naiwan ay eksaktong kopya ng selyo. Ginugot ang marka sa sabon — iyon ang prototopos. Ganoon si Hesus sa Ama: eksaktong larawan ng isang Diyos na hindi natin makita.</p>
+      <p>"Ang Diyos na hindi nakikita, ang larawan niya ay ang ating Panginoong Hesu Kristo."</p>
+    </div>
+  </div>
+
+  <div class="body"><strong>Lahat ng kaluwalhatian ng Ama ay ibinigay sa Anak.</strong> Kaya ang pagsamba sa Anak ay pagsamba sa Ama. Ang pagsunod sa Anak ay pagsunod sa Ama. Ang pagpuri sa pangalan ni Hesus ay pagpuri sa Diyos na hindi nakikita.</div>
+
+  <div class="body">Sinabi ng pastor: <em>"Mawawalan ng saysay ang anumang ginagawa natin sa buhay kapag ito ay hiwalay sa ating Panginoong Hesus. Kailangan pong nakakawing sa Panginoon — dahil kung nais nating sundan at harapin ang Diyos, kailangan nating purihin si Hesus — He is the only way, the truth, and the life."</em></div>
+
+  <div class="sup">
+    <div class="sup-lbl">Mga Sumusuportang Talata</div>
+    <p>"Sa simula pa ay naroroon na ang Salita, at ang Salita ay kasama ng Diyos, at ang Salita ay Diyos... At ang Salita ay naging tao at namuhay sa ating piling."</p>
+    <cite>— Juan 1:1, 14</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl"></div>
+    <p>"Siya ang kawangis ng Diyos na di nakikita."</p>
+    <cite>— 2 Corinto 4:4</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl"></div>
+    <p>"He who honors me honors the Father who sent me."</p>
+    <cite>— Juan 5:23</cite>
+  </div>
+
+  <div class="truth green">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Si Hesus ay hindi lamang isang guro o propeta — Siya ang eksaktong larawan ng Diyos na hindi natin makita. Ang pagpaparangal sa Anak ay pagpaparangal sa Ama.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 2 ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--purple);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Si Hesus ang Panganay — ang Prototopos sa Lahat</h2>
+      <div class="sub">Colossians 1:15, 17–18 — "Siya ang panganay na anak, na higit sa lahat ng nilikha"</div>
+    </div>
+  </div>
+
+  <div class="body">Ang salitang "panganay" ay ang Griyegong <strong>prototopos (πρωτότοκος)</strong> — isang compound word na nagmumula sa dalawang salita:</div>
+
+  <div class="wbox">
+    <div class="wgreek">πρωτότοκος</div>
+    <div class="weng">Prototopos — Firstborn / Preeminent</div>
+    <div class="wparts">
+      <div class="wpart">
+        <div class="wpw">Protos</div>
+        <div class="wpm">First / Preeminent</div>
+        <div class="wpd">Una sa lahat, pinagsimulan ng lahat</div>
+      </div>
+      <div class="wpart">
+        <div class="wpw">Tokos</div>
+        <div class="wpm">Born / Offspring</div>
+        <div class="wpd">Nagmumula, supling</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body"><strong>Mahalagang linawin:</strong> Ang "panganay" dito ay <strong>hindi tungkol sa edad</strong> — hindi nagpapahiwatig na si Hesus ay may oras na nilikha o sinimulan. Ito ay isang <strong>titulo ng karangalan at awtoridad</strong> — ang pinakamataas sa lahat, ang pinagsimulaan ng lahat.</div>
+
+  <div class="body">Dalawang beses binanggit ni Pablo ang <em>prototopos:</em></div>
+
+  <div class="hl purple">
+    <p><strong>Verse 15</strong> — "Panganay sa lahat ng nilikha" = Siya ang may awtoridad at karangalan sa buong nilikha — ang mga anghel (Elohim), ang mga tao, ang lahat ng espirituwal na kapangyarihan na binabanggit sa Ephesians 6. Lahat ay nasa ilalim ng Kanyang awtoridad.</p>
+  </div>
+
+  <div class="hl purple">
+    <p><strong>Verse 18</strong> — "Panganay sa mga muling nabuhay" = Siya ang unang muling nabuhay at siyang nagbubukas ng daan para sa ating sariling muling pagkabuhay. Pangunahin Siya parehong sa lumang buhay at sa bagong buhay.</p>
+  </div>
+
+  <div class="body">At sa verse 17: <strong>"Siya ay nauna sa lahat, at ang lahat ay nananatili sa pamamagitan niya."</strong> Sinabi ng pastor: kahit sa gitna ng kaguluhan sa Middle East — mayroon tayong kapayapaan. Bakit?</div>
+
+  <div class="illus">
+    <div class="illus-hdr">Paliwanag ng Pastor</div>
+    <div class="illus-body">
+      <p>"Ang buong sansinukob ay nananatili sa kaayusan sa pamamagitan niya. He is under control — everything is — kung hindi mangyayari kung hindi sa kanya kakahitulutan. Kaya tayo ay may payapa dahil alam natin na tayo ay may Diyos na nakakaalam ng lahat ng bagay."</p>
+      <p>"Ang Panginoong Hesus bilang panganay — ang pinakasentro ng ginagawa ng ating Panginoong Diyos sa Kanyang mga nilikha. Anuman pong bagay na nakahiwalay sa ating Panginoong Hesus — ito ay nakawala ng saysay."</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Mga Sumusuportang Talata</div>
+    <p>"Bago pa sumilang si Abraham, ako na." — Nagpapakita ng walang hanggang pag-iral ni Hesus bago pa man ang kasaysayan.</p>
+    <cite>— Juan 8:58</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl"></div>
+    <p>"Sa simula pa ay naroroon na ang Salita." — Juan 1:1</p>
+    <cite></cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl"></div>
+    <p>"Siya ang ulo ng iglesya; siya ang simula, ang panganay sa mga muling nabuhay."</p>
+    <cite>— Colossians 1:18</cite>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Si Hesus ay hindi lamang una sa pagkakasunod — Siya ay pangunahin sa lahat. Lahat ng nilikha ay umiiral sa pamamagitan Niya, at walang anuman ang may tunay na saysay kung hindi ito nakakabit sa Kanya.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 3 ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Si Hesus ang Ikalawang Adan — Kabayarang Sapat para sa Lahat</h2>
+      <div class="sub">Colossians 1:19–20 · Philippians 2:6–8</div>
+    </div>
+  </div>
+
+  <div class="body">May isang mahalagang panuntunan na binanggit ng pastor: <strong>"Ang nagkasala ay tao — kaya tao rin ang kailangang tumugon sa kasalanan."</strong> Ang unang Adan ay nagkasala at nagdala ng buong sangkatauhan sa pagkaalipin ng kasalanan. Kailangan ang isang <em>ikalawang Adan</em> — isang taong walang kasalanan — na maaaring maging <strong>kabayarang sapat</strong> para sa lahat.</div>
+
+  <div class="body">Kaya si Hesus, na <strong>likas at tunay na Diyos</strong> (Philippians 2:6), ay hinubad ang Kanyang kalagayan bilang kapantay ng Diyos. Hindi Siya pinilit. Pinili Niya ito — at ang tanging nagtulak sa Kanya ay ang <strong>pag-ibig.</strong></div>
+
+  <div class="hl orange">
+    <p><strong>"For God so loved the world..."</strong> — Juan 3:16. Tanging pag-ibig ang nagtulak sa Panginoong Hesus na huwa ang pagiging kapantay ng Diyos. Nakita Niya ang Kanyang mga nilikha na alipin sa kasalanan — at dahil sa pag-ibig, ginawa Niya ang kailangan gawin para mailigtas tayo.</p>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Philippians 2:6–8</div>
+    <p>"Bagamat siya ay nasa anyo ng Diyos... hindi niya inangkin ang pagiging kapantay ng Diyos. Sa halip, hinubad niya ito at nagpakababa, at naging katulad ng isang alipin — ipinanganak na katulad ng karaniwang tao. At nang makita siyang may anyo ng tao, lalo pang nagpakababa — naging masunurin hanggang sa kamatayan, maging ito man ay kamatayan sa krus."</p>
+    <cite>— Philippians 2:6–8</cite>
+  </div>
+
+  <div class="body">Dahil si Hesus ay tao ngunit walang kasalanan, ang Kanyang pag-aalay sa krus ay <strong>once and for all</strong> — hindi na kailangang ulitin, hindi na kailangang maghanap ng iba.</div>
+
+  <div class="illus">
+    <div class="illus-hdr">Paliwanag ng Pastor</div>
+    <div class="illus-body">
+      <p>Sa Old Testament, paulit-ulit na iniaalay ang mga hayop sa templo para sa kasalanan ng tao. Ngunit ang pag-aalay ni Hesus ay pinagpalit ang lahat ng iyon — once and for all. Kaya lahat ay may access sa kaligtasan — walang exception, walang kinukuha pang iba.</p>
+      <p>"Walang may dahilang wala akong pambiling pang-aalay — hindi kailangan. Tanggapin lamang natin ang Panginoon bilang Panginoon natin, at sariling kapag ligtas, ay mabautismuhan, at sumunod sa Kanyang mga utos sa bawat isa sa atin."</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Colossians 1:19–20</div>
+    <p>"Sapagkat ninarapat ng Diyos na ang buo niyang kalikasan ay manatili sa anak. At sa pamamagitan ng anak, ninais ng Diyos na ang lahat ng bagay — maging nasa langit man o nasa lupa — ay makipagkasundo sa Kanya, sa pamamagitan ng dugo ng anak sa krus."</p>
+    <cite>— Colossians 1:19–20</cite>
+  </div>
+
+  <div class="body">Tanong ng pastor sa lahat: <strong>"Ikaw ba ay nabibilang sa mga nakipagkasundo sa Diyos?"</strong> Dahil sa pag-aalay ni Hesus sa Krus ng Kalvaryo — tayo ay maaaring makipagkasundo sa Diyos. Ito ang pinaka-magandang balita.</div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Si Hesus ay hindi pinilit na iligtas tayo — pinili Niya ito dahil sa pag-ibig. Ang Kanyang pag-aalay ay once and for all — walang kasalanan ang masyadong malaki, at walang tao ang labas ng Kanyang abot.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral</div>
+      <h3>Sino si Hesus — at Ano ang Kahulugan Nito para sa Atin?</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Si Hesus ay ang Larawan ng Diyos</strong> — Ang pagkilala sa Kanya ay pagkilala sa Ama. Walang ibang paraan para makilala ang Diyos na hindi nakikita kundi sa pamamagitan Niya. Ang lahat ng kaluwalhatian ng Ama ay nasa Anak.</p>
+      <p><strong>Si Hesus ay ang Panganay sa Lahat</strong> — Ang lahat ng nilikha, lahat ng plano, lahat ng aspeto ng ating buhay ay may kinalaman sa Kanya. Siya ang nagbibigay ng kaayusan, ng kapayapaan, at ng saysay sa lahat ng bagay. Walang lugar sa ating buhay na "labas ng Kanyang saklaw."</p>
+      <p><strong>Si Hesus ay ang Ikalawang Adan</strong> — Ang kaligtasan ay hindi isang teorya. Ito ay isang katotohanang binayaran ng Kanyang buhay — dahil sa pag-ibig, hindi dahil sa obligasyon. At ang tanging naaakmang tugon natin sa ganitong pag-ibig ay ang pag-ibig din — na isinasabuhay sa pamamagitan ng pagsunod at paglilingkod.</p>
+    </div>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoong Hesus, salamat po na Ikaw ang larawan ng Diyos na hindi namin nakikita — at sa pamamagitan Mo, nakilala namin ang Ama. Salamat na Ikaw ang Panganay sa lahat ng nilikha — at dahil dito, alam namin na nasa mabuting kamay ang lahat ng bagay sa aming buhay. Salamat na Ikaw ay hinubad ang Iyong karangalan dahil sa pag-ibig — at dahil dito, kami ay nakalaya na mula sa pagkaalipin ng kasalanan. Turuan Mo kaming isabuhay ang katotohanang ito — na Ikaw ang Panginoon ng aming buhay, hindi lamang sa mga salita kundi sa bawat desisyon at kilos. Dito sa Saudi Arabia, gamitin Mo kami para ipahayag ang Iyong pag-ibig sa mga tao sa aming paligid. Sa Iyong pangalan, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Siya ay nauna sa lahat, at ang lahat ay nananatili sa pamamagitan niya."</p>
+    <cite>— Colossians 1:17 (ASD) · Talatang Iuunawa sa Linggo</cite>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
