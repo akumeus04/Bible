@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Malaya na sa Kasalanan</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  /* TOP BAR */
+  .topbar{background:var(--green);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:17px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.68;margin-top:2px;}
+
+  /* AUDIO PLAYER */
+  .audio-bar{position:fixed;bottom:72px;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:99;padding:10px 14px;box-shadow:0 -2px 10px rgba(0,0,0,0.06);}
+  .audio-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .audio-bar audio{width:100%;height:36px;border-radius:8px;outline:none;}
+
+  /* BOTTOM NAV */
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--green);}
+
+  /* SECTION */
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* HERO */
+  .hero{background:linear-gradient(150deg,var(--green-dark) 0%,var(--green) 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:22px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.7;}
+
+  /* VERSE BOX */
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+  .vbox.blue{background:var(--blue-light);border-left-color:var(--blue);}
+  .vbox.blue p{color:var(--blue);}
+  .vbox.blue cite{color:var(--blue);}
+
+  /* WHITE CARD */
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* SECTION HEADER */
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  /* BODY TEXT */
+  .body{font-size:14px;color:var(--text);line-height:1.78;margin:14px 14px 0;}
+  .body strong{font-weight:600;}
+  .body em{font-style:italic;}
+
+  /* HIGHLIGHT */
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.blue p{color:var(--blue);}
+  .hl.red p{color:var(--red);}
+
+  /* ILLUS */
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{background:var(--orange-light);padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  /* SUP VERSE */
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  /* TRUTH BOX */
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.blue{background:var(--blue);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  /* FOUR POINTS */
+  .four-grid{margin:14px 14px 0;display:grid;gap:9px;}
+  .four-card{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .fc-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .four-card h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .four-card p{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* COMPARISON */
+  .compare{margin:14px 14px 0;background:white;border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+  .compare-hdr{display:grid;grid-template-columns:1fr 1fr;}
+  .ch-adam{background:var(--red);padding:10px;text-align:center;font-size:13px;font-weight:700;color:white;}
+  .ch-jesus{background:var(--green);padding:10px;text-align:center;font-size:13px;font-weight:700;color:white;}
+  .compare-row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border);}
+  .compare-row:nth-child(even){background:#FAFAF8;}
+  .cr-a{padding:10px;font-size:13px;color:var(--red);border-right:1px solid var(--border);line-height:1.45;}
+  .cr-j{padding:10px;font-size:13px;color:var(--green-dark);line-height:1.45;}
+
+  /* STEPS */
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* SUMMARY CARDS */
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* CONCL */
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  /* PRAYER */
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  /* CLOSING */
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  /* QUOTE */
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:15px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+
+  /* RECAP */
+  .recap-box{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:13px 14px;}
+  .recap-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+  .recap-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:13px;color:var(--blue);}
+  .recap-item:last-child{margin-bottom:0;}
+  .ri-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+
+  /* ALIPIN VISUAL */
+  .alipin-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .alipin-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:10px;}
+  .alipin-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .alipin-row:last-child{margin-bottom:0;}
+  .a-box{flex:1;background:rgba(255,255,255,0.1);border-radius:8px;padding:9px 10px;text-align:center;}
+  .a-box .aw{font-size:13px;font-weight:700;color:#A8F0D8;margin-bottom:2px;}
+  .a-box .ad{font-size:11px;color:rgba(255,255,255,0.55);line-height:1.3;}
+  .a-arr{font-size:18px;color:rgba(255,255,255,0.35);flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material</div>
+  <h1>Malaya na sa Kasalanan</h1>
+  <div class="ref">Roma 5:1–21 · Roma 6:1–15 · Personal na Pagbabalik-aral</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--green)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--green)">1</div>
+    <div class="nl">Makasalanan</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--purple)">2</div>
+    <div class="nl">Kaparusahan</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--orange)">3</div>
+    <div class="nl">Kapangyarihan</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--green-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<!-- AUDIO PLAYER -->
+<div class="audio-bar">
+  <div class="audio-lbl">🎧 Pakinggan ang Sermon</div>
+  <audio controls>
+    <source src="https://archive.org/download/malaya-na-sa-kasalanan.-3gp/Malaya%20na%20sa%20Kasalanan.3gp" type="audio/mpeg">
+    Hindi sinusuportahan ang audio sa iyong browser.
+  </audio>
+</div>
+
+<!-- ===== INTRO ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material</div>
+    <h2>Malaya na sa Kasalanan</h2>
+    <div class="href">Roma 5:1–21 · Roma 6:1–15</div>
+  </div>
+
+  <!-- RECAP -->
+  <div class="recap-box">
+    <div class="recap-lbl">Recap — Nakaraang Linggo: Ang Kasalanan</div>
+    <div class="recap-item">
+      <div class="ri-dot">1</div>
+      <div>Ang kasalanan ay pumasok sa sanlibutan sa pamamagitan ng isang tao (si Adan).</div>
+    </div>
+    <div class="recap-item">
+      <div class="ri-dot">2</div>
+      <div>May kasalanang sinasadya at hindi sinasadya — lahat ay nangangailangan ng pagsisisi.</div>
+    </div>
+    <div class="recap-item">
+      <div class="ri-dot">3</div>
+      <div>May kasalanang mapapatawad pa at may kasalanang hindi na mapapatawad.</div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <p>"Sapagkat napawalang-sala na tayo sa pamamagitan ng ating pananampalataya, mayroon na tayong mapayapang ugnayan sa Diyos sa pamamagitan ng ating Panginoong Jesucristo. Sa pamamagitan niya, tinamasa natin ang kagandahang-loob ng Diyos at tayo ay nagagalak dahil sa pag-asang makakabahagi sa Kanyang kaluwalhatian."</p>
+    <cite>— Roma 5:1–2 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p><strong>Pangunahing Tanong:</strong> <em>Mula saan nga ba iniligtas ang mga sumampalataya?</em></p>
+    <p>Alam natin na kung tayo ay hindi nanampalataya sa Panginoong Jesucristo, tayo ay patuloy na alipin ng kasalanan. Ngunit salamat sa Diyos — tayo ay Kanyang tinawag, tumugon tayo, at nanampalataya tayo sa Kanya bilang ating Panginoon at personal na Tagapagligtas.</p>
+  </div>
+
+  <div class="quote-box">
+    <p>"Ang kamatayan lamang ng Panginoong Jesucristo ang naging daan para tayo ay mapalaya mula sa kasalanan — dahil ang kasalanan ay may kapangyarihan. At sa pagkaalam natin ng layunin ng Diyos sa ating buhay, ito ay may bahagi sa lahat ng ating nakakasalamuha at kasama."</p>
+    <cite>— Mula sa Sermon</cite>
+  </div>
+
+  <div class="sec-lbl">Tatlong Pangunahing Sagot</div>
+  <div class="sum-cards">
+    <div class="sum-card">
+      <div class="sd g">1</div>
+      <div>
+        <div class="s-title">Iniligtas mula sa pagiging makasalanan</div>
+        <div class="s-desc">Roma 5:1–11 — Napawalang-sala, naging kaibigan ng Diyos, at nagkaroon ng mapayapang ugnayan sa Kanya.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">2</div>
+      <div>
+        <div class="s-title">Iniligtas mula sa kaparusahan ng kasalanan</div>
+        <div class="s-desc">Roma 5:12–21 — Si Adan ay nagdala ng kamatayan; si Jesucristo ang nagdala ng buhay at pagpapawalang-sala.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">3</div>
+      <div>
+        <div class="s-title">Iniligtas mula sa kapangyarihan ng kasalanan</div>
+        <div class="s-desc">Roma 6:1–15 — Ang ating lumang pagkatao ay ipinako sa Krus — malaya na tayo at buhay para sa Diyos.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Paghahalimbawa — Alipin sa Gigilid</div>
+    <div class="illus-body">
+      <p>Alam ninyo po ang kasaysayan ng <strong>alipin sa gigilid</strong>? Ito ay mga ninuno nating Pilipino na naging alipin dahil sa pagkakautang ng kanilang mga magulang. Nakatira sila sa gilid ng bahay ng kanilang amo — walang karapatang tumanggi sa mga utos.</p>
+      <p>Ang tanging paraan para mapalaya sila ay kapag may isang taong nagbayad ng kanilang utang para sa kanila.</p>
+      <p><strong>Ito ang sitwasyon natin bilang dating alipin ng kasalanan.</strong> Wala tayong kakayahang makawala sa ating sarili. Ang kamatayan ng Panginoong Jesucristo ang nagbayad ng ating utang — at ngayon tayo ay malaya na.</p>
+    </div>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 1 ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--green);">
+    <div class="snum">1</div>
+    <div>
+      <h2>Iniligtas ang mga sumampalataya mula sa pagiging makasalanan</h2>
+      <div class="sub">Roma 5:1–11</div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <p>"Ngunit pinatunayan ng Diyos ang Kanyang pag-ibig sa atin nang mamatay si Kristo para sa atin noong tayo ay makasalanan pa."</p>
+    <cite>— Roma 5:8 (ASD)</cite>
+  </div>
+
+  <div class="body">Sa Roma 5:6, sinabi: <em>"sapagkat noong tayo ay mahihina pa, namatay si Kristo sa takdang panahon para sa mga makasalanan."</em> Ang <strong>"mahihina"</strong> dito ay ang kahinaan natin na labanan ang kasalanan — tayo ay alipin nito at walang kakayahang makawala sa ating sarili.</div>
+
+  <div class="hl green">
+    <p>Ang <strong>napawalang-sala (justification)</strong> ay isang legal na termino — <em>as if</em> hindi ka nagkasala. Para bang wala kang ginawang kasalanan, dahil sa ginawa ng Panginoong Jesucristo. Sabi sa Isaiah 1:18 — "Kahit mapula ang inyong kasalanan, magmamaputingputi tulad ng niyebe."</p>
+  </div>
+
+  <div class="sec-lbl">Apat na Bagay na Natanggap ng mga Pinatawad</div>
+  <div class="four-grid">
+    <div class="four-card">
+      <div class="fc-num" style="background:var(--green);">1</div>
+      <div>
+        <h4>Tiyak na Kapatawaran sa Nakaraang Kasalanan</h4>
+        <p>Ang nakaraan ay tiyak na pinatawad na. Sabi sa Roma 5:1 — napawalang-sala na tayo sa pamamagitan ng pananampalataya. Huwag hayaang gamitin ng kaaway ang ating nakaraan para pag-alinlanganin ang ating kaligtasan.</p>
+      </div>
+    </div>
+    <div class="four-card">
+      <div class="fc-num" style="background:var(--blue);">2</div>
+      <div>
+        <h4>Kagalakan sa Gitna ng Kahirapan</h4>
+        <p>"Hindi lamang iyan — ikinagagalak din natin ang mga kahirapan." — Roma 5:3. Si Apostol Pablo mismo ay binugbog, nilatiho, at nakaranas ng maraming pagsubok. Hindi lingid sa kanya ang mga salitang ito. Ang kahirapan ay nagbubunga ng pagtitiis → mabuting pagkatao → pag-asa.</p>
+      </div>
+    </div>
+    <div class="four-card">
+      <div class="fc-num" style="background:var(--purple);">3</div>
+      <div>
+        <h4>Tiyak na Kaligtasan sa Poot ng Diyos</h4>
+        <p>"Sa pamamagitan ng Kanyang dugo, tayo ngayon ay napawalang-sala — lalong tiyak na maliligtas tayo sa poot ng Diyos." — Roma 5:9. Kung ang iyong pangalan ay nasa Aklat ng Buhay — ligtas ka sa poot na darating.</p>
+      </div>
+    </div>
+    <div class="four-card">
+      <div class="fc-num" style="background:var(--orange);">4</div>
+      <div>
+        <h4>Dati Kaaway — Ngayon Kaibigan ng Diyos</h4>
+        <p>"Dati tayo ay mga kaaway ng Diyos, ngunit tinanggap na niya tayong mga kaibigan sa pamamagitan ng pagkamatay ng Kanyang Anak." — Roma 5:10. Parang mag-asawa na nag-away — at nagsabi ang Diyos: "Bati na tayo." Ito ang reconciliation.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Paliwanag ng Nagtaturo — "Bati na tayo"</div>
+    <div class="illus-body">
+      <p>Sa mag-asawa, ano ang pinaka-masakit na sitwasyon? Kapag hindi pa nagtatawaran. Pero kapag sinabi ng isa, <em>"Bati na tayo"</em> — naroon na ang lahat. Bukas na ang komunikasyon, bukas na ang ugnayan.</p>
+      <p>Ganoon ang ginawa ng Diyos sa atin. Dahil sa ating pananampalataya sa ginawa ng Panginoong Jesucristo — sinabi ng Diyos sa atin: <strong>"Bati na tayo. Kaibigan ka na ko."</strong> Ito ang reconciliation. At dahil dito, tiyak na maliligtas tayo.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Karagdagang Talata</div>
+    <p>"Sapagkat ang Diyos ay nagmahal ng ganoon sa sanlibutan na ibinigay niya ang kanyang kaisa-isang Anak upang ang sinumang sumasampalataya sa kanya ay hindi mapahamak kundi magkaroon ng buhay na walang hanggan."</p>
+    <cite>— Juan 3:16</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl"></div>
+    <p>"Binigyan niya tayo ng karapatang maging mga anak ng Diyos — ang lahat ng tumanggap sa kanya at sumampalataya sa kanyang pangalan."</p>
+    <cite>— Juan 1:12</cite>
+  </div>
+
+  <div class="truth green">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang ating kaligtasan ay hindi batay sa ating kabutihan o gawa — batay ito sa kagandahang-loob ng Diyos at sa ating pananampalataya sa ginawa ng Panginoong Jesucristo. Walang dahilan para magduda.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 2 ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--purple);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Iniligtas ang mga sumampalataya mula sa kaparusahan ng kasalanan</h2>
+      <div class="sub">Roma 5:12–21 — Si Adan at si Jesucristo</div>
+    </div>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Totoong maraming tao ang namatay dahil sa kasalanan ng isang tao. Ngunit ang kagandahang-loob ng Diyos ay mas dakila. Gayon din ang Kanyang walang-bayad na kaloob sa maraming tao sa pamamagitan ng kagandahang-loob ng isang tao — si Jesucristo."</p>
+    <cite>— Roma 5:15 (ASD)</cite>
+  </div>
+
+  <div class="body">Ito ang puso ng Roma 5:12–21 — ang paghahambing sa pagitan ni <strong>Adan (unang Adan)</strong> at ni <strong>Jesucristo (ikalawang Adan).</strong> Ang ginawa ng bawat isa ay nakaapekto sa buong sangkatauhan.</div>
+
+  <div class="compare">
+    <div class="compare-hdr">
+      <div class="ch-adam">Unang Adan</div>
+      <div class="ch-jesus">Ikalawang Adan — Hesus</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-a">Nagdulot ng kasalanan sa lahat</div>
+      <div class="cr-j">Nagdulot ng pagpapawalang-sala sa lahat</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-a">Nagpasok ng kamatayan (pagkahiwalay sa Diyos)</div>
+      <div class="cr-j">Nagdala ng buhay na walang hanggan</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-a">Sa pamamagitan ng isang pagsuway — kamatayan</div>
+      <div class="cr-j">Sa pamamagitan ng isang pagsuway — biyaya at buhay</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-a">Naghiwalay sa Diyos at tao</div>
+      <div class="cr-j">Nagbalik sa ugnayan ng Diyos at tao</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-a">Naghari ang kamatayan</div>
+      <div class="cr-j">Naghari ang buhay at biyaya</div>
+    </div>
+  </div>
+
+  <div class="alipin-box">
+    <div class="alipin-lbl">Ang Dalawang Angkan — Kung Saan Ka Nabibilang</div>
+    <div class="alipin-row">
+      <div class="a-box"><div class="aw">Angkan ni Adan</div><div class="ad">Hindi tumanggap kay Hesus · Alipin ng kasalanan · Permanenteng pagkahiwalay sa Diyos</div></div>
+    </div>
+    <div class="alipin-row">
+      <div class="a-box" style="background:rgba(29,158,117,0.25);"><div class="aw" style="color:#A8F0D8;">Angkan ni Hesus</div><div class="ad">Tumanggap at nanampalataya · Malaya sa kasalanan · Buhay na walang hanggan</div></div>
+    </div>
+  </div>
+
+  <div class="body" style="margin-top:14px;">Bakit kaya hindi agad dumating ang Panginoong Jesucristo pagkatapos magkasala si Adan? Dahil may <strong>takdang panahon</strong> ang Diyos. Alam Niya ang perpektong oras — at nang dumating na ang Panginoon, ito ay sa tamang panahon na itinalaga ng Diyos mula pa sa simula.</div>
+
+  <div class="sup">
+    <div class="sup-lbl">Roma 6:23 — Ang Kahihinatnan at ang Kaloob</div>
+    <p>"Sapagkat ang kamatayan ang kabayaran ng kasalanan, ngunit ang walang-bayad na kaloob ng Diyos ay buhay na walang hanggan sa pamamagitan ng ating Panginoong Jesucristo."</p>
+    <cite>— Roma 6:23</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Roma 3:23</div>
+    <p>"Sapagkat ang lahat ay nagkasala at hindi nakaabot sa kaluwalhatian ng Diyos."</p>
+    <cite>— Roma 3:23</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Paliwanag ng Nagtaturo — Pagkahiwalay at Pagbabalik</div>
+    <div class="illus-body">
+      <p>Nang magkasala si Adan at Eva, nagtatago sila sa Panginoon sa hardin. Pinalayas sila mula sa Eden — at nagkaroon ng separation na hindi naman plano ng Diyos sa simula. Ang gusto ng Diyos ay laging kasama ang Kanyang mga nilikha.</p>
+      <p>Kaya naman ibinigay Niya ang Kanyang Anak — para ang agwat na iyon ay masara. <strong>Si Jesucristo ang tulay sa pagitan ng makasalanang tao at ng banal na Diyos.</strong></p>
+    </div>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Kung kamatayan ang ibinigay ni Adan sa lahat, buhay at pagpapawalang-sala ang ibinigay ni Jesucristo sa lahat ng sumasampalataya. Ang biyaya ng Diyos ay higit na dakila kaysa sa kasalanan ng tao.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 3 ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Iniligtas ang mga sumampalataya mula sa kapangyarihan ng kasalanan</h2>
+      <div class="sub">Roma 6:1–15 · Galacia 2:20</div>
+    </div>
+  </div>
+
+  <div class="vbox orange">
+    <p>"Alam natin na ang ating dating pagkatao ay ipinako sa Krus kasama ang Panginoong Jesucristo — upang mamatay ang ating makasalanang pagkatao at nang hindi na tayo maalipin pa ng kasalanan. Sapagkat ang namatay ay pinalaya na mula sa kapangyarihan ng kasalanan."</p>
+    <cite>— Roma 6:6–7 (ASD)</cite>
+  </div>
+
+  <div class="body">Naniniwala ba tayo na may kapangyarihan ang kasalanan? <strong>Oo.</strong> Sabi ni Pablo sa Roma 7:21 — "Kapag nais kong gumawa ng mabuti, ang masama ay malapit sa akin." Hindi ito pag-amin ng pagkatalo — ito ay pagkilala sa tunay na kalagayan ng lahat. Ngunit may solusyon ang Diyos.</div>
+
+  <div class="hl orange">
+    <p>Sabi sa Juan 8:34: <strong>"Ang namumuhay sa kasalanan ay alipin ng kasalanan."</strong> Kaya naman sabi sa Santiago 4:7 — "Magpasakop kayo sa Diyos, labanan ang diyablo, at siya'y lalayo sa inyo." Ang unang hakbang ay pagsuko sa Diyos — hindi direktang paglaban sa kasalanan.</p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Hakbang sa Kalayaan mula sa Kapangyarihan ng Kasalanan</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">1</div>
+      <div>
+        <h4>Ipagpatawad ang ating Lumang Pagkatao sa Krus</h4>
+        <p>"Ang ating dating pagkatao ay ipinako sa Krus kasama ang Panginoong Jesucristo." — Roma 6:6. Kailangan nating mag-claim ng katotohanang ito — ang lumang "ako" ay patay na. Sabi ni Pablo sa Galacia 2:20: "Naipako na ako sa Krus kasama ni Kristo. Hindi na ako ang nabubuhay kundi si Kristo ang nabubuhay sa akin."</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">2</div>
+      <div>
+        <h4>Ituring ang Sarili bilang Patay na sa Kasalanan</h4>
+        <p>"Ituring din ninyo ang inyong mga sarili na patay na sa kasalanan ngunit buhay para sa Diyos sa pamamagitan ni Kristo Jesucristo." — Roma 6:11. Ito ay isang aktibong desisyon — hindi lamang pakiramdam. Ituring — ibig sabihin, paniwalaan at isabuhay.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">3</div>
+      <div>
+        <h4>Huwag Paghariin ang Kasalanan — Ihandog ang Katawan sa Diyos</h4>
+        <p>"Huwag ninyong hayaang pagharian ng kasalanan ang inyong mga katawan... Sa halip, ihandog ninyo sa Diyos ang inyong mga katawan bilang mga kasangkapan ng katuwiran." — Roma 6:12–13. Ang ating katawan ay binuhay — gamitin natin ito para sa Diyos, hindi para sa sarili.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Paliwanag ng Nagtaturo — Hindi okay-okay lang magkasala</div>
+    <div class="illus-body">
+      <p>Sabi ni Pablo sa Roma 6:1–2 — "Ano ngayon ang sasabihin natin? Magkakasala pa ba tayo upang sumagana ang kagandahang-loob ng Diyos? <strong>Hindi! Hindi!</strong> Tayo ay patay na sa kasalanan — paano pa tayo mabubuhay sa pagkakasala?"</p>
+      <p>May mga kaisipan na <em>"okay lang magkasala kasi sagana naman ang biyaya ng Diyos — hihinge lang naman ako ng tawad."</em> Pero hindi ito ang mensahe ng Diyos. Ang motibo ay mahalaga — at haharapin nating lahat ang Panginoon sa takdang panahon.</p>
+      <p>Hindi tayo pinalaya para mamuhay ng ayon sa ating kagustuhan — <strong>pinalaya tayo para piliin ang maging alipin ng Diyos, mamuhay ayon sa Kanyang layunin.</strong></p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Galacia 2:20</div>
+    <p>"Naipako na ako sa Krus kasama ni Kristo. Hindi na ako ang nabubuhay kundi si Kristo na ang nabubuhay sa akin. Ang buhay ko ngayon sa katawang ito ay nabubuhay ko sa pamamagitan ng pananampalataya sa Anak ng Diyos na nagmahal sa akin at nagbigay ng Kanyang sarili para sa akin."</p>
+    <cite>— Galacia 2:20</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">2 Corinto 5:15</div>
+    <p>"Namatay si Kristo para sa lahat — upang ang mga nabubuhay ngayon ay huwag nang mabuhay pa para sa kanilang sarili kundi para kay Kristo na namatay at muling nabuhay para sa kanila."</p>
+    <cite>— 2 Corinto 5:15</cite>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang ating lumang pagkatao ay naipako sa Krus kasama ni Hesus — malaya na tayo sa kapangyarihan ng kasalanan. Ituring ang sarili bilang patay na sa kasalanan at buhay para sa Diyos. Ang bagong buhay na ito ay para sa Kanya — hindi para sa ating sarili.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral</div>
+      <h3>Mula saan nga ba iniligtas ang mga sumampalataya?</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — Mula sa pagiging makasalanan:</strong> Sa pamamagitan ng pananampalataya, tayo ay napawalang-sala na — as if hindi tayo nagkasala. Naging kaibigan na tayo ng Diyos mula sa pagiging kaaway. At nagagalak tayo kahit sa gitna ng kahirapan, dahil alam nating may pag-asa.</p>
+      <p><strong>Ikalawa — Mula sa kaparusahan ng kasalanan:</strong> Si Adan ay nagdala ng kamatayan at pagkahiwalay — si Jesucristo ang nagdala ng buhay at pagpapawalang-sala. Ang biyaya ng Diyos ay higit na dakila kaysa sa kasalanan ng tao. Ang poot ng Diyos ay hindi na para sa atin — tiyak ang ating kaligtasan.</p>
+      <p><strong>Pangatlo — Mula sa kapangyarihan ng kasalanan:</strong> Ang ating lumang pagkatao ay naipako sa Krus. Malaya na tayo — hindi alipin ng kasalanan kundi alipin ng Diyos. Ihandog ang ating katawan bilang kasangkapan ng katuwiran. Buhay na tayo para sa Kanya.</p>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Tayo ay pinalaya mula sa kasalanan — hindi upang mamuhay ng ayon lamang sa ating kagustuhan. Pinalaya tayo mula sa kasalanan upang bigyan tayo ng pagkakataon na piliin ang maging alipin ng Diyos — mamuhay ayon sa Kanyang layunin at hindi para sa sarili natin."</p>
+    <cite>— Pagtatapos ng Sermon</cite>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Hamon sa lahat ng napalaya:</strong> Ang bagong buhay na ibinibigay ng Panginoong Diyos sa mga nanampalataya sa Kanya ay dapat ipamuhay para sa Kanya. Kahit dumanas tayo ng kahirapan sa buhay dahil sa ating pananampalataya — <em>magpatuloy lang, dahil hindi nagbabago ang ating Diyos na gumagawa ng mabuti para sa mga mananatiling tapat hanggang sa wakas.</em></p>
+  </div>
+
+  <div class="vbox">
+    <p>"Kung paanong sa pamamagitan ng pagsuway ng isang tao ay nagdulot ng kaparusahan sa lahat, ang matuwid na ginawa ng isang tao ay nagdulot ng pagpapawalang-sala at buhay sa lahat."</p>
+    <cite>— Roma 5:18 (ASD)</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, salamat sa pagpapalaya Mo sa amin mula sa kasalanan — mula sa pagiging makasalanan, mula sa kaparusahan nito, at mula sa kapangyarihan nito. Tulungan Mo kaming isabuhay ang kalayaang ito — na ituring ang aming lumang pagkatao na patay na, at mamuhay na para sa Inyo. Sa bawat tukso at kahirapan — nawa ay manatili kaming tapat sa Inyo, dahil tiyak ang Inyong pangako sa mga nagtitiwala sa Inyo hanggang wakas. Sa pangalan ni Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Kaya naman, kung ang sinuman ay kay Kristo, siya ay bagong nilalang na. Ang dati ay lumipas na — narito na ang bago."</p>
+    <cite>— 2 Corinto 5:17 · Talatang Iuunawa sa Linggo</cite>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
