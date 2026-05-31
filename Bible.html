@@ -210,7 +210,12 @@
     .drawer-pill { display: none; }
     #drawer-label { font-family: 'Cinzel', serif; font-size: 14px; font-weight: 600; color: var(--text-muted); }
 
-    #drawer-body { flex: 1; overflow-y: auto; padding: 4px 16px 32px; }
+    #drawer-body { 
+  flex: 1; 
+  overflow-y: auto; 
+  padding: 4px 16px 32px; 
+  min-height: 0; /* <-- Add this line */
+}
 
     /* Controls */
     .drawer-section { padding: 10px 0; border-bottom: 1px solid var(--border); }
@@ -453,11 +458,19 @@
       html, body { overflow: auto; height: auto; min-height: 100vh; }
       .app-layout { display: grid; grid-template-columns: 290px 1fr; overflow: visible; }
 
-      #drawer {
-        position: static; transform: none !important; max-height: none;
-        border-radius: 0; border-top: none; border-right: 1px solid var(--border);
-        box-shadow: none; overflow-y: auto; display: flex;
-      }
+#drawer {
+  position: sticky; /* <-- Change to sticky */
+  top: 0;           /* <-- Lock to top of screen */
+  height: 100vh;    /* <-- Lock height to screen height */
+  transform: none !important; 
+  max-height: none;
+  border-radius: 0; 
+  border-top: none; 
+  border-right: 1px solid var(--border);
+  box-shadow: none; 
+  display: flex;
+  flex-direction: column; /* <-- Ensure body scrolls */
+}
       #drawer-handle { display: none; }
       #drawer.open { transform: none; }
       #drawer-body { padding: 16px; flex: 1; overflow-y: auto; }
