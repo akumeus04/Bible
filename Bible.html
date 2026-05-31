@@ -183,6 +183,16 @@
     #empty-state h2 { font-family: 'Cinzel', serif; font-size: 17px; font-weight: 600; color: var(--text-secondary); }
     #empty-state p { font-size: 13px; max-width: 260px; line-height: 1.7; font-style: italic; }
 
+    /* Disable all pointer events on the overlay when it's just showing, 
+   but allow it only when we explicitly want the close-tap to work */
+#drawer-overlay.show {
+  pointer-events: auto;
+}
+/* When we are tapping, we can temporarily disable the overlay */
+#drawer-overlay.is-busy {
+  pointer-events: none;
+}
+
     /* ══════════════════════════════════════════════════════
        LEFT SIDEBAR (Mobile)
     ══════════════════════════════════════════════════════ */
@@ -794,8 +804,15 @@ function toggleDrawer() {
 }
 
 function openDrawer() {
-  document.getElementById('drawer').classList.add('open');
-  document.getElementById('drawer-overlay').classList.add('show');
+  const d = document.getElementById('drawer');
+  const o = document.getElementById('drawer-overlay');
+  d.classList.add('open');
+  o.classList.add('show');
+  
+  // Make the overlay "untouchable" for 500ms to prevent ghost clicks
+  o.classList.add('is-busy');
+  setTimeout(() => o.classList.remove('is-busy'), 500);
+
   ['fab-sync','fab-search'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.style.opacity = '0'; el.style.pointerEvents = 'none'; }
