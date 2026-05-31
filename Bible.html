@@ -201,11 +201,11 @@
     }
     #drawer.open { transform: none !important; }
 
-    #drawer-handle {
+#drawer-handle {
       flex-shrink: 0; height: var(--header-h);
-      display: flex; flex-direction: row; align-items: center; justify-content: flex-end;
+      display: flex; flex-direction: row; align-items: center; justify-content: space-between;
       padding: 0 16px; border-bottom: 1px solid var(--border);
-      cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
+      user-select: none; -webkit-tap-highlight-color: transparent;
     }
     .drawer-pill { display: none; }
     #drawer-label { font-family: 'Cinzel', serif; font-size: 14px; font-weight: 600; color: var(--text-muted); }
@@ -541,9 +541,9 @@
 
   <!-- ── SIDEBAR ───── -->
   <div id="drawer">
-    <div id="drawer-handle" onclick="toggleDrawer()">
-      <div class="drawer-pill"></div>
-      <div id="drawer-label">Bible Tools ▲</div>
+<div id="drawer-handle">
+      <div id="drawer-label" style="color: var(--gold);">Bible Tools</div>
+      <button onclick="closeDrawer()" style="background: none; border: none; color: var(--text-muted); font-size: 22px; cursor: pointer; padding: 0 8px; line-height: 1;">✕</button>
     </div>
 
     <div id="drawer-body">
@@ -815,7 +815,6 @@ function toggleDrawer() {
 function openDrawer() {
   document.getElementById('drawer').classList.add('open');
   document.getElementById('drawer-overlay').classList.add('show');
-  document.getElementById('drawer-label').textContent = '✕ Close';
   ['fab-sync','fab-search'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.style.opacity = '0'; el.style.pointerEvents = 'none'; }
@@ -825,7 +824,6 @@ function openDrawer() {
 function closeDrawer() {
   document.getElementById('drawer').classList.remove('open');
   document.getElementById('drawer-overlay').classList.remove('show');
-  document.getElementById('drawer-label').textContent = 'Bible Tools';
   ['fab-sync','fab-search'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.style.opacity = '1'; el.style.pointerEvents = 'auto'; }
@@ -1027,8 +1025,7 @@ window.onChapterChange = () => {
   const vSel = document.getElementById('bible-verse');
   vSel.innerHTML = '<option value="" disabled selected>Vs</option>';
   verses.forEach(v => { const o = document.createElement('option'); o.value = v.verse; o.innerText = v.verse; vSel.appendChild(o); });
-  closeDrawer();
-};
+ };
 
 window.onVerseChange = () => {
   const vNum = parseInt(document.getElementById('bible-verse').value);
@@ -1158,7 +1155,6 @@ function executeBibleSearch(bookName, chapQuery, verseQuery, verseEnd, versionFi
     window.onBookChange();
     document.getElementById('bible-chapter').value = chapQuery;
     loadBibleChapter(bIdx, chapQuery);
-    closeDrawer();
   } else {
     const ver = versionFilter || currentBibleKey;
     currentBibleKey = ver;
@@ -1169,7 +1165,6 @@ function executeBibleSearch(bookName, chapQuery, verseQuery, verseEnd, versionFi
     if (bIdx === -1) return;
     document.getElementById('bible-book').value = bIdx;
     window.onBookChange();
-    closeDrawer();
   }
 }
 
@@ -1202,7 +1197,7 @@ function loadVerseAllVersions(bookName, chap, verseStart, verseEnd, versionFilte
     }
   });
 
-  if (!parts.length) { closeDrawer(); showNotification('Verse not found in any version.'); return; }
+  if (!parts.length) { showNotification('Verse not found in any version.'); return; }
 
   const refLabel = isRange ? `${chap}:${verseStart}-${verseEnd}` : `${chap}:${verseStart}`;
   const titleSuffix = versionFilter ? ` (${versionFilter})` : ' — All Versions';
@@ -1212,7 +1207,6 @@ function loadVerseAllVersions(bookName, chap, verseStart, verseEnd, versionFilte
   };
   document.getElementById('current-song-title').innerText = window.currentSongData.title;
   window.renderLyricsGrid();
-  closeDrawer();
 }
 
 function loadBibleChapter(bookIdx, chap) {
