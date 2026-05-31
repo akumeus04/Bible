@@ -685,25 +685,6 @@ function savePinned() {
   localStorage.setItem('pinnedVerses', JSON.stringify(pinnedVerses));
 }
 
-// ════════════════════════════════════════════════════════════
-//  PINNED VERSES — Android-optimized render
-//
-//  Root cause of the mobile failure: Android Chrome running
-//  inside a scrollable container (the drawer) intercepts touch
-//  events on non-interactive elements (span, div) to decide
-//  whether the user is tapping or scrolling. The tap is often
-//  eaten. Native <button> elements bypass this — the browser
-//  always delivers a click event to them immediately.
-//
-//  Two changes vs the original:
-//    1. Verse reference is a <button class="pinned-ref-btn">
-//       with touch-action:manipulation (kills the 300ms delay).
-//    2. Unpin button also gets touch-action:manipulation.
-// ════════════════════════════════════════════════════════════
-
-
-
-
 
 window.togglePin = function(book, chapter, verse) {
   const idx = pinnedVerses.findIndex(p => p.book === book && p.chapter === chapter && p.verse === verse);
@@ -1513,27 +1494,9 @@ window.addEventListener('load', () => {
   });
 });
 
-// ════════════════════════════════════════════════════════════
-//  THE DRAWER LOCK PATCH (Run this once)
-// ════════════════════════════════════════════════════════════
-// This upgrades your app's closeDrawer function so we can 
-// tell it to ignore commands when clicking pinned verses.
-if (!window.drawerLockInstalled) {
-    const realCloseDrawer = window.closeDrawer;
-    window.closeDrawer = function() {
-        if (window.isDrawerLockedOpen === true) {
-            console.log("🛡️ Blocked hardcoded closeDrawer command!");
-            return; // Abort closing!
-        }
-        if (typeof realCloseDrawer === "function") {
-            realCloseDrawer();
-        }
-    };
-    window.drawerLockInstalled = true;
-}
 
 // ════════════════════════════════════════════════════════════
-//  PINNED VERSES RENDERER (Ghost-Click Proof)
+//  PINNED VERSES RENDERER 
 // ════════════════════════════════════════════════════════════
 function renderPinnedVerses() {
   const container = document.getElementById('pinned-verses-list');
@@ -1554,14 +1517,11 @@ function renderPinnedVerses() {
     ref.className = 'pinned-ref-btn';
     ref.textContent = `${v.book} ${v.chapter}:${v.verse}`;
     
-    // THE FIX: This single function handles both clicks and touches perfectly
+    // Cleaned up Tap Handler
     const handleVerseTap = (e) => {
-      // If the browser tries to fire a Ghost Click, this destroys it!
+      // Prevent browser ghost clicks
       if (e.cancelable) e.preventDefault(); 
       e.stopPropagation(); 
-      
-      // 🔒 ENGAGE THE LOCK: Block all close commands!
-      window.isDrawerLockedOpen = true;
       
       try {
         if (typeof executeBibleSearch === "function") {
@@ -1570,11 +1530,6 @@ function renderPinnedVerses() {
       } catch (err) {
         console.error("Navigation error:", err);
       }
-
-      // 🔓 DISENGAGE THE LOCK: Increased to 1.5 seconds to outlast slow mobile loading
-      setTimeout(() => {
-          window.isDrawerLockedOpen = false;
-      }, 1500);
     };
 
     // Bind to both touch and click for maximum mobile responsiveness
@@ -1627,7 +1582,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // 2. When the finger lifts (or clicks), ONLY close if the touch STARTED on the background
     const handleOverlayClose = (e) => {
-      if (window.isDrawerLockedOpen === true) return; 
+      // (The drawer lock check was removed from here!)
 
       if (e.target === overlay && validOverlayTouch === true) {
         if (typeof closeDrawer === "function") {
