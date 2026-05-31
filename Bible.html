@@ -1569,12 +1569,11 @@ function renderPinnedVerses() {
 // ════════════════════════════════════════════════════════════
 window.addEventListener('DOMContentLoaded', () => {
   const overlay = document.getElementById('drawer-overlay');
+  const drawer = document.getElementById('drawer'); // <-- We now grab the drawer too
   
   if (overlay) {
-    // Flag to track exactly where the finger first touched the glass
     let validOverlayTouch = false;
 
-    // 1. When the finger touches down, check if it is explicitly on the dark background
     const handleTouchStart = (e) => {
       if (e.target === overlay) {
         validOverlayTouch = true;
@@ -1583,27 +1582,29 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    // 2. When the finger lifts (or clicks), ONLY close if the touch STARTED on the background
     const handleOverlayClose = (e) => {
-      // (The drawer lock check was removed from here!)
-
       if (e.target === overlay && validOverlayTouch === true) {
         if (typeof closeDrawer === "function") {
           closeDrawer();
         }
       }
-      
-      // Reset the flag
       validOverlayTouch = false;
     };
 
-    // Bind the touch START events
+    // Bind events to the overlay
     overlay.addEventListener('touchstart', handleTouchStart, { passive: true });
     overlay.addEventListener('mousedown', handleTouchStart);
-
-    // Bind the touch END events
     overlay.addEventListener('click', handleOverlayClose);
     overlay.addEventListener('touchend', handleOverlayClose);
+
+    // 🛡️ THE BRICK WALL FIX: 
+    // This forces the drawer to absorb all clicks so they NEVER reach the overlay!
+    if (drawer) {
+      drawer.addEventListener('touchstart', (e) => { e.stopPropagation(); }, { passive: true });
+      drawer.addEventListener('mousedown', (e) => { e.stopPropagation(); });
+      drawer.addEventListener('click', (e) => { e.stopPropagation(); });
+      drawer.addEventListener('touchend', (e) => { e.stopPropagation(); });
+    }
   }
 });
 
