@@ -803,6 +803,9 @@ function openDrawer() {
 }
 
 function closeDrawer() {
+  // 👇 ADD THIS EXACT LINE HERE 👇
+  console.trace("🕵️ BUG CATCHER: Who told the drawer to close?"); 
+
   document.getElementById('drawer').classList.remove('open');
   document.getElementById('drawer-overlay').classList.remove('show');
   ['fab-sync','fab-search'].forEach(id => {
