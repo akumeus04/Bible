@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Ang Mabuting Balita — Bible Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#B8860B;--gold-light:#FDF6E3;--gold-mid:#F5E7B2;--gold-dark:#7A5800;
+    --blue:#185FA5;--blue-light:#E6F1FB;--blue-dark:#0C3567;
+    --red:#993C1D;--red-light:#FAECE7;
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;--white:#fff;--text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:92px;}
+
+  /* TOP BAR */
+  .top-bar{background:linear-gradient(135deg,#7A5800 0%,#B8860B 60%,#D4A017 100%);color:white;padding:18px 16px 14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 14px rgba(0,0,0,0.22);}
+  .top-bar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.78;margin-bottom:3px;}
+  .top-bar h1{font-family:'Lora',serif;font-size:19px;font-weight:700;line-height:1.2;}
+  .top-bar .ref{font-size:12px;opacity:0.72;margin-top:2px;}
+
+  /* BOTTOM NAV */
+  .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 16px rgba(0,0,0,0.08);}
+  .nav-btn{flex:1;padding:9px 2px 11px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nav-btn:active{background:var(--gray-light);}
+  .nav-dot{width:26px;height:26px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;}
+  .nav-lbl{font-size:9px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nav-btn.active .nav-lbl{color:var(--gold);}
+
+  /* SECTIONS */
+  .section{display:none;animation:fi 0.25s ease;}
+  .section.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  .sp{height:16px;}
+
+  /* HERO */
+  .hero{background:linear-gradient(150deg,#7A5800 0%,#B8860B 55%,#D4A017 100%);padding:26px 18px 22px;text-align:center;color:white;}
+  .hero .h-tag{display:inline-block;background:rgba(255,255,255,0.18);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:11px;}
+  .hero h2{font-family:'Lora',serif;font-size:24px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .h-ref{font-size:13px;opacity:0.75;}
+  .hero .h-abbr{background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 14px;margin-top:14px;font-size:13px;line-height:1.6;text-align:left;}
+  .hero .h-abbr > strong {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin-bottom: 4px;
+}
+/* Styles the GOSPEL acronym letters */
+.hero .h-abbr span strong {
+  display: inline;      /* Keeps the letters on the same line */
+  color: #ff3333;       /* A nice, bright readable red */
+  font-size: 18px;      /* Makes the letters noticeably larger */
+}
+
+  /* VERSE BOX */
+  .verse-box{background:var(--gold-light);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:15px;}
+  .verse-box p{font-family:'Lora',serif;font-size:15px;font-style:italic;color:var(--gold-dark);line-height:1.8;}
+  .verse-box cite{display:block;margin-top:9px;font-size:13px;font-weight:600;color:var(--gold);font-style:normal;}
+
+  /* CARD */
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:15px;}
+  .card p{font-size:15px;color:var(--text);line-height:1.75;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* SECTION HEADER */
+  .sec-hdr{border-radius:13px;margin:14px 14px 0;padding:15px;display:flex;align-items:flex-start;gap:11px;}
+  .sec-hdr .num{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.22);color:white;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;}
+  .sec-hdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .sec-hdr .sub{font-size:12px;color:rgba(255,255,255,0.72);}
+
+  /* TRUTH BOX */
+  .truth-box{border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.75);margin-bottom:7px;}
+  .truth-box p{font-size:15px;font-weight:600;color:white;line-height:1.6;}
+
+  /* PILLS */
+  .lbl-pill{font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;margin:16px 14px 0;padding:4px 11px;display:inline-block;border-radius:20px;}
+  .lbl-pill.grp{background:var(--blue-light);color:var(--blue);}
+  .lbl-pill.slf{background:var(--red-light);color:var(--red);}
+  .lbl-pill.gld{background:var(--gold-mid);color:var(--gold-dark);}
+
+  /* Q&A ITEMS */
+  .q-item{background:white;border-radius:12px;margin:9px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .q-top{padding:13px 13px 13px 17px;font-size:15px;font-weight:600;color:var(--text);line-height:1.5;border-left:4px solid var(--blue);cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;-webkit-tap-highlight-color:transparent;}
+  .q-top.slf{border-left-color:var(--red);}
+  .q-top.gld{border-left-color:var(--gold);}
+  .q-top.grn{border-left-color:var(--green);}
+  .tog{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--gray-light);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--gray);transition:transform 0.2s,background 0.2s;margin-top:2px;}
+  .q-item.open .tog{transform:rotate(180deg);background:var(--gold-mid);color:var(--gold-dark);}
+  .q-ans{display:none;padding:0 14px 13px;border-top:1px solid var(--border);background:#FAFAF8;}
+  .q-item.open .q-ans{display:block;}
+  .ans-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);padding-top:11px;margin-bottom:5px;}
+  .ans-txt{font-size:14px;color:var(--gray);line-height:1.7;}
+  .ans-txt p{margin-bottom:7px;}
+  .ans-txt p:last-child{margin-bottom:0;}
+
+  /* ILLUSTRATION */
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{background:var(--gold-mid);padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-dark);display:flex;align-items:center;gap:7px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  /* SUPPORT VERSE BOX */
+  .sup{background:var(--gray-light);border-radius:12px;margin:14px 14px 0;padding:13px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-bottom:7px;}
+  .sup-v{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:5px;}
+  .sup-c{font-size:12px;font-weight:600;color:var(--blue);}
+  .sup-gap{margin-top:10px;}
+
+  /* BODY TEXT */
+  .body-txt{font-size:15px;color:var(--text);line-height:1.75;margin:14px 14px 0;}
+
+  /* NOTE */
+  .note{background:var(--purple-light);border-radius:10px;padding:11px 14px;margin:14px 14px 0;font-size:13px;color:var(--purple-dark);line-height:1.65;}
+
+  /* OPENER Q */
+  .opener-q{background:var(--gold-light);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;margin:9px 14px 0;padding:13px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .oq-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+  .oq-txt{font-size:15px;font-weight:600;color:var(--gold-dark);line-height:1.5;}
+
+  /* NEWS BOX — bad news / good news */
+  .news-grid{margin:14px 14px 0;display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+  .news-card{border-radius:12px;padding:14px;text-align:center;}
+  .news-card.bad{background:var(--red-light);border:1px solid #E8B9A8;}
+  .news-card.good{background:var(--green-light);border:1px solid #9FE1CB;}
+  .news-card .nc-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
+  .news-card.bad .nc-lbl{color:var(--red);}
+  .news-card.good .nc-lbl{color:var(--green-dark);}
+  .news-card .nc-txt{font-size:14px;font-weight:600;line-height:1.45;}
+  .news-card.bad .nc-txt{color:var(--red);}
+  .news-card.good .nc-txt{color:var(--green-dark);}
+
+  /* FLOW CHAIN */
+  .flow{margin:14px 14px 0;background:white;border-radius:12px;border:1px solid var(--border);padding:15px;}
+  .flow-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:13px;text-align:center;}
+  .flow-steps{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;}
+  .flow-step{flex:1;text-align:center;padding:11px 6px;border-radius:10px;min-width:72px;}
+  .flow-step.r{background:var(--red-light);}
+  .flow-step.g{background:var(--gold-mid);}
+  .flow-step.b{background:var(--blue-light);}
+  .flow-step.gr{background:var(--green-light);}
+  .fs-name{font-size:11px;font-weight:700;margin-bottom:3px;}
+  .flow-step.r .fs-name{color:var(--red);}
+  .flow-step.g .fs-name{color:var(--gold-dark);}
+  .flow-step.b .fs-name{color:var(--blue);}
+  .flow-step.gr .fs-name{color:var(--green-dark);}
+  .fs-sub{font-size:9px;color:var(--gray);line-height:1.35;}
+  .flow-arr{font-size:16px;color:var(--gray);flex-shrink:0;}
+
+  /* KL BOX */
+  .kl-box{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;overflow:hidden;}
+  .kl-hdr{background:var(--gold-mid);padding:10px 14px;font-size:11px;font-weight:700;color:var(--gold-dark);letter-spacing:0.04em;}
+  .kl-body{padding:13px 14px;}
+  .kl-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;}
+  .kl-item:last-child{margin-bottom:0;}
+  .kl-num{width:24px;height:24px;border-radius:50%;background:var(--gold-mid);color:var(--gold-dark);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+  .kl-txt{font-size:14px;color:var(--text);line-height:1.65;}
+
+  /* CONCLUSION */
+  .concl-box{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:linear-gradient(135deg,#7A5800,#B8860B);padding:15px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:17px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:15px;}
+  .concl-body p{font-size:15px;color:var(--text);line-height:1.75;margin-bottom:11px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  /* CHAIN */
+  .chain{background:var(--gray-light);border-radius:10px;padding:13px;margin:13px 0;text-align:center;}
+  .chain-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:10px;}
+  .chain-steps{display:flex;align-items:center;justify-content:center;gap:5px;}
+  .ch-step{border-radius:20px;padding:6px 11px;font-size:11px;font-weight:700;color:white;}
+  .ch-step.r{background:var(--red);}
+  .ch-step.g{background:var(--gold);}
+  .ch-step.b{background:var(--blue);}
+  .ch-step.gr{background:var(--green);}
+  .ch-arr{color:var(--gray);font-size:13px;}
+
+  /* PRAYER */
+  .prayer{background:var(--gold-light);border:1px solid var(--gold-mid);border-radius:13px;margin:14px 14px 0;padding:17px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:9px;}
+  .prayer p{font-family:'Lora',serif;font-size:15px;font-style:italic;color:var(--gold-dark);line-height:1.8;}
+
+  /* CLOSING */
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:17px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:15px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:9px;}
+  .closing cite{font-size:13px;font-weight:700;color:var(--text);font-style:normal;}
+
+  /* CQ BOX */
+  .cq-box{background:var(--purple-light);border-left:4px solid var(--purple);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:15px;}
+  .cq-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:7px;}
+  .cq-box p{font-size:15px;font-weight:600;color:var(--purple-dark);line-height:1.55;}
+
+  /* BADGE ROW */
+  .badge-row{display:flex;gap:7px;flex-wrap:wrap;margin:14px 14px 0;}
+  .badge{border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;}
+  .badge.gld{background:var(--gold-mid);color:var(--gold-dark);}
+  .badge.blu{background:var(--blue-light);color:var(--blue);}
+  .badge.grn{background:var(--green-light);color:var(--green-dark);}
+  .badge.red{background:var(--red-light);color:var(--red);}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="lbl">Gabay sa Pag-aaral ng Biblia · Jesus First Christian Ministries</div>
+  <h1>Ang Mabuting Balita</h1>
+  <div class="ref">1 Corinto 15:1–8 · Roma 5–6 · May 29, 2026</div>
+</div>
+
+<div class="bottom-nav">
+  <button class="nav-btn active" onclick="show('intro',this)">
+    <div class="nav-dot" style="background:var(--gold)">✦</div>
+    <div class="nav-lbl">Simula</div>
+  </button>
+  <button class="nav-btn" onclick="show('s1',this)">
+    <div class="nav-dot" style="background:var(--red)">1</div>
+    <div class="nav-lbl">Kasalanan</div>
+  </button>
+  <button class="nav-btn" onclick="show('s2',this)">
+    <div class="nav-dot" style="background:var(--blue)">2</div>
+    <div class="nav-lbl">Ebanghelyo</div>
+  </button>
+  <button class="nav-btn" onclick="show('s3',this)">
+    <div class="nav-dot" style="background:var(--green)">3</div>
+    <div class="nav-lbl">Tugon</div>
+  </button>
+  <button class="nav-btn" onclick="show('concl',this)">
+    <div class="nav-dot" style="background:var(--gold-dark)">✓</div>
+    <div class="nav-lbl">Wakas</div>
+  </button>
+</div>
+
+<!-- ==================== INTRO ==================== -->
+<div class="section active" id="intro">
+  <div class="hero">
+    <div class="h-tag">Gabay sa Pag-aaral ng Biblia</div>
+    <h2>Ang Mabuting Balita</h2>
+    <div class="h-ref">1 Corinto 15:1–8 · Roma 5:1–6:21</div>
+    <div class="h-abbr">
+      <strong>Ang kahulugan ng GOSPEL</strong>
+      <span><strong>G</strong>od's <strong>O</strong>nly <strong>S</strong>on, <strong>P</strong>ardon to <strong>E</strong>ternal <strong>L</strong>ife</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <p>Ang linggong ito ay patuloy ng serye na sinimulan ng ating mga kapatid. Si Kuya Tony ay nag-turo tungkol sa <strong>kasalanan</strong>. Si Kuya Edwin naman ay nagpatuloy tungkol sa <strong>kalayaan mula sa kasalanan</strong>. Ngayon, tinutuklasin natin ang <strong>Mabuting Balita</strong> — ang Ebanghelyo — ang sagot ng Diyos sa lahat ng ito.</p>
+    <p>Ang layunin: maintindihan natin ang pundasyon ng ating pananampalataya at makita kung paano nito binabago ang ating pang-araw-araw na buhay bilang mga OFW na naninirahan dito sa Saudi Arabia.</p>
+  </div>
+
+  <div class="flow">
+    <div class="flow-title">Tatlong Linggo — Isang Mensahe</div>
+    <div class="flow-steps">
+      <div class="flow-step r"><div class="fs-name">KASALANAN</div><div class="fs-sub">Kuya Tony · Roma 5:12</div></div>
+      <div class="flow-arr">→</div>
+      <div class="flow-step b"><div class="fs-name">KALAYAAN</div><div class="fs-sub">Kuya Edwin · Roma 6</div></div>
+      <div class="flow-arr">→</div>
+      <div class="flow-step g"><div class="fs-name">EBANGHELYO</div><div class="fs-sub">Mensahe ngayon · 1 Cor 15</div></div>
+    </div>
+  </div>
+
+  <div class="kl-box">
+    <div class="kl-hdr">Apat na Mahahalagang Tanong ngayong Araw</div>
+    <div class="kl-body">
+      <div class="kl-item"><div class="kl-num">1</div><div class="kl-txt">Lahat ba ng tao ay malaya na mula sa kasalanan?</div></div>
+      <div class="kl-item"><div class="kl-num">2</div><div class="kl-txt">Sino lang yung mga pinalaya mula sa kasalanan?</div></div>
+      <div class="kl-item"><div class="kl-num">3</div><div class="kl-txt">Lahat ba ng tao ay nais iligtas ng Diyos?</div></div>
+      <div class="kl-item"><div class="kl-num">4</div><div class="kl-txt">Lahat ba ng tao ay niligtas na ng Diyos?</div></div>
+    </div>
+  </div>
+
+  <div class="verse-box">
+    <p>"Ngayon, mga kapatid, ipinaaalala ko sa inyo ang magandang balita na ipinangaral ko sa inyo, na inyo nang tinanggap, na siya naman ninyong pinaninindigan, na sa pamamagitan nito kayo ay ligtas..."</p>
+    <cite>— 1 Corinto 15:1–2</cite>
+  </div>
+
+  <div class="lbl-pill gld">Pambungad na Tanong</div>
+
+  <div class="opener-q">
+    <div class="oq-lbl">Tanong sa grupo</div>
+    <div class="oq-txt"><strong>Kung bibigyan ka ng pagkakataong ipaliwanag ang Ebanghelyo sa isang kaibigan sa loob ng tatlumpung segundo, ano ang iyong sasabihin?</strong></div>
+  </div>
+
+  <div class="opener-q">
+    <div class="oq-lbl">Tanong sa grupo</div>
+    <div class="oq-txt"><strong>Sa inyong pag-aaral ng Biblia, kailan ninyo unang narinig ang salitang "Gospel" o "Mabuting Balita"? Anong nararamdaman ninyo nang marinig ninyo ito?</strong></div>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<!-- ==================== SECTION 1: ANG KASALANAN ==================== -->
+<div class="section" id="s1">
+  <div class="sec-hdr" style="background:var(--red);">
+    <div class="num">1</div>
+    <div>
+      <h2>Ang Pundasyon: Ang Katotohanan Tungkol sa Kasalanan</h2>
+      <div class="sub">Roma 5:12–13 · Bakit kailangan ng Mabuting Balita?</div>
+    </div>
+  </div>
+
+  <div class="body-txt">Bago natin maunawaan ang Mabuting Balita, kailangan munang maintindihan ang masamang balita. Kaya ang pag-aaral sa kasalanan ay hindi nagpapababa ng kahalagahan ng ginawa ni Kristo — lalo pa itong nagpapahalaga nito.</div>
+
+  <div class="verse-box">
+    <p>"Kaya, sapagkat ang kasalanan ay pumasok sa sanlibutan sa pamamagitan ng isang tao, at ang kamatayan ay sa pamamagitan ng kasalanan, sa ganito ay lumipas ang kamatayan sa lahat ng tao, sapagkat ang lahat ay nagkasala."</p>
+    <cite>— Roma 5:12</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang <strong>sinful nature</strong> ay isang kapangyarihan na hindi mo nakikita, pero nararamdaman mo at nararanasan. Lahat ng tao ay may sinful nature — minana natin ito mula sa pagkakasala ni Adan. Hindi natin minana ang kasalanan mismo ni Adan, kundi ang <em>bunga</em> ng kasalanan niya — ang hilig ng tao sa masama.</p>
+    <p>Ngayon na ikaw ay born-again na at naging Kristiyano — mayroon ka pa ring sinful nature? <strong>Oo.</strong> Kasama po ito sa minana ng sangkatauhan. Ngunit dahil Kristiyano ka na, kaya mo nang labanan ang kapangyarihan ng sinful nature — <em>assuming na ikaw ay lumalakad sa Banal na Espiritu.</em></p>
+  </div>
+
+  <div class="flow">
+    <div class="flow-title">Tatlong Uri ng Kasalanan</div>
+    <div class="flow-steps">
+      <div class="flow-step r"><div class="fs-name">SINFUL NATURE</div><div class="fs-sub">Minana mula kay Adan</div></div>
+      <div class="flow-arr">·</div>
+      <div class="flow-step b"><div class="fs-name">COMMISSION</div><div class="fs-sub">Sinasadyang kasalanan</div></div>
+      <div class="flow-arr">·</div>
+      <div class="flow-step g"><div class="fs-name">OMISSION</div><div class="fs-sub">Hindi ginawang mabuti</div></div>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Mga Sumusuportang Talata</div>
+    <div class="sup-v">"Sapagkat ang lahat ay nagkasala, at walang sinumang nakaabot sa kaluwalhatian ng Diyos."</div>
+    <div class="sup-c">— Roma 3:23</div>
+    <div class="sup-v sup-gap">"Sapagkat ang Diyos na pumili sa inyo ay banal, dapat din kayong magpakabanal sa lahat ng inyong ginagawa."</div>
+    <div class="sup-c">— 1 Pedro 1:15</div>
+    <div class="sup-v sup-gap">"Ang nakakaalam ng mabuti na dapat niyang gawin ngunit hindi ito ginagawa ay nagkakasala."</div>
+    <div class="sup-c">— Santiago 4:17</div>
+  </div>
+
+  <div class="news-grid">
+    <div class="news-card bad">
+      <div class="nc-lbl">Masamang Balita</div>
+      <div class="nc-txt">Akusado ka. Lahat ay nagkasala. Kamatayan ang kabayaran.</div>
+    </div>
+    <div class="news-card good">
+      <div class="nc-lbl">Mabuting Balita</div>
+      <div class="nc-txt">May nagbayad para sa iyo. Malaya ka na — kung sasampalataya ka.</div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">HALIMBAWA SA TUNAY NA BUHAY</div>
+    <div class="illus-body">
+      <p>Isipin mo ang isang OFW na nagtrabaho nang matagal sa Saudi. Maayos ang buhay, nagpadala ng pera sa pamilya, mabait sa kapitbahay. Subalit hindi pa naniniwala sa Diyos.</p>
+      <p>Sa mata ng tao, mabuti siyang tao. Ngunit sinasabi ng Biblia: "Without holiness, no one can see God." Ang kabutihan natin sa mata ng tao ay hindi sapat na katibayan ng kabanalan sa harap ng Diyos.</p>
+      <p>Dito pumapasok ang Ebanghelyo — hindi sapat ang pagiging mabuting tao. Kailangan ng kapatawaran at kaligtasan na nagmumula lamang kay Hesus.</p>
+    </div>
+  </div>
+
+  <div class="lbl-pill grp">Tanong sa Grupo</div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top">Nararamdaman mo ba ang "sinful nature" sa iyong pang-araw-araw na buhay? Magbigay ng halimbawa kung paano ito nagpapakita — nang hindi nagpapakilala ng pangalan.<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Gabay sa Sagot</div>
+      <div class="ans-txt">
+        <p>Ang sinful nature ay makikita sa mga ganitong sitwasyon: pagnanais na manood ng hindi magandang nilalaman sa phone, pagiging jealous sa katrabaho, maling paggastos ng pera na para sa pamilya, pagiging tamad sa panalangin kahit alam mong dapat.</p>
+        <p>Ang puntong nais ipahayag: kahit born-again ka na, nararamdaman pa rin ito — at normal iyon. Ang sagot ay hindi sariling lakas, kundi ang paglalakad sa Banal na Espiritu.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top">Naniniwala ka bang "mabuting tao" ay sapat na para makapunta sa langit? Bakit oo o hindi?<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Gabay sa Sagot</div>
+      <div class="ans-txt">
+        <p>Hindi sapat. Ang Biblia ay malinaw: "Without holiness, no one can see God" (Heb. 12:14). Ang kabanalan ay hindi resulta ng mga mabuting gawa — ito ay regalo ng Diyos sa pamamagitan ng pananampalataya kay Hesus.</p>
+        <p>Marami sa atin ay lumaki sa ganitong pag-iisip: "Sige lang, mabuti akong tao, siguradong pumupunta sa langit." Ngunit ang Biblia ay nagsasabi ng iba — at ito mismo ang dahilan kung bakit kailangan ang Ebanghelyo.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="lbl-pill slf">Tanong sa Sarili</div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top slf">Mayroong ba akong "sin of omission" na nalalaman ko ngayon — isang mabuting bagay na dapat kong gawin ngunit hindi ko ginagawa?<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Gabay sa Pagninilay</div>
+      <div class="ans-txt">
+        <p>(Hayaan ang bawat miyembro na mag-isip nang personal. Halimbawa: hindi pagbabahagi ng Gospel sa kabahayan, hindi pagtulong sa kasamahan na may problema, hindi pag-aaral ng Salita kahit may oras.)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<!-- ==================== SECTION 2: ANG EBANGHELYO ==================== -->
+<div class="section" id="s2">
+  <div class="sec-hdr" style="background:var(--blue);">
+    <div class="num">2</div>
+    <div>
+      <h2>Ang Ebanghelyo: Ang Mabuting Balita ng Diyos</h2>
+      <div class="sub">1 Corinto 15:1–8 · Roma 5:1–11</div>
+    </div>
+  </div>
+
+  <div class="body-txt">Ang Ebanghelyo ay hindi isang relihiyon — ito ay isang balita. At ang isang balita ay tungkol sa isang bagay na <em>nangyari na</em>. Hindi tungkol sa kung ano ang dapat mong gawin — kundi kung ano na ang ginawa para sa iyo.</div>
+
+  <div class="verse-box">
+    <p>"Sapagkat ibinigay ko sa inyo una sa lahat ang akin ding tinanggap: na si Cristo ay namatay para sa ating mga kasalanan, ayon sa mga kasulatan, at siya'y inilibing; at muling binuhay nang ikatlong araw ayon sa mga kasulatan."</p>
+    <cite>— 1 Corinto 15:3–4</cite>
+  </div>
+
+  <div class="kl-box">
+    <div class="kl-hdr">Tatlong Bahagi ng Ebanghelyo</div>
+    <div class="kl-body">
+      <div class="kl-item"><div class="kl-num">I</div><div class="kl-txt"><strong>Si Kristo ay namatay para sa ating mga kasalanan</strong> — tinubos tayo mula sa ating utang sa Diyos (1 Cor. 15:3)</div></div>
+      <div class="kl-item"><div class="kl-num">II</div><div class="kl-txt"><strong>Si Kristo ay inilibing</strong> — tunay na namatay; hindi ito basta kwento (1 Cor. 15:4a)</div></div>
+      <div class="kl-item"><div class="kl-num">III</div><div class="kl-txt"><strong>Si Kristo ay muling nabuhay sa ikatlong araw</strong> — ito ang pundasyon ng ating pag-asa (1 Cor. 15:4b)</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p><strong>Bakit kailangan pa siyang mamatay?</strong> Sapagkat kailangan ng pagtigis ng dugo para sa kapatawaran ng kasalanan. "Without shedding of blood, there is no remission of sin" (Heb. 9:22). Sa lumang tipan, ang mga hayop ang inihahain. Ngunit ito ay panandalian lamang — kailangan ang permanenteng solusyon.</p>
+    <p><strong>Bakit si Hesus?</strong> Dapat 100% Diyos at 100% tao siya. Tao ang nagkasala, kaya tao rin ang kailangang magligtas. Ngunit hindi pwedeng basta tao lang — kailangan din siyang Diyos para maging wasto at sapat ang kanyang paghahandog. Walang ibang nakakatugon sa kondisyong ito kundi ang ating Panginoong Hesukristo.</p>
+  </div>
+
+  <div class="verse-box">
+    <p>"Ngunit pinatunayan ng Diyos ang kanyang pag-ibig sa atin nang mamatay si Cristo para sa atin noong tayo'y makasalanan pa."</p>
+    <cite>— Roma 5:8</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">HALIMBAWA: SA HUKUMAN</div>
+    <div class="illus-body">
+      <p>Isipin mo na ikaw ay naakusahan sa korte. Guilty ka. Dapat kang parusahan. Ngunit bago ipahayag ng hukom ang sentensya, may nagtayo sa harapan ng husgado at sinabi: "Ako na ang magbabayad ng parusa para sa kanya."</p>
+      <p>Iyon ang ginawa ni Hesus sa Krus. Hindi lang niya sinabi na pinapatawad ka — siya mismo ang nagbayad ng presyo ng iyong kasalanan. Kaya ang kapatawaran na tinatanggap natin ay hindi "libre" sa pinakahuling kahulugan — ito ay binayaran — ngunit hindi tayo ang nagbayad. Siya ang nagbayad para sa atin.</p>
+      <p>Ito ang ibig sabihin ng "walang bayad na kaloob ng Diyos" — libre para sa atin, ngunit may presyo. At ang presyong iyon ay ang buhay ng Kanyang bugtong na Anak.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Mga Sumusuportang Talata</div>
+    <div class="sup-v">"Sapagkat kamatayan ang kabayaran ng kasalanan, ngunit ang walang bayad na kaloob ng Diyos ay buhay na walang hanggan sa pamamagitan ni Cristo Jesus."</div>
+    <div class="sup-c">— Roma 6:23</div>
+    <div class="sup-v sup-gap">"Sapagkat minsan lang itinakda sa tao ang mamatay at pagkatapos paghuhukom."</div>
+    <div class="sup-c">— Hebreo 9:27</div>
+    <div class="sup-v sup-gap">"Ako ang Daan, ang Katotohanan, at ang Buhay. Walang sinomang makakaparoon sa Ama kundi sa pamamagitan ko."</div>
+    <div class="sup-c">— Juan 14:6</div>
+  </div>
+
+  <div class="cq-box">
+    <div class="cq-lbl">Mahalagang Katanungan</div>
+    <p>Kung ang Ebanghelyo ay Mabuting Balita para sa lahat — sino lang talaga ang makikinabang nito? At bakit?</p>
+  </div>
+
+  <div class="lbl-pill grp">Tanong sa Grupo</div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top">Paano mo ipaliwanag ang Ebanghelyo sa isang kasamahan na nagsasabi: "Mabuti naman ako. Hindi ako nagnanakaw, hindi ako masamang tao — bakit ko pa kailangan si Hesus?"<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Gabay sa Sagot</div>
+      <div class="ans-txt">
+        <p>Mayroon silang punto — mabuti sila sa mata ng tao. Ngunit ang pamantayan ay hindi ang kapwa tao — ito ay ang kabanalan ng Diyos. At sa harap ng kabanalan ng Diyos, lahat ay kulang (Roma 3:23).</p>
+        <p>Maaaring sabihin: "Oo, mabuti ka. Pero ang tanong ay hindi kung ikukumpara ka sa ibang tao — ang tanong ay ikukumpara ka ba sa Diyos na perpekto? Doon lahat tayo ay nangangailangan ng tulong."</p>
+        <p>Tapos ibahagi ang Roma 6:23 at Juan 3:16 — ang Diyos ay may solusyon at iyon ay si Hesus.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top">Nakatagpo ka na ba ng kakilala o kasamahan dito sa Saudi na nagtatanong tungkol sa pananampalataya? Paano ang nangyari — at paano mo sinagot?<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Gabay sa Sagot</div>
+      <div class="ans-txt">
+        <p>(Hayaan ang mga miyembro na magbahagi ng personal na karanasan. Ang layunin ay matuto sa isa't isa kung paano inilalapat ang Ebanghelyo sa totoong sitwasyon.)</p>
+        <p>Pwedeng ituro: kahit hindi handa ang lahat sa pag-evanhelyo sa sarili, maaaring imbitahan ang taong iyon sa Bible Study at hayaan ang BS Leader na tumulong. Huwag takot.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top gld">Ang pamagat ng serbisyo ay "Jesus First." Paano makikita ang pagbabago sa buhay ng isang OFW na tunay na unang inilalagay si Hesus?<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Gabay sa Sagot</div>
+      <div class="ans-txt">
+        <p>Makikita ito sa: pagsali sa Bible Study kahit pagod mula sa trabaho, pagbabahagi ng oras at pera sa ministeryo, pagpapatawad sa katrabaho na nagkasala, pagpapahalaga sa panalangin kaysa sa entertainment, at pagdadala ng mga kaibigan sa fellowship.</p>
+        <p>Ang "Jesus First" ay hindi lamang pangalan ng grupo — ito ay pamantayan ng pamumuhay.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="lbl-pill slf">Tanong sa Sarili</div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top slf">Natiyak mo na ba ang iyong kaligtasan — at bakit? O mayroon ka pa bang mga katanungan tungkol dito?<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Gabay sa Pagninilay</div>
+      <div class="ans-txt">
+        <p>(Ito ay personal na tanong. Maaaring may ilan sa grupo ang may pag-aalinlangan — at ito ay okay. Ang BS ay ligtas na lugar para magtanong.)</p>
+        <p>Kung walang katiyakan: Romans 10:9 — "Kung ipapahayag ng iyong mga labi na si Kristo ay Panginoon at manampalataya ka ng buong puso na siya ay binuhay muli ng Diyos, maliligtas ka."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<!-- ==================== SECTION 3: ANG TUGON ==================== -->
+<div class="section" id="s3">
+  <div class="sec-hdr" style="background:var(--green-dark);">
+    <div class="num">3</div>
+    <div>
+      <h2>Ang Ating Tugon: Buhay na Pananampalataya</h2>
+      <div class="sub">Santiago 2:26 · Santiago 4:17 · Roma 10:9</div>
+    </div>
+  </div>
+
+  <div class="body-txt">Natanggap na natin ang Mabuting Balita. Sumampalataya na tayo. Ngunit ang pananampalataya ay hindi nagtatapos sa pagtanggap — ito ay nagbubunga ng buhay na pagbabago at aksyon. Ang pananampalataya na walang gawa ay patay.</div>
+
+  <div class="verse-box">
+    <p>"Sapagka't kung paanong ang katawan na walang espiritu ay patay, ay gayon din ang pananampalataya na walang mga gawa ay patay."</p>
+    <cite>— Santiago 2:26</cite>
+  </div>
+
+  <div class="card">
+    <p>Sinasabi ng iba: "Pinatawad na ako sa lahat ng kasalanan — kahapon, ngayon, at magpakailanman — kaya okay na." Ngunit ito ay pag-abuso sa kagandahang-loob ng Diyos. Ang tunay na nanampalataya ay nagbabago — hindi dahil kailangan para maligtas, kundi bilang tugon ng pasasalamat sa kung ano na ang ginawa ng Diyos.</p>
+    <p>Ang bawat sumampalataya ay binibigyan ng kakayahan at kapangyarihan na <strong>maghayag at magpatotoo</strong> ng kanyang kaligtasang tinanggap. Ito ay hindi opsyon — ito ay bahagi ng pagiging Kristiyano.</p>
+  </div>
+
+  <div class="truth-box" style="background:var(--gold);">
+    <div class="truth-lbl">Ang Pangunahing Katotohanan</div>
+    <p>Ang bawat isang nakabalik na sa Diyos at nailigtas na ay inaatasang ipangaral at ipamahayag ang Mabuting Balitang ito ng kaligtasan. Ito ay tungkulin — at pribilehiyo.</p>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">HALIMBAWA: SA TRABAHO</div>
+    <div class="illus-body">
+      <p>Isipin mo: bago ka umalis ng Pilipinas, may nagbigay sa iyo ng listahan ng mga bagay na dapat gawin sa Saudi para maayos ang iyong buhay. Nakinig ka. Sinundan mo ang payo.</p>
+      <p>Ngayon, may bagong kasamahan na darating. Alam mo na ang mga dapat gawin. Handa ka na bang ibahagi? O itatago mo sa iyong sarili?</p>
+      <p>Ganoon din ang Ebanghelyo. Natanggap mo na ang pinakamahalagang balita sa mundo. Mayroon kang mga kaibigan, kapitbahay, kasamahan sa trabaho na hindi pa ito naririnig. Ang tanong ay: ibabahagi mo ba?</p>
+    </div>
+  </div>
+
+  <div class="kl-box">
+    <div class="kl-hdr">Tatlong Hakbang ng Tugon</div>
+    <div class="kl-body">
+      <div class="kl-item"><div class="kl-num">1</div><div class="kl-txt"><strong>Magsisi at tumalikod sa kasalanan</strong> — aminin na ikaw ay makasalanan at huwag abusuhin ang grasya ng Diyos</div></div>
+      <div class="kl-item"><div class="kl-num">2</div><div class="kl-txt"><strong>Ipahayag at maniwala</strong> — "Kung ipapahayag ng iyong mga labi na si Kristo ay Panginoon at manampalataya ka ng buong puso" (Roma 10:9)</div></div>
+      <div class="kl-item"><div class="kl-num">3</div><div class="kl-txt"><strong>Ibahagi ang Ebanghelyo</strong> — mag-akay ng mga kaluluwa, kahit hindi pa handa, maaaring dalhin sa Bible Study</div></div>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Mga Sumusuportang Talata</div>
+    <div class="sup-v">"Kung ipapahayag ng iyong mga labi na si Kristo ay Panginoon at manampalataya ka ng buong puso na siya ay binuhay muli ng Diyos, maliligtas ka."</div>
+    <div class="sup-c">— Roma 10:9</div>
+    <div class="sup-v sup-gap">"Ang nakakaalam ng mabuti na dapat niyang gawin ngunit hindi ito ginagawa ay nagkakasala."</div>
+    <div class="sup-c">— Santiago 4:17</div>
+  </div>
+
+  <div class="note"><strong>Tandaan:</strong> Kung hindi ka pa handa na ipaliwanag ang buong Ebanghelyo — okay lang. Ang pinakasimple ay mag-imbitahan: dalhin sila sa Bible Study at nandoon ang ating mga BS Leader. Ang pagdadala ay katumbas din ng pagbabahagi.</div>
+
+  <div class="lbl-pill grp">Tanong sa Grupo</div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top grn">Ayon sa preacher, "There will be rejoicing in heaven for one soul who repents." Nakaranas ka na ba ng ganitong kagalakan — nang may maakay kang kaluluwa sa Panginoon? Ibahagi.<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Gabay sa Sagot</div>
+      <div class="ans-txt">
+        <p>(Hayaan ang mga miyembro na magbahagi ng personal na karanasan. Kahit maliit na pagbabahagi ay mahalaga — ang bawat kaluluwa ay may halaga sa Diyos.)</p>
+        <p>Maaari ring pag-usapan: paano ang pakiramdam nung una mong naibahagi ang Ebanghelyo? Takot ba? Kinabahan? At paano natapos?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top grn">Dito sa Saudi Arabia bilang mga OFW, ano ang pinaka-epektibong paraan para maibahagi ang Ebanghelyo sa ating mga kaibigan at kapwa Pilipino?<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Gabay sa Sagot</div>
+      <div class="ans-txt">
+        <p>Mga posibleng sagot: personal na pagbabahagi ng testimonya, pag-iimbitahan sa Bible Study o prayer meeting, pagpapadala ng Gospel materials sa Messenger o Viber, pagiging maliwanag na "Jesus First" person sa trabaho at tirahan.</p>
+        <p>Ang pinaka-makapangyarihan: ang buhay na nagpapatotoo. Kapag nakita ng iyong kasamahan ang kaibahan sa iyong ugali at attitude — doon sila magsisimulang magtanong.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top">Sa ating grupo ngayon, paano tayo makakatulong sa isa't isa para maging mas matapang sa pagbabahagi ng Ebanghelyo?<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Gabay sa Sagot</div>
+      <div class="ans-txt">
+        <p>Mga ideya: mag-practice ng pagiging evangelism sa loob ng grupo (role-play), mag-accountability sa isa't isa, maglagay ng prayer list para sa mga kakilalang hindi pa naligtas, mag-share ng mga resources.</p>
+        <p>Ang sabi ng preacher: kahit hindi mo kayang ipaliwanag lahat — ibahagi mo ang iyong karanasan at dalhin sila sa BS. Iyon na ang simula.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="lbl-pill slf">Tanong sa Sarili</div>
+
+  <div class="q-item" onclick="this.classList.toggle('open')">
+    <div class="q-top slf">Mayroon ba akong "sin of omission" ngayon — may kakilala akong kailangan ng Ebanghelyo ngunit hindi ko pa sinasabi sa kanila? Ano ang hadlang?<span class="tog">▾</span></div>
+    <div class="q-ans">
+      <div class="ans-lbl">Gabay sa Pagninilay</div>
+      <div class="ans-txt">
+        <p>(Hayaan ang bawat miyembro na mag-isip nang tahimik. Maaari ring hilingin sa kanila na isulat ang pangalan ng taong iyon at ipanalangin sa loob ng grupo.)</p>
+        <p>Tanungin ang sarili: Ano ang aking takot? Hindi kaalaman? Hihiyan? Panahon? Kung ang sagot ay pananampalataya — sabihin sa Diyos at humingi ng lakas mula sa Banal na Espiritu.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<!-- ==================== CONCLUSION ==================== -->
+<div class="section" id="concl">
+  <div class="concl-box">
+    <div class="concl-hdr">
+      <div class="concl-tag">PAGLALAGOM</div>
+      <h3>Ang Mabuting Balita — Natanggap, Pinaniniwalaan, Ibinahagi</h3>
+    </div>
+    <div class="concl-body">
+      <p>Sa ating pag-aaral na ito, tatlong katotohanang natutunan natin:</p>
+      <p><strong>Una:</strong> Ang kasalanan ay tunay at nakakaapekto sa bawat isa sa atin. Wala tayong maililigtas sa ating sarili — kailangan natin ang tulong ng Diyos.</p>
+      <p><strong>Pangalawa:</strong> Si Hesus Kristo ang solusyon. Namatay siya para sa ating mga kasalanan, inilibing, at muling nabuhay — at sa pamamagitan nito, maaari tayong maligtas at maging anak ng Diyos.</p>
+      <p><strong>Pangatlo:</strong> Ang pagtanggap sa Ebanghelyo ay hindi katapusan — ito ay simula. Ang bawat sumampalataya ay inaatasan na mamuhay ng may buhay na pananampalataya at ibahagi ang Mabuting Balitang ito sa iba.</p>
+
+      <div class="chain">
+        <div class="chain-lbl">Ang Landas ng Ebanghelyo</div>
+        <div class="chain-steps">
+          <div class="ch-step r">KASALANAN</div>
+          <div class="ch-arr">→</div>
+          <div class="ch-step b">KRUS</div>
+          <div class="ch-arr">→</div>
+          <div class="ch-step gr">KALIGTASAN</div>
+          <div class="ch-arr">→</div>
+          <div class="ch-step g">PAGBABAHAGI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kl-box">
+    <div class="kl-hdr">Mga Sagot sa Apat na Tanong sa Simula</div>
+    <div class="kl-body">
+      <div class="kl-item"><div class="kl-num">1</div><div class="kl-txt"><strong>Hindi</strong> lahat ng tao ay malaya na mula sa kasalanan — yaon lamang mga sumampalataya kay Kristo.</div></div>
+      <div class="kl-item"><div class="kl-num">2</div><div class="kl-txt">Ang mga pinalaya mula sa kasalanan ay <strong>yaong mga sumampalataya</strong> sa Panginoong Hesukristo.</div></div>
+      <div class="kl-item"><div class="kl-num">3</div><div class="kl-txt"><strong>Oo</strong>, nais ng Diyos na iligtas ang lahat — "sapagkat ganoon kasi ang pag-ibig ng Diyos sa sanlibutan" (Juan 3:16).</div></div>
+      <div class="kl-item"><div class="kl-num">4</div><div class="kl-txt"><strong>Hindi pa</strong> lahat niligtas — kaya kailangan pa nating ibahagi ang Ebanghelyo sa mga hindi pa naniniwala.</div></div>
+    </div>
+  </div>
+
+  <div class="verse-box">
+    <p>"Kung ipapahayag ng iyong mga labi na si Kristo ay Panginoon at manampalataya ka ng buong puso na siya ay binuhay muli ng Diyos, maliligtas ka."</p>
+    <cite>— Roma 10:9</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin</div>
+    <p>"Panginoong Hesukristo, salamat po sa Inyong walang kapantay na pag-ibig — na noong tayo ay makasalanan pa, Kayo ay namatay para sa atin. Salamat po sa Mabuting Balitang ito na ibinigay Ninyo sa amin. Patawarin po Ninyo kami sa mga pagkakataong hindi namin inialay ang aming buhay para sa Inyong kaharian. Bigyan po Ninyo kami ng tapang at lakas ng Banal na Espiritu para ibahagi ang Ebanghelyong ito sa aming mga kaibigan, kasamahan, at pamilya. Dito sa Saudi Arabia, gamitin po Ninyo kami bilang mga instrumento ng Inyong kaligtasan. Ang lahat ng papuri, kaluwalhatian, at karangalan ay sa Inyo po. Sa Inyong Pangalan, Hesus. Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Sapagkat ganoon ang pag-ibig ng Diyos sa sanlibutan na ibinigay niya ang kanyang bugtong na Anak, upang ang bawat isa na sumasampalataya sa kanya ay hindi mapahamak kundi magkaroon ng buhay na walang hanggan."</p>
+    <cite>— Juan 3:16 · Talatang Iuunawa sa Darating na Linggo</cite>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
