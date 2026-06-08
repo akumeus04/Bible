@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Kapag Mahina ang Pananampalataya</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  /* TOP BAR */
+  .topbar{background:var(--green);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:17px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.68;margin-top:2px;}
+
+  /* AUDIO BAR */
+  .audio-bar{position:fixed;bottom:72px;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:99;padding:10px 14px;box-shadow:0 -2px 10px rgba(0,0,0,0.06);}
+  .audio-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .audio-lbl::before{content:"🎧";}
+  .audio-bar audio{width:100%;height:36px;border-radius:8px;outline:none;}
+
+  /* BOTTOM NAV */
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--green);}
+
+  /* SECTION */
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* HERO */
+  .hero{background:linear-gradient(150deg,var(--green-dark) 0%,var(--green) 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:22px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.7;margin-bottom:3px;}
+  .hero .hdate{font-size:11px;opacity:0.5;}
+
+  /* VERSE BOX */
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+  .vbox.blue{background:var(--blue-light);border-left-color:var(--blue);}
+  .vbox.blue p{color:var(--blue);}
+  .vbox.blue cite{color:var(--blue);}
+
+  /* WHITE CARD */
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* SECTION HEADER */
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  /* BODY TEXT */
+  .body{font-size:14px;color:var(--text);line-height:1.78;margin:14px 14px 0;}
+  .body strong{font-weight:600;}
+  .body em{font-style:italic;}
+
+  /* HIGHLIGHT */
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.blue p{color:var(--blue);}
+  .hl.red p{color:var(--red);}
+
+  /* ILLUS */
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{background:var(--orange-light);padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  /* SUP VERSE */
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  /* TRUTH BOX */
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.blue{background:var(--blue);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  /* STEPS */
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* SUMMARY CARDS */
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* THREE P BOX */
+  .threep-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .threep-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:11px;text-align:center;}
+  .threep-title{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;text-align:center;margin-bottom:14px;}
+  .threep-parts{display:flex;flex-direction:column;gap:7px;}
+  .tp-row{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,0.1);border-radius:9px;padding:10px 13px;}
+  .tp-letter{font-size:22px;font-weight:700;color:#A8F0D8;width:22px;flex-shrink:0;}
+  .tp-content{flex:1;}
+  .tp-word{font-size:14px;font-weight:700;color:white;margin-bottom:2px;}
+  .tp-desc{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.4;}
+
+  /* ROPE VISUAL */
+  .rope-box{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .rope-hdr{background:var(--green-light);padding:10px 14px;font-size:11px;font-weight:700;color:var(--green-dark);letter-spacing:0.04em;}
+  .rope-body{padding:13px 14px;}
+  .rope-strands{display:flex;gap:7px;margin-bottom:11px;}
+  .rope-strand{flex:1;border-radius:8px;padding:10px 7px;text-align:center;}
+  .rope-strand .rs-name{font-size:12px;font-weight:700;margin-bottom:3px;}
+  .rope-strand .rs-desc{font-size:10px;color:var(--gray);line-height:1.3;}
+  .rope-body p{font-size:13px;color:var(--gray);line-height:1.65;}
+
+  /* QUOTE */
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  /* RECAP */
+  .recap-box{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:13px 14px;}
+  .recap-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+  .recap-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:13px;color:var(--blue);}
+  .recap-item:last-child{margin-bottom:0;}
+  .ri-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+
+  /* BIBLE CHARS */
+  .chars-grid{margin:14px 14px 0;display:grid;gap:9px;}
+  .char-card{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:10px;align-items:flex-start;}
+  .char-icon{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+  .char-card h4{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .char-card .char-lesson{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;}
+  .char-card p{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* CONCL */
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  /* PRAYER */
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  /* CLOSING */
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · June 5, 2026</div>
+  <h1>Kapag Mahina ang Pananampalataya</h1>
+  <div class="ref">Mateo 17:14–21 · Hebreo 11:1 · 12:2</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--green)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--green)">1</div>
+    <div class="nl">Pananampalataya</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--purple)">2</div>
+    <div class="nl">Pananalangin</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--orange)">3</div>
+    <div class="nl">Pag-aayuno</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--green-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<!-- AUDIO PLAYER -->
+<div class="audio-bar">
+  <div class="audio-lbl">Pakinggan ang Sermon</div>
+  <audio controls>
+    <source src="https://archive.org/download/Kapag-Mahina-ang-Pananampalataya/JF5-June052026.m4a" type="audio/mpeg">
+    Hindi sinusuportahan ang audio sa iyong browser.
+  </audio>
+</div>
+
+<!-- ===== INTRO ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material · June 5, 2026</div>
+    <h2>Kapag Mahina ang Pananampalataya</h2>
+    <div class="href">Mateo 17:14–21 · Hebreo 11:1, 12:2</div>
+    <div class="hdate">Jesus First Christian Ministries</div>
+  </div>
+
+  <!-- RECAP -->
+  <div class="recap-box">
+    <div class="recap-lbl">Recap — Mga Nakaraang Pag-aaral</div>
+    <div class="recap-item">
+      <div class="ri-dot">1</div>
+      <div><strong>Ang Kasalanan</strong> — Kuya Tony: Ang katotohanan tungkol sa kasalanan. Roma 5:12–13.</div>
+    </div>
+    <div class="recap-item">
+      <div class="ri-dot">2</div>
+      <div><strong>Malaya na sa Kasalanan</strong> — Kuya Edwin: Mula saan iniligtas ang mga sumampalataya. Roma 5:1–6:21.</div>
+    </div>
+    <div class="recap-item">
+      <div class="ri-dot">3</div>
+      <div><strong>Ang Mabuting Balita</strong> — Nakaraang Biyernes: Si Kristo ay namatay, inilibing, at muling nabuhay. 1 Corinto 15:1–8.</div>
+    </div>
+    <div class="recap-item">
+      <div class="ri-dot">4</div>
+      <div><strong>Kapag Mahina ang Pananampalataya</strong> — Ngayon: Paano mapagtatagumpayan ang espiritwal na kahinaan. Mateo 17:14–21.</div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <p>"Sumagot si Jesus, 'Dahil mahina ang pananampalataya ninyo. Sinasabi ko sa inyo ang totoo: kung may pananampalataya kayo na kahit kasinlaki lang ng buto ng mustasa, masasabi ninyo sa bundok na ito, lumipat ka roon, at lilipat nga ito. Walang bagay na hindi ninyo magagawa. Ngunit ang ganung uri ng demonyo ay mapapalayas lamang sa pamamagitan ng panalangin at pag-aayuno.'"</p>
+    <cite>— Mateo 17:20–21 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p><strong>Pangunahing tanong ngayon:</strong> <em>Paano natin mapagtatagumpayan ang espiritwal na kahinaan dulot ng mahinang pananampalataya?</em></p>
+    <p>Hindi tayo nag-iisa. Maging ang mga alagad ng Panginoong Hesus — na nakasaksi ng Kanyang mga himala at kapangyarihan — ay nakaranas din ng espiritwal na kabiguan. Kahit si Elias na natalo ang mga propeta ni Baal ay natakot sa sulat ni Jezebel. <strong>Minsan talaga nanghihina ang pananampalataya ng lahat.</strong></p>
+  </div>
+
+  <div class="hl orange">
+    <p><strong>Paano nanghihina ang pananampalataya?</strong> Nanghihina ang pananampalataya kapag ang ating pagtitiwala sa kapangyarihan ng Diyos ay nababawasan. Kapag mas malaki ang tingin natin sa problema kaysa sa ating Diyos — doon nagsisimula ang pagpapahina ng pananampalataya.</p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Paraan para Mapalakas ang Pananampalataya</div>
+  <div class="sum-cards">
+    <div class="sum-card">
+      <div class="sd g">1</div>
+      <div>
+        <div class="s-title">Sa pamamagitan ng matatag na pananampalataya sa Diyos</div>
+        <div class="s-desc">Mateo 17:20 · Hebreo 11:1, 12:2 — Ang ugat ng tagumpay bilang Kristiyano ay nakakabit sa matatag na pananampalataya sa Diyos.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">2</div>
+      <div>
+        <div class="s-title">Sa pamamagitan ng buhay na nakatuon sa pananalangin</div>
+        <div class="s-desc">Mateo 17:21 · Jeremias 33:3 · Filipos 4:6–7 — Ang pananalangin ay nagpapalakas ng pananampalataya at nagdadala ng kapayapaan.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">3</div>
+      <div>
+        <div class="s-title">Sa pamamagitan ng pag-aayuno at ganap na pagsuko sa Diyos</div>
+        <div class="s-desc">Mateo 17:21 · Isaias 58 · Galacia 5:17 — Ang tunay na pag-aayuno ay hindi lamang pag-iwas sa pagkain kundi pagbabago ng puso.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 1 ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--green);">
+    <div class="snum">1</div>
+    <div>
+      <h2>Sa pamamagitan ng matatag na pananampalataya sa Diyos</h2>
+      <div class="sub">Mateo 17:20 · Hebreo 11:1 · Hebreo 12:2 · Marcos 9:23</div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <p>"Sinagot siya ni Jesus, 'Bakit mo sinabing kung may magagawa ka? Ang lahat ng bagay ay posible sa taong may pananampalataya sa Diyos.'"</p>
+    <cite>— Marcos 9:23 (ASD)</cite>
+  </div>
+
+  <div class="body">Ang ugat ng kabiguan ng mga alagad sa pagpapalayas ng demonyo ay <strong>hindi kakulangan ng kakayahan</strong> — binigyan sila ni Hesus ng kapangyarihan (Mateo 10:1). Ang problema ay <strong>kakulangan ng matatag na pananampalataya.</strong> Hindi sinabi ni Hesus na wala silang pananampalataya — meron sila, ngunit ito ay mahina at madaling matinag sa harap ng mahirap na sitwasyon.</div>
+
+  <!-- THREE P -->
+  <div class="threep-box">
+    <div class="threep-lbl">Ang Tatlong P ng Pananampalataya</div>
+    <div class="threep-title">Paniniwala · Pagtitiwala · Pagtalima</div>
+    <div class="threep-parts">
+      <div class="tp-row">
+        <div class="tp-letter">P</div>
+        <div class="tp-content">
+          <div class="tp-word">Paniniwala sa Salita ng Diyos</div>
+          <div class="tp-desc">Naniniwala sa katotohanan ng Kanyang mga pangako kahit hindi pa nakikita ang katuparan</div>
+        </div>
+      </div>
+      <div class="tp-row">
+        <div class="tp-letter">P</div>
+        <div class="tp-content">
+          <div class="tp-word">Pagtitiwala sa mga Pangako ng Diyos</div>
+          <div class="tp-desc">Nagtitiwala na hindi niya iiwan o pababayaan ang mga nagtitiwala sa Kanya</div>
+        </div>
+      </div>
+      <div class="tp-row">
+        <div class="tp-letter">P</div>
+        <div class="tp-content">
+          <div class="tp-word">Pagtalima sa Kalooban ng Diyos</div>
+          <div class="tp-desc">Sumusunod sa Kanyang kalooban kahit hindi pa ganap na naiintindihan ang Kanyang plano</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROPE VISUAL -->
+  <div class="rope-box">
+    <div class="rope-hdr">💡 Halimbawa — Ang Tatlong-Piling Lubid</div>
+    <div class="rope-body">
+      <div class="rope-strands">
+        <div class="rope-strand" style="background:var(--blue-light);">
+          <div class="rs-name" style="color:var(--blue);">Paniniwala</div>
+          <div class="rs-desc">Sa Salita</div>
+        </div>
+        <div class="rope-strand" style="background:var(--green-light);">
+          <div class="rs-name" style="color:var(--green-dark);">Pagtitiwala</div>
+          <div class="rs-desc">Sa Pangako</div>
+        </div>
+        <div class="rope-strand" style="background:var(--orange-light);">
+          <div class="rs-name" style="color:var(--orange-dark);">Pagtalima</div>
+          <div class="rs-desc">Sa Kalooban</div>
+        </div>
+      </div>
+      <p>Nakita na ba kayo ng lubid na may tatlong pilo? Kapag ini-ikot ang tatlong ito nang magkasama — ito ang pinakamatibay na lubid. Kung wala ang isa sa tatlong ito — bahina na ang pananampalataya. Kailangan ang tatlo para maging tunay na matatag ang pananampalataya sa Diyos.</p>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Halimbawa ng Nagtaturo — Si Pedro at ang Dagat</div>
+    <div class="illus-body">
+      <p>Nang makita ni Pedro ang Panginoong Hesus na naglalakad sa dagat, sinabi niya: "Panginoon, gusto kong pumunta riyan." Sinabi ng Panginoon: "Halika." Nakapaglakad siya sa tubig — kamangha-mangha!</p>
+      <p>Ngunit nang makita niya ang malakas na hangin at malalaking alon, <strong>inilipat niya ang kanyang tingin mula sa Panginoon patungo sa problema</strong> — at siya ay unti-unting nalubog.</p>
+      <p>Sabi sa Hebreo 12:2 — <em>"Ituring natin ang ating paningin kay Hesus, na siyang pinagmulan at tagapagpuno ng ating pananampalataya."</em> Kapag hindi nakatuon ang ating paningin sa Diyos — nanghihina tayo kapag may dumating na problema.</p>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Halimbawa ng Nagtaturo — Si Elias at ang Sulat ni Jezebel</div>
+    <div class="illus-body">
+      <p>Si Elias ay nagtagumpay laban sa 450 propeta ni Baal sa bundok ng Carmelo — isa sa pinaka-kahanga-hangang tagumpay sa kasaysayan ng Biblia. Ipinakita ng Diyos ang Kanyang kapangyarihan sa pamamagitan niya.</p>
+      <p>Ngunit pagkatapos nito, isang sulat lamang mula kay Jezebel na nagbabanta ng kanyang buhay — at <strong>natakot siya at tumakas.</strong> Nagpahinga siya sa ilalim ng punong puno at nagnanais pang mamatay.</p>
+      <p>Kapag ang takot ay umairal sa buhay ng isang Kristiyano — nagpapakita ng kahinaan ng pananampalataya. Dahil saan nanggagaling ang takot? Sa pag-aalinlangan. At saan nanggagaling ang pag-aalinlangan? Sa paglipat ng tingin mula sa Diyos patungo sa problema.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Hebreo 11:1</div>
+    <p>"Ang pananampalataya ay tiwala sa mga bagay na ating inaasahan at katiyakan sa mga bagay na hindi nakikita."</p>
+    <cite>— Hebreo 11:1</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Hebreo 12:2</div>
+    <p>"Ituring natin ang ating paningin kay Hesus, na siyang pinagmulan at tagapagpuno ng ating pananampalataya."</p>
+    <cite>— Hebreo 12:2</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Lucas 1:37</div>
+    <p>"Walang imposible sa Diyos."</p>
+    <cite>— Lucas 1:37</cite>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Ang matatag na pananampalataya</strong> ay hindi nakasalalay sa damdamin o sa mga nakikita natin. Ito ay patuloy na naniniwala, sumusunod, at umaasa sa Diyos — kahit may pagsubok, paghihintay, tukso, o kawalan ng kasagutan. <em>Ano man ang mangyari — nananatili ang pananampalataya sa Panginoon Diyos.</em></p>
+  </div>
+
+  <div class="quote-box">
+    <p>"Tanungin po natin ang ating sarili — mas malaki ba ang tingin ko sa problema kaysa sa aking Diyos? Ang alagad ay hindi tinanong kung gaano kalaki ang problema — tinanong nila ang kanilang sariling kalagayan sa harapan ng Panginoon."</p>
+    <cite>— Mula sa Sermon</cite>
+  </div>
+
+  <div class="truth green">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang matatag na pananampalataya — ang may tatlong P (Paniniwala, Pagtitiwala, Pagtalima) — ito ang pinaka-ugat ng tagumpay ng isang Kristiyano. Hindi ang lakas natin, kundi ang ating pagtitiwala sa Panginoong Diyos.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 2 ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--purple);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Sa pamamagitan ng buhay na nakatuon sa pananalangin</h2>
+      <div class="sub">Mateo 17:21 · Jeremias 33:3 · Filipos 4:6–7 · 1 Tesalonica 5:17</div>
+    </div>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Ngunit ang ganung uri ng demonyo ay mapapalayas lamang sa pamamagitan ng panalangin at pag-aayuno."</p>
+    <cite>— Mateo 17:21 (ASD)</cite>
+  </div>
+
+  <div class="body">Ang pananalangin ay <strong>hindi lamang ginagawa kapag may pangangailangan</strong> — dapat itong maging bahagi ng pang-araw-araw na buhay ng bawat mananampalataya. Kapag tayo ay nananalangin, lumalalalim ang ating relasyon sa Panginoon, lumakaas ang ating pananampalataya, at nagiging matatag tayo sa gitna ng mga pagsubok at espiritwal na pakikibaka.</div>
+
+  <div class="illus">
+    <div class="illus-hdr">Halimbawa ng Nagtaturo — Cellphone at Charger</div>
+    <div class="illus-body">
+      <p>Gamitin ang ating cellphone nang hindi ito nini-charge. Kahit gaano kaganda ang modelo nito — pagdating ng oras, mauubos ang baterya at walang pakinabang na.</p>
+      <p>Ganoon din ang ating pananampalataya. Ang pananalangin ay katulad ng charger ng ating espiritwal na buhay. <strong>Kapag kulang tayo sa pananalangin — palagi tayong manghihina kapag may dumating na problema.</strong></p>
+      <p><em>"Mahinang pananalangin = Mahinang pananampalataya. Matatag na pananalangin = Matatag na pananampalataya."</em></p>
+    </div>
+  </div>
+
+  <div class="body">Bakit tayo nagkukulang sa pananalangin? Dahil <strong>mas nakapokus tayo sa trabaho, sa mga gadget, at sa iba pang bagay</strong> na alam nating hindi kalugod-lugod sa Panginoon Diyos. Kaya kapag nagkaroon ng problema — natatakot agad tayo.</div>
+
+  <div class="hl purple">
+    <p><strong>Ngunit kapag ang pananalangin ay naging bahagi na ng ating buhay</strong> — kahit may problema, may ngiti pa rin tayo. Bakit? Dahil alam natin na ang problema ay may Diyos na mag-aayos — at mamamangha tayo sa mga bagay na hindi natin inaasahan na Kanyang gagawin.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">1</div>
+      <div>
+        <h4>Ang pananalangin ay nagpapalakas ng ating ugnayan sa Diyos</h4>
+        <p>Tulad ng pag-uusap sa isang minamahal — habang mas madalas tayo nakikipag-usap sa Diyos, mas lumalim ang ating relasyon sa Kanya at mas nakikita natin ang Kanyang kapangyarihan sa ating buhay.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">2</div>
+      <div>
+        <h4>Ang pananalangin ay nagdadala ng kapayapaan ng Diyos</h4>
+        <p>Sabi sa Filipos 4:6–7 — huwag mag-alala sa anumang bagay. Ilapit sa Diyos ang lahat ng pangangailangan. At ang kapayapaan ng Diyos na "hindi kayang unawain ng tao" ang mag-iingat sa ating puso at pag-iisip.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">3</div>
+      <div>
+        <h4>Ang pananalangin ay nagbubukas ng kahanga-hangang mga bagay</h4>
+        <p>Sabi sa Jeremias 33:3 — "Tumawag ka sa akin at sasagutin kita at ipapakita ko sa iyo ang mga kahanga-hangang bagay na hindi mo pa alam." Kapag tapat tayong nananalangin — mamamangha tayo sa mga paraan na kikilos ang Diyos para sa atin.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Halimbawa ng Nagtaturo — Ang Thank You Letter</div>
+    <div class="illus-body">
+      <p>May mga kapatid na nakatanggap ng thank you letter mula sa kanilang kumpanya dahil sa kanilang magandang trabaho. Nagpasalamat sila. Pero sabi ng nagtaturo:</p>
+      <p><em>"Buti pa yung company, nag-thank you sila sa akin. Dapat ipagpasalamat din natin sa ating Panginoon Diyos ang letter na iyon."</em> Ibig sabihin — ang bawat pagpapala, bawat tagumpay, bawat good news sa ating buhay — lahat ito ay nagmumula sa Diyos at dapat iuwi sa Kanya sa pamamagitan ng panalangin at pasasalamat.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Jeremias 33:3</div>
+    <p>"Tumawag ka sa akin at sasagutin kita at ipapakita ko sa iyo ang mga kahanga-hanga at mahihiwagang bagay na hindi mo pa alam."</p>
+    <cite>— Jeremias 33:3</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Filipos 4:6–7</div>
+    <p>"Huwag kayong mag-alala sa anumang bagay. Ilapit ninyo sa Diyos ang lahat ng inyong pangangailangan sa pamamagitan ng panalangin at may pasasalamat. Kapag ginawa ninyo ito, bibigyan kayo ng Diyos ng kapayapaang mag-iingat sa inyong puso at pag-iisip — kapayapaang hindi kayang unawain ng tao."</p>
+    <cite>— Filipos 4:6–7</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">1 Tesalonica 5:17 · Lucas 18:1</div>
+    <p>"Palaging manalangin." — "Nagkwento si Jesus sa mga alagad niya upang turuan silang laging manalangin at huwag mawalan ng pag-asa."</p>
+    <cite>— 1 Tesalonica 5:17 · Lucas 18:1</cite>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang pananalangin ang hininga ng ating espiritwal na buhay. Hindi lamang para sa mga sandali ng pangangailangan — dapat itong maging bahagi ng ating pang-araw-araw na buhay. Habang patuloy tayong nananalangin, tumataas ang antas ng ating pagtitiwala sa Diyos.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 3 ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Sa pamamagitan ng pag-aayuno at ganap na pagsuko sa Diyos</h2>
+      <div class="sub">Mateo 17:21 · Isaias 58 · Galacia 5:17 · Santiago 4:7</div>
+    </div>
+  </div>
+
+  <div class="vbox orange">
+    <p>"Ngunit ang ganung uri ng demonyo ay mapapalayas lamang sa pamamagitan ng panalangin at pag-aayuno."</p>
+    <cite>— Mateo 17:21 (ASD)</cite>
+  </div>
+
+  <div class="body">Ang pag-aayuno ay <strong>hindi lamang pag-iwas sa pagkain</strong>. Pinapaunawa ng Panginoon Diyos dito ang <strong>ganap na pagsuko natin sa Kanya</strong>. Mababalewala ang pag-aayuno kung wala itong kasamang ganap na pagsuko sa Diyos — dahil hindi tayo makakatalima sa kalooban ng Panginoon kung hindi natin lubusang ipinagkakatiwala ang ating sarili sa Kanya.</div>
+
+  <div class="hl orange">
+    <p>Sabi sa Santiago 4:7 — <strong>"Magpasakop kayo sa Diyos at lalayo sa inyo ang diyablo."</strong> Ito ang unang-unang binanggit ng Diyos. <em>Magpasakop muna sa Diyos</em> — bago ang pakikipaglaban sa kaaway. Sapagkat ang tunay na tagumpay ay hindi mula sa ating sariling lakas kundi sa kapangyarihan ng Diyos na nagtatrabaho sa pamamagitan ng ating pagsuko sa Kanya.</p>
+  </div>
+
+  <div class="body">Ilang espiritwal na laban ang nangangailangan ng mas malalim na paghahanap sa Diyos at ganap na pag-depende sa Kanyang kapangyarihan. Sa pamamagitan ng pag-aayuno:</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">1</div>
+      <div>
+        <h4>Lumalalim ang ating relasyon sa Diyos</h4>
+        <p>Ang pag-aayuno ay pagpapahayag ng ating pagpapakumbaba at lubos na pagdepende sa Panginoon. Parang sinasabi natin sa Diyos: "Panginoon, mas kailangan kita kaysa sa anumang bagay."</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">2</div>
+      <div>
+        <h4>Lumakas ang espiritwal na disiplina</h4>
+        <p>Natututo tayong kontrolin ang ating sarili — ang laman na laging nagtatalo laban sa Espiritu. Sa pag-aayuno, mas nakapokus tayo sa pananalangin, pagsuko sa Diyos, at paghahanap ng Kanyang kalooban.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">3</div>
+      <div>
+        <h4>Nagbabago ang ating ugali at puso</h4>
+        <p>Ang tunay na pag-aayuno ay pagbabago ng puso — pagtalikod sa kasalanan at mas malalim na pagsunod sa Diyos. Kapag nagpapasakop tayo sa Diyos, ang mga makasariling hangarin ay napapawi at ang ugali natin ay unti-unting binabago ng Panginoon.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <p>"Ang ayunong makapagpapalugod sa akin ay ang ayunong may kasamang matuwid na pag-uugali. Tigilan ninyo ang paggawa ng kasamaan. Payaralin ninyo ang katarungan. Palayaan ninyo ang mga inaalipin at ang inaapi ay inyong tulungan."</p>
+    <cite>— Isaias 58:6–7 (ASD)</cite>
+  </div>
+
+  <div class="body">Pinapaalam sa atin na ang tunay na pag-aayuno ay <strong>hindi lamang pag-iwas sa pagkain</strong> — kundi pagbabago ng puso, pagtalikod sa kasalanan, at mas malalim na pagsunod sa Diyos.</div>
+
+  <!-- BIBLE CHARACTERS -->
+  <div class="sec-lbl">Mga Halimbawa mula sa Biblia — Pag-aayuno at Pagsuko</div>
+  <div class="chars-grid">
+    <div class="char-card">
+      <div class="char-icon" style="background:var(--orange-light);">👑</div>
+      <div>
+        <h4>Si Jose — Ang Mangarap</h4>
+        <div class="char-lesson" style="color:var(--orange);">Aral: Pagpapakumbaba sa Pamamagitan ng Pagsubok</div>
+        <p>Napanaginipan ni Jose ang kanyang kinabukasan — ngunit hindi agad ibinigay ng Diyos ang katuparan nito. Dumaan muna siya sa pagiging alipin, pagkabilanggo, at pagdurusa — upang mapaunlad ang kanyang pagpapakumbaba. Doon ibinigay ng Diyos ang Kanyang pangako.</p>
+      </div>
+    </div>
+    <div class="char-card">
+      <div class="char-icon" style="background:var(--green-light);">🌊</div>
+      <div>
+        <h4>Si Abraham at Sara — Ang Pangako</h4>
+        <div class="char-lesson" style="color:var(--green);">Aral: Huwag Kumilos nang Mag-isa</div>
+        <p>Pinangakuan ng Diyos ng anak — ngunit nainip sila sa paghihintay. Gumawa sila ng sariling paraan at nagkaroon ng anak mula kay Hagar. Ngunit ang tunay na pangako ng Diyos ay dumating sa tamang panahon Niya. Kapag tayo ay nainip — huwag kumilos nang wala ang Diyos.</p>
+      </div>
+    </div>
+    <div class="char-card">
+      <div class="char-icon" style="background:var(--purple-light);">⚓</div>
+      <div>
+        <h4>Si Pedro — Tatlong Pagtanggi</h4>
+        <div class="char-lesson" style="color:var(--purple);">Aral: Ang Tunay na Pagsisisi ay Nagpapalakas</div>
+        <p>Ilang beses niyang itinanggi ang Panginoong Hesus. Ngunit nang makita niya ang kanyang pagkakamali, nagpakumbaba siya, nagsisi, at nanumbalik sa Diyos — at naging isa sa pinakamatapang na apostol. Sa Judas — hindi siya nagpakumbaba at nagpakamatay.</p>
+      </div>
+    </div>
+    <div class="char-card">
+      <div class="char-icon" style="background:var(--blue-light);">🏔️</div>
+      <div>
+        <h4>Si Josue at Caleb — Laban sa Mga Higante</h4>
+        <div class="char-lesson" style="color:var(--blue);">Aral: Ang Tunay na Pananampalataya ay Hindi Nakatingin sa Laki ng Problema</div>
+        <p>Ang sampung espiya ay natakot sa mga higante at nagpasyang hindi kaya. Ngunit sina Josue at Caleb ay nagtayo sa kanilang pananampalataya: "Kaya natin!" — dahil nakita nila ang Diyos na mas malaki pa sa mga higante.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Galacia 5:17</div>
+    <p>"Sapagkat ang ninanasa ng laman ay laban sa nais ng Espiritu at ang nais ng Espiritu ay laban sa ninanasa ng laman."</p>
+    <cite>— Galacia 5:17</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Santiago 4:7, 10</div>
+    <p>"Magpasakop kayo sa Diyos at lalayo sa inyo ang diyablo... Magpakababa kayo sa harapan ng Panginoon at itataas niya kayo."</p>
+    <cite>— Santiago 4:7, 10</cite>
+  </div>
+
+  <div class="hl red">
+    <p><strong>Minsan gusto natin ang tagumpay ngunit ayaw nating magpadisiplina. Gusto natin ang himala ngunit ayaw tayong lumuhod at magsakripisyo sa presensya ng Diyos.</strong> Ang simpleng sagot: ganap na pagsuko sa Diyos. Kapag ginawa natin ito — ang himala at tagumpay ay mararanasan ng bawat isa sa atin.</p>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang tunay na pag-aayuno ay hindi lamang pag-iwas sa pagkain — ito ay ganap na pagsuko sa Diyos, pagbabago ng puso, at pagtalikod sa mga makasariling hangarin. Sa pagsuko natin sa Diyos — Siya ang mananaig sa bawat buhay natin.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral — June 5</div>
+      <h3>Paano Mapagtatagumpayan ang Espiritwal na Kahinaan?</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — Sa pamamagitan ng matatag na pananampalataya:</strong> Ang ugat ng kabiguan ng mga alagad ay hindi kakulangan ng kakayahan — kundi kakulangan ng matatag na pananampalataya. Ang matatag na pananampalataya ay may tatlong P — Paniniwala, Pagtitiwala, at Pagtalima. Huwag ilingon ang tingin mula sa Diyos patungo sa problema.</p>
+      <p><strong>Ikalawa — Sa pamamagitan ng buhay na nakatuon sa pananalangin:</strong> Ang pananalangin ang charger ng ating espiritwal na buhay. Hindi lamang kapag may pangangailangan — dapat itong maging bahagi ng ating pang-araw-araw na buhay. Mahinang pananalangin = Mahinang pananampalataya. Matatag na pananalangin = Matatag na pananampalataya.</p>
+      <p><strong>Pangatlo — Sa pamamagitan ng pag-aayuno at ganap na pagsuko sa Diyos:</strong> Ang tunay na pag-aayuno ay pagbabago ng puso at ganap na pagsuko sa Diyos. Kapag nagpapasakop tayo sa Diyos — hindi na tayo umaayon sa sarili nating kagustuhan kundi sa Kanyang kalooban. Doon nagtatagumpay ang Kristiyano.</p>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Ang tagumpay sa espiritwal na buhay ay hindi nakasalalay sa ating kakayahan — kundi sa ating pagiging nakaugnay sa Diyos sa pamamagitan ng matatag na pananampalataya, buhay na nakatuon sa pananalangin, at pusong lubos na nagpapasakop sa Diyos sa pamamagitan ng pag-aayuno."</p>
+    <cite>— Pagtatapos ng Sermon</cite>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Pangwakas na hamon:</strong> Nakakaroon tayo ng lakas upang mapagtagumpayan ang mga pagsubok <strong>kapag tayo ay nagtitiwala sa Diyos at umaasa sa Kanyang kapangyarihan.</strong> Walang hadlang na hindi Niya kayang pagtagumpayan sa ating buhay — sapagkat walang imposible sa Diyos. (Lucas 1:37)</p>
+  </div>
+
+  <div class="vbox">
+    <p>"Kung may pananampalataya kayo na kahit kasinlaki lang ng buto ng mustasa, masasabi ninyo sa bundok na ito, lumipat ka roon, at lilipat nga ito. Walang bagay na hindi ninyo magagawa."</p>
+    <cite>— Mateo 17:20 (ASD)</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, tulungan Mo kaming mapalakas ang aming pananampalataya sa Iyo. Sa mga sandaling nanghihina kami at parang wala nang kasagutan — tulungan Mo kaming ibalik ang aming mga paningin sa Iyo, hindi sa mga problema. Ituro Mo sa amin ang tunay na pananalangin — hindi lang kapag may pangangailangan, kundi bilang bahagi ng aming pang-araw-araw na buhay. At sa pag-aayuno — turuan Mo kaming ganap na magpasakop sa Iyo, upang ang Iyong kalooban ang mananaig sa aming mga buhay. Sapagkat walang imposible sa Iyo. Sa pangalan ni Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Ituring natin ang ating paningin kay Hesus, na siyang pinagmulan at tagapagpuno ng ating pananampalataya."</p>
+    <cite>— Hebreo 12:2 · Talatang Iuunawa sa Linggo</cite>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
