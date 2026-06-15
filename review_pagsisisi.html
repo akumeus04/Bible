@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Mga Sangkap ng Pagsisisi</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  .topbar{background:var(--green);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:17px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.68;margin-top:2px;}
+
+  .audio-bar{position:fixed;bottom:72px;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:99;padding:10px 14px;box-shadow:0 -2px 10px rgba(0,0,0,0.06);}
+  .audio-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .audio-lbl::before{content:"🎧";}
+  .audio-bar audio{width:100%;height:36px;border-radius:8px;outline:none;}
+
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--green);}
+
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  .hero{background:linear-gradient(150deg,var(--green-dark) 0%,var(--green) 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:22px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.7;margin-bottom:3px;}
+  .hero .hdate{font-size:11px;opacity:0.5;}
+
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+  .vbox.blue{background:var(--blue-light);border-left-color:var(--blue);}
+  .vbox.blue p{color:var(--blue);}
+  .vbox.blue cite{color:var(--blue);}
+  .vbox.red{background:var(--red-light);border-left-color:var(--red);}
+  .vbox.red p{color:var(--red);}
+  .vbox.red cite{color:var(--red);}
+
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  .body{font-size:14px;color:var(--text);line-height:1.78;margin:14px 14px 0;}
+  .body strong{font-weight:600;}
+  .body em{font-style:italic;}
+
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.blue p{color:var(--blue);}
+  .hl.red p{color:var(--red);}
+
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{background:var(--orange-light);padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.blue{background:var(--blue);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  .recap-box{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:13px 14px;}
+  .recap-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+  .recap-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:13px;color:var(--blue);}
+  .recap-item:last-child{margin-bottom:0;}
+  .ri-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+
+  /* GREEK WORD BOX */
+  .greek-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .greek-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:11px;text-align:center;}
+  .greek-word{font-family:'Lora',serif;font-size:28px;font-weight:700;color:white;text-align:center;margin-bottom:4px;letter-spacing:0.05em;}
+  .greek-trans{font-size:13px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:12px;letter-spacing:0.06em;text-transform:uppercase;}
+  .greek-parts{display:flex;flex-direction:column;gap:7px;}
+  .gk-row{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,0.1);border-radius:8px;padding:10px 12px;}
+  .gk-label{font-size:11px;font-weight:700;color:#A8F0D8;flex-shrink:0;min-width:80px;}
+  .gk-text{font-size:13px;color:rgba(255,255,255,0.85);line-height:1.45;}
+
+  /* COMPARE — Remorse vs Repentance */
+  .compare{margin:14px 14px 0;background:white;border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+  .compare-hdr{display:grid;grid-template-columns:1fr 1fr;}
+  .ch-a{background:var(--red);padding:10px;text-align:center;font-size:12px;font-weight:700;color:white;line-height:1.3;}
+  .ch-b{background:var(--green);padding:10px;text-align:center;font-size:12px;font-weight:700;color:white;line-height:1.3;}
+  .compare-row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border);}
+  .compare-row:nth-child(even){background:#FAFAF8;}
+  .cr-a{padding:10px;font-size:13px;color:var(--red);border-right:1px solid var(--border);line-height:1.45;}
+  .cr-b{padding:10px;font-size:13px;color:var(--green-dark);line-height:1.45;}
+
+  /* STEPS */
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* 3R SUMMARY */
+  .r3-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .r3-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:10px;text-align:center;}
+  .r3-parts{display:flex;flex-direction:column;gap:7px;}
+  .r3-row{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,0.1);border-radius:9px;padding:10px 13px;}
+  .r3-letter{font-size:26px;font-weight:700;color:#A8F0D8;width:26px;flex-shrink:0;text-align:center;}
+  .r3-content{flex:1;}
+  .r3-word{font-size:14px;font-weight:700;color:white;margin-bottom:2px;}
+  .r3-desc{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.4;}
+
+  /* ABOUT FACE VISUAL */
+  .about-face{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .af-hdr{background:var(--green-light);padding:10px 14px;font-size:11px;font-weight:700;color:var(--green-dark);letter-spacing:0.04em;}
+  .af-body{padding:13px 14px;}
+  .af-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;}
+  .af-row:last-child{margin-bottom:0;}
+  .af-box{flex:1;border-radius:8px;padding:10px;text-align:center;}
+  .af-box .aw{font-size:12px;font-weight:700;margin-bottom:3px;}
+  .af-box .ad{font-size:11px;color:var(--gray);line-height:1.3;}
+  .af-arrow{font-size:20px;color:var(--gray);flex-shrink:0;}
+
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · June 12, 2026</div>
+  <h1>Mga Sangkap ng Pagsisisi</h1>
+  <div class="ref">Lucas 18:9–14 · Lucas 19:1–10 · Gawa 2:37–38</div>
+</div>
+
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--green)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--red)">1</div>
+    <div class="nl">Remorse</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--purple)">2</div>
+    <div class="nl">Restitution</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--green)">3</div>
+    <div class="nl">Restoration</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--green-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<div class="audio-bar">
+  <div class="audio-lbl">Pakinggan ang Sermon</div>
+  <audio controls>
+    <source src="https://archive.org/download/sangkap-sa-pagsisisi/Sangkap_sa_Pagsisisi.m4a" type="audio/mpeg">
+    Hindi sinusuportahan ang audio sa iyong browser.
+  </audio>
+</div>
+
+<!-- ===== INTRO ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material · June 12, 2026</div>
+    <h2>Mga Sangkap ng Pagsisisi</h2>
+    <div class="href">Lucas 18:9–14 · Lucas 19:1–10 · Gawa 2:37–38</div>
+    <div class="hdate">Jesus First Christian Ministries</div>
+  </div>
+
+  <div class="recap-box">
+    <div class="recap-lbl">Recap — Mga Nakaraang Pag-aaral</div>
+    <div class="recap-item"><div class="ri-dot">1</div><div><strong>Ang Kasalanan</strong> — Ang katotohanan tungkol sa kasalanan. Roma 5:12–13.</div></div>
+    <div class="recap-item"><div class="ri-dot">2</div><div><strong>Malaya na sa Kasalanan</strong> — Mula saan iniligtas ang mga sumampalataya. Roma 5:1–6:21.</div></div>
+    <div class="recap-item"><div class="ri-dot">3</div><div><strong>Ang Mabuting Balita</strong> — Si Kristo ay namatay, inilibing, at muling nabuhay. 1 Corinto 15:1–8.</div></div>
+    <div class="recap-item"><div class="ri-dot">4</div><div><strong>Kapag Mahina ang Pananampalataya</strong> — Matatag na pananampalataya, pananalangin, pag-aayuno. Mateo 17:14–21.</div></div>
+    <div class="recap-item"><div class="ri-dot">5</div><div><strong>Mga Sangkap ng Pagsisisi</strong> — Ngayon: Ang tatlong R ng tunay na pagsisisi. Lucas 18:9–14.</div></div>
+  </div>
+
+  <div class="vbox">
+    <p>"Sinasabi ko sa inyo, ang lalaking ito ay umuwing pinatawad sa kanyang mga kasalanan. Ngunit ang una ay hindi. Sapagkat ang sinumang nagmamataas ay ibababa, at ang nagpapakumbaba ay itataas."</p>
+    <cite>— Lucas 18:14 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p><strong>Pangunahing tanong:</strong> <em>Ano-ano ba ang mga sangkap ng tunay na pagsisisi?</em></p>
+    <p>Marahil isa sa mga pinakamahirap gawin ng isang Kristiyano ay ang tanggapin ang kamalian at pagsisihin ito. Kapag gumawa ng kasalanan, madalas na tinatakpan pa ng isa pang kasalanan — at nagpapatong-patong. <strong>Ang pinakamadaling gawin ay ang aminin ang kamalian — ngunit ito rin ang pinakamahirap sa mga puso na puno ng pride.</strong></p>
+    <p>Kaya mahalagang maunawaan ang tunay na pagsisisi — sapagkat ito ang pundasyon ng tunay na pagbabagong-buhay at pagsunod sa Panginoon. <em>Kung walang pagsisisi, walang pagpapatawad. Kung walang pagpapatawad, hindi maibabalik ang ugnayan ng tao sa Diyos.</em></p>
+  </div>
+
+  <!-- GREEK WORD -->
+  <div class="greek-box">
+    <div class="greek-lbl">Kahulugan sa Griyego</div>
+    <div class="greek-word">μετανοέω</div>
+    <div class="greek-trans">metanoeō — Pagsisisi</div>
+    <div class="greek-parts">
+      <div class="gk-row">
+        <div class="gk-label">Kahulugan</div>
+        <div class="gk-text">Pagbabago ng isip at puso — isang about face, isang 180-degrees turn mula sa luma at makasalanang buhay patungo sa pagiging bagong nilalang sa Panginoong Hesus.</div>
+      </div>
+      <div class="gk-row">
+        <div class="gk-label">Halimbawa</div>
+        <div class="gk-text">Katulad ng military drill — ang mga sundalo ay nagsasagawa ng "about face." Kapag nagsisi ka, ikaw na ngayon ay lumalakad sa katuwiran — hindi na sa kasalanan.</div>
+      </div>
+      <div class="gk-row">
+        <div class="gk-label">Mahalagang tala</div>
+        <div class="gk-text">Ang pagsisisi ay isang PASYA — isang DESISYON. May emosyon ito, pero higit sa emosyon — ito ay isang determinasyon na tumalikod sa kasalanan.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3R OVERVIEW -->
+  <div class="sec-lbl">Ang Tatlong R ng Tunay na Pagsisisi</div>
+  <div class="r3-box">
+    <div class="r3-lbl">Tandaan — 3R</div>
+    <div class="r3-parts">
+      <div class="r3-row">
+        <div class="r3-letter">R</div>
+        <div class="r3-content">
+          <div class="r3-word">Remorse</div>
+          <div class="r3-desc">Labis na kalungkutan sa nagawang kasalanan — isang sangkap ngunit hindi sapat sa sarili nito</div>
+        </div>
+      </div>
+      <div class="r3-row">
+        <div class="r3-letter">R</div>
+        <div class="r3-content">
+          <div class="r3-word">Restitution</div>
+          <div class="r3-desc">Pagsasauli ng anumang kinuha sa hindi tamang paraan — aksyon ng pagpapanumbalik ng tiwala</div>
+        </div>
+      </div>
+      <div class="r3-row">
+        <div class="r3-letter">R</div>
+        <div class="r3-content">
+          <div class="r3-word">Restoration</div>
+          <div class="r3-desc">Pagpapanumbalik sa Panginoong Hesus — pagbabalik sa orihinal na layunin ng Diyos sa ating buhay</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sum-cards" style="margin-top:14px;">
+    <div class="sum-card">
+      <div class="sd" style="background:var(--red);">1</div>
+      <div>
+        <div class="s-title">Remorse — Lucas 18:9–14</div>
+        <div class="s-desc">Ang Pariseyo at ang Maniningil ng Buwis — pagkakaiba ng puso na nagpapakumbaba at nagmamataas.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">2</div>
+      <div>
+        <div class="s-title">Restitution — Lucas 19:1–10</div>
+        <div class="s-desc">Si Saqueo — ang pagsasauli ng mga kinuha sa maling paraan bilang bahagi ng tunay na pagsisisi.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd g">3</div>
+      <div>
+        <div class="s-title">Restoration — 2 Corinto 5:17</div>
+        <div class="s-desc">Pagbabalik sa orihinal na layunin ng Diyos — maging bagong nilalang at makabahagi sa Kanyang layunin.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 1 — REMORSE ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--red);">
+    <div class="snum">1</div>
+    <div>
+      <h2>Remorse — Labis na Kalungkutan sa Nagawang Kasalanan</h2>
+      <div class="sub">Lucas 18:9–14 · Mateo 27:3–5</div>
+    </div>
+  </div>
+
+  <div class="vbox red">
+    <p>"Ang maniningil ng buwis na may nakatayo sa malayo, di man lamang makatingin sa langit, ginadagukan niya ang kanyang dibdib at sinasabi, 'O Diyos, mahabag po kayo sa akin na isang makasalanan.'"</p>
+    <cite>— Lucas 18:13 (ASD)</cite>
+  </div>
+
+  <div class="body">Sa talinghaga ng Pariseyo at ng Maniningil ng Buwis, itinuturo ng Panginoong Hesus ang isang mahalagang katotohanan: <strong>hindi lahat ng kalungkutan ay nagbubunga ng tunay na pagsisisi.</strong></div>
+
+  <!-- ABOUT FACE -->
+  <div class="about-face">
+    <div class="af-hdr">💡 Ang Pariseyo at ang Maniningil ng Buwis — Dalawang Uri ng Puso</div>
+    <div class="af-body">
+      <div class="af-row">
+        <div class="af-box" style="background:var(--red-light);">
+          <div class="aw" style="color:var(--red);">Ang Pariseyo</div>
+          <div class="ad">Nananalangin o nagre-report? Nagmamatuwid, naghahambing ng sarili sa iba, ipinagmamalaki ang kanyang mga gawa</div>
+        </div>
+        <div class="af-arrow">≠</div>
+        <div class="af-box" style="background:var(--green-light);">
+          <div class="aw" style="color:var(--green-dark);">Ang Maniningil ng Buwis</div>
+          <div class="ad">Dinadagukan ang kanyang dibdib — masidhing emosyon ng pagsisisi. Iniamin ang kanyang pagiging makasalanan</div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--gray);margin-top:11px;line-height:1.65;">Sino ang umuwing pinatawad? <strong style="color:var(--green-dark);">Ang maniningil ng buwis</strong> — dahil nagpakumbaba siya. Ang Pariseyo ay hindi pinatawad dahil nakita niya ang kanyang sarili bilang matuwid at hindi nangangailangan ng awa ng Diyos.</p>
+    </div>
+  </div>
+
+  <div class="body"><strong>Mahalaga:</strong> Ang remorse ay isa lamang sangkap ng pagsisisi — hindi ito ang buo. Hindi ibig sabihin na nalungkot ka ay nagsisi ka na. May maraming naglulungkot ngunit hindi nagsisisi.</div>
+
+  <!-- REMORSE vs REPENTANCE -->
+  <div class="sec-lbl">Remorse (Regret) vs Repentance (Pagsisisi)</div>
+  <div class="compare">
+    <div class="compare-hdr">
+      <div class="ch-a">Remorse lamang<br><span style="font-size:10px;opacity:0.8;">(Metamelemai — Regret)</span></div>
+      <div class="ch-b">Tunay na Pagsisisi<br><span style="font-size:10px;opacity:0.8;">(Metanoeō — Decision)</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-a">Damdamin / emosyon lamang</div>
+      <div class="cr-b">Pasya / desisyon ng puso</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-a">Nalulungkot sa kasalanan</div>
+      <div class="cr-b">Nagpapasya na tumalikod sa kasalanan</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-a">Maaaring ulitin ang kasalanan</div>
+      <div class="cr-b">May aktibong pagbabago ng pamumuhay</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-a">Hindi nagbubunga ng pagbabago</div>
+      <div class="cr-b">Nagbabago ang buhay, kaibigan, ugali</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-a">Halimbawa: Si Judas</div>
+      <div class="cr-b">Halimbawa: Si Pedro</div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Halimbawa — Si Judas at Si Pedro</div>
+    <div class="illus-body">
+      <p><strong>Si Judas (Mateo 27:3–5):</strong> Nang matanto niya ang kanyang ginawa kay Hesus, labis siyang nagsisi (metamelemai — regret). Ibinabalik niya ang tatlumpung pilak at sinabi: "Nagkasala ako." Ngunit ang kanyang kalungkutan ay hindi nagdala sa kanya sa tunay na pagsisisi — nagpakamatay siya.</p>
+      <p><strong>Si Pedro:</strong> Tatlong beses din siyang nagkasala — itinanggi ang Panginoon. Ngunit nang makita niya ang kanyang pagkakamali, nagpakumbaba siya, nagsisi, at nanumbalik sa Diyos — at naging isa sa pinakamatapang na apostol ng iglesya.</p>
+      <p><em>Parehong nalungkot. Ngunit iba ang resulta — dahil ang isa ay gumawa ng pasya na magbago at ang isa ay hindi.</em></p>
+    </div>
+  </div>
+
+  <div class="hl red">
+    <p><strong>Huwag malito:</strong> Kahit umiyak ka ng umiyak, o makinig ka ng sermon at kumurot ang salita ng Diyos sa iyong puso — <em>kung hindi mo matalikuran ang kasalanan, hindi ka pa nagsisisi.</em> Ang remorse ay sangkap — hindi ang kabuuan ng pagsisisi. Ang pagsisisi ay isang PASYA na tumalikod.</p>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Marcos 1:15</div>
+    <p>"Dumating na ang takdang panahon, malapit na maghari ang Diyos, kaya magsisi kayo at talikuran ang inyong mga kasalanan, at paniwalaang kayo ang Magandang Balita."</p>
+    <cite>— Marcos 1:15</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Gawa 2:38</div>
+    <p>"Magsisi kayo at magpabautismo sa pangalan ni Jesucristo upang kayo ay patawarin ng inyong mga kasalanan at tatanggap kayo ng kaloob ng Banal na Espiritu."</p>
+    <cite>— Gawa 2:38</cite>
+  </div>
+
+  <!-- ABOUT FACE VISUAL -->
+  <div class="about-face">
+    <div class="af-hdr">🪖 Pagsisisi = Military "About Face"</div>
+    <div class="af-body">
+      <div class="af-row">
+        <div class="af-box" style="background:var(--red-light);">
+          <div class="aw" style="color:var(--red);">Lumang Buhay</div>
+          <div class="ad">Lumalakad sa kasalanan</div>
+        </div>
+        <div class="af-arrow">↩️</div>
+        <div class="af-box" style="background:var(--green-light);">
+          <div class="aw" style="color:var(--green-dark);">Bagong Buhay</div>
+          <div class="ad">Lumalakad na sa katuwiran</div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--gray);margin-top:11px;line-height:1.65;">Kapag gumawa ka ng 180-degrees turn — ang iyong dating direksyon ay ganap na talikuran. At malalaman ng mga taong nakapaligid sa iyo na nagbago ka — sa iyong salita, ugali, kaibigan, at pamumuhay.</p>
+    </div>
+  </div>
+
+  <div class="truth" style="background:var(--red);">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang remorse ay sangkap ng pagsisisi — ngunit hindi ang buo. Ang tunay na pagsisisi ay isang desisyon na tumalikod sa kasalanan. Kapag nagpakumbaba tayo sa harapan ng Diyos — itinaas Niya tayo. Kapag nagmamataas — ibinababa Niya.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 2 — RESTITUTION ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--purple);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Restitution — Pagsasauli ng anumang Kinuha sa Hindi Tamang Paraan</h2>
+      <div class="sub">Lucas 19:1–10 — Ang Kwento ni Saqueo</div>
+    </div>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Tumayo si Saqueo at sinabi niya kay Jesus, 'Panginoon, ipamimigay ko po sa mga mahirap ang kalahati ng aking kayamanan. At kung ako ay may nadayang sinuman, isasauli ko ito sa kanya ng makaapat na beses.'"</p>
+    <cite>— Lucas 19:8 (ASD)</cite>
+  </div>
+
+  <div class="body">Si Saqueo ay isang pinuno ng mga maniningil ng buwis — <strong>mayaman ngunit maraming nadaya.</strong> Nang makaharap niya ang Panginoong Hesus at matanto niya ang kanyang mga kasalanan, hindi siya nagsorry lamang. <em>Gumawa siya ng aksyon.</em> Isasauli niya ng makaapat na beses ang lahat ng kanyang nadaya.</div>
+
+  <div class="illus">
+    <div class="illus-hdr">Ang Kwento ni Saqueo — Lucas 19:1–10</div>
+    <div class="illus-body">
+      <p>Si Saqueo ay pandak — hindi niya makita si Hesus sa gitna ng maraming tao. Kaya patakbo siyang nauna at umakyat sa isang puno ng Sikamoro. Nang makarating si Hesus doon, tumingala Siya at tinawag siya: <em>"Saqueo, bumaba ka agad sapagkat kailangan kong tumigil ngayon sa iyong bahay."</em></p>
+      <p>Nagbulong-bulungan ang mga tao — <em>"Nakituloy siya sa isang makasalanan!"</em> Ngunit ang naging resulta ay isang ganap na pagbabago ng buhay ni Saqueo: kalahati ng kanyang kayamanan ay ibinigay sa mahihirap, at makaapat na beses ang halaga ng lahat ng kanyang nadaya ay isasauli niya.</p>
+      <p>Sabi ni Hesus: <strong>"Ang kaligtasan ay dumating ngayon sa sambahayang ito."</strong> Ang restitution ay bahagi ng kanyang pagsisisi — at doon dumating ang kaligtasan.</p>
+    </div>
+  </div>
+
+  <div class="body">Bakit mahalaga ang restitution? Dahil ito ay <strong>pagamin ng kamalian at pagpapakita ng kababaang loob.</strong> Hindi sapat ang sabihing "sorry" nang verbal lamang kung nasa iyong kamay pa ang mga bagay na kinuha sa hindi tamang paraan.</div>
+
+  <div class="illus">
+    <div class="illus-hdr">Halimbawa ng Nagtaturo — Bisikleta at Bisikleta</div>
+    <div class="illus-body">
+      <p>May isang tao na nagnakaw ng bisikleta bago siya naging Kristiyano. Nang siya ay na-born again — ano ang dapat niyang gawin sa bisikletang iyon?</p>
+      <p><strong>Isauli.</strong> Kung kaya pa, isauli. Ito ang restitution.</p>
+      <p>Ngayon, nagkataon na pareho silang naging Kristiyano at nagtagpo sa church — ang nagnakaw at ang ninakawan. Paano maibabalik ang kanilang relasyon? Sa pamamagitan ng restitution — ng pagbabalik ng bisikleta. Kapag ginawa iyon, ang relasyon ay maaaring maibalik.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">1</div>
+      <div>
+        <h4>Pag-ariin ang aksyon — hindi lamang salita</h4>
+        <p>Ang restitution ay pagkilos. Kapag may nasauli, may nagbabago. Hindi sapat ang "I'm sorry" nang paulit-ulit kung tuloy-tuloy pa rin ang kasalanan. Kailangan ng aksyon para mapatunayan ang tunay na pagsisisi.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">2</div>
+      <div>
+        <h4>Isauli kung kaya pa — kahit mahirap</h4>
+        <p>Sabi ng nagtaturo: "Kung kaya pa, isauli." Hindi laging magiging makaapat na beses katulad ni Saqueo. Pero kung nasa iyong kamay pa ang kinuhang bagay — dapat ibalik. Para sa malinis na budhi at malinis na relasyon.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">3</div>
+      <div>
+        <h4>Ipanumbalik ang relasyong nasira</h4>
+        <p>Ang restitution ay hindi lamang tungkol sa bagay — kundi tungkol sa relasyon. Kapag may nasauli, may napanumbalik na relasyon. Wala nang mag-aakusa sa atin ng diyablo kapag malinis na ang ating budhi.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hl purple">
+    <p><strong>Anong pananampalataya ang mayroon tayo</strong> kung humihingi tayo ng tawad sa Panginoon ngunit pinagmamatigasan naman natin ang ating kamalian sa mga taong nasaktan natin? <em>Ito ay pagpapayumbabaw lamang at walang tunay na pag-unawa sa kagandahang-loob ng Diyos.</em></p>
+  </div>
+
+  <div class="quote-box">
+    <p>"Kapag sinabihan ka ng diyablo: 'Ganyan ba ang Kristiyano? Magnanakaw!' — masasabi mo: 'Hindi. Nagsisi na ako. Naibalik ko na ang mga kinuha ko.' Malaya na tayo kapag ganon. Wala na pong mag-aakusa sa atin."</p>
+    <cite>— Mula sa Sermon</cite>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang restitution ay pagamin ng kamalian at pagpapakita ng kababaang loob. Kung nasa ating kamay pa ang mga bagay na kinuha sa maling paraan — isauli ito kung kaya pa. Ito ang nagbibigay ng malinis na budhi at nagpapanumbalik ng mga nasabing relasyon.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 3 — RESTORATION ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--green);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Restoration — Pagpapanumbalik sa Panginoong Hesus</h2>
+      <div class="sub">Lucas 19:9–10 · 2 Corinto 5:17 · Gawa 2:37–38</div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <p>"At sinabi sa kanya ni Jesus, 'Ang kaligtasan ay dumating ngayon sa sambahayang ito, sapagkat anak din ni Abraham ang taong ito. Ang Anak ng Tao ay naparito upang hanapin at iligtas ang naligaw.'"</p>
+    <cite>— Lucas 19:9–10 (ASD)</cite>
+  </div>
+
+  <div class="body">Ang restoration ay <strong>pagbabalik sa orihinal na layunin at kalagayan.</strong> Nung nilikha ng Diyos ang tao, nilikha Niya ito sa Kanyang larawan — upang maging tagapaglarawan Niya at makabahagi sa Kanyang dakilang layunin. Ngunit dahil sa kasalanan, nawalay ang tao mula sa Diyos at nawalay sa tunay na layunin ng kanyang pagkalikha.</div>
+
+  <div class="hl green">
+    <p>Si Saqueo — isang taong naligaw — ay natagpuan at naligtas. <strong>Nang maibalik niya ang mga kinuha niyang sa maling kaparaanan at nagsisi — naipanumbalik rin siya sa Panginoon.</strong> Katulad ni Abraham na tinawag ng Diyos para sa isang dakilang layunin — si Saqueo ay muling naging bahagi ng planong iyon bilang anak ni Abraham.</p>
+  </div>
+
+  <div class="body">Ano ang kahulugan ng restoration para sa atin?</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">1</div>
+      <div>
+        <h4>Pagbabalik bilang anak ng Diyos</h4>
+        <p>Ang layunin ng pagkalikha ng Diyos sa tao ay maging Kanyang anak. Ngunit bumagsak ang tao dahil sa kasalanan. Sa pamamagitan ng pagsisisi at pagtanggap sa Panginoon — maibabalik tayo sa karapatang maging anak Niya.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">2</div>
+      <div>
+        <h4>Pagiging bagong nilalang</h4>
+        <p>"Kaya kung nakipag-isa na kay Kristo ang isang tao, isa na siyang bagong nilalang. Wala na ang dati niyang pagkatao — ang lahat ay napalitan na ng bago." — 2 Corinto 5:17. Ito ang restoration — ang tunay na pagbabago na mula sa loob.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">3</div>
+      <div>
+        <h4>Pakikibahagi sa layunin ng Diyos</h4>
+        <p>Ang Diyos ay nagnanais na maging katuwang tayo sa Kanyang layunin — ang magpalaganap ng Kanyang salita at ang iligtas ang maraming kaluluwa. Ito ang pinakamagandang resulta ng tunay na restoration.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Babala ng Nagtaturo — Huwag Gamitin ang Diyos para sa Sarili</div>
+    <div class="illus-body">
+      <p>May mga pagkakataon na ginagamit ng ilang tao ang Diyos para lamang sa sariling kagustuhan. Humihingi ng prayer para makahanap ng trabaho — ngunit pagkatapos mahanap ang trabaho, nakalimutan na ang Diyos at ang iglesya.</p>
+      <p><em>"You are using God."</em> Dapat ang ating kaligayahan ay kaligayahan rin ng Diyos. Hindi tayo dapat kumaliwa o kumanan ayon lamang sa ating sariling kagustuhan — kundi sa kalooban ng Panginoon.</p>
+      <p><strong>Ang tunay na restoration ay nagbibigay ng bagong direksyon ng buhay — hindi para sa sarili kundi para sa Diyos.</strong></p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">2 Corinto 5:17</div>
+    <p>"Kaya kung nakipag-isa na kay Kristo ang isang tao, isa na siyang bagong nilalang. Wala na ang dati niyang pagkatao — ang lahat ay napalitan na ng bago."</p>
+    <cite>— 2 Corinto 5:17</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Gawa 2:37–38</div>
+    <p>"Mga kapatid, ano po ang dapat naming gawin? Magsisi kayo at talikuran ang inyong kasalanan at magpabautismo sa pangalan ni Jesucristo upang kayo ay patawarin — at matatanggap ninyo ang kaloob ng Banal na Espiritu."</p>
+    <cite>— Gawa 2:37–38</cite>
+  </div>
+
+  <div class="hl blue">
+    <p><strong>Ang baptismo</strong> ay hindi lamang ritual — ito ang tugon ng isang budhing malinis. Ang paglapit sa Panginoon ay hindi pwedeng verbal lamang o intensyon lamang. Hinihingi ng Diyos ang aksyon mula sa puso — ang pagpapabautismo bilang panlabas na pagpapahayag ng panloob na pagbabago.</p>
+  </div>
+
+  <div class="truth green">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang restoration ay pagbabalik sa Diyos bilang Kanyang anak — ang orihinal na layunin ng ating pagkalikha. Ito ang pinaka-mahalaga sa lahat: kahit magtagumpay tayo sa mundong ito, kung hindi tayo mapapabilang sa kaharian ng langit — ang buhay ay kabiguan pa rin.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral — June 12</div>
+      <h3>Ano-ano ba ang Mga Sangkap ng Tunay na Pagsisisi?</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — Remorse:</strong> Ang labis na kalungkutan sa nagawang kasalanan. Ito ay isang sangkap ng pagsisisi — ngunit hindi ang buo. Hindi lahat ng kalungkutan ay nagbubunga ng tunay na pagsisisi. Ang pagsisisi ay isang PASYA — isang desisyon na tumalikod sa kasalanan, katulad ng military "about face."</p>
+      <p><strong>Ikalawa — Restitution:</strong> Ang pagsasauli ng mga kinuha sa hindi tamang paraan. Katulad ni Saqueo na nagbalik ng makaapat na beses ang halaga ng kanyang nadaya — ang tunay na pagsisisi ay may kasamang aksyon. Ito ang nagbibigay ng malinis na budhi at nagpapanumbalik ng mga nasiring relasyon.</p>
+      <p><strong>Pangatlo — Restoration:</strong> Ang pagpapanumbalik sa Panginoong Hesus at sa Kanyang layunin. Ito ang pinakamagandang resulta ng tunay na pagsisisi — ang magiging bagong nilalang, maibalik ang ugnayan sa Diyos, at makabahagi sa Kanyang dakilang layunin sa sanlibutan.</p>
+    </div>
+  </div>
+
+  <!-- 3R REMINDER -->
+  <div class="r3-box" style="margin-top:14px;">
+    <div class="r3-lbl">Tandaan — 3R ng Tunay na Pagsisisi</div>
+    <div class="r3-parts">
+      <div class="r3-row">
+        <div class="r3-letter">R</div>
+        <div class="r3-content">
+          <div class="r3-word">Remorse</div>
+          <div class="r3-desc">Labis na kalungkutan sa nagawang kasalanan — isang PASYA, hindi lamang emosyon</div>
+        </div>
+      </div>
+      <div class="r3-row">
+        <div class="r3-letter">R</div>
+        <div class="r3-content">
+          <div class="r3-word">Restitution</div>
+          <div class="r3-desc">Pagsasauli ng anumang kinuha sa hindi tamang paraan — aksyon ng pagbabago</div>
+        </div>
+      </div>
+      <div class="r3-row">
+        <div class="r3-letter">R</div>
+        <div class="r3-content">
+          <div class="r3-word">Restoration</div>
+          <div class="r3-desc">Pagpapanumbalik sa Panginoong Hesus — ang layunin ng tunay na pagsisisi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Ang pagsisisi ay isang matibay na pasya. Katulad ng kasal — may emosyon, ngunit higit sa emosyon: may desisyon. Kahit mawala ang emosyon dahil sa mga problema — pinaglalaban mo ang iyong pagiging anak ng Diyos. Ito ang pagsisisi."</p>
+    <cite>— Mula sa Sermon</cite>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Pangwakas na hamon:</strong> Walang halaga ang buhay kung hindi natin matutuklasan ang tunay na layunin nito. Kaya ang panawagan sa bawat isa sa atin ay <em>magsisi sa kasalanan, magpasakop sa Diyos, at sumunod ng buong buhay sa Kanya.</em> Magiging makabuluhan lamang ang ating buhay kung ipamumuhay natin ang pagsunod sa ating Panginoong Diyos.</p>
+  </div>
+
+  <div class="vbox">
+    <p>"Kung ang sinumang nagmamataas ay ibababa, at ang nagpapakumbaba ay itataas — hayaan nating ang ating buhay ay patotoo ng tunay na pagsisisi sa harap ng Diyos at ng ating kapwa."</p>
+    <cite>— Lucas 18:14 (ASD)</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, salamat sa araw na ito. Turuan Mo kaming magpakumbaba sa Iyong harapan — na tanggapin ang aming mga kamalian at pagsisihin ang mga ito nang tunay. Hindi lamang sa puso, kundi sa aksyon din. Turuan Mo kaming gumawa ng restitution — isauli ang mga bagay na dapat isaulí — at ipanumbalik ang mga relasyong nasira ng aming kasalanan. At sa huli, bawiin Mo kami sa Iyong layunin — na maging mga bagong nilalang, mga anak ng Diyos, na nakabahagi sa Iyong dakilang misyon sa mundong ito. Sa pangalan ni Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Kaya kung nakipag-isa na kay Kristo ang isang tao, isa na siyang bagong nilalang. Wala na ang dati niyang pagkatao — ang lahat ay napalitan na ng bago."</p>
+    <cite>— 2 Corinto 5:17 · Talatang Iuunawa sa Linggo</cite>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
