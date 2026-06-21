@@ -440,6 +440,36 @@
     color: var(--gold); font-size: 17px;
   }
   #fab-search:active { background: var(--bg-hover); }
+  
+  /* If your FABs are in a container, use Flexbox to align them */
+.fab-container {
+  display: flex;
+  flex-direction: column; /* Or row, depending on your current setup */
+  gap: 12px;
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  z-index: 1000;
+}
+
+/* Ensure the new button matches existing button styles */
+#fab-back {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-gold);
+  color: var(--gold);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+#fab-back:hover {
+  background-color: var(--bg-hover);
+}
 
   /* ══════════════════════════════════════════════════════
      DRAWER OVERLAY
@@ -733,6 +763,10 @@
 <!-- ══ FABs ════════════════════════════════════════════════ -->
 <button id="fab-search" class="fab" onclick="openSearchOverlay()" title="Search Scripture">🔍</button>
 <button id="fab-sync"   class="fab" onclick="autoSyncFromCloud(true)" title="Sync from Cloud">☁</button>
+
+<button id="fab-back" class="fab" onclick="window.location.href='https://akumeus04.github.io/Bible/CP1-BS-JF5.html'" title="Return to Study">
+  <span style="font-size: 20px;">⬅</span>
+</button>
 
 <!-- ══ SEARCH OVERLAY ══════════════════════════════════════ -->
 <div id="search-overlay">
