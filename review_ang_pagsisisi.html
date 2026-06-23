@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Ang Pagsisisi — Gawa 17:26–31</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  .topbar{background:var(--green);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:17px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.68;margin-top:2px;}
+
+  .audio-bar{position:fixed;bottom:72px;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:99;padding:10px 14px;box-shadow:0 -2px 10px rgba(0,0,0,0.06);}
+  .audio-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .audio-lbl::before{content:"🎧";}
+  .audio-bar audio{width:100%;height:36px;border-radius:8px;outline:none;}
+
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--green);}
+
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  .hero{background:linear-gradient(150deg,var(--green-dark) 0%,var(--green) 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:22px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.7;margin-bottom:3px;}
+  .hero .hdate{font-size:11px;opacity:0.5;}
+
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+  .vbox.blue{background:var(--blue-light);border-left-color:var(--blue);}
+  .vbox.blue p{color:var(--blue);}
+  .vbox.blue cite{color:var(--blue);}
+  .vbox.red{background:var(--red-light);border-left-color:var(--red);}
+  .vbox.red p{color:var(--red);}
+  .vbox.red cite{color:var(--red);}
+
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  .body{font-size:14px;color:var(--text);line-height:1.78;margin:14px 14px 0;}
+  .body strong{font-weight:600;}
+  .body em{font-style:italic;}
+
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.blue p{color:var(--blue);}
+  .hl.red p{color:var(--red);}
+
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{background:var(--orange-light);padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.blue{background:var(--blue);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .sd.b{background:var(--blue);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  .recap-box{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:13px 14px;}
+  .recap-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+  .recap-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:13px;color:var(--blue);}
+  .recap-item:last-child{margin-bottom:0;}
+  .ri-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+
+  /* GREEK WORD BOX */
+  .greek-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .greek-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:11px;text-align:center;}
+  .greek-word{font-family:'Lora',serif;font-size:28px;font-weight:700;color:white;text-align:center;margin-bottom:4px;letter-spacing:0.05em;}
+  .greek-trans{font-size:13px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:12px;letter-spacing:0.06em;text-transform:uppercase;}
+  .greek-parts{display:flex;flex-direction:column;gap:7px;}
+  .gk-row{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,0.1);border-radius:8px;padding:10px 12px;}
+  .gk-label{font-size:11px;font-weight:700;color:#A8F0D8;flex-shrink:0;min-width:80px;}
+  .gk-text{font-size:13px;color:rgba(255,255,255,0.85);line-height:1.45;}
+
+  /* STEPS */
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* TIMELINE / HISTORY BOX */
+  .timeline{margin:14px 14px 0;display:flex;flex-direction:column;gap:0;}
+  .tl-item{display:flex;gap:12px;align-items:flex-start;position:relative;}
+  .tl-item:not(:last-child) .tl-line{position:absolute;left:13px;top:26px;bottom:-10px;width:2px;background:var(--border);}
+  .tl-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;position:relative;z-index:1;}
+  .tl-content{background:white;border-radius:11px;border:1px solid var(--border);padding:11px 13px;margin-bottom:10px;flex:1;}
+  .tl-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .tl-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* 3-REASON BOX */
+  .reason-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .reason-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:10px;text-align:center;}
+  .reason-parts{display:flex;flex-direction:column;gap:7px;}
+  .reason-row{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,0.1);border-radius:9px;padding:10px 13px;}
+  .reason-num{font-size:22px;font-weight:700;color:#A8F0D8;width:26px;flex-shrink:0;text-align:center;}
+  .reason-content{flex:1;}
+  .reason-word{font-size:13px;font-weight:700;color:white;margin-bottom:2px;}
+  .reason-desc{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.4;}
+
+  /* CONCLUSION */
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · June 19, 2026</div>
+  <h1>Ang Pagsisisi</h1>
+  <div class="ref">Gawa 17:26–31 · Lucas 3:7–9 · 2 Corinto 7:10</div>
+</div>
+
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--green)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--blue)">1</div>
+    <div class="nl">Makabalik</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--purple)">2</div>
+    <div class="nl">Manatili</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--orange)">3</div>
+    <div class="nl">Mailigtas</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--green-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<div class="audio-bar">
+  <div class="audio-lbl">Pakinggan ang Sermon</div>
+  <audio controls>
+    <source src="https://archive.org/download/june-19-ang-pagsisisi/June19-Ang_Pagsisisi.m4a" type="audio/mpeg">
+    Hindi sinusuportahan ang audio sa iyong browser.
+  </audio>
+</div>
+
+<!-- ===== INTRO ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material · June 19, 2026</div>
+    <h2>Ang Pagsisisi</h2>
+    <div class="href">Gawa 17:26–31 · Jesus First Christian Ministries</div>
+    <div class="hdate">Bakit iniutos ng Diyos sa lahat ng tao ang magsisi?</div>
+  </div>
+
+  <div class="recap-box">
+    <div class="recap-lbl">Recap — Mga Nakaraang Pag-aaral</div>
+    <div class="recap-item"><div class="ri-dot">1</div><div><strong>Ang Kasalanan</strong> — Ang katotohanan tungkol sa kasalanan. Roma 5:12–13.</div></div>
+    <div class="recap-item"><div class="ri-dot">2</div><div><strong>Malaya na sa Kasalanan</strong> — Mula saan iniligtas ang mga sumampalataya. Roma 5:1–6:21.</div></div>
+    <div class="recap-item"><div class="ri-dot">3</div><div><strong>Ang Mabuting Balita</strong> — Si Kristo ay namatay, inilibing, at muling nabuhay. 1 Corinto 15:1–8.</div></div>
+    <div class="recap-item"><div class="ri-dot">4</div><div><strong>Kapag Mahina ang Pananampalataya</strong> — Matatag na pananampalataya, pananalangin, pag-aayuno. Mateo 17:14–21.</div></div>
+    <div class="recap-item"><div class="ri-dot">5</div><div><strong>Mga Sangkap ng Pagsisisi</strong> — Ang tatlong R: Remorse, Restitution, Restoration. Lucas 18:9–14.</div></div>
+    <div class="recap-item"><div class="ri-dot">6</div><div><strong>Ang Pagsisisi</strong> — Ngayon: Bakit iniutos ng Diyos sa lahat ng tao ang magsisi. Gawa 17:26–31.</div></div>
+  </div>
+
+  <div class="vbox">
+    <p>"Ngunit ngayon ay utos niya sa lahat ng tao, sa bawat lugar, na magsisi at talikuran ang kanilang masamang pamumuhay. Sapagkat itatakda niya ang araw ng paghuhukom sa sanlibutan, at ito ay buong katarungnan niyang gagawin sa pamamagitan ng isang taong kanyang hinirang."</p>
+    <cite>— Gawa 17:30–31 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p><strong>Pangunahing tanong:</strong> <em>Bakit ba iniutos ng Diyos sa lahat ng tao ang pagsisisi?</em></p>
+    <p>Madali na ngayon ang magsabi ng "sorry" — sa social media, sa salita, kahit wala namang tunay na pagbabago. Ngunit ang pagsisisi na itinuturo ng Biblia ay hindi lamang isang salita ng paghingi ng paumanhin. Ito ay isang <strong>180-degrees na pagbabago ng isip at puso</strong> — isang pasyang talikuran ang kasalanan at bumalik sa Diyos.</p>
+    <p>Tatlong dahilan kung bakit iniutos ng Diyos ang pagsisisi: <em>(1)</em> upang makabalik sa Kanya at sa Kanyang layunin, <em>(2)</em> upang makapanatili sa Kanya bilang mga Kristiyano, at <em>(3)</em> upang mailigtas sa kapahamakang tiyak na darating.</p>
+  </div>
+
+  <!-- GREEK WORD -->
+  <div class="greek-box">
+    <div class="greek-lbl">Kahulugan sa Griyego</div>
+    <div class="greek-word">μετάνοια</div>
+    <div class="greek-trans">metanoia — Pagsisisi</div>
+    <div class="greek-parts">
+      <div class="gk-row">
+        <div class="gk-label">Kahulugan</div>
+        <div class="gk-text">Pagbabago ng isip — literally, "change of mind." Hindi lamang emosyon kundi isang desisyon na tumalikod sa lumang pamumuhay at lumakad sa bagong direksyon.</div>
+      </div>
+      <div class="gk-row">
+        <div class="gk-label">Larawan</div>
+        <div class="gk-text">Katulad ng isang sundalo na gumagawa ng "about face" sa military drill — isang kumpletong 180-degrees na pagliko. Hindi ka na lumalakad sa kasalanan, kundi sa katuwiran.</div>
+      </div>
+      <div class="gk-row">
+        <div class="gk-label">Mahalagang tala</div>
+        <div class="gk-text">Ang tunay na pagsisisi ay nagbubunga ng gawa. Hindi sapat ang "sorry" lamang — kailangan ang ebidensya ng pagbabago sa buhay (Lucas 3:8).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 REASONS OVERVIEW -->
+  <div class="sec-lbl">Tatlong Dahilan ng Utos ng Diyos</div>
+  <div class="reason-box">
+    <div class="reason-lbl">Bakit Iniutos ng Diyos ang Pagsisisi?</div>
+    <div class="reason-parts">
+      <div class="reason-row">
+        <div class="reason-num">1</div>
+        <div class="reason-content">
+          <div class="reason-word">Upang Makabalik sa Diyos</div>
+          <div class="reason-desc">Makatagpo at maibalik ang orihinal na layunin ng Diyos para sa tao — ang makasama Siya magpakailanman</div>
+        </div>
+      </div>
+      <div class="reason-row">
+        <div class="reason-num">2</div>
+        <div class="reason-content">
+          <div class="reason-word">Upang Makapanatili sa Kanya</div>
+          <div class="reason-desc">Bilang mga Kristiyano, ang pagsisisi ay nagpapanatili sa atin sa kabanalan ng Diyos kahit nagkakasala pa rin</div>
+        </div>
+      </div>
+      <div class="reason-row">
+        <div class="reason-num">3</div>
+        <div class="reason-content">
+          <div class="reason-word">Upang Mailigtas sa Kapahamakan</div>
+          <div class="reason-desc">Inatakda ng Diyos ang araw ng paghuhukom — ang pagsisisi ang tanging daan upang hindi mapahamak</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sum-cards" style="margin-top:14px;">
+    <div class="sum-card">
+      <div class="sd b">1</div>
+      <div>
+        <div class="s-title">Makabalik — Gawa 17:26–27</div>
+        <div class="s-desc">Mula kay Adan, nawalay ang tao sa Diyos. Ang pagsisisi ang daan para maibalik ang orihinal na ugnayan.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">2</div>
+      <div>
+        <div class="s-title">Manatili — 1 Juan 1:8–9 · 1 Juan 2:1</div>
+        <div class="s-desc">Kahit Kristiyano, nagkakasala pa rin. Ang pagsisisi ang nagpapanatili sa atin sa kabanalan ng Diyos.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">3</div>
+      <div>
+        <div class="s-title">Mailigtas — Gawa 17:30–31 · Juan 3:18</div>
+        <div class="s-desc">Inatakda ng Diyos ang araw ng paghuhukom. Ang hindi nagsisi ay haharapin ang kapahamakan.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 1 — MAKABALIK SA DIYOS ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--blue);">
+    <div class="snum">1</div>
+    <div>
+      <h2>Upang Makabalik sa Diyos at sa Kanyang Layunin</h2>
+      <div class="sub">Gawa 17:26–27 · Genesis · Juan 1:12</div>
+    </div>
+  </div>
+
+  <div class="vbox blue">
+    <p>"Mula sa isang tao ay pinilipikan niya ang lahat ng lahi sa buong mundo. Itinakda niya sa simula't simula pa ang kanilang kanahon at hangganan. Ginawa niya iyon upang hanapin nila ang Diyos."</p>
+    <cite>— Gawa 17:26–27 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang orihinal na layunin ng Diyos para sa tao ay malinaw: <strong>ang tayo ay maging Kanyang mga anak, pamunuan ang Kanyang nilikha, at makasama Siya magpakailanman.</strong> Ito ang nakita natin sa Genesis — si Adan at Eba ay kasama ng Panginoon, at ang tao ay pinagkatiwalaan na pangalanan at pangalagaan ang lahat ng nilikha ng Diyos.</p>
+    <p>Ngunit dahil sa kasalanan, naputol ang ugnayan. Hindi aksidente na nangyari ito — <em>pinili ng tao</em> na sumuway at magkasala. Kaya nagkaroon ng malaking agwat sa pagitan ng tao at ng Diyos.</p>
+  </div>
+
+  <div class="sec-lbl">Kasaysayan ng Pagkakahiwalay ng Tao sa Diyos</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot" style="background:var(--blue);">①</div>
+      <div class="tl-content">
+        <div class="tl-title">Si Adan — Simula ng Pagkakahiwalay</div>
+        <div class="tl-desc">Dahil sa pagsuway ni Adan at Eba, naputol ang ugnayan ng tao at ng Diyos. Simula rito, lahat ng tao ay isinilang na may kapaligiran ng kasalanan at pagkakahiwalay.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot" style="background:var(--blue);">②</div>
+      <div class="tl-content">
+        <div class="tl-title">Si Noe — Paghuhukom at Bagong Simula</div>
+        <div class="tl-desc">Dahil sa matinding kasalanan ng sangkatauhan, ang Diyos ay nagpadala ng baha. Si Noe at ang pamilya niya ang naligtas. Ito ay isang "reset" — ngunit ang kasalanan ay nagpatuloy pa rin.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot" style="background:var(--blue);">③</div>
+      <div class="tl-content">
+        <div class="tl-title">Tore ng Babel — Lubusan na Pagkakahiwalay</div>
+        <div class="tl-desc">Nang manais ng mga tao na malampasan ang Diyos, sila ay binigyan ng iba't ibang wika at nagkanya-kanyang lugar. Ang bawat bansa ay binigyan ng Elohim na naka-assign — upang baka sakaling hanapin nila ang tunay na Diyos.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot" style="background:var(--orange);">④</div>
+      <div class="tl-content">
+        <div class="tl-title">Si Abraham — Simula ng Plano ng Kaligtasan</div>
+        <div class="tl-desc">Mula sa mga Hentil na nawalay, tinawag ng Diyos si Abraham. Hindi siya agad-agad sumunod — naghintay muna. Ngunit nang sumunod siya, siya ay naging Ama ng Pananampalataya at simula ng bansang Israel.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--green);">⑤</div>
+      <div class="tl-content">
+        <div class="tl-title">Ang Panginoong Hesus — Katuparan ng Plano</div>
+        <div class="tl-desc">Sa pamamagitan ng kamatayan at muling pagkabuhay ng Panginoong Hesus, ang lahat — Hudyo at Hentil — ay maaari nang makabalik sa Diyos. Once and for all, naalay na ang perpektong handog para sa kasalanan ng buong mundo.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hl blue">
+    <p>Hindi aksidente na tayo mga Pilipino na nasa Pilipinas, o na tayo ay nandito sa Saudi Arabia. <strong>Ang Diyos mismo ang nagtakda ng ating kanahon at hangganan</strong> — at ang layunin Niya ay upang hanapin natin Siya at matagpuan Niya tayo.</p>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Ilustrasyon — Ang Karapatan ng Anak</div>
+    <div class="illus-body">
+      <p>May bahay si Kuya na vacante. Pumunta ka at nagsabi, "Dito na ako titira." Kahit kakilala mo siya, wala kang karapatang manirahan doon kung hindi ka niya binigyan ng pahintulot.</p>
+      <p>Ganito rin ang ating kaligtasan. Hindi tayo magiging anak ng Diyos dahil "matagal na tayo sa simbahan" o "mabuti tayo." <strong>Ang karapatan na maging anak ng Diyos ay ibinibigay lamang sa lahat ng tumanggap at sumampalataya sa Panginoong Hesus</strong> — Juan 1:12.</p>
+      <p><em>Ang pagsisisi at pananampalataya sa ginawa ng Panginoon ang tanging daan para maibalik ang ugnayan ng tao sa Diyos.</em></p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Juan 1:12</div>
+    <p>"Subalit ang lahat ng tumanggap at sumampalataya sa kanya ay binibigyan niya ng karapatang maging anak ng Diyos."</p>
+    <cite>— Juan 1:12 (ASD)</cite>
+  </div>
+
+  <div class="truth blue">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Nilikha ang tao para sa Diyos at sa Kanyang mga dakilang layunin. Ang pagsisisi ay pagbabalik loob sa Diyos na lumikha sa atin — at pagbabalik sa orihinal na layunin na naputol ng kasalanan. Kaya iniutos ng Diyos sa lahat ng tao: magsisi at makabalik sa Kanya.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 2 — MAKAPANATILI SA DIYOS ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--purple);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Upang Makapanatili sa Kanya Bilang mga Kristiyano</h2>
+      <div class="sub">1 Juan 1:8–10 · 1 Juan 2:1 · 1 Pedro 1:15–16</div>
+    </div>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Kung sinasabi nating tayo'y walang kasalanan, dinadaya natin ang ating mga sarili at wala sa atin ang katotohanan. Ngunit kung ipahayag natin sa Diyos ang ating mga kasalanan, maaasahan nating patawarin tayo ng Diyos sa mga ito at linisin tayo sa lahat ng ating kasalanan sapagkat siya'y tapat at matuwid."</p>
+    <cite>— 1 Juan 1:8–9 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Hindi lamang iniutos ng Diyos ang pagsisisi para sa mga hindi pa nakakakilala sa Kanya. <strong>Ang pagsisisi ay kailangan din ng mga Kristiyano</strong> — sapagkat kahit tayo ay born again, nagkakasala pa rin tayo.</p>
+    <p>Ang Diyos ay banal, at nang tanggapin natin ang Panginoong Hesus, tayo ay inilipat mula sa pagkamakasalanan tungo sa kabanalan ng Diyos. Para <em>manatili</em> sa Kanyang kabanalan, kailangan tayong magsisi sa bawat kasalanan na ating nagagawa — hindi upang "muling maligtas," kundi upang manatili ang ating kalagayan sa harapan ng Panginoon.</p>
+  </div>
+
+  <div class="greek-box">
+    <div class="greek-lbl">Salitang Griyego</div>
+    <div class="greek-word">ὁμολογέω</div>
+    <div class="greek-trans">homologeō — Ipahayag / Kumpisal</div>
+    <div class="greek-parts">
+      <div class="gk-row">
+        <div class="gk-label">Kahulugan</div>
+        <div class="gk-text">"Sumasang-ayon sa Diyos" — we are agreeing with God about our sin. Hindi ito pagpapaliwanag o pagdadahilan, kundi pagtanggap na tama ang sinasabi ng Diyos tungkol sa ating kasalanan.</div>
+      </div>
+      <div class="gk-row">
+        <div class="gk-label">Sa Ingles</div>
+        <div class="gk-text">"If you confess with your mouth that Jesus is Lord... you will be saved." (Roma 10:9) — Ang salitang "confess" dito ay ang parehong homologeō. Ito rin ang salita sa 1 Juan 1:9.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Ang Proseso ng Pagtutugon sa Kasalanan bilang Kristiyano</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">1</div>
+      <div>
+        <h4>Kilalanin ang Kasalanan</h4>
+        <p>Huwag itago o balewalain ang nagawang kasalanan. Ang una ay ang taos-pusong pag-amin — "nagkasala ako." Ito ang homologeō — sumasang-ayon sa Diyos na mali ang ginawa.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">2</div>
+      <div>
+        <h4>Humingi ng Tawad sa Panginoon</h4>
+        <p>Ang tagapagtanggol natin ay ang Panginoong Hesus Kristo — Siya ang handog na patuloy na nagpapatawad ng ating mga kasalanan sa harapan ng Ama. Humingi ng tawad nang may buong puso.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">3</div>
+      <div>
+        <h4>Ipakita ang Pagbabago sa Gawa</h4>
+        <p>Ang tunay na pagsisisi ay may kasamang pagbabago ng pamumuhay. Hindi lamang "sorry" — kundi pagtalikod sa kasalanan at pagpatuloy ng pamumuhay na kaaya-aya sa Panginoon.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Babala — Ang Kalungkutan ng Mundo vs. Kalungkutan ng Diyos</div>
+    <div class="illus-body">
+      <p><strong>Godly sorrow</strong> (kalungkutang mula sa Diyos) ay nagbubunga ng tunay na pagsisisi na nagdadala sa kaligtasan. Ito ang tamang uri ng kalungkutan sa kasalanan.</p>
+      <p><strong>Worldly sorrow</strong> (kalungkutan ng mundo) ay kalungkutan lamang sa mga kahihinatnan ng kasalanan — hindi sa mismong kasalanan. Ang halimbawa nito ay si Judas: ang kanyang pagsisisi ay remorse lamang — at sa halip na magbalik sa Diyos, pinili niyang mamatay.</p>
+      <p><em>Ang tunay na pagsisisi ay nagdadala sa Diyos — hindi palayo sa Kanya.</em> (2 Corinto 7:10)</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">1 Juan 2:1–2</div>
+    <p>"Mga anak, sinasulat ko ito sa inyo upang huwag kayong magkasala. Ngunit kung magkasala ang sinuman, may tagapagtanggol tayo sa harapan ng Ama — si Jesu-Cristo na matuwid. Siya ang handog na pangpatawad ng ating mga kasalanan."</p>
+    <cite>— 1 Juan 2:1–2 (ASD)</cite>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">1 Pedro 1:15–16</div>
+    <p>"Kundi tulad ng Banal na tumawag sa inyo, maging banal din kayo sa lahat ng inyong pamumuhay; sapagkat nakasulat, 'Maging banal kayo, sapagkat ako ay banal.'"</p>
+    <cite>— 1 Pedro 1:15–16</cite>
+  </div>
+
+  <div class="hl purple">
+    <p><strong>Para sa mga Kristiyano:</strong> Kapag nagkasala, huwag manatili sa kasalanan. Ang dapat na gawin ay ang <em>magsisi, humingi ng tawad</em>, at magpatuloy sa pamumuhay na ayon sa kalooban ng Diyos. Ito ang nagpapanatili sa ating ugnayan sa Panginoon — na Banal na Diyos na tinanggap natin sa ating buhay.</p>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang pagsisisi ay hindi lamang para sa unang hakbang ng kaligtasan — ito ay isang patuloy na gawain ng buhay-Kristiyano. Sa bawat kasalanang nagagawa pagkatapos maging born again, ang pagsisisi ang nagpapanatili sa ating kalagayan sa harapan ng Banal na Diyos.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 3 — MAILIGTAS SA KAPAHAMAKAN ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Upang Mailigtas sa Kapahamakang Darating</h2>
+      <div class="sub">Gawa 17:30–31 · Juan 3:18 · Hebreo 6:4–8</div>
+    </div>
+  </div>
+
+  <div class="vbox orange">
+    <p>"Sapagkat itatakda niya ang araw ng paghuhukom sa sanlibutan, at ito ay buong katarungnan niyang gagawin sa pamamagitan ng isang taong kanyang hinirang. Kinatunayan niya ito sa lahat ng tao nang muling buhayin si Jesus."</p>
+    <cite>— Gawa 17:31 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang isa sa mga pinakamapanganib na maling pag-iisip ay ang akalaing walang paghuhukom na darating. <strong>Inatakda na ng Diyos ang araw ng paghuhukom</strong> — hindi natin alam kung kailan, ngunit sigurado itong darating. Ang kinatunayan niya nito ay ang muling pagkabuhay ng Panginoong Hesus.</p>
+    <p>Ang kabutihan ng Diyos ay nagbibigay sa atin ng panahon para magsisi — ngunit ang oras na iyon ay may katapusan. Ang mga hindi nagsisi at hindi sumampalataya ay haharapin ang paghuhukom nang walang tagapagtanggol.</p>
+  </div>
+
+  <div class="sec-lbl">Mga Dahilan kung Bakit Hindi Pa Humahatol ang Diyos</div>
+
+  <div class="vbox">
+    <p>"Ang Panginoon ay hindi nagpapabaya sa pangako, tulad ng inaakalang pagpapabaya ng iba. Siya ay matiyaga sa inyo, at hindi nais na mapahamak ang sinuman kundi nais niyang magsisi ang lahat."</p>
+    <cite>— 2 Pedro 3:9 (ASD)</cite>
+  </div>
+
+  <div class="hl green">
+    <p>Bakit hanggang ngayon ay hindi pa humahatol ang Diyos? <strong>Dahil sa Kanyang kabutihan at pasensya.</strong> Nais Niya na ang lahat ay magsisi at makabalik sa Kanya. Hindi Niya kalooban na ang sinuman ay mapahamak — ngunit ang tao mismo ang pumipili ng kapahamakan kapag tinanggihan ang pagsisisi.</p>
+  </div>
+
+  <div class="sec-lbl">Mga Kapahamakang Naghihintay sa mga Hindi Nagsisi</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--red);">!</div>
+      <div>
+        <h4>Ang Hindi Sumampalataya — Nahatulan Na</h4>
+        <p>"Ngunit ang hindi sumampalataya ay nahatulan na, sapagkat hindi siya sumampalataya sa kaisa-isang Anak ng Diyos." (Juan 3:18) — Ang pagtitiis ay may hanggan. Kapag tinanggihan ang kaligtasan, ang taong iyon ay pumili ng sarili niyang kapahamakan.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--red);">!</div>
+      <div>
+        <h4>Ang mga Tumalikod — Nasa Panganib</h4>
+        <p>Sabi ng Hebreo 6:4–6, ang mga dating naliwanagan at nakaranas ng biyaya ng Diyos, ngunit tumalikod — ay mahirap nang maakay muli sa pagsisisi. Tulad ng lupang tumatanggap ng ulan ngunit nagbubunga ng damong tinik — ito ay malapit sa sumpa ng Diyos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Paalala ng Nagtaturo — Ang Vision ng Ministri</div>
+    <div class="illus-body">
+      <p>Ibinahagi ng nagtaturo ang utos ni Kuya Mark para sa ministri: bago mag-December, nawa may bagong kaluluwa na matatanggap ang kaligtasan. At ito ang dahilan kung bakit tayo isinusugo — <em>we are the salt and light of this world.</em></p>
+      <p>Kapag ibinahagi natin ang salita ng kaligtasan at ito ay tinanggihan, sila ay pumili na. Ngunit kung may pagkakataon pa at bumabalik sila, nawa ay tanggapin nila ang Panginoon. <strong>Ibahagi natin ang pagsisisi tungo sa kaligtasan sa lahat ng ating mga kakilala, kaibigan, at kapamilya.</strong></p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Lucas 3:8–9</div>
+    <p>"Ipakita ninyo sa pamamagitan ng mga gawa na nagsisi na kayo. At huwag ninyong sabihing mga anak kayo ni Abraham. Sinasabi ko sa inyo, makakalikha ang Diyos ng mga tunay na anak ni Abraham. May palakol na nakahanda na na hugat ng mga punong-kahoy — ang bawat punong hindi nagbubunga ng mabuti ay puputulin at itatapong sa apoy."</p>
+    <cite>— Lucas 3:8–9 (ASD)</cite>
+  </div>
+
+  <div class="hl orange">
+    <p><strong>Si Juan Bautista ay malinaw:</strong> Ang tunay na pagsisisi ay nagbubunga ng gawa. Ang pagsisisi na walang pagbabago ng pamumuhay ay hindi tunay na pagsisisi — at ang puno na hindi nagbubunga ay puputulin.</p>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Inatakda ng Diyos ang araw ng paghuhukom — at ang kanyang kinatunayan ay ang muling pagkabuhay ng Panginoong Hesus. Ang bawat tao ay tatayo sa harapan ng Diyos. Ang pagsisisi ngayon — habang may pagkakataon — ang tanging paraan upang harapin ang araw na iyon nang may katiwasayan at pag-asa.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral — June 19, 2026</div>
+      <h3>Bakit Iniutos ng Diyos sa Lahat ng Tao ang Pagsisisi?</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — Upang Makabalik sa Diyos:</strong> Mula kay Adan, nawalay ang tao sa Diyos. Ang Diyos ay may orihinal na layunin para sa bawat isa sa atin — na tayo ay maging Kanyang mga anak at kasama Niya magpakailanman. Ang pagsisisi at pananampalataya sa Panginoong Hesus ang daan pabalik sa Kanyang layunin.</p>
+      <p><strong>Ikalawa — Upang Makapanatili sa Kanya:</strong> Kahit born-again tayo, nagkakasala pa rin. Ang pagsisisi — ang homologeō, ang pagsang-ayon sa Diyos tungkol sa ating kasalanan — ang nagpapanatili sa ating ugnayan sa Banal na Diyos. Mayroon tayong Tagapagtanggol: ang Panginoong Hesus Kristo.</p>
+      <p><strong>Pangatlo — Upang Mailigtas sa Kapahamakan:</strong> Inatakda ng Diyos ang araw ng paghuhukom. Ang Kanyang pasensya ay nagbibigay sa atin ng panahon para magsisi — ngunit hindi ito walang katapusan. Ang hindi nagsisi ay haharapin ang paghuhukom nang walang kanlungan.</p>
+    </div>
+  </div>
+
+  <!-- REASON BOX RECAP -->
+  <div class="reason-box" style="margin-top:14px;">
+    <div class="reason-lbl">Tandaan — 3 Dahilan ng Utos ng Pagsisisi</div>
+    <div class="reason-parts">
+      <div class="reason-row">
+        <div class="reason-num">1</div>
+        <div class="reason-content">
+          <div class="reason-word">Makabalik sa Diyos</div>
+          <div class="reason-desc">Maibalik ang naputol na ugnayan at ang orihinal na layunin ng Diyos sa ating buhay</div>
+        </div>
+      </div>
+      <div class="reason-row">
+        <div class="reason-num">2</div>
+        <div class="reason-content">
+          <div class="reason-word">Manatili sa Kanya</div>
+          <div class="reason-desc">Mapanatili ang kabanalan ng ugnayan natin sa Diyos kahit nagkakasala pa rin tayo</div>
+        </div>
+      </div>
+      <div class="reason-row">
+        <div class="reason-num">3</div>
+        <div class="reason-content">
+          <div class="reason-word">Mailigtas sa Kapahamakan</div>
+          <div class="reason-desc">Mailigtas sa tiyak na paghuhukom na darating sa lahat ng hindi nagsisi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Ang pagsisisi ay isang pasya — isang 180-degrees na pagtalikod sa kasalanan at pagbabalik sa Diyos. Hindi lamang 'sorry' — kundi isang determinasyon na baguhin ang direksyon ng buhay tungo sa ating Panginoon."</p>
+    <cite>— Mula sa Sermon, June 19, 2026</cite>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Pangwakas na hamon:</strong> Ang pagsisisi ay iniutos ng Diyos sa <em>lahat</em> ng tao — walang pinipili, walang eksepsyon. Kung hindi pa tayo nakakabalik sa Kanya, ngayon ang panahon. Kung Kristiyano na tayo at nagkasala, magsisi at humingi ng tawad. At dahil tinanggap natin ang kaligtasan, ibahagi natin ito sa ating mga kakilala bago dumating ang araw ng paghuhukom.</p>
+  </div>
+
+  <div class="vbox">
+    <p>"Ngunit ngayon ay utos niya sa lahat ng tao, sa bawat lugar, na magsisi at talikuran ang kanilang masamang pamumuhay. Sapagkat itatakda niya ang araw ng paghuhukom sa sanlibutan..."</p>
+    <cite>— Gawa 17:30–31 (ASD) · Pangunahing Talata</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, salamat sa araw na ito at sa salitang aming narinig. Salamat sa Iyong kabutihan at pasensya na nagbibigay sa amin ng pagkakataon na makabalik at makapanatili sa Iyo. Turuan Mo kaming magpakabanal sa Iyong harapan — na sa bawat kasalanan ay agad kaming magsisi at humingi ng tawad, at patuloy na lumago sa biyaya ng aming Panginoon. Nawa ang aming buhay ay maging patotoo ng tunay na pagsisisi — at nawa kami ay maging daan upang ang aming mga kaibigan, pamilya, at kapwa OFW ay makakilala rin sa kaligtasan na nasa Panginoong Hesus. Sa Kanyang pangalan, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Ang pagsisisi ay iniutos ng Diyos sa lahat ng tao upang tayo ay makabalik sa Kanya at makapanatili sa Kanya. Ito ay dapat lamang sapagkat nilikha ang tao para sa Kanya at upang makasama Niya sa walang hanggan."</p>
+    <cite>— Buod ng Pag-aaral · June 19, 2026</cite>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
