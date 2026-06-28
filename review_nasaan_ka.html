@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Nasaan Ka? — Genesis 3:8–10</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  .topbar{background:var(--green);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:17px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.68;margin-top:2px;}
+
+  .audio-bar{position:fixed;bottom:72px;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:99;padding:10px 14px;box-shadow:0 -2px 10px rgba(0,0,0,0.06);}
+  .audio-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .audio-lbl::before{content:"🎧";}
+  .audio-bar audio{width:100%;height:36px;border-radius:8px;outline:none;}
+
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--green);}
+
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* HERO */
+  .hero{background:linear-gradient(150deg,var(--green-dark) 0%,var(--green) 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:24px;font-weight:700;margin-bottom:4px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.7;margin-bottom:3px;}
+  .hero .hdate{font-size:11px;opacity:0.5;}
+
+  /* VERSE BOX */
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+  .vbox.blue{background:var(--blue-light);border-left-color:var(--blue);}
+  .vbox.blue p{color:var(--blue);}
+  .vbox.blue cite{color:var(--blue);}
+  .vbox.red{background:var(--red-light);border-left-color:var(--red);}
+  .vbox.red p{color:var(--red);}
+  .vbox.red cite{color:var(--red);}
+
+  /* CARD */
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* SECTION HEADER */
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  /* HIGHLIGHT */
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.blue p{color:var(--blue);}
+  .hl.red p{color:var(--red);}
+
+  /* ILLUS */
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{background:var(--orange-light);padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  .illus-hdr.blue-hdr{background:var(--blue-light);color:var(--blue);}
+  .illus-hdr.blue-hdr::before{background:var(--blue);}
+  .illus-hdr.green-hdr{background:var(--green-light);color:var(--green);}
+  .illus-hdr.green-hdr::before{background:var(--green);}
+  .illus-hdr.purple-hdr{background:var(--purple-light);color:var(--purple);}
+  .illus-hdr.purple-hdr::before{background:var(--purple);}
+
+  /* SUPPORT VERSE */
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  /* TRUTH BOX */
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.blue{background:var(--blue);}
+  .truth.dark{background:var(--green-dark);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  /* STEPS */
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* SUMMARY CARDS */
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .sd.b{background:var(--blue);}
+  .sd.r{background:var(--red);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* GREEK BOX */
+  .greek-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .greek-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:11px;text-align:center;}
+  .greek-word{font-family:'Lora',serif;font-size:28px;font-weight:700;color:white;text-align:center;margin-bottom:4px;letter-spacing:0.05em;}
+  .greek-trans{font-size:13px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:12px;letter-spacing:0.06em;text-transform:uppercase;}
+  .greek-parts{display:flex;flex-direction:column;gap:7px;}
+  .gk-row{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,0.1);border-radius:8px;padding:10px 12px;}
+  .gk-label{font-size:11px;font-weight:700;color:#A8F0D8;flex-shrink:0;min-width:80px;}
+  .gk-text{font-size:13px;color:rgba(255,255,255,0.85);line-height:1.45;}
+
+  /* TANONG CARD */
+  .tanong{background:var(--green-dark);border-radius:12px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .tanong-lbl{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:10px;}
+  .tanong-q{font-family:'Lora',serif;font-size:22px;font-weight:700;color:white;line-height:1.25;margin-bottom:6px;}
+  .tanong-sub{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.5;}
+
+  /* TIMELINE */
+  .timeline{margin:14px 14px 0;display:flex;flex-direction:column;gap:0;}
+  .tl-item{display:flex;gap:12px;align-items:flex-start;position:relative;}
+  .tl-item:not(:last-child) .tl-line{position:absolute;left:13px;top:26px;bottom:-10px;width:2px;background:var(--border);}
+  .tl-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;position:relative;z-index:1;}
+  .tl-content{background:white;border-radius:11px;border:1px solid var(--border);padding:11px 13px;margin-bottom:10px;flex:1;}
+  .tl-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .tl-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* COMPARE */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 14px 0;}
+  .cmp-card{border-radius:11px;padding:13px;border:1px solid var(--border);}
+  .cmp-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:7px;}
+  .cmp-item{font-size:13px;line-height:1.6;padding:5px 0;border-bottom:1px solid var(--border);}
+  .cmp-item:last-child{border-bottom:none;padding-bottom:0;}
+  .cmp-card.bad{background:var(--red-light);}
+  .cmp-card.bad .cmp-title{color:var(--red);}
+  .cmp-card.bad .cmp-item{color:var(--red);}
+  .cmp-card.good{background:var(--green-light);}
+  .cmp-card.good .cmp-title{color:var(--green-dark);}
+  .cmp-card.good .cmp-item{color:var(--green-dark);}
+
+  /* RECAP */
+  .recap-box{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:13px 14px;}
+  .recap-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+  .recap-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:13px;color:var(--blue);}
+  .recap-item:last-child{margin-bottom:0;}
+  .ri-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+
+  /* PRAYER */
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  /* CLOSING */
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  /* CONCL */
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · June 26, 2026</div>
+  <h1>Nasaan Ka? Ang Tawag ng Diyos sa Lumalayo</h1>
+  <div class="ref">Genesis 3:8–10 · Ezekiel 34:16 · Juan 10:26–27</div>
+</div>
+
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--green)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--blue)">1</div>
+    <div class="nl">Kilalanin</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--orange)">2</div>
+    <div class="nl">Pakinggan</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--purple)">3</div>
+    <div class="nl">Aminin</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--green-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<div class="audio-bar">
+  <div class="audio-lbl">Pakinggan ang Sermon</div>
+  <audio controls>
+    <source src="https://archive.org/download/jf-5-june-26-nasaan-ka.-3gp/JF5-June26-Nasaan-Ka.3gp" type="audio/mpeg">
+    Hindi sinusuportahan ang audio sa iyong browser.
+  </audio>
+</div>
+
+<!-- ===== INTRO / SIMULA ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material · June 26, 2026</div>
+    <h2>Nasaan Ka?</h2>
+    <div class="href">Ang Tawag ng Diyos sa Lumalayo · Genesis 3:8–10</div>
+    <div class="hdate">Jesus First Christian Ministries · JF5</div>
+  </div>
+
+  <div class="tanong">
+    <div class="tanong-lbl">Pangunahing Tanong ng Diyos</div>
+    <div class="tanong-q">"Nasaan Ka?"</div>
+    <div class="tanong-sub">Ito ang kauna-unahang tanong ng Diyos sa Biblia — at tanong na hanggang ngayon ay patuloy Niyang tinatanong sa bawat isa sa atin.</div>
+  </div>
+
+  <div class="vbox">
+    <p>"Nang lumamig na ang hangin bandang hapon, narinig nila na naglalakad ang Panginoong Diyos sa halamanan. Kaya nagtago sila sa mga puno doon upang hindi na sila makita. Ngunit tinawag ng Panginoong Diyos ang lalaki, 'Nasaan ka?' Sumagot ang lalaki, 'Narinig ko po kayong naglalakad sa halamanan, kaya nagtago ako. Natakot po ako dahil hubad ako.'"</p>
+    <cite>— Genesis 3:8–10 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang "Nasaan ka?" ay hindi isang tanong dahil hindi alam ng Diyos kung saan si Adan. <strong>Alam ng Diyos ang lahat.</strong> Ito ay isang tawag — isang imbitasyon para lumabas si Adan mula sa pagtatago at humarap sa Kanya.</p>
+    <p>Hanggang ngayon, tinatanong pa rin tayo ng Panginoon — <em>nasaan ka sa iyong pananampalataya? Nasaan ka sa iyong paglilingkod? Nasaan ka sa iyong pagsamba?</em> Ang tanong na ito ang pangunahing panawagan ng Diyos sa bawat lumalayo sa Kanya.</p>
+  </div>
+
+  <div class="recap-box">
+    <div class="recap-lbl">Koneksyon sa Mga Nakaraang Pag-aaral</div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Mga Sangkap ng Pagsisisi</strong> — Remorse, Restitution, Restoration. Nasaan ka sa tatlo?</div></div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Ang Pagsisisi (Gawa 17)</strong> — Bakit iniutos ng Diyos sa lahat ang magsisi. Ngayon: paano tayo tutugon sa tawag Niya.</div></div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Mga Sangkap ng Pananampalataya</strong> — Paniniwala · Pagtitiwala · Pagtalima. Kapag humina ang isa, lumalayo tayo.</div></div>
+  </div>
+
+  <div class="sec-lbl">Tatlong Hakbang ng Tugon sa Tawag ng Diyos</div>
+  <div class="sum-cards">
+    <div class="sum-card">
+      <div class="sd b">1</div>
+      <div>
+        <div class="s-title">Kilalanin ang Paglayo</div>
+        <div class="s-desc">Tanggapin na lumalayo na tayo sa Diyos dahil sa kasalanan — at alamin kung ano ang nagpapalayo sa atin.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">2</div>
+      <div>
+        <div class="s-title">Pakinggan ang Tawag ng Diyos</div>
+        <div class="s-desc">Ang Diyos ay hindi tumitigil sa pagtawag. Pakinggan Siya sa pamamagitan ng Kanyang Salita, ng Banal na Espiritu, at ng mga kapatid.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">3</div>
+      <div>
+        <div class="s-title">Aminin ang Tunay na Kalagayan</div>
+        <div class="s-desc">Huminto sa pagtatago. Ipagtapat sa Diyos ang ating kalagayan — ito ang simula ng pagpapabalik at kapatawaran.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hl green" style="margin-top:14px;">
+    <p><strong>Pinakadakilang katotohanan ngayong araw:</strong> Kahit nagtatago si Adan, <em>hindi siya pinabayaan ng Diyos.</em> Ang Diyos ang unang lumakad patungo sa kanya. Ganito rin ang ginagawa Niya sa atin — kahit tayo ay lumalayo, ang Diyos ay naghahanap at tumatawag pa rin.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 1 — KILALANIN ANG PAGLAYO ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--blue);">
+    <div class="snum">1</div>
+    <div>
+      <h2>Kilalanin ang Paglayo sa Diyos Dahil sa Kasalanan</h2>
+      <div class="sub">Genesis 3:8 · Isaias 59:2 · Santiago 4:17</div>
+    </div>
+  </div>
+
+  <div class="vbox blue">
+    <p>"Ngunit hindi niya sila pinansin dahil ang inyong mga kasalanan ang naghiwalay sa inyo sa inyong Diyos. Ang kasalanan ay nagtatago ng kanyang mukha sa inyo upang hindi siya makarinig."</p>
+    <cite>— Isaias 59:2 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang kasalanan ay hindi lamang pagkakamali — ito ay nagdudulot ng <strong>paglayo at pagkakahiwalay sa Diyos.</strong> Katulad ng nangyari kay Adan at Eva, kapag nagkasala tayo, ang unang nararamdaman ay hiya, takot, at guilt — at ang tugon natin ay ang <em>magtago</em>, hindi ang lumapit.</p>
+    <p>Ngunit ang panganib ay ito: marami sa atin ay hindi napapansin na lumalayo na tayo. Ang paglayo mula sa Diyos ay kadalasan ay <strong>hindi biglaan — ito ay unti-unti.</strong></p>
+  </div>
+
+  <div class="sec-lbl">Paano Unti-unting Lumalayo ang Isang Kristiyano</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot" style="background:var(--blue);">①</div>
+      <div class="tl-content">
+        <div class="tl-title">"Mamaya na lang" ang Panalangin</div>
+        <div class="tl-desc">Nagsisimula sa maliliit na kompromiso — "mamaya na lang, busy pa ako." Hindi agad titigil sa pananalangin, ngunit unti-unting lumilamig.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot" style="background:var(--blue);">②</div>
+      <div class="tl-content">
+        <div class="tl-title">Nawawala ang Gana sa Salita ng Diyos</div>
+        <div class="tl-desc">Dati, pagkaborn again, masigasig sa pagbabasa ng Biblia. Kalaunan, isang paragraph lang, tapos tutulog na. Kapag naitigil na ang Salita, humihina na rin ang paniniwala.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot" style="background:var(--orange);">③</div>
+      <div class="tl-content">
+        <div class="tl-title">Inuuna ang Mundo Kaysa sa Panginoon</div>
+        <div class="tl-desc">Aktibo sa trabaho ngunit malamig na sa ministeryo. Updated sa social media ngunit hindi na nagbabasa ng Biblia. Ang focus ay lumilipat mula sa Diyos patungo sa mga bagay ng mundo.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot" style="background:var(--orange);">④</div>
+      <div class="tl-content">
+        <div class="tl-title">Nasa Simbahan ngunit Malayo ang Puso</div>
+        <div class="tl-desc">Nagsasamba ngunit walang tunay sa puso. Naglilingkod ngunit wala nang kagalahan. Nananalangin ngunit walang pananampalataya. Nasa lupa ng iglesia — ngunit wala na ang presensya ng Diyos.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--red);">!</div>
+      <div class="tl-content">
+        <div class="tl-title">Nagtayo ng "Pader" sa Pagitan niya at ng Diyos</div>
+        <div class="tl-desc">Ang kasalanan na hindi inamin ay nagiging pader. Hanggang hindi kinikikilala at ginigiba ang pader na ito, patuloy ang paglayo — at ang mga panalangin ay hindi na nakakarating sa Diyos. (Salmo 66:18)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Ilustrasyon — Ang Bata at ang Magulang</div>
+    <div class="illus-body">
+      <p>Kapag ang bata ay nakabasag ng pinggan, natatakot siya at nagtatago. Pero ang magulang na alam na nakabasag ang bata — bakit pa rin siya naghahanap at tumatawag?</p>
+      <p>Hindi para parusahan agad. Kundi para <em>mapawi ang takot ng bata</em> at malaman niya kung paano maayos ang nangyari. Ganun din ang Diyos sa atin — alam na Niya ang ating kasalanan, ngunit tinatawag pa rin tayo para ipaalam sa atin ang Kanyang kapatawaran at pagmamahal.</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="cmp-card bad">
+      <div class="cmp-title">❌ Paglayo</div>
+      <div class="cmp-item">Malamig na ang panalangin</div>
+      <div class="cmp-item">Walang gana sa Biblia</div>
+      <div class="cmp-item">Inuuna ang trabaho/mundo</div>
+      <div class="cmp-item">Nagtatago sa likod ng dahilan</div>
+    </div>
+    <div class="cmp-card good">
+      <div class="cmp-title">✓ Pagsunod</div>
+      <div class="cmp-item">Aktibo sa panalangin</div>
+      <div class="cmp-item">Nagbabasa ng Salita</div>
+      <div class="cmp-item">Inuuna ang Panginoon</div>
+      <div class="cmp-item">Bukas at tapat sa Diyos</div>
+    </div>
+  </div>
+
+  <div class="sup" style="margin-top:14px;">
+    <div class="sup-lbl">Santiago 4:17</div>
+    <p>"Ang taong nakakaalam ng mabuti at hindi ginagawa, nagkakasala."</p>
+    <cite>— Santiago 4:17 (ASD)</cite>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Salmo 66:18</div>
+    <p>"Kung hindi ko pinahayag sa Panginoon ang ating mga kasalanan, hindi niya sana akong pakikinggan."</p>
+    <cite>— Salmo 66:18 (ASD)</cite>
+  </div>
+
+  <div class="truth blue">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang kasalanan ang pader na nagpapalayo sa atin sa Diyos. Hanggang hindi natin kinikilala na lumalayo na tayo, patuloy pa rin tayong lalayo — nang hindi natin nalalaman. Ang unang hakbang ng pagbabalik ay ang <em>kilalanin</em> na may problema sa ating kalagayan.</p>
+  </div>
+
+  <div class="hl blue">
+    <p><strong>Hamon sa sarili:</strong> Kung ir-rate mo ang iyong pananampalataya ngayon mula 1–10, nasaan ka? Kapag nasa 1 ka, ibig sabihin malayo ka na nang 20 kilometro sa Panginoon. <em>I-check natin ang ating sarili araw-araw.</em></p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 2 — PAKINGGAN ANG TAWAG NG DIYOS ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Pakinggan ang Tawag ng Diyos na Naghahanap sa Atin</h2>
+      <div class="sub">Genesis 3:9 · Lucas 19:10 · Juan 10:26–27 · Ezekiel 34:16</div>
+    </div>
+  </div>
+
+  <div class="vbox orange">
+    <p>"Sapagkat ang Anak ng Tao ay naparito upang hanapin at iligtas ang naligaw."</p>
+    <cite>— Lucas 19:10 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang isa sa pinakamagandang katotohanan sa Biblia ay ito: <strong>kahit tayo ang lumayo, ang Diyos ang nagsisimulang maghanap.</strong> Hindi Niya tayo pinabayaan sa ating pagtatago. Ang "Nasaan ka?" ay hindi galit na tanong — ito ay tawag ng isang Diyos na nagmamahal at naghahanap ng Kanyang naliligaw na anak.</p>
+    <p>Parehong halimbawa si Saqueo — gusto niyang makita ang Panginoon, umakyat pa sa puno. Ngunit ang Panginoon ang unang tumawag sa kanya. Ganito rin sa atin: <em>bago pa tayo humarap sa Kanya, nauna na Siyang lumakad patungo sa atin.</em></p>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr green-hdr">Larawan ng Biyaya — Si Adan at ang Naghahanap na Diyos</div>
+    <div class="illus-body">
+      <p>Sa Genesis 3, nagtago si Adan sa likod ng mga puno. <em>Alam ng Diyos kung nasaan siya.</em> Gayunpaman, naglakad ang Diyos sa halamanan at tinawag pa rin Siya — "Nasaan ka?"</p>
+      <p>Ito ang larawan ng biyaya: <strong>Kahit ang tao ang lumayo at nagtatago, ang Diyos ay hindi tumitigil sa pagtawag.</strong> Hindi Niya tayo pinabayaan sa ating kasalanan at pagkabigo. Lagi Siyang bumabalik para hanapin tayo.</p>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Paano Tinatawag ng Diyos ang Lumalayo</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">①</div>
+      <div>
+        <h4>Sa Pamamagitan ng Kanyang Salita</h4>
+        <p>Kapag may mensahe sa fellowship, kapag may Bible study — ito ay tawag ng Diyos. Ginagamit Niya ang Kanyang Salita upang ipaalam kung ano ang dapat nating gawin at kung paano tayo makakabalik sa Kanya.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">②</div>
+      <div>
+        <h4>Sa Pamamagitan ng Banal na Espiritu</h4>
+        <p>Ang Banal na Espiritu ang siyang kumikilos sa ating puso — nagbibigay ng kumbiksiyon, nagpapaalala ng kasalanan, at nagbubuyo sa atin na bumalik sa Diyos. Huwag balewalain ang Kanyang boses sa ating puso.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">③</div>
+      <div>
+        <h4>Sa Pamamagitan ng mga Kapatid</h4>
+        <p>Ginagamit ng Diyos ang mga kapatid upang itawid sa atin ang Kanyang mensahe — kapag sinabihan tayo, o ni-rebuke tayo. Kahit nakasakit ito, ito ay bahagi ng Diyos na naghahanap sa atin at nagmamahal sa atin.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <p>"Hahanapin ko ang mga nawala, ibabalik ko ang mga naliligaw, bibigyan ng lunas ang mga sugatan, palakasin ko ang mahihina."</p>
+    <cite>— Ezekiel 34:16 (ASD)</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr">Ilustrasyon — Si Saqueo at ang Panginoon</div>
+    <div class="illus-body">
+      <p>Si Saqueo ay gustong makita ang Panginoon — umakyat pa siya sa puno upang makita Siya. Ngunit nang parating na ang Panginoon, <em>Siya ang tumawag kay Saqueo</em> — hindi si Saqueo ang unang nagsalita.</p>
+      <p>"Saqueo, bumaba ka — ngayon kailangan kong pumunta sa iyong bahay." Sa pagtawag na iyon, naramdaman ni Saqueo ang kanyang mga kasalanan — at inamin niya ang lahat at ibinalik ang mga nakuha niya sa maling paraan.</p>
+      <p><strong>Ang tawag ng Diyos ang nagbukas ng puso ni Saqueo sa tunay na pagsisisi.</strong> Ganito rin ang nangyayari kapag natanggap natin ang tawag ng Diyos sa ating buhay.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Juan 10:26–27</div>
+    <p>"Ngunit ayaw ninyong maniwala sa akin dahil hindi kayo kabilang sa aking mga tupa. Naririnig ng aking mga tupa ang aking tinig — kilala ko sila at sumusunod sila sa akin."</p>
+    <cite>— Juan 10:26–27 (ASD)</cite>
+  </div>
+
+  <div class="hl orange">
+    <p><strong>Narinig mo na ba ang tawag ng Diyos sa iyong buhay?</strong> O natatabunan na ito ng ingay ng mundo — ng social media, ng mga alalahanin sa trabaho, ng mga balita mula sa Pilipinas? <em>Kapag tinawag tayo ng Diyos, may layunin Siya na mas dakila pa sa ating iniisip.</em></p>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang Diyos ay hindi tumitigil sa pagtawag sa mga lumalayo. Ang tanging tanong ay: nakakarinig ba tayo? At kapag narinig natin ang Kanyang tinig — handa ba tayong sumagot?</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 3 — AMININ ANG TUNAY NA KALAGAYAN ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--purple);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Aminin ang Tunay na Kalagayan at Bumalik sa Diyos</h2>
+      <div class="sub">Genesis 3:10 · Salmo 32:5 · Salmo 51:17 · 1 Juan 1:9</div>
+    </div>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Ngunit sa wakas ay ipinagtapat ko na ang aking mga kasalanan sa inyo at hindi ko na ito itinago pa. Sinabi ko sa aking sarili, ipagtapat ko na ang aking mga kasalanan sa Panginoon — at pinatawaad ninyo ako."</p>
+    <cite>— Salmo 32:5 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang pagbabalik ay nagsisimula kapag huminto tayong magpanggap at nagsimula tayong maging tapat sa Diyos. <strong>Hindi kailangan malaman ng Diyos ang ating kalagayan — alam na Niya ito.</strong> Ngunit nais Niya na tayo mismo ang lumapit at magtapat sa Kanya.</p>
+    <p>Maraming Kristiyano ang mukhang maayos sa labas — ngunit alam ng Diyos ang tunay nating kalagayan. Pwede tayong ngumiti sa iglesia ngunit umiiyak sa loob. Pwede tayong umawit ngunit matagal nang walang personal na panalangin. Pwede tayong mangaral ngunit tayo mismo ay malayo na sa Diyos.</p>
+    <p><em>Hindi naghahanap ang Diyos ng perpektong tao. Naghahanap Siya ng pusong handang sabihing — "Panginoon, ako ito. Lumayo ako. Patawarin Mo ako."</em></p>
+  </div>
+
+  <div class="tanong" style="margin:14px 14px 0;">
+    <div class="tanong-lbl">Hamon sa Sarili</div>
+    <div class="tanong-q" style="font-size:15px;">Ano ang kailangan mong aminin sa Diyos ngayon upang maranasan ang Kanyang kapatawaran at pagpapanumbalik?</div>
+  </div>
+
+  <div class="sec-lbl">Ang Halimbawa ng mga Nagsisi sa Biblia</div>
+
+  <div class="illus">
+    <div class="illus-hdr purple-hdr">Si Adan — Ang Unang Pag-amin</div>
+    <div class="illus-body">
+      <p>Nang tawagin siya ng Diyos, ang unang sinabi ni Adan ay ang katotohanan ng kanyang kalagayan: "Narinig ko Po Kayong naglalakad sa halamanan, kaya nagtago ako. Natakot po ako dahil hubad ako."</p>
+      <p>Hindi pa ganap ang pagsisisi ni Adan — binalaan pa niya ang babae. Ngunit <strong>nagsimula siyang magsabi ng totoo.</strong> Dito nagsisimula ang pagpapabalik — kapag huminto tayong magpanggap at nagsimula tayong maging tapat.</p>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr purple-hdr">Si Haring David — Salmo 51</div>
+    <div class="illus-body">
+      <p>Matapos ang malaking kasalanan ni David kay Barseba at kay Urias, itinago niya ang kasalanan — hanggang sa humarap sa kanya si Propeta Nathan. Nang marinig niya ang salita ng Diyos, hindi siya nagdahilan: <em>"Nagkasala ako sa Panginoon."</em> (2 Samuel 12:13)</p>
+      <p>Mula sa pusong nagpapakumbaba at nagsisisi ay sinilang ang Salmo 51 — isa sa pinakamagandang panalangin ng pagsisisi sa buong Biblia. <strong>Ang aral: kahit gaano kalaki ang kasalanan, ang puso na tunay na nagsisisi ay hindi tatanggihan ng Diyos.</strong></p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Salmo 51:17</div>
+    <p>"Ang handog ko sa inyo, O Diyos, ay isang pusong nagpapakumbaba at nagsisisi sa kanyang kasalanan. O Diyos, ito ang handog na hindi ninyo tatanggihan."</p>
+    <cite>— Salmo 51:17 (ASD)</cite>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">1 Juan 1:9</div>
+    <p>"Ngunit kung ipinagtatapat natin sa Diyos ang ating mga kasalanan, maaasahan nating patawarin tayo ng Diyos sa mga ito at linisin tayo sa lahat ng ating kasamaan, sapagkat siya'y tapat at matuwid."</p>
+    <cite>— 1 Juan 1:9 (ASD)</cite>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Kawikaan 28:13</div>
+    <p>"Hindi ka uunlad kung hindi mo ipapahayag ang iyong mga kasalanan. Ngunit kung ipapahayag mo ito at tatalikdan, kahabagan ka ng Diyos."</p>
+    <cite>— Kawikaan 28:13 (ASD)</cite>
+  </div>
+
+  <div class="steps" style="margin-top:14px;">
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">①</div>
+      <div>
+        <h4>Huminto sa Pagtatago at Pagpapanggap</h4>
+        <p>Ang pagtatago ay hindi solusyon sa kasalanan. Wala tayong maitatagohan sa harapan ng Diyos — lahat ay lantad sa Kanya. (Hebreo 4:13) Ang unang hakbang ay ang huminto sa pagdadahilan at pagpapanggap.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">②</div>
+      <div>
+        <h4>Lumapit sa Diyos nang may Bukas na Puso</h4>
+        <p>Ang Diyos ay hindi kailangan ng ating palusot o pagtatago. Ang kailangan Niya ay ang ating puso — ang pag-amin na walang kinukubli. Ito ang simula ng panibagong paggalaw ng Diyos sa ating buhay.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">③</div>
+      <div>
+        <h4>Ibigay sa Diyos ang Lahat ng Kabigatan</h4>
+        <p>"Ipagkatiwala natin sa Kanya ang lahat ng ating mga alalahanin, sapagkat Siya ay nagmamalasakit sa atin." (1 Pedro 5:7) Ang mga kasalanan, alalahanin, at kabigatan — ibigin natin ang lahat sa Diyos at maranasan ang Kanyang kapayapaan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hl purple">
+    <p><strong>Kapag huminto tayo sa pagtatago, nagsisimula ang kapatawaran, paglilinis at pagpapabalik.</strong> Hindi kailangan perpekto ang ating panalangin — kailangan lang nito ay tapat. Ang pusong nagpapakumbaba at nagsisisi ay hindi tatanggihan ng Diyos.</p>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang pagpapabalik ay nagsisimula kapag tayo ay naging tapat sa Diyos tungkol sa ating tunay na kalagayan. Hindi naghahanap ang Diyos ng kaganapan — naghahanap Siya ng katapatan. "Panginoon, ako ito. Lumayo ako. Patawarin Mo ako." — doon nagsisimula ang lahat.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="tanong" style="margin:14px 14px 0;">
+    <div class="tanong-lbl">Pangunahing Tanong ng Pag-aaral</div>
+    <div class="tanong-q">"Nasaan Ka?"</div>
+    <div class="tanong-sub">Genesis 3:8–10 · Jesus First Christian Ministries · June 26, 2026</div>
+  </div>
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral — June 26, 2026</div>
+      <h3>Tatlong Hakbang ng Tugon sa Tawag ng Diyos</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — Kilalanin ang Paglayo:</strong> Ang kasalanan ang pader sa pagitan natin at ng Diyos. Ang paglayo mula sa Diyos ay hindi biglaan — unti-unti itong nangyayari: malamig na panalangin, nawawala ang gana sa Salita, inuuna ang mundo. Kapag hindi natin kinikilala ang paglayo natin, patuloy tayong lalayo nang hindi natin namamalayan.</p>
+      <p><strong>Ikalawa — Pakinggan ang Tawag ng Diyos:</strong> Kahit tayo ang lumayo, ang Diyos ang naghahanap at tumatawag. Tulad ni Adan sa halamanan — alam ng Diyos kung nasaan tayo, ngunit tinatawag pa rin tayo. Tinatawag Niya tayo sa Kanyang Salita, sa Banal na Espiritu, at sa mga kapatid. Naririnig ba natin Siya?</p>
+      <p><strong>Pangatlo — Aminin ang Tunay na Kalagayan:</strong> Ang pagbabalik ay nagsisimula kapag huminto tayong magpanggap at nagsimula tayong maging tapat sa Diyos. Tulad ni David na nagsabi, "Nagkasala ako sa Panginoon" — ang simpleng pag-amis na iyon ang nagbukas ng pintuan ng kapatawaran. Ang pusong nagpapakumbaba at nagsisisi ay hindi tatanggihan ng Diyos.</p>
+    </div>
+  </div>
+
+  <div class="sum-cards" style="margin-top:14px;">
+    <div class="sum-card">
+      <div class="sd b">1</div>
+      <div>
+        <div class="s-title">Kilalanin ang Paglayo</div>
+        <div class="s-desc">Tanggapin na lumalayo ka na. Alamin kung ano ang nagpapalayo — at gibain ang pader ng kasalanan.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">2</div>
+      <div>
+        <div class="s-title">Pakinggan ang Tawag ng Diyos</div>
+        <div class="s-desc">Huwag hayaang matakpan ng ingay ng mundo ang boses ng Diyos. Siya ay naghahanap at tumatawag — pakinggan Siya.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">3</div>
+      <div>
+        <div class="s-title">Aminin at Bumalik</div>
+        <div class="s-desc">Huminto sa pagtatago. Lumapit sa Diyos nang may bukas at tapat na puso — ito ang simula ng pagpapabalik at kapatawaran.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Ang pinakadakilang katotohanang ito — ang Diyos ay hindi tumitigil sa pagtawag sa mga lumalayo — ay larawan ng Kanyang walang hanggang pagmamahal. Kahit tayo ang lumayo, Siya ang unang lumakad patungo sa atin."</p>
+    <cite>— Mula sa Sermon · June 26, 2026</cite>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Pangwakas na hamon:</strong> Kung marinig natin ngayon ang tinig ng Diyos na nagsasabing <em>"Nasaan ka?"</em> — ang tamang sagot ay hindi pagtatago, kundi pagsisisi. Kilalanin ang ating paglayo. Pakinggan ang Kanyang tawag. At aminin ang ating tunay na kalagayan — sapagkat doon nagsisimula ang kapatawaran, paglilinis, at pamumuhay sa ilalim ng Kanyang biyaya at pagmamahal.</p>
+  </div>
+
+  <div class="vbox">
+    <p>"Ngunit tinawag ng Panginoong Diyos ang lalaki, 'Nasaan ka?'"</p>
+    <cite>— Genesis 3:9 · Pangunahing Talata</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, salamat sa pag-aaral na ito. Salamat na kahit lumayo tayo, hindi Mo kami pinabayaan — patuloy Mong tinatawag ang bawat isa sa amin. Ngayon, Panginoon, nais naming sumagot sa Iyong tawag — hindi sa pagtatago, kundi sa pagsisisi. Kilala Mo ang aming tunay na kalagayan — ang mga kasalanang tinatago, ang mga pader na itinayo sa pagitan namin at Sayo, ang mga oras na inuna namin ang mundo kaysa sa Iyo. Ipinagtatapat namin ang lahat sa Iyo ngayon, Panginoon. Patawarin Mo kami. Linisin Mo ang aming mga puso. At ibalik Mo kami sa Iyong presensya — upang muli naming maranasan ang Iyong kapayapaan, kagalakan, at pagmamahal. Sa pangalan ni Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Kapag pinatanong tayo ng Diyos na 'Nasaan ka?' — kilalanin ang ating paglayo sa Diyos dahil sa kasalanan, pakinggan ang tawag ng Diyos na naghahanap sa atin, at aminin ang ating tunay na kalagayan at bumalik sa Kanya. Napakabuti ng ating Diyos — lagi Niyang tinatawag: Nasaan Ka?"</p>
+    <cite>— Buod ng Pag-aaral · June 26, 2026</cite>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
