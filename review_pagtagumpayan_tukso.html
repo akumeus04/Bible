@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Pagtagumpayan ang Tukso — Santiago 1:12–15</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  /* TOPBAR */
+  .topbar{background:var(--green);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:17px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.68;margin-top:2px;}
+
+  /* AUDIO BAR */
+  .audio-bar{position:fixed;bottom:72px;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:99;padding:10px 14px;box-shadow:0 -2px 10px rgba(0,0,0,0.06);}
+  .audio-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .audio-lbl::before{content:"🎧";}
+  .audio-bar audio{width:100%;height:36px;border-radius:8px;outline:none;}
+
+  /* BOTTOM NAV */
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--green);}
+
+  /* SECTIONS */
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* HERO */
+  .hero{background:linear-gradient(150deg,var(--red) 0%,#C0571A 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:22px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.7;margin-bottom:3px;}
+  .hero .hdate{font-size:11px;opacity:0.5;}
+
+  /* VERSE BOX */
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+  .vbox.blue{background:var(--blue-light);border-left-color:var(--blue);}
+  .vbox.blue p{color:var(--blue);}
+  .vbox.blue cite{color:var(--blue);}
+  .vbox.red{background:var(--red-light);border-left-color:var(--red);}
+  .vbox.red p{color:var(--red);}
+  .vbox.red cite{color:var(--red);}
+
+  /* CARD */
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* SECTION HEADER */
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  /* HIGHLIGHT */
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.blue p{color:var(--blue);}
+  .hl.red p{color:var(--red);}
+
+  /* ILLUS */
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;}
+  .illus-hdr.orange{background:var(--orange-light);color:var(--orange);}
+  .illus-hdr.orange::before{background:var(--orange);}
+  .illus-hdr.blue{background:var(--blue-light);color:var(--blue);}
+  .illus-hdr.blue::before{background:var(--blue);}
+  .illus-hdr.red{background:var(--red-light);color:var(--red);}
+  .illus-hdr.red::before{background:var(--red);}
+  .illus-hdr.purple{background:var(--purple-light);color:var(--purple);}
+  .illus-hdr.purple::before{background:var(--purple);}
+  .illus-hdr.green{background:var(--green-light);color:var(--green);}
+  .illus-hdr.green::before{background:var(--green);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  /* SUPPORT VERSE */
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  /* TRUTH BOX */
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.blue{background:var(--blue);}
+  .truth.red{background:var(--red);}
+  .truth.dark{background:var(--green-dark);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  /* STEPS */
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* SUM CARDS */
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .sd.b{background:var(--blue);}
+  .sd.r{background:var(--red);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* COMPARE */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 14px 0;}
+  .cmp-card{border-radius:11px;padding:13px;}
+  .cmp-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;}
+  .cmp-item{font-size:12px;line-height:1.6;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.07);}
+  .cmp-item:last-child{border-bottom:none;padding-bottom:0;}
+  .cmp-card.bad{background:var(--red-light);}
+  .cmp-card.bad .cmp-title{color:var(--red);}
+  .cmp-card.bad .cmp-item{color:var(--red);}
+  .cmp-card.good{background:var(--green-light);}
+  .cmp-card.good .cmp-title{color:var(--green-dark);}
+  .cmp-card.good .cmp-item{color:var(--green-dark);}
+
+  /* RECAP */
+  .recap-box{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:13px 14px;}
+  .recap-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+  .recap-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:13px;color:var(--blue);}
+  .recap-item:last-child{margin-bottom:0;}
+  .ri-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+
+  /* TIMELINE */
+  .timeline{margin:14px 14px 0;}
+  .tl-item{display:flex;gap:12px;align-items:flex-start;position:relative;}
+  .tl-item:not(:last-child) .tl-line{position:absolute;left:13px;top:28px;bottom:-10px;width:2px;background:var(--border);}
+  .tl-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;position:relative;z-index:1;}
+  .tl-content{background:white;border-radius:11px;border:1px solid var(--border);padding:11px 13px;margin-bottom:10px;flex:1;}
+  .tl-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .tl-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* CYCLE BOX — tukso spiral */
+  .cycle-box{background:var(--red-light);border:1px solid #E8B9AC;border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .cycle-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:12px;text-align:center;}
+  .cycle-steps{display:flex;flex-direction:column;gap:6px;}
+  .cy-row{display:flex;align-items:center;gap:10px;background:white;border-radius:9px;padding:10px 13px;border:1px solid #E8B9AC;}
+  .cy-icon{font-size:16px;flex-shrink:0;width:28px;text-align:center;}
+  .cy-text{font-size:13px;color:var(--red);line-height:1.45;flex:1;}
+  .cy-arrow{font-size:14px;color:#C17068;text-align:center;margin:-3px 14px;font-weight:700;}
+
+  /* BIYAYA BOX */
+  .biyaya-box{background:var(--green-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .biyaya-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:11px;text-align:center;}
+  .biyaya-parts{display:flex;flex-direction:column;gap:7px;}
+  .by-row{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,0.1);border-radius:8px;padding:11px 13px;}
+  .by-num{font-size:22px;font-weight:700;color:#A8F0D8;width:26px;flex-shrink:0;text-align:center;}
+  .by-title{font-size:13px;font-weight:700;color:white;margin-bottom:2px;}
+  .by-desc{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;}
+
+  /* PRAYER */
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  /* CLOSING */
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  /* CONCL */
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · July 3, 2026</div>
+  <h1>Pagtagumpayan ang Tukso</h1>
+  <div class="ref">Santiago 1:12–15 · Genesis 39:7–12 · Mateo 4:1–11</div>
+</div>
+
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--green)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--red)">1</div>
+    <div class="nl">Kapahamakan</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--orange)">2</div>
+    <div class="nl">Iwasan/Labanan</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--green)">3</div>
+    <div class="nl">Biyaya</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--green-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<div class="audio-bar">
+  <div class="audio-lbl">Pakinggan ang Sermon</div>
+  <audio controls>
+    <source src="https://archive.org/download/pagtagumpayan-ang-tukso-july-32026.-3gp/Pagtagumpayan_ang_tukso%28July32026%29.3gp" type="audio/mpeg">
+    Hindi sinusuportahan ang audio sa iyong browser.
+  </audio>
+</div>
+
+<!-- ===== INTRO / SIMULA ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material · July 3, 2026</div>
+    <h2>Pagtagumpayan ang Tukso</h2>
+    <div class="href">Santiago 1:12–15 · Jesus First Christian Ministries · JF5</div>
+    <div class="hdate">Overcoming Temptation</div>
+  </div>
+
+  <div class="vbox red">
+    <p>"Pinagpala ang taong nananatiling tapat sa kabila ng mga pagsubok, sapagkat matapos niyang malampasan ang pagsubok, tatanggap siya ng gantimpalang buhay na ipinangako ng Panginoon sa mga umiibig sa Kanya. Huwag sabihin ng sinuman na tinotokso siya ng Diyos kapag siya ay dumaranas ng pagsubok, sapagkat ang Diyos ay hindi maaaring matokso at hindi naman Niya tinotokso ang kahit sino. Natotokso ang tao kapag siya ay naakit at nagpapatangay sa kanyang sariling pagnanasa. At ang pagnanasa kapag naitanim sa puso ay nagbubunga ng kasalanan, at ang kasalanan sa ganap na gulang ay nagbubunga ng kamatayan."</p>
+    <cite>— Santiago 1:12–15 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang tukso ay bahagi ng buhay ng bawat Kristiyano — <strong>at ang mga Kristiyano mismo ang pangunahing target nito.</strong> Hindi po ito dapat katakutan, kundi dapat maunawaan at harapin nang may tamang kaalaman at paghahanda.</p>
+    <p>Maliwanag ang tinuturo ng Biblia: ang tukso ay darating, ngunit kailangan nating paglabanan. Kahit ang mga dakilang tauhan sa Biblia — si David, si Samson, si Judas — ay nahulog dahil hindi sila handa. <em>Wala pong pinipili ang tukso.</em></p>
+  </div>
+
+  <div class="compare">
+    <div class="cmp-card bad">
+      <div class="cmp-title">❌ Tukso</div>
+      <div class="cmp-item">Nagtutulak sa kasalanan</div>
+      <div class="cmp-item">Nagdadala sa kapahamakan</div>
+      <div class="cmp-item">Dapat layuan at labanan</div>
+      <div class="cmp-item">Nagmumula sa laman</div>
+    </div>
+    <div class="cmp-card good">
+      <div class="cmp-title">✓ Pagsubok</div>
+      <div class="cmp-item">Nagpapatatag ng pananampalataya</div>
+      <div class="cmp-item">Nagbubunga ng paglago</div>
+      <div class="cmp-item">Dapat tiisin at lampasan</div>
+      <div class="cmp-item">Pinapahintulot ng Diyos</div>
+    </div>
+  </div>
+
+  <div class="hl orange" style="margin-top:14px;">
+    <p><strong>Mahalagang pagkakaiba:</strong> Bagamat magkamukha sa panlabas na anyo ang pagsubok at tukso, magkaiba ang kanilang layunin. Ang pagsubok ay nagpapatatag — ang tukso ay nagpapahamak. Ang tugon natin ang magpapakita kung alin ang nangyayari sa atin.</p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Bagay na Dapat Malaman tungkol sa Tukso</div>
+  <div class="sum-cards">
+    <div class="sum-card">
+      <div class="sd r">1</div>
+      <div>
+        <div class="s-title">Nagdadala ng Kapahamakan</div>
+        <div class="s-desc">Ang pagpapatangay sa tukso ay nagbubunga ng kasalanan, at ang kasalanan sa ganap na gulang ay nagbubunga ng kamatayan. (Santiago 1:15)</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">2</div>
+      <div>
+        <div class="s-title">Dapat Iwasan at Labanan</div>
+        <div class="s-desc">Ang tamang tugon sa tukso ay layuan agad kung magagawa, o tumayong matatag at labanan kung hindi maiiwasan. Halimbawa ni Jose sa Genesis 39.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd g">3</div>
+      <div>
+        <div class="s-title">Taglay ang Biyaya ang Tagumpay</div>
+        <div class="s-desc">Ang pagtagumpay sa tukso ay nagdadala ng gantimpalang buhay, paglago ng pananampalataya, at pag-asa sa walang hanggan. (Santiago 1:12)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="recap-box">
+    <div class="recap-lbl">Koneksyon sa Nakaraang Pag-aaral</div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Ang Kasalanan</strong> — Ang pinagsisimulang lahat ay ang pagpapatangay sa tukso. Dito nagsisimula ang kasalanan na pumipigil sa ating relasyon sa Diyos.</div></div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Ang Pagsisisi</strong> — Kapag nahulog sa tukso at nagkasala, ang daan pabalik ay ang tunay na pagsisisi at pagbabalik sa Diyos.</div></div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Nasaan Ka?</strong> — Ang tukso ang madalas na dahilan ng paglayo natin sa Diyos. Ngayon: paano mapagtagumpayan ito.</div></div>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 1 — KAPAHAMAKAN ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--red);">
+    <div class="snum">1</div>
+    <div>
+      <h2>Ang Pagpapatangay sa Tukso ay Nagdudulot ng Kapahamakan</h2>
+      <div class="sub">Santiago 1:14–15 · 1 Corinto 10:6,11–13</div>
+    </div>
+  </div>
+
+  <div class="vbox red">
+    <p>"Natotokso ang tao kapag siya ay naakit at nagpapatangay sa kanyang sariling pagnanasa. At ang pagnanasa kapag naitanim sa puso ay nagbubunga ng kasalanan, at ang kasalanan sa ganap na gulang ay nagbubunga ng kamatayan."</p>
+    <cite>— Santiago 1:14–15 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Hindi dumarating ang tukso nang patingiti-tingi lamang para magkasala tayo at okay na. <strong>Ang layunin ng tukso ay dalhin tayo sa tuluyang pagbagsak ng ating pananampalataya.</strong> Kapag nagsimula kang magpatangay, lagi ka nitong susundan — hanggang sa hindi ka na makabalik.</p>
+    <p>Sinasabi ni Apostol Santiago: ang proseso ay malinaw — <em>pagnanasa → pagpapatangay → kasalanan → kamatayan.</em> Hindi ito nangyayari nang biglaan. Unti-unting itinanim sa puso hanggang mamunga ng kasalanan at sa huli ay kamatayan ng pananampalataya.</p>
+  </div>
+
+  <div class="sec-lbl">Ang Spiral ng Tukso — Santiago 1:14–15</div>
+  <div class="cycle-box">
+    <div class="cycle-lbl">Paano Gumagana ang Tukso</div>
+    <div class="cycle-steps">
+      <div class="cy-row">
+        <div class="cy-icon">👁️</div>
+        <div class="cy-text"><strong>Naakit</strong> — Nararamdaman ang pagnanasa ng laman. Ito ay natural pa — hindi pa kasalanan.</div>
+      </div>
+      <div class="cy-arrow">↓</div>
+      <div class="cy-row">
+        <div class="cy-icon">💭</div>
+        <div class="cy-text"><strong>Nagpapatangay</strong> — Kapag pinagbigyan ang pagnanasa at nag-agree na ang puso — dito na nagsisimula ang panganib.</div>
+      </div>
+      <div class="cy-arrow">↓</div>
+      <div class="cy-row">
+        <div class="cy-icon">🌱</div>
+        <div class="cy-text"><strong>Naitanim sa Puso</strong> — Kapag tinanggap na at pinabayaan ang pagnanasa, nagbubunga ng kasalanan.</div>
+      </div>
+      <div class="cy-arrow">↓</div>
+      <div class="cy-row">
+        <div class="cy-icon">💀</div>
+        <div class="cy-text"><strong>Kamatayan</strong> — Ang kasalanan sa ganap na gulang ay nagbubunga ng kamatayan — ng pananampalataya, ng buhay.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Mga Halimbawa sa Biblia — Ang Kapahamakan ng Tukso</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot" style="background:var(--red);">①</div>
+      <div class="tl-content">
+        <div class="tl-title">Si David — Tukso ng Lust</div>
+        <div class="tl-desc">Si David, isang taong ayon sa puso ng Diyos, ay nahulog sa tukso ni Barseba. Ang resulta: adulteryo, pagpatay kay Urias, at ang kamatayan ng kanyang anak. Nagdungis sa kanyang pangalan ang tukso na ito magpahanggang ngayon.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot" style="background:var(--red);">②</div>
+      <div class="tl-content">
+        <div class="tl-title">Si Samson — Tukso ng Pag-ibig</div>
+        <div class="tl-desc">Ang pinakamalakas na tao sa Biblia ay nahulog sa tukso ng pagmamahal kay Delila. Ang kabiguan: nawala ang lakas niya, nabulag, at namatay nang walang dignidad. Kahit nakalagpas siya sa simula, napahamak siya sa huli.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot" style="background:var(--red);">③</div>
+      <div class="tl-content">
+        <div class="tl-title">Si Judas Iscariote — Tukso ng Pera</div>
+        <div class="tl-desc">Kasama ni Hesus sa ministeryo sa mahabang panahon — ngunit sa halagang tatlumpung pirasong pilak, ipinagkano niya ang Panginoon. Ang kinahinatnan: napahamak siya nang tuluyan. Wala pong pinipili ang tukso.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--orange);">④</div>
+      <div class="tl-content">
+        <div class="tl-title">Si Dimas — Tukso ng Mundo</div>
+        <div class="tl-desc">Kasama ni Pablo sa ministeryo si Dimas. Ngunit dahil sa akit ng sanlibutan, naiba ang kanyang direksyon at iniwan si Pablo. Ang hinagpis ni Pablo: "iniwan na ni Dimas." Ang mundo ay nakakaakit at nakakawala ng katapatan sa Diyos.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr orange">Ilustrasyon — Ang Estudyante at ang Pagsubok</div>
+    <div class="illus-body">
+      <p>Binibigyan ng guro ang estudyante ng final exam — ito ay pagsubok. Ang layunin: malaman kung may natutunan ang estudyante at maiangat siya sa susunod na antas.</p>
+      <p>Ngunit sa pagsubok na iyon, pumapasok ang tukso: <em>"Huwag ka na mag-aral. Gumawa ka na lang. Sure pass naman kapag may kodigo ka."</em> Kapag tinangkilan ng estudyante ang tukso at nandaya — ang pagsubok ay naging tukso at kapahamakan.</p>
+      <p><strong>Ganito rin ang buhay Kristiyano.</strong> Pinapahintulot ng Diyos ang mga pagsubok para palakasin at patunayan ang ating katapatan — ngunit sumasakay ang tukso sa mga pagsubok na iyon para pabagsakin tayo.</p>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr red">Babala — Ang Tatlong Uri ng Tukso</div>
+    <div class="illus-body">
+      <p><strong>1. Tukso ng Lust / Sexual Immorality</strong> — Ang pinaka-karaniwan at pinaka-mapanganib. Katulad ng nangyari kina David at Samson.</p>
+      <p><strong>2. Tukso ng Pera</strong> — Sabi sa 1 Timoteo, ang pag-ibig sa salapi ang ugat ng lahat ng kasamaan. Kapag dumating ang mga biyaya sa buhay, madalas ay tutuksuhin tayo ng Diablo na i-enjoy lamang ang lahat para sa sarili nating kasiyahan.</p>
+      <p><strong>3. Tukso ng Sanlibutan</strong> — Ang pagnanasa ng mata at ng laman, at ang pagmamataas ng buhay. Kapag puno ang isip ng mga bagay na hindi makabuluhan — ng internet, ng social media — madaling matangay ng tukso. (1 Juan 2:15–17)</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">1 Corinto 10:6,11–13</div>
+    <p>"Ang lahat ng mga nangyayaring iyon ay babala sa atin upang huwag tayong maghangad ng masasamang bagay gaya ng ginagawa nila... Tapat ang Diyos at hindi Niya ipapahintulot na kayo ay subukin ng higit sa inyong makaya. Pagdating ng pagsubok, bibigyan Niya kayo ng lakas upang makayanin ito, at ang paraan upang malampasan ito."</p>
+    <cite>— 1 Corinto 10:6,13 (ASD)</cite>
+  </div>
+
+  <div class="truth red">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang layunin ng tukso ay dalhin tayo sa tuluyang pagbagsak ng pananampalataya. Hindi ito patingiti-tingi — lagi itong susundan hanggang sa hindi na makabalik. Kaya ang unang hakbang ng tagumpay ay ang maunawaan kung gaano kaserioso ang tukso sa buhay ng bawat Kristiyano.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 2 — IWASAN AT LABANAN ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Ang Tukso ay Dapat Iwasan at Labanan</h2>
+      <div class="sub">Genesis 39:7–12 · Mateo 4:1–11 · 1 Pedro 5:8–9</div>
+    </div>
+  </div>
+
+  <div class="vbox orange">
+    <p>"Maging handa kayo at magbantay. Ang Diablo, ang inyong kaaway, parang leong umaatungal at paaligid-aligid na naghahanap ng masisila. Huwag kayong matakot sa kanya at magpakatatag kayo sa inyong pananampalataya sa Diyos."</p>
+    <cite>— 1 Pedro 5:8–9 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Dalawang opsyon lamang ang mayroon tayo kapag dumating ang tukso: <strong>layuan agad kung magagawa</strong>, o <strong>tumayong matatag at labanan</strong> kung hindi maiiwasan. Walang ikatlong opsyon — ang walang aksyon ay pagpayag.</p>
+    <p>Hindi ang tukso ang lalayo sa atin. <em>Tayo ang lalayo sa tukso.</em> Ang kantang "Tokso, layuhin mo ko" ay mali — tayo ang may responsibilidad na lumayo at lumaban.</p>
+  </div>
+
+  <div class="sec-lbl">Halimbawa 1 — Si Jose at ang Asawa ni Putipar (Genesis 39:7–12)</div>
+  <div class="illus">
+    <div class="illus-hdr orange">Ang Malinaw na Boundary ni Jose</div>
+    <div class="illus-body">
+      <p>Si Jose ay alipin — wala siyang mapupuntahan. Araw-araw, tinitisaw siya ng asawa ni Putipar. Hindi niya maiwasan ang lugar, ngunit <strong>malinaw ang kanyang boundary at conviction:</strong></p>
+      <p><em>"Panatag ang kalooban ng aking panginoon sapagkat ako'y narito. Ginawa niya akong katiwala at ipinamahala sa akin ang lahat sa bahay na ito — maliban sa inyo na kanyang asawa. Hindi ko ito magagawa, ang napakalaking kataksilan at pagkakasala sa Diyos."</em></p>
+      <p>Naging aggressive pa ang babae — hinablot ang balabal ni Jose. At ang ginawa ni Jose? <strong>Patakbo siyang lumabas.</strong> Kahit mawala pa ang kanyang balabal. Kahit mawala pa ang kanyang kalagayan. Ang mahalaga: makalayo sa tukso.</p>
+      <p><em>Ito ang tamang tugon — kapag hindi na mapigilan ang tukso, tumakbo. Huwag mag-alinlangan.</em></p>
+    </div>
+  </div>
+
+  <div class="hl orange">
+    <p><strong>Aral mula kay Jose:</strong> Kung baga yung pagkain ay lumalapit sa manok — ngunit inayawan niya. Meron siyang matibay na conviction. Alam niya kung ano ang tamang tutugon — at ginawa niya ito kahit may sakripisyo. <em>Kaya tayo minsan natutukso kasi we do not draw boundaries.</em></p>
+  </div>
+
+  <div class="sec-lbl">Halimbawa 2 — Si Hesus at ang Diablo (Mateo 4:1–11)</div>
+  <div class="illus">
+    <div class="illus-hdr blue">Ang Sandata ng Panginoong Hesus — Ang Salita ng Diyos</div>
+    <div class="illus-body">
+      <p>Tatlong beses na tinutukso ang Panginoong Hesus ng Diablo sa ilang — at sa bawat tukso, ang sagot Niya ay iisa: <strong>"Nasusulat..."</strong></p>
+      <p>Ang Diablo ay marunong gumamit ng Salita ng Diyos — baluktot man. Gayon din ang ginawa niya kay Eva sa Hardin. Kaya <em>kailangan nating malaman ang tunay na Salita ng Diyos</em> para hindi tayo maloko ng baluktot na interpretasyon.</p>
+      <p><strong>Ang armas ni Hesus laban sa tukso ay ang Salita ng Diyos.</strong> Ito rin ang ating armas — kaya kailangan nating maingatan at isipin ang Kanyang Salita sa ating puso araw-araw. (Salmo 119:11)</p>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Paano Maiiwasan at Malabanan ang Tukso</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">①</div>
+      <div>
+        <h4>Iguhit ang Boundary</h4>
+        <p>Kilalanin ang mga lugar, tao, at sitwasyong nagdadala ng tukso sa iyong buhay — at iguhit ang malinaw na hangganan. "Itong lugar na ito, hindi ko na ito pupuntahan." "Itong trabahong ito, hindi ko ito tatanggapin kahit malaki ang offer." Tayo ang pumipili — kaya tayo natutukso kasi we do not draw boundaries.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">②</div>
+      <div>
+        <h4>Manalangin nang may Pagbabantay</h4>
+        <p>"Magbantay kayo at manalangin upang huwag kayong madaig ng tukso. Ang espiritu ay handa, ngunit ang laman ay mahina." (Mateo 26:41) Alam ng Panginoon na mahina tayo sa laman — kaya binilang tayo na manalangin. Ang panalangin ang nagbibigay ng lakas para labanan ang tukso.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">③</div>
+      <div>
+        <h4>Punan ng Salita ng Diyos ang Isip</h4>
+        <p>"Ang salita Mo ay iniingatan ko sa aking puso upang hindi ako magkasala sa Iyo." (Salmo 119:11) Sa halip na punuin ang isip ng mga bagay na hindi makabuluhan — ng internet at social media — punuin natin ito ng malinis na Salita ng Diyos. Ito ang armas na ginamit ng Panginoong Hesus.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">④</div>
+      <div>
+        <h4>Umiwas sa Masamang Hilig ng Kabataan</h4>
+        <p>"Kaya nga, iwasan mo ang masamang hilig ng kabataan. Sa halip, pagsikapan mong maging matuwid, tapat, mapagmahal at mapayapa, kasama ang mga taong may pusong malinis na tumatawag sa Panginoon." (2 Timoteo 2:22) Ang pag-iwas sa mapanganib na sitwasyon ay hindi kahinaan — ito ay karunungan.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--red);">⑤</div>
+      <div>
+        <h4>Kilalanin ang Sarili — Mahina ang Laman</h4>
+        <p>Huwag mag-overestimate ng sarili. Alam nating mahina tayo sa laman. Kaya huwag na tayong lumapit sa tukso — tayo ang lalayo. At huwag ding i-underestimate ang Diablo — walang tigil siya. Ngunit huwag din i-overestimate siya — may Isa na mas makapangyarihan sa kanya.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Salmo 119:11</div>
+    <p>"Ang salita Mo ay iniingatan ko sa aking puso upang hindi ako magkasala sa Iyo."</p>
+    <cite>— Salmo 119:11 (ASD)</cite>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">2 Timoteo 2:22</div>
+    <p>"Kaya nga, iwasan mo ang masamang hilig ng kabataan. Sa halip, pagsikapan mong maging matuwid, tapat, mapagmahal at mapayapa, kasama ang mga taong may pusong malinis na tumatawag sa Panginoon."</p>
+    <cite>— 2 Timoteo 2:22 (ASD)</cite>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Hindi ang tukso ang lalayo sa atin — tayo ang lalayo sa tukso. Kung magagawa agad, layuan. Kung hindi maiiwasan, tumayong matatag at labanan tulad ng ginawa ng Panginoong Hesus — sa pamamagitan ng Salita ng Diyos, panalangin, at malinaw na boundary sa buhay.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 3 — BIYAYA NG TAGUMPAY ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--green);">
+    <div class="snum">3</div>
+    <div>
+      <h2>May Biyayang Dala ang Pagtagumpay sa Tukso</h2>
+      <div class="sub">Santiago 1:12 · Roma 5:3–5 · Hebreo 10:32–36</div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <p>"Pinagpala ang taong nananatiling tapat sa kabila ng mga pagsubok, sapagkat matapos niyang malampasan ang pagsubok, tatanggap siya ng gantimpalang buhay na ipinangako ng Panginoon sa mga umiibig sa Kanya."</p>
+    <cite>— Santiago 1:12 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang pagtagumpay sa tukso ay hindi lamang pag-iwas sa kapahamakan — ito ay nagdadala ng tunay na biyaya sa buhay ng Kristiyano. <strong>Ang tagumpay laban sa tukso ay nagpapatunay ng ating tunay na pananampalataya</strong> at nagbubukas ng pintuan ng mga pangako ng Diyos sa ating buhay.</p>
+    <p>Ang pananaw sa walang hanggan ang nagbibigay sa Kristiyano ng lakas para tiisin ang mga pagsubok at labanan ang mga tukso — <em>sapagkat alam niya na ang pansamantalang paghihirap ngayon ay hindi makapapantay sa kaluwalhatiang naghihintay.</em></p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Biyaya ng Pagtagumpay sa Tukso</div>
+  <div class="biyaya-box">
+    <div class="biyaya-lbl">Mga Biyayang Dala ng Overcoming Temptation</div>
+    <div class="biyaya-parts">
+      <div class="by-row">
+        <div class="by-num">1</div>
+        <div>
+          <div class="by-title">Katiyakan ng Gantimpalang Buhay na Walang Hanggan</div>
+          <div class="by-desc">Ang pagtagumpay sa tukso ay nagpapatunay ng ating tunay na pananampalataya. Ang taong nananatiling tapat sa kabila ng mga pagsubok ay "karapat-dapat sa gantimpalang buhay" — hindi dahil kinita niya ito, kundi dahil napatunayan ng kanyang buhay ang katapatan niya sa Diyos. (Santiago 1:12)</div>
+        </div>
+      </div>
+      <div class="by-row">
+        <div class="by-num">2</div>
+        <div>
+          <div class="by-title">Paglago at Pag-unlad sa Buhay Kristiyano</div>
+          <div class="by-desc">Ang bawat tukso na nalapasan ay nagpapalakas ng pananampalataya. "Kinagagalak din natin ang mga kahirapang ating tinitiis dahil alam natin ito ay nagbubunga ng pagtitiyaga, at ang pagtitiyaga ay nagbubunga ng mabuting pagkatao, at ang mabuting pagkatao ay nagbubunga ng pag-asa." (Roma 5:3–4) Kaya hindi lumalago ang marami — namumuhay pa rin para sa kasalukuyan lamang.</div>
+        </div>
+      </div>
+      <div class="by-row">
+        <div class="by-num">3</div>
+        <div>
+          <div class="by-title">Pag-asa na Hindi Nagbibigo</div>
+          <div class="by-desc">"Hindi tayo binibigo ng pag-asa sapagkat ang pag-ibig ng Diyos ay ibinuhos na sa ating mga puso sa pamamagitan ng Espiritu Santo." (Roma 5:5) Ang pag-asa dito ay katiyakan — tiyak ang nagsalita at Diyos ang nangako. Kahit ano ang maranasan natin ngayon, may pag-asa tayo sa walang hanggan — at papahirin ng Diyos ang lahat ng ating mga luha. (Pahayag 21)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Hindi lamang yan. Kinagagalak din natin ang mga kahirapang ating tinitiis dahil alam natin ito ay nagbubunga ng pagtitiyaga, at ang pagtitiyaga ay nagbubunga ng mabuting pagkatao, at ang mabuting pagkatao ay nagbubunga ng pag-asa. At hindi tayo binibigo ng pag-asa sapagkat ang pag-ibig ng Diyos ay ibinuhos na sa ating mga puso sa pamamagitan ng Espiritu Santo na ipinagkaloob sa atin."</p>
+    <cite>— Roma 5:3–5 (ASD)</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr green">Babala — Kung Bakit Hindi Lumalago ang Marami</div>
+    <div class="illus-body">
+      <p>Ang dahilan kung bakit hindi lumalago ang maraming Kristiyano ay ito: <strong>namumuhay sila para sa kasalukuyan lamang</strong> — walang pananaw sa walang hanggan. Kaya madali silang masukol ng mga pansamantalang saya at aliwan na inaalok ng tukso.</p>
+      <p>Kapag nahulog sa tukso at hindi nagsisi, paulit-ulit lang ang cycle. Naalipin na ng tukso — ngunit nananatili pa rin ang paniniwala na Kristiyano ka. <em>Sinusuri natin ang ating buhay — hindi para kondenahin ang isa't isa, kundi para tanungin: lumalago ba tayo? Saan patungo ang ating buhay?</em></p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Hebreo 10:35–36</div>
+    <p>"Kaya't huwag kayong mawawala ng pananampalataya sa Diyos, sapagkat dakila ang naghihintay na gantimpala para sa inyo. Kailangan kayo ay magtiis upang masunod ninyo ang kalooban ng Diyos at matanggap ninyo ang Kanyang ipinangako."</p>
+    <cite>— Hebreo 10:35–36 (ASD)</cite>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Pangwakas na paalala mula sa nagtaturo:</strong> Don't underestimate the Devil — walang tigil siya sa panunukso. Ngunit huwag rin siyang i-overestimate — sapagkat may Isa na mas makapangyarihan kaysa sa kanya. <em>At ang Isa na iyon ay kasama natin sa bawat tukso na ating kinakaharap.</em></p>
+  </div>
+
+  <div class="truth dark">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang pagtitiis sa pagsubok at pagtagumpay sa tukso ay nagdadala ng gantimpalang buhay, paglago ng pananampalataya, at pag-asang walang hanggan. Huwag matukso ng pansamantalang saya — ang naghihintay sa kabila ay higit na dakila at hindi mapapawi.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral — July 3, 2026</div>
+      <h3>Pagtagumpayan ang Tukso — Tatlong Bagay na Dapat Malaman</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — Nagdadala ng Kapahamakan:</strong> Ang pagpapatangay sa tukso ay nagbubunga ng kasalanan, at ang kasalanan sa ganap na gulang ay nagbubunga ng kamatayan — ng pananampalataya at ng buhay. Ang layunin ng tukso ay dalhin tayo sa tuluyang pagbagsak, hindi lang patingiti-tingi. Katulad nina David, Samson, Judas, at Dimas — kahit sino ay maaaring mahulog kapag hindi handa.</p>
+      <p><strong>Ikalawa — Dapat Iwasan at Labanan:</strong> Dalawang opsyon ang mayroon tayo — layuan agad kung magagawa, o tumayong matatag at labanan kung hindi maiiwasan. Ang halimbawa ni Jose (Genesis 39) — tumakbo kahit mawala ang balabal — at ng Panginoong Hesus (Mateo 4) — sa pamamagitan ng Salita ng Diyos. Hindi ang tukso ang lalayo sa atin — tayo ang lalayo sa tukso. Iguhit ang boundary. Manalangin. Punuin ng Salita ng Diyos ang isip.</p>
+      <p><strong>Pangatlo — May Biyayang Dala ang Tagumpay:</strong> Ang pagtagumpay sa tukso ay nagdadala ng katiyakan ng gantimpalang buhay na walang hanggan, paglago at pag-unlad ng pananampalataya, at pag-asang hindi nagbibigo — sapagkat ibinuhos na ng Diyos ang Kanyang pag-ibig sa ating mga puso sa pamamagitan ng Espiritu Santo.</p>
+    </div>
+  </div>
+
+  <div class="compare" style="margin-top:14px;">
+    <div class="cmp-card bad">
+      <div class="cmp-title">❌ Tukso — Layunin</div>
+      <div class="cmp-item">Pabagsakin ang pananampalataya</div>
+      <div class="cmp-item">Magdala ng kasalanan at kamatayan</div>
+      <div class="cmp-item">Ipalayo sa Diyos</div>
+      <div class="cmp-item">Dapat nilalayuan at nilalabanan</div>
+    </div>
+    <div class="cmp-card good">
+      <div class="cmp-title">✓ Pagsubok — Layunin</div>
+      <div class="cmp-item">Palakasin ang pananampalataya</div>
+      <div class="cmp-item">Patunayan ang katapatan</div>
+      <div class="cmp-item">Ilapit pa sa Diyos</div>
+      <div class="cmp-item">Dapat tiisin at lampasan</div>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Ang ating tugon sa bawat nangyayari sa buhay at ang resulta nito sa atin ay nagpapakita kung tayo ba ay nasubok o nahulog sa tukso. Ang mga nasubok at nakapagtagumpay ay lumalago — habang ang nagpapatukso naman ay nauhulog sa kasalanan."</p>
+    <cite>— Mula sa Sermon · July 3, 2026</cite>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Pangwakas na hamon:</strong> Tiisin ang mga pagsubok — ito ang paraan ng Diyos para palakasin at palakihin tayo. Layuan at labanan ang mga tukso — sapagkat ang ating responsibilidad ang lumayo, hindi ang tukso. At yakapin ang pananaw sa walang hanggan — ang mga naghihintay na gantimpala ay higit na dakila kaysa sa lahat ng pansamantalang saya na inaalok ng tukso.</p>
+  </div>
+
+  <div class="vbox">
+    <p>"Pinagpala ang taong nananatiling tapat sa kabila ng mga pagsubok, sapagkat matapos niyang malampasan ang pagsubok, tatanggap siya ng gantimpalang buhay na ipinangako ng Panginoon sa mga umiibig sa Kanya."</p>
+    <cite>— Santiago 1:12 · Pangunahing Talata</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, salamat sa pagpapaalaala sa atin ngayong araw na ang tukso ay seryosong bagay na kailangan nating harapin nang may kaalaman at paghahanda. Patawad sa mga pagkakataon na nagpatangay tayo at nahulog sa tukso. Tulungan Mo kaming maingatan ang aming mga puso — punuin Mo ng Iyong Salita ang aming mga isip upang hindi kami madaig ng tukso. Bigyan Mo kami ng karunungan para iguhit ang mga tamang hangganan sa aming buhay, at ng lakas para tumakas o lumaban kapag dumating ang tukso. At nawa, sa bawat pagsubok na aming tiisin, kami ay lumago at palakasin sa aming pananampalataya — na ang pananaw ay nakatuon sa Iyong mga pangako at hindi sa pansamantalang saya ng sanlibutan. Sa pangalan ni Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Huwag pong matakot sa tukso — kailangan lamang na alam natin kung paano tutugon sa bawat tuksong ating kinakaharap. Layuan kung magagawa. Labanan kung kailangan. At laging tandaan — may Isa na mas makapangyarihan kaysa sa Diablo na kasama natin sa bawat pagsubok."</p>
+    <cite>— Buod ng Pag-aaral · July 3, 2026</cite>
+  </div>
+
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
