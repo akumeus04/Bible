@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Lumapit sa Panginoon Hesus nang may Pagtitiwala — Hebreo 4:14–16</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  .topbar{background:var(--blue);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:16px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.68;margin-top:2px;}
+
+  .audio-bar{position:fixed;bottom:72px;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:99;padding:10px 14px;box-shadow:0 -2px 10px rgba(0,0,0,0.06);}
+  .audio-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .audio-lbl::before{content:"🎧";}
+  .audio-bar audio{width:100%;height:36px;border-radius:8px;outline:none;}
+
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--blue);}
+
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* HERO */
+  .hero{background:linear-gradient(150deg,var(--purple-dark) 0%,var(--blue) 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:20px;font-weight:700;margin-bottom:5px;line-height:1.25;}
+  .hero .href{font-size:12px;opacity:0.7;margin-bottom:3px;}
+  .hero .hdate{font-size:11px;opacity:0.5;}
+
+  /* VERSE BOX */
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .vbox.blue{background:var(--blue-light);border-left-color:var(--blue);}
+  .vbox.blue p{color:var(--blue);}
+  .vbox.blue cite{color:var(--blue);}
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+  .vbox.red{background:var(--red-light);border-left-color:var(--red);}
+  .vbox.red p{color:var(--red);}
+  .vbox.red cite{color:var(--red);}
+
+  /* CARD */
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* SECTION HEADER */
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  /* HIGHLIGHT */
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.blue p{color:var(--blue);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.red p{color:var(--red);}
+
+  /* ILLUS */
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;}
+  .illus-hdr.orange{background:var(--orange-light);color:var(--orange);}
+  .illus-hdr.orange::before{background:var(--orange);}
+  .illus-hdr.blue{background:var(--blue-light);color:var(--blue);}
+  .illus-hdr.blue::before{background:var(--blue);}
+  .illus-hdr.green{background:var(--green-light);color:var(--green);}
+  .illus-hdr.green::before{background:var(--green);}
+  .illus-hdr.purple{background:var(--purple-light);color:var(--purple);}
+  .illus-hdr.purple::before{background:var(--purple);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  /* SUPPORT VERSE */
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  /* TRUTH BOX */
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.blue{background:var(--blue);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.dark{background:var(--green-dark);}
+  .truth.navy{background:var(--purple-dark);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  /* STEPS */
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* SUM CARDS */
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .sd.b{background:var(--blue);}
+  .sd.r{background:var(--red);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* COMPARE TABLE */
+  .cmp-table{margin:14px 14px 0;border-radius:12px;overflow:hidden;border:1px solid var(--border);}
+  .cmp-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);}
+  .cmp-row:last-child{border-bottom:none;}
+  .cmp-row.header .cmp-cell{font-weight:700;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:10px 12px;}
+  .cmp-cell{padding:10px 12px;font-size:12px;line-height:1.55;border-right:1px solid var(--border);}
+  .cmp-cell:last-child{border-right:none;}
+  .cmp-row.header .cmp-cell:first-child{background:var(--red-light);color:var(--red);}
+  .cmp-row.header .cmp-cell:last-child{background:var(--blue-light);color:var(--blue);}
+  .cmp-row:not(.header) .cmp-cell:first-child{background:white;color:#555;}
+  .cmp-row:not(.header) .cmp-cell:last-child{background:var(--blue-light);color:var(--blue);font-weight:600;}
+  .cmp-row:nth-child(even):not(.header) .cmp-cell:first-child{background:var(--gray-light);}
+
+  /* RECAP */
+  .recap-box{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:13px 14px;}
+  .recap-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+  .recap-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:13px;color:var(--blue);}
+  .recap-item:last-child{margin-bottom:0;}
+  .ri-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+
+  /* PADRINO BOX */
+  .padrino-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .padrino-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px;text-align:center;}
+  .padrino-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .pg-card{background:rgba(255,255,255,0.1);border-radius:9px;padding:11px 12px;}
+  .pg-label{font-size:10px;font-weight:700;color:#A8F0D8;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:5px;}
+  .pg-text{font-size:12px;color:rgba(255,255,255,0.85);line-height:1.5;}
+
+  /* BIYAYA RECEIVE */
+  .receive-box{background:var(--blue-light);border:1px solid #A6C9EA;border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .receive-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:11px;text-align:center;}
+  .receive-items{display:grid;gap:7px;}
+  .recv-row{display:flex;align-items:flex-start;gap:10px;background:white;border-radius:8px;padding:10px 12px;border:1px solid var(--border);}
+  .recv-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+  .recv-title{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:2px;}
+  .recv-desc{font-size:12px;color:var(--gray);line-height:1.45;}
+
+  /* PRAYER */
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  /* CLOSING */
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  /* CONCL */
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--blue);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · July 10, 2026</div>
+  <h1>Lumapit sa Panginoon Hesus nang may Pagtitiwala</h1>
+  <div class="ref">Hebreo 4:14–16 · Jesus First Christian Ministries · JF5</div>
+</div>
+
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--blue)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--purple)">1</div>
+    <div class="nl">Dakilang Pari</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--orange)">2</div>
+    <div class="nl">Nakakaunawa</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--green)">3</div>
+    <div class="nl">Lumapit</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--blue)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<div class="audio-bar">
+  <div class="audio-lbl">Pakinggan ang Sermon</div>
+  <audio controls>
+    <source src="https://archive.org/download/jf5-lumapit-sa-panginoon-hesus.-3gp/JF5-July10-Lumapit-sa-PanginoonHesus.3gp" type="audio/mpeg">
+    Hindi sinusuportahan ang audio sa iyong browser.
+  </audio>
+</div>
+
+<!-- ===== INTRO / SIMULA ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material · July 10, 2026</div>
+    <h2>Lumapit sa Panginoon Hesus nang may Pagtitiwala</h2>
+    <div class="href">Hebreo 4:14–16 · Approach God with Confidence</div>
+    <div class="hdate">Jesus First Christian Ministries · JF5</div>
+  </div>
+
+  <div class="vbox blue">
+    <p>"Kaya naman, dahil mayroon tayong dakilang pinakapunong pari na pumasok na sa kalangitan — si Hesus na Anak ng Diyos — huwag tayong titigil sa ating pananampalataya. Sapagkat ang ating pinakapunong pari ay nakakaunawa sa ating mga kahinaan, dahil tulad natin, tinukso siya sa lahat ng paraan, subalit kailan man ay hindi siya nagkasala. Kaya't huwag tayong mag-alinlangan na lumapit sa trono ng mahabaging Diyos, upang makatanggap tayo ng awa at makasumpong ng biyaya na tutulong sa atin sa oras ng ating pangangailangan."</p>
+    <cite>— Hebreo 4:14–16 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Madalas nating marinig ang salitang <em>padrino</em> sa konteksto ng pulitika — isang tao na may koneksyon na makakatulong sa atin sa mga opisina o ahensya ng gobyerno. Sa konteksto pong iyon, negatibo ang dating — dahil nagiging sanhi ito ng korapsyon at pang-aabuso.</p>
+    <p><strong>Ngunit sa espirituwal na konteksto, kailangan ng bawat isa sa atin ang padrino — at ang ating "Padrino" ay walang iba kundi ang Panginoong Hesus mismo.</strong> Hindi na tayo kailangan ng koneksyon ng tao para makapunta sa Diyos. Direkta na ang ating access — at hindi ito korupsiyon, ito ay biyaya.</p>
+  </div>
+
+  <div class="padrino-box">
+    <div class="padrino-lbl">Padrino — Dalawang Konteksto</div>
+    <div class="padrino-grid">
+      <div class="pg-card">
+        <div class="pg-label">❌ Politikal</div>
+        <div class="pg-text">Sanhi ng korapsyon at pang-aabuso. Nagbibigay ng pribilehiyo sa iilang may koneksyon lamang. Negatibo ang dating sa lipunan.</div>
+      </div>
+      <div class="pg-card">
+        <div class="pg-label">✓ Espirituwal</div>
+        <div class="pg-text">Ang Panginoong Hesus — ang ating dakilang pinakapunong pari. Lahat ay may access nang walang pagpapaliban at walang korupsiyon. Ito ay biyaya ng Diyos.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Apat na Dahilan ng Paglalapit nang may Pagtitiwala</div>
+  <div class="sum-cards">
+    <div class="sum-card">
+      <div class="sd p">1</div>
+      <div>
+        <div class="s-title">May Dakilang Pari Tayo na nasa Kalangitan</div>
+        <div class="s-desc">Si Hesus, ang ating eternal na Pinakapunong Pari, ay nasa kalangitan na — permanenteng tagapamagitan sa pagitan natin at ng Diyos Ama.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">2</div>
+      <div>
+        <div class="s-title">Nauunawaan Niya ang Ating Kahinaan</div>
+        <div class="s-desc">Naging ganap na tao ang Panginoong Hesus. Nakaranas Siya ng tukso, sakit, at pagdurusa — kaya nauunawaan Niya ang bawat pinagdaraanan natin.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd g">3</div>
+      <div>
+        <div class="s-title">Direkta Tayong Makatatanggap ng Awa at Biyaya</div>
+        <div class="s-desc">Sa trono ng biyaya, makakatanggap tayo ng habag, kapatawaran, lakas, karunungan, at kaginhawahan — sa bawat oras ng pangangailangan.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd b">4</div>
+      <div>
+        <div class="s-title">Nagkaroon na Tayo ng Katagumpayan</div>
+        <div class="s-desc">Ang tagumpay ng Panginoong Hesus — ang Kanyang kamatayan at muling pagkabuhay — ay ang pundasyon ng ating katagumpayan at lakas sa paglalapit sa Diyos.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="recap-box">
+    <div class="recap-lbl">Koneksyon sa Nakaraang Pag-aaral</div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Pagtagumpayan ang Tukso (Santiago 1:12–15)</strong> — Tinukso si Hesus sa lahat ng paraan, ngunit hindi Siya nagkasala. Dahil dito, naiintindihan Niya ang presyur ng tukso at makakatulong Siya sa atin na mapagtagumpayan ito.</div></div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Nasaan Ka? (Genesis 3)</strong> — Madalas tayong nag-aalinlangan lumapit sa Diyos dahil sa hiya at pagkakasala. Pero ngayon: may pagtitiwala tayong lumapit dahil may tagapamagitan tayo.</div></div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Ang Pagsisisi (Gawa 17)</strong> — Ang Diyos ay naghahanap sa atin. Ang Hebreo 4 ay nagpapakita kung paano natin tutugon — sa pamamagitan ng paglalapit nang may bukas at tapat na puso.</div></div>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 1 — DAKILANG PARI SA KALANGITAN ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:linear-gradient(135deg,var(--purple-dark),var(--purple));">
+    <div class="snum">1</div>
+    <div>
+      <h2>May Dakilang Pinakapunong Pari Tayo na nasa Kalangitan</h2>
+      <div class="sub">Hebreo 4:14 · Hebreo 5:1–4 · Hebreo 7:24–25</div>
+    </div>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Kaya naman, dahil mayroon tayong dakilang pinakapunong pari na pumasok na sa kalangitan — si Hesus na Anak ng Diyos — huwag tayong titigil sa ating pananampalataya."</p>
+    <cite>— Hebreo 4:14 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang pangunahing mensahe ng Book of Hebreo ay para sa mga Kristiyanong Hudyo na nag-iisip na bumalik sa kanilang lumang pananampalataya (Judaismo). Inuudyukan sila ng may-akda na <strong>huwag bumitaw sa kanilang pananampalataya kay Hesus</strong> — sapagkat ang Panginoong Hesus ay higit na dakila kaysa sa lahat ng ritwal at saserdote ng lumang tipan.</p>
+    <p>Ang susi sa lahat: <em>mayroon tayong Dakilang Pinakapunong Pari na nasa kalangitan — at hindi ito pansamantala, kundi permanente.</em></p>
+  </div>
+
+  <div class="sec-lbl">Ano ang Pinakapunong Pari? (Hebreo 5:1–4)</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">①</div>
+      <div>
+        <h4>Tagapamagitan sa Tao at sa Diyos</h4>
+        <p>Ang pinakapunong pari ay pinili ng Diyos mula sa mga tao upang maglingkod sa Diyos para sa mga tao. Hindi pwedeng mag-self-assign — ang Diyos ang pumipili. Tulad ng pagpili kay Aaron, pinili rin ng Diyos ang Panginoong Hesus bilang ating eternal na pinakapunong pari.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">②</div>
+      <div>
+        <h4>Naghahandog ng Kaloob at Alay para sa Kasalanan</h4>
+        <p>Sa lumang tipan, ang pinakapunong pari ay naghahandog ng hayop taon-taon para sa kapatawaran ng kasalanan ng Israel — tuwing Yom Kippur o Araw ng Pagtutubos. Ngunit dahil siya ay tao rin at nagkakasala, kailangan ding mag-alay para sa kanyang sariling kasalanan bago siya pumunta sa Holy of Holies.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">③</div>
+      <div>
+        <h4>Pumapasok sa Holy of Holies — Ngunit May Panganib</h4>
+        <p>Ang pinakapunong pari ay pumapasok sa Holy of Holies nang isang beses bawat taon. May kadena siya sa paa at bell sa laylayan ng damit — kapag hindi na tumutunog ang bell, ibig sabihin patay na siya sa loob at hihilahin na ng mga tao. <em>Kahit ang pinakapunong pari ay hindi siguradong tatanggapin ng Diyos.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Paghahambing — Human High Priest vs. Panginoong Hesus</div>
+  <div class="cmp-table">
+    <div class="cmp-row header">
+      <div class="cmp-cell">Human High Priest</div>
+      <div class="cmp-cell">✦ Panginoong Hesus</div>
+    </div>
+    <div class="cmp-row">
+      <div class="cmp-cell">May kasalanan, imperpekto</div>
+      <div class="cmp-cell">Walang kasalanan, perpekto</div>
+    </div>
+    <div class="cmp-row">
+      <div class="cmp-cell">Nag-aalay ng hayop para sa sariling kasalanan</div>
+      <div class="cmp-cell">Nag-aalay ng sariling buhay — once and for all</div>
+    </div>
+    <div class="cmp-row">
+      <div class="cmp-cell">Pansamantalang ministeryo, namamatay din</div>
+      <div class="cmp-cell">Eternal na ministeryo, buhay magpakailanman</div>
+    </div>
+    <div class="cmp-row">
+      <div class="cmp-cell">Pumapasok sa gawang-kamay na santuwaryo</div>
+      <div class="cmp-cell">Pumasok sa makalangit na santuwaryo</div>
+    </div>
+    <div class="cmp-row">
+      <div class="cmp-cell">Paulit-ulit na alay taon-taon</div>
+      <div class="cmp-cell">Isang alay magpakailanman</div>
+    </div>
+    <div class="cmp-row">
+      <div class="cmp-cell">Tinatakpan lamang ang kasalanan</div>
+      <div class="cmp-cell">Ganap na inaalis ang kasalanan — puting tulad ng niyebe</div>
+    </div>
+    <div class="cmp-row">
+      <div class="cmp-cell">Limitadong access sa Diyos — hindi sigurado</div>
+      <div class="cmp-cell">Nagbibigay ng direktang access sa Diyos sa lahat ng naniniwala</div>
+    </div>
+    <div class="cmp-row">
+      <div class="cmp-cell">Naglilingkod sa ilalim ng lumang tipan</div>
+      <div class="cmp-cell">Nagtatag ng bagong tipan — mas mabuti at walang hanggan</div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr blue">Ang Kahulugan ng "Pumasok na sa Kalangitan"</div>
+    <div class="illus-body">
+      <p>Sa lumang tipan, ang pinakapunong pari ay pumapasok sa Holy of Holies isang beses bawat taon upang maghandog ng alay para sa kasalanan ng bansa. Pagkatapos, lalabas siya at ang pamamaraan ay magsisimula ulit sa susunod na taon.</p>
+      <p>Ngunit ang Panginoong Hesus ay <strong>pumasok sa makalangit na santuwaryo isang beses — at doon Siya nanatili magpakailanman</strong> sa kanan ng Diyos Ama. Ibig sabihin: <em>permanente na ang ating tagapamagitan.</em> Hindi na kailangan ng paulit-ulit na alay. Hindi na kailangan ng taga-silang na maaaring mamatay. Ang ating Pinakapunong Pari ay buhay at naroroon — ngayon, dito, para sa atin.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Hebreo 7:24–25</div>
+    <p>"Ngunit sapagkat si Hesus ay nabubuhay magpakailanman, ang kanyang pagkapari ay hindi mapapasa-iba pa. Kaya naman, lubos niyang naliligtas ang lahat ng lumalapit sa Diyos sa pamamagitan niya, sapagkat siya ay laging nabubuhay upang mamagitan para sa kanila."</p>
+    <cite>— Hebreo 7:24–25 (ASD)</cite>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang Panginoong Hesus, bilang ating eternal na Pinakapunong Pari, ay permanenteng nasa kalangitan sa kanan ng Diyos Ama — laging naroroon upang mamagitan para sa atin. Hindi pansamantala. Hindi paulit-ulit. Isang beses at magpakailanman. Ito ang pundasyon ng ating katiwasayan sa paglalapit sa Diyos.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 2 — NAUUNAWAAN NG PANGINOON ANG ATING KAHINAAN ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Nauunawaan ng Panginoong Hesus ang Ating Kahinaan at Pinagdaraanan</h2>
+      <div class="sub">Hebreo 4:15 · Hebreo 2:17–18 · Hebreo 5:8–9</div>
+    </div>
+  </div>
+
+  <div class="vbox orange">
+    <p>"Sapagkat ang ating pinakapunong pari ay nakakaunawa sa ating mga kahinaan, dahil tulad natin, tinukso siya sa lahat ng paraan, subalit kailan man ay hindi siya nagkasala."</p>
+    <cite>— Hebreo 4:15 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Matapos sabihin na ang Panginoong Hesus ay nasa kalangitan na, maaaring magkaroon ng pag-aalinlangan: <em>"Baka hindi na ako ma-reach. Baka malayo na Siya at hindi niya naiintindihan ang aking mga pinagdaraanan."</em> Tinatanggal ng may-akda ng Hebreo ang maling pag-iisip na ito.</p>
+    <p><strong>Ang Panginoong Hesus ay nakakaunawa sa atin — hindi dahil Siya Diyos lamang, kundi dahil Siya ay naging ganap na tao rin.</strong> Lahat ng pinagtitiyagaan natin, pinagdaanan din Niya. Lahat ng tukso, naranasan din Niya — at nalampasan nang walang kasalanan.</p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Dahilan kung Bakit Nakakaunawa ang Panginoong Hesus</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">①</div>
+      <div>
+        <h4>Naging Ganap na Tao Siya — He Became Fully Human</h4>
+        <p>"Kaya kailangan niyang maging katulad ng kanyang mga kapatid sa lahat ng paraan — upang siya ay maging isang pinakapunong pari, mahabagin at tapat na maglingkod sa Diyos, at mag-aalay ng handog para mapatawad ang mga kasalanan ng tao." (Hebreo 2:17) Nauunawaan ng Panginoon ang ating karanasan bilang tao — kasi pinagdaanan din Niya ito.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">②</div>
+      <div>
+        <h4>Nakaranas Siya ng Tukso at Pagdurusa — He Suffered Fully</h4>
+        <p>"At ngayon matutulungan niya ang mga tinukso sapagkat siya man ay nakaranas ng pagtukso at paghihirap." (Hebreo 2:18) Alam ng Panginoon ang presyur ng tukso — dahil tinukso rin Siya sa lahat ng paraan. Alam Niya ang sakit, pagod, kalungkutan, at kalituhan. Nauunawaan Niya ang ating grief, kapayapaan, at kasayahan — sapagkat nakaranas din Siya ng tunay na emosyon bilang tao.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">③</div>
+      <div>
+        <h4>Siya ang Unang Umibig sa Atin — He First Loved Us</h4>
+        <p>"Tayo ay umiibig sapagkat ang Diyos ang unang umibig sa atin." (1 Juan 4:19) Ang pag-unawa ng Diyos ay hindi lamang kaalaman — ito ay pag-ibig. Ang Kanyang pagmamahal sa atin ay higit pa sa lahat ng ating mga pagkakasala. Kaya siya nakakaunawa — at siya ay laging may habag sa atin.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Ang Pagtitiis ni Hesus — Hebreo 5:8–9</div>
+  <div class="illus">
+    <div class="illus-hdr orange">Sa Halamanan ng Gethsemane</div>
+    <div class="illus-body">
+      <p>"Kahit na siya ay Anak ng Diyos, natutunan niya ang tunay na kahulugan ng pagsunod sa pamamagitan ng pagtitiis." (Hebreo 5:8)</p>
+      <p>Sa Halamanan ng Gethsemane, ang Panginoong Hesus ay <strong>nagpawis ng tulad ng dugo</strong> sa matinding pagdarasal. Nagsabi Siya: <em>"Alisin Mo itong kalis sa akin — ngunit huwag ang aking kalooban, kundi ang Iyo."</em></p>
+      <p>Dito natin nakikita: <strong>walang tunay na pagsunod kung walang pagtitiis.</strong> Ang Panginoong Hesus ay nagsunod sa Ama kahit sa kabila ng matinding sakit at pagtutol ng kanyang katawan. Ito ang kahulugan ng pagsunod na may pagtitiis — at ito ang halimbawa na iniwan Niya sa ating lahat.</p>
+      <p><em>At nang siya ay maging ganap — "It is finished" — naging sanhi Siya upang magkamit ng walang hanggang kaligtasan ang lahat ng masusunurin sa Kanya.</em></p>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Ano ang Kahulugan Nito Para sa Atin?</div>
+  <div class="receive-box">
+    <div class="receive-lbl">Nauunawaan ng Panginoon ang ating...</div>
+    <div class="receive-items">
+      <div class="recv-row">
+        <div class="recv-icon">💔</div>
+        <div>
+          <div class="recv-title">Sakit at Pagdurusa</div>
+          <div class="recv-desc">Nakaramdam Siya ng tunay na pisikal na sakit, pagod, at kalungkutan. Nauunawaan Niya ang ating pain and affliction.</div>
+        </div>
+      </div>
+      <div class="recv-row">
+        <div class="recv-icon">🎭</div>
+        <div>
+          <div class="recv-title">Mga Emosyon</div>
+          <div class="recv-desc">Nakaranas Siya ng tunay na emosyon — grief, kasayahan, galit sa katarungan, pagmamahal. Nauunawaan Niya ang bawat nadarama natin.</div>
+        </div>
+      </div>
+      <div class="recv-row">
+        <div class="recv-icon">😓</div>
+        <div>
+          <div class="recv-title">Pisikal na Kahinaan at Pagod</div>
+          <div class="recv-desc">Nakaranas Siya ng pagod, gutom, pagkauhaw. Nauunawaan Niya ang ating mga limitasyon bilang tao — kabilang ang burn-out.</div>
+        </div>
+      </div>
+      <div class="recv-row">
+        <div class="recv-icon">⚔️</div>
+        <div>
+          <div class="recv-title">Presyur ng Tukso</div>
+          <div class="recv-desc">Tinukso Siya sa lahat ng paraan — ngunit hindi nagkasala. Kaya alam Niya ang presyur ng tukso at makakatulong Siya sa atin na mapagtagumpayan ito. (1 Corinto 10:13)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Hebreo 2:17–18</div>
+    <p>"Kaya kailangan niyang maging katulad ng kanyang mga kapatid sa lahat ng paraan... At ngayon matutulungan niya ang mga tinukso sapagkat siya man ay nakaranas ng pagtukso at paghihirap."</p>
+    <cite>— Hebreo 2:17–18 (ASD)</cite>
+  </div>
+
+  <div class="hl orange">
+    <p><strong>Kapag nag-alinlangan kang lumapit sa Diyos</strong> dahil sa hiya, takot, o pagkakasala — alalahanin ito: <em>ang nakikita ng Diyos kapag lumalapit ka ay hindi ang iyong kasalanan, kundi ang balabal ng katuwiran na ibinigay sa iyo ng Panginoong Hesus sa Krus ng Kalbaryo.</em></p>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang Panginoong Hesus ay hindi isang malalayong Diyos na hindi naiintindihan ang ating pinagdaraanan. Siya ay naging ganap na tao, nakaranas ng tukso, sakit, at pagdurusa — at dahil dito, lubos Niyang nauunawaan ang bawat kahinaan natin. Kaya huwag mag-alinlangan — lumapit tayo ng may pagtitiwala.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 3 — LUMAPIT SA TRONO NG BIYAYA ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--green);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Lumapit sa Trono ng Biyaya nang Walang Pag-aalinlangan</h2>
+      <div class="sub">Hebreo 4:16 · Hebreo 5:7–10 · 2 Corinto 12:9</div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <p>"Kaya't huwag tayong mag-alinlangan na lumapit sa trono ng mahabaging Diyos, upang makatanggap tayo ng awa at makasumpong ng biyaya na tutulong sa atin sa oras ng ating pangangailangan."</p>
+    <cite>— Hebreo 4:16 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang bunga ng lahat ng natutunan natin — ang dakilang Pinakapunong Pari sa kalangitan at ang Kanyang pagkakaunawa sa ating kahinaan — ay isang malinaw na imbitasyon: <strong>Lumapit. Huwag mag-alinlangan. Huwag magdalawang-isip.</strong></p>
+    <p>Hindi ito paunang kondisyon — kundi pag-aanyaya. Hindi tayo lumapit sa trono ng Diyos dahil perpekto tayo. Lumapit tayo <em>dahil sa lahat ng ginawa ng Panginoong Hesus.</em> Ang ating karapatang lumapit ay hindi nakasalalay sa ating karapat-dapat — kundi sa Kanyang biyaya.</p>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr blue">Hamon mula sa Nagtaturo — Are You Taking Advantage?</div>
+    <div class="illus-body">
+      <p><em>"Are you taking advantage of our access to God? Tayo ba ay ginagawa nating advantage ito?"</em></p>
+      <p>Hindi na kailangan ng padrino. Direkta na ang ating access sa Diyos — sa pamamagitan ng Panginoong Hesus. <strong>Are you approaching Him daily?</strong></p>
+      <p>Hindi lang kapag prayer meeting. Hindi lang kapag Bible study. Ang access sa Diyos ay <em>ongoing, not occasional.</em> Ang pagbabasa ng Salita at panalangin ay dapat maging ugali ng bawat mananampalataya — araw-araw, hindi lang tuwing may pulong.</p>
+      <p><em>"Do not remain distant when God has invited you near. If God has opened the way — draw near to Him."</em></p>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Ano ang Matatanggap sa Trono ng Biyaya?</div>
+  <div class="receive-box">
+    <div class="receive-lbl">Sa Trono ng Diyos, makikita natin ang...</div>
+    <div class="receive-items">
+      <div class="recv-row">
+        <div class="recv-icon">🕊️</div>
+        <div>
+          <div class="recv-title">Awa — Mercy for our Failures</div>
+          <div class="recv-desc">Kapag nahulog tayo sa kasalanan at nagkabigo, ang Diyos ay nagbibigay ng awa — hindi pagkondena. Siya ay mahabagin at tapat na magpatawad.</div>
+        </div>
+      </div>
+      <div class="recv-row">
+        <div class="recv-icon">✝️</div>
+        <div>
+          <div class="recv-title">Kapatawaran — Forgiveness for our Sins</div>
+          <div class="recv-desc">Ang kasalanan natin ay ganap na inaalis — hindi lang tinatakpan. Puting tulad ng niyebe, sabi ng Propetang Isaias. Ganap na kapatawaran sa pamamagitan ng dugo ng Panginoong Hesus.</div>
+        </div>
+      </div>
+      <div class="recv-row">
+        <div class="recv-icon">💪</div>
+        <div>
+          <div class="recv-title">Lakas — Strength for our Weaknesses</div>
+          <div class="recv-desc">"At sinabi niya sa akin, ang aking biyaya ay sapat para sa iyo, sapagkat ang aking kapangyarihan ay naging ganap sa kahinaan." (2 Corinto 12:9) Kapag wala na tayong lakas, Siya ang nagbibigay ng lakas.</div>
+        </div>
+      </div>
+      <div class="recv-row">
+        <div class="recv-icon">💡</div>
+        <div>
+          <div class="recv-title">Karunungan — Wisdom for our Decisions</div>
+          <div class="recv-desc">"Kung nagkukulang ang sinuman sa inyo ng karunungan, humingi siya sa Diyos at ibibigay niya ito sa kanya." (Santiago 1:5) Sa bawat desisyong kailangang gawin, ang Diyos ay may karunungang ibabahagi sa atin.</div>
+        </div>
+      </div>
+      <div class="recv-row">
+        <div class="recv-icon">🫂</div>
+        <div>
+          <div class="recv-title">Kaginhawahan — Comfort for our Pain</div>
+          <div class="recv-desc">Kapag may sakit ang ating puso, ang Diyos ay nagbibigay ng kaginhawahan — hindi pagkondena. Hindi Siya tulad ng mga taong nagbabalik sa atin ng sisi. Siya ay Ama na nagmamahal.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">2 Corinto 12:9</div>
+    <p>"At sinabi niya sa akin, ang aking biyaya ay sapat para sa iyo, sapagkat ang aking kapangyarihan ay naging ganap sa kahinaan. Kaya nga't mas nais kong ipagmalaki ang aking mga kahinaan, upang ang kapangyarihan ni Kristo ay manahan sa akin."</p>
+    <cite>— 2 Corinto 12:9 (ASD)</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr green">Halimbawa — Si Pablo at ang "Tinik sa Katawan"</div>
+    <div class="illus-body">
+      <p>Si Pablo ay tatlong beses na nagmakaawa sa Panginoon na alisin ang "tinik sa kanyang katawan." Ngunit ang sagot ng Diyos ay hindi ang alisin ang tinik — kundi ang magbigay ng biyaya upang matiis ito.</p>
+      <p>Minsan, ang ibinibigay ng Diyos sa ating panalangin ay hindi ang pagkuha ng problema, kundi ang lakas at biyaya upang tiisin at lampasan ito.</p>
+      <p><strong>Huwag mag-auto-believe</strong> — huwag tayo mag-isip na kung hindi agad inalis ng Diyos ang ating problema, hindi Siya sumasagot. Minsan, ang sagot Niya ay: <em>"Sapat ang aking biyaya para sa iyo."</em></p>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <p>"Never allow guilt, fear, or shame to keep you away from God. Run to Him — and not from Him."</p>
+    <cite>— Mula sa Sermon · July 10, 2026</cite>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Pangwakas na hamon:</strong> Tayo ay tinubos ng Diyos — hindi lamang upang maiwasan ang kapahamakan, kundi upang patuloy na makalapit sa Kanyang trono nang may pagtitiwala. <em>Draw near to Him. Access to God is ongoing, not occasional.</em></p>
+  </div>
+
+  <div class="truth green">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang lumapit sa trono ng biyaya ay isang imbitasyon — hindi isang pribilehiyo ng iilang karapat-dapat lamang. Lahat tayo ay may direktang access sa Diyos sa pamamagitan ng Panginoong Hesus. Huwag hayaang ang hiya, takot, o pagkakasala ang pumigil sa atin. Lumapit tayo — at lagi kang tatanggapin ng may awa at biyaya.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral — July 10, 2026</div>
+      <h3>Lumapit sa Panginoon Hesus nang may Pagtitiwala — Apat na Dahilan</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — May Dakilang Pinakapunong Pari Tayo na nasa Kalangitan:</strong> Ang Panginoong Hesus, bilang ating eternal na Pinakapunong Pari, ay nasa kalangitan na — permanente, hindi pansamantala. Hindi na tulad ng mga pinakapunong pari ng lumang tipan na namamatay at nangangailangan ng paulit-ulit na alay. Si Hesus ay laging buhay, laging nasa kanan ng Diyos Ama, at laging handa para mamagitan para sa atin.</p>
+      <p><strong>Ikalawa — Nauunawaan Niya ang Ating Kahinaan:</strong> Ang Panginoong Hesus ay naging ganap na tao — naranasan ang tukso, sakit, pagod, kalungkutan, at pagdurusa. Alam Niya ang presyur ng tukso, ang bigat ng pagtitiis, at ang kirot ng pagkabigo. Kaya huwag tayong mag-alinlangan — nauunawaan Niya tayo nang lubusan.</p>
+      <p><strong>Pangatlo — Direkta Tayong Makatatanggap ng Awa at Biyaya:</strong> Sa trono ng biyaya, makikita natin ang awa para sa ating mga pagkabigo, kapatawaran ng kasalanan, lakas sa kahinaan, karunungan sa mga desisyon, at kaginhawahan sa sakit. Hindi tayo haharapin ng kondena — kundi ng pag-ibig at habag ng Diyos.</p>
+      <p><strong>Pang-apat — Nagkaroon na Tayo ng Katagumpayan:</strong> Dahil ang Panginoong Hesus ay nakompleto ang kanyang layunin — "It is finished" — nagkaroon na tayo ng katagumpayan. Hindi tayo lumapit sa Diyos nang walang pag-asa. Lumapit tayo bilang mga may tagumpay — dahil sa ginawa ng ating Panginoon.</p>
+    </div>
+  </div>
+
+  <div class="sum-cards" style="margin-top:14px;">
+    <div class="sum-card">
+      <div class="sd p">1</div>
+      <div>
+        <div class="s-title">Dakilang Pari sa Kalangitan</div>
+        <div class="s-desc">Permanenteng tagapamagitan — si Hesus, buhay at nasa kanan ng Diyos Ama magpakailanman.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">2</div>
+      <div>
+        <div class="s-title">Nauunawaan ang Ating Kahinaan</div>
+        <div class="s-desc">Naging ganap na tao, tinukso sa lahat ng paraan, nakaranas ng pagdurusa — kaya lubos Niyang naiintindihan tayo.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd g">3</div>
+      <div>
+        <div class="s-title">Direktang Access sa Trono ng Biyaya</div>
+        <div class="s-desc">Awa, kapatawaran, lakas, karunungan, kaginhawahan — lahat ito ay nakalaan sa atin sa bawat oras ng pangangailangan.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd b">4</div>
+      <div>
+        <div class="s-title">May Katagumpayan na Tayo</div>
+        <div class="s-desc">Ang tagumpay ng Panginoong Hesus — "It is finished" — ay ang pundasyon ng ating katagumpayan at lakas sa buhay Kristiyano.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Tayo ay tinubos niya upang patuloy na makalapit sa trono ng Diyos nang may pagtitiwala — dala ang ating mga kahinaan at pinagdaraanan — nang walang pag-aalinlangan, at makakaasa tayo na ito ay Kanyang maunawaan bilang ating tagapamagitan sa ating Panginoong Diyos."</p>
+    <cite>— Mula sa Sermon · July 10, 2026</cite>
+  </div>
+
+  <div class="hl blue">
+    <p><strong>Closing challenge:</strong> <em>Are you taking advantage of your access to God?</em> Ginagawa mo ba itong advantage — ang direktang access na binigay ng Panginoong Hesus sa pamamagitan ng Kanyang buhay, kamatayan, at muling pagkabuhay? Huwag manatiling malayo kapag inanyayahan ka na ng Diyos na lumapit. <strong>Draw near to Him — daily, not occasionally.</strong></p>
+  </div>
+
+  <div class="vbox blue">
+    <p>"Kaya't huwag tayong mag-alinlangan na lumapit sa trono ng mahabaging Diyos, upang makatanggap tayo ng awa at makasumpong ng biyaya na tutulong sa atin sa oras ng ating pangangailangan."</p>
+    <cite>— Hebreo 4:16 · Pangunahing Talata</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, salamat sa pagpapaalaala sa amin ngayong araw na mayroon kaming direktang access sa Iyo — sa pamamagitan ng aming Panginoong Hesus, ang aming dakilang Pinakapunong Pari. Salamat na hindi mo kami kailangan ng padrino ng tao. Salamat na kahit magkasala kami, kahit nahihina kami, kahit nagdadala kami ng kabigatan — maaari pa rin kaming lumapit sa Iyong trono ng biyaya nang walang pag-aalinlangan. Tulungan Mo kaming gawin itong ugali — na lumalapit sa Iyo araw-araw, hindi lang kapag may prayer meeting. Upang sa bawat oras ng aming pangangailangan — kami ay tumakbo sa Iyo, at hindi palayo sa Iyo. Sapagkat Ikaw ang aming kanlungan, aming lakas, at aming tagapamagitan magpakailanman. Sa pangalan ni Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Maging masigasig sa paglapit sa Diyos, dala ang pagtitiwala na palaging nakalaan ang Kanyang habag at biyaya sa bawat isa na may pangangailangan. Huwag hayaang ang hiya, takot, o kasalanan ang pumigil sa iyo — run to Him, and not from Him."</p>
+    <cite>— Buod ng Pag-aaral · July 10, 2026</cite>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
