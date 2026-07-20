@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Magtulungan — Roma 14:1–12</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  .topbar{background:var(--green);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:18px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.68;margin-top:2px;}
+
+  .audio-bar{position:fixed;bottom:72px;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:99;padding:10px 14px;box-shadow:0 -2px 10px rgba(0,0,0,0.06);}
+  .audio-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .audio-lbl::before{content:"🎧";}
+  .audio-bar audio{width:100%;height:36px;border-radius:8px;outline:none;}
+
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--green);}
+
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* HERO */
+  .hero{background:linear-gradient(150deg,var(--green-dark) 0%,var(--green) 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:26px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.7;margin-bottom:3px;}
+  .hero .hdate{font-size:11px;opacity:0.5;}
+
+  /* VERSE BOX */
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .vbox.blue{background:var(--blue-light);border-left-color:var(--blue);}
+  .vbox.blue p{color:var(--blue);}
+  .vbox.blue cite{color:var(--blue);}
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+  .vbox.red{background:var(--red-light);border-left-color:var(--red);}
+  .vbox.red p{color:var(--red);}
+  .vbox.red cite{color:var(--red);}
+
+  /* CARD */
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* SECTION HEADER */
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  /* HIGHLIGHT */
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.blue p{color:var(--blue);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.red p{color:var(--red);}
+
+  /* ILLUS */
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;}
+  .illus-hdr.orange{background:var(--orange-light);color:var(--orange);}
+  .illus-hdr.orange::before{background:var(--orange);}
+  .illus-hdr.blue{background:var(--blue-light);color:var(--blue);}
+  .illus-hdr.blue::before{background:var(--blue);}
+  .illus-hdr.green{background:var(--green-light);color:var(--green);}
+  .illus-hdr.green::before{background:var(--green);}
+  .illus-hdr.purple{background:var(--purple-light);color:var(--purple);}
+  .illus-hdr.purple::before{background:var(--purple);}
+  .illus-hdr.red{background:var(--red-light);color:var(--red);}
+  .illus-hdr.red::before{background:var(--red);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  /* SUP VERSE */
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  /* TRUTH BOX */
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.blue{background:var(--blue);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.dark{background:var(--green-dark);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  /* STEPS */
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* SUM CARDS */
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .sd.b{background:var(--blue);}
+  .sd.r{background:var(--red);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* RECAP */
+  .recap-box{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:13px 14px;}
+  .recap-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+  .recap-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:13px;color:var(--blue);}
+  .recap-item:last-child{margin-bottom:0;}
+  .ri-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+
+  /* TANONG/CHALLENGE BOX */
+  .tanong{background:var(--green-dark);border-radius:12px;margin:14px 14px 0;padding:16px;text-align:center;}
+  .tanong-lbl{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:9px;}
+  .tanong-q{font-family:'Lora',serif;font-size:18px;font-weight:700;color:white;line-height:1.3;margin-bottom:6px;}
+  .tanong-sub{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.5;}
+
+  /* MAJOR POINTS BOX — dark teal */
+  .points-box{background:var(--green-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .points-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px;text-align:center;}
+  .points-items{display:flex;flex-direction:column;gap:8px;}
+  .pt-row{display:flex;align-items:flex-start;gap:12px;background:rgba(255,255,255,0.1);border-radius:9px;padding:12px 13px;}
+  .pt-num{font-size:20px;font-weight:700;color:#A8F0D8;width:24px;flex-shrink:0;text-align:center;line-height:1.2;}
+  .pt-title{font-size:13px;font-weight:700;color:white;margin-bottom:3px;}
+  .pt-desc{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;}
+
+  /* COMPARE side by side */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 14px 0;}
+  .cmp-card{border-radius:11px;padding:13px;}
+  .cmp-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;}
+  .cmp-item{font-size:12px;line-height:1.65;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.07);}
+  .cmp-item:last-child{border-bottom:none;padding-bottom:0;}
+  .cmp-card.bad{background:var(--red-light);}
+  .cmp-card.bad .cmp-title{color:var(--red);}
+  .cmp-card.bad .cmp-item{color:var(--red);}
+  .cmp-card.good{background:var(--green-light);}
+  .cmp-card.good .cmp-title{color:var(--green-dark);}
+  .cmp-card.good .cmp-item{color:var(--green-dark);}
+
+  /* PRAYER */
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  /* CLOSING */
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  /* CONCL */
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · July 17, 2026</div>
+  <h1>Magtulungan</h1>
+  <div class="ref">Roma 14:1–12 · Roma 15:1–6 · Jesus First Christian Ministries · JF5</div>
+</div>
+
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--green)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--blue)">1</div>
+    <div class="nl">Huwag Hatulan</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--orange)">2</div>
+    <div class="nl">Huwag Maging Katisuran</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--purple)">3</div>
+    <div class="nl">Tulungan ang Mahina</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--green-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<div class="audio-bar">
+  <div class="audio-lbl">Pakinggan ang Sermon</div>
+  <audio controls>
+    <source src="https://archive.org/download/jf-5-july-20/JF5%20-%20July%2020.m4a" type="audio/mpeg">
+    Hindi sinusuportahan ang audio sa iyong browser.
+  </audio>
+</div>
+
+<!-- ===== INTRO / SIMULA ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material · July 17, 2026</div>
+    <h2>Magtulungan</h2>
+    <div class="href">Roma 14:1–12 · Roma 15:1–6</div>
+    <div class="hdate">Jesus First Christian Ministries · JF5</div>
+  </div>
+
+  <div class="tanong">
+    <div class="tanong-lbl">Pangunahing Tanong</div>
+    <div class="tanong-q">"Paano mo ako matutulungan sa ating paglago sa pananampalataya?"</div>
+    <div class="tanong-sub">Itanong sa katabi mo — at sabay nating sagutin sa pag-aaral na ito.</div>
+  </div>
+
+  <div class="vbox">
+    <p>"Tanggapin ninyo ang mahina sa kanilang paniniwala at huwag makipagtalo sa kanya tungkol sa kanyang kuro-kuro... Sino pa upang humatol sa lingkod ng iba? Ang Panginoon lamang niya ang makahahatol kung siya ay karapatapat o hindi... Kaya't bawat isa sa atin ay magbibigay-sulit sa Diyos."</p>
+    <cite>— Roma 14:1,4,12 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Sa Roma 14, tinutugunan ni Apostol Pablo ang isang tunay na salungatan sa loob ng iglesya sa Roma — ang tanong kung ano ang maaaring kainin at kung paano ipagdiriwang ang mga araw ng pagsamba. Halo-halo ang mga mananampalataya: may mga Hudyo na mabigat sa kosher na batas, at may mga Hentil na walang ganitong hadlang.</p>
+    <p>Ang aral, gayunpaman, ay mas malawak kaysa pagkain. <strong>Ito ay tungkol sa kung paano natin tinatrato ang mga kapatid na may iba't ibang antas ng pananampalataya at kaunawaan sa Salita ng Diyos</strong> — at kung paano tayo magtutulong sa isa't isa upang sama-sama lumago.</p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Paraan ng Pagtutulungan sa Pananampalataya</div>
+  <div class="points-box">
+    <div class="points-lbl">Paano Natin Matutulungan ang Isa't Isa?</div>
+    <div class="points-items">
+      <div class="pt-row">
+        <div class="pt-num">1</div>
+        <div>
+          <div class="pt-title">Huwag Hatulan ang Pananampalataya ng Iba</div>
+          <div class="pt-desc">Kilalanin at tanggapin ang iba't ibang antas ng pag-unawa ng bawat isa sa Salita ng Diyos — at mabuhay para sa Diyos, hindi para hatulan ang kapwa. (Roma 14:1–9)</div>
+        </div>
+      </div>
+      <div class="pt-row">
+        <div class="pt-num">2</div>
+        <div>
+          <div class="pt-title">Huwag Maging Sanhi ng Pagkakasala ng Iba</div>
+          <div class="pt-desc">Iwasan ang pagiging katisuran. Pagsikapan ang mga bagay na nagdudulot ng kapayapaan at nagpapatatag ng pananampalataya ng ating mga kapatid. (Roma 14:13–23)</div>
+        </div>
+      </div>
+      <div class="pt-row">
+        <div class="pt-num">3</div>
+        <div>
+          <div class="pt-title">Tulungan ng Malalakas ang Mahihina sa Pananampalataya</div>
+          <div class="pt-desc">Ang mga matatag sa pananampalataya ay may responsibilidad na itaguyod ang kapakanaan ng mahihina — hindi para sa pansariling kasiyahan lamang. (Roma 15:1–6)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Konteksto — Bakit Nagkaroon ng Hidwaan?</div>
+  <div class="illus">
+    <div class="illus-hdr orange">Ang Background ng Roma 14 — Kosher at Pista</div>
+    <div class="illus-body">
+      <p>Sa Roma, halo-halo ang iglesya — Hudyo at Hentil na mananampalataya. Para sa mga Hudyong Kristiyano, mabigat pa rin ang mga alituntunin ng kosher: hindi kumain ng karneng inialay sa mga diyos-diyosan, na maaaring nahalo na sa palengke kasama ng ibang karne.</p>
+      <p>Ang solusyon ng ilang Hudyo: <em>gulay na lang ang kakainin</em> — para maiwasan ang anumang posibilidad ng paglabag. Para sa mga Hentil naman, lahat ay malinis at maaaring kainin (Marcos 7:18–20). Nagkaroon ng pagkakahati-hati at paghuhusgahan sa loob ng iglesya.</p>
+      <p><strong>Ang sagot ni Pablo: ang pagkain ay hindi ang sentro ng ating kaligtasan.</strong> Ang sentro ay ang ating relasyon sa Panginoong Hesus — at ang ating pananagutang itaguyod ang isa't isa sa pananampalataya.</p>
+    </div>
+  </div>
+
+  <div class="recap-box">
+    <div class="recap-lbl">Koneksyon sa Nakaraang Pag-aaral</div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Lumapit sa Panginoon Hesus nang may Pagtitiwala (Hebreo 4)</strong> — Ang paglalapit sa Diyos ay personal at direkta — at ito rin ang pundasyon ng ating pagtutulungan bilang iglesya.</div></div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Pagtagumpayan ang Tukso</strong> — Isa sa mga tukso sa loob ng iglesya ay ang paghuhusgahan sa isa't isa. Ang pag-aaral na ito ay nagbibigay ng tamang tugon.</div></div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Nasaan Ka?</strong> — Ang bawat isa ay may sariling kalagayan sa harapan ng Diyos. Ang ating responsibilidad ay tulungan ang isa't isa na mas mapalapit sa Kanya — hindi humusga.</div></div>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 1 — HUWAG HATULAN ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--blue);">
+    <div class="snum">1</div>
+    <div>
+      <h2>Huwag Hatulan ang Pananampalataya ng Iba</h2>
+      <div class="sub">Roma 14:1–9 · Roma 14:10–12</div>
+    </div>
+  </div>
+
+  <div class="vbox blue">
+    <p>"Tanggapin ninyo ang mahina sa kanilang paniniwala at huwag makipagtalo sa kanya tungkol sa kanyang kuro-kuro... Huwag hamakin ng taong kumakain ng anuman ang taong kumakain ng gulay lamang, at huwag namang hatulan... sapagkat siya ay tinatanggap din ng Diyos."</p>
+    <cite>— Roma 14:1,3 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang unang paraan ng pagtutulungan ay ang <strong>pagtanggap at pagkilala sa iba't ibang antas ng pananampalataya.</strong> May kapatid na mabilis ang paglago — may iba namang dahan-dahan ang paglago. Hindi tayo dapat humusga kung sino ang mas mabilis o mas mabagal.</p>
+    <p>Ang Diyos ang may hawak sa kanyang paglago. <em>May sariling dealing ang Panginoon sa bawat isa.</em> Huwag nating abalahin o pulisin ang dealing ng Panginoon sa ating kapatid — ang ating trabaho ay tanggapin sila at mabuhay ng may pagmamahal.</p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Paraan ng Pagtutulungan sa ilalim ng Punto 1</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--blue);">①</div>
+      <div>
+        <h4>Kilalanin at Tanggapin ang Iba't Ibang Antas ng Pag-unawa</h4>
+        <p>"Tanggapin ninyo ang mahina sa kanilang paniniwala at huwag makipagtalo sa kanya tungkol sa kanyang kuro-kuro." (Roma 14:1) Walang pilitan sa paglago ng pananampalataya — ito ay kusang bubukal sa isang mananampalataya, hindi napipilitan. Ang ating trabaho: tanggapin ang bawat kapatid kung nasaan sila ngayon.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--blue);">②</div>
+      <div>
+        <h4>Mabuhay para sa Diyos — Huwag para Hatulan ang Iba</h4>
+        <p>"Walang sinuman sa atin ang nabubuhay o namamatay para sa sarili lamang. Kung tayo ay nabubuhay, para sa Panginoon tayo nabubuhay." (Roma 14:7–8) Naipabilang tayo sa iglesya na may layunin — hindi para mag-display lamang, kundi para sabay-sabay lumago at maglingkod. Ang tanong hindi "tama ba ang aking kapatid?" kundi "ako ba ay kalugod-lugod sa Panginoon?"</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--blue);">③</div>
+      <div>
+        <h4>Alalahanin na Lahat Tayo ay Haharap sa Hukuman ng Diyos</h4>
+        <p>"Kayong lahat ay haharap sa harapan ng hukuman ng Diyos... kaya't bawat isa sa atin ay magbibigay-sulit sa Diyos." (Roma 14:10,12) Walang exemption — lahat ay haharap sa Diyos. Bakit pa natin hahatulan ang ating kapatid kung tayo rin ay magbibigay-sulit? Ang maghahatol sa atin ay ang Diyos — at ang Kanyang Salita.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr blue">Halimbawa — Pagpupuri at Pagsamba</div>
+    <div class="illus-body">
+      <p>Sa panahon ng pagpupuri at pagsamba, may mga kapatid na palakpak ng palakpak at buong puso ang pakikilahok. May iba naman na nakahalukip-kip lamang — tahimik, naka-focus sa panalangin.</p>
+      <p><strong>Sino tayo para hatulan kung sino ang mas "blessed" o kung sino ang mas tapat na sumasamba?</strong> Ang anyo ng pagsamba ay hindi siyang sukatan ng katapatan ng puso. Ang nakikita ng Diyos ay ang puso — at Siya lamang ang may karapatang hatulan.</p>
+      <p><em>Ang pinakamagandang gawin: tanungin ang ating sarili — "Ang aking ginagawa ba ay kalugod-lugod sa Panginoon? Siya lamang ba ang napapapurihan sa aking ginagawa?"</em></p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="cmp-card bad">
+      <div class="cmp-title">❌ Mapanghusga</div>
+      <div class="cmp-item">Hinuhusgahan ang antas ng paglago ng iba</div>
+      <div class="cmp-item">Nagtatalo sa mga bagay na minor</div>
+      <div class="cmp-item">Tinitingnan ang kapatid na may hina</div>
+      <div class="cmp-item">Nakatuon sa pagkakamali ng iba</div>
+    </div>
+    <div class="cmp-card good">
+      <div class="cmp-title">✓ Mapagmahal</div>
+      <div class="cmp-item">Tinatanggap ang bawat kapatid kung nasaan sila</div>
+      <div class="cmp-item">Nagtutuon sa mga bagay na nagtataguyod ng pagkakaisa</div>
+      <div class="cmp-item">Hinihikayat at tinutulungan ang mahihina</div>
+      <div class="cmp-item">Tinitingnan ang sariling kalagayan sa harap ng Diyos</div>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Roma 14:10–12</div>
+    <p>"At ikaw naman, bakit mo hinahamak ang iyong kapatid? Kayong lahat ay haharap sa harapan ng hukuman ng Diyos... kaya't bawat isa sa atin ay magbibigay-sulit sa Diyos."</p>
+    <cite>— Roma 14:10,12 (ASD)</cite>
+  </div>
+
+  <div class="hl blue">
+    <p><strong>Tandaan:</strong> Hindi tayo binigyan ng lisensya para humatol sa sino man. <em>Ang maghahatol sa atin ay ang Diyos — at ang Kanyang Salita.</em> Ang ating konsensya, na siyang nakakaalam ng Salita ng Panginoon, ang siyang maghahatol sa atin — hindi ang ating mga kapatid.</p>
+  </div>
+
+  <div class="truth blue">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang pagtanggap sa kapatid na may kahinaan sa pananampalataya ay hindi kahulugan ng pagsuporta sa kanyang pagkakamali — ito ay pagkilala na ang Diyos ang may hawak sa kanyang paglago. Mabuhay para sa Diyos — hindi para hatulan ang iba.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 2 — HUWAG MAGING KATISURAN ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Huwag Maging Sanhi ng Pagkakasala ng Iba</h2>
+      <div class="sub">Roma 14:13–23 · 1 Corinto 10:23 · Efeso 5:18</div>
+    </div>
+  </div>
+
+  <div class="vbox orange">
+    <p>"Huwag na kayo humatol sa isa't isa. Huwag rin tayo maging dahilan ng pagkatitisuran o pagkakasala ng ating kapatid... Kaya kung dahil sa kinakain mo ay natitisod ang iyong kapatid, ay hindi ayon sa pag-ibig ang ginagawa mo. Huwag mong ipahamak ang taong tinubos ng kamatayan ni Kristo dahil sa iyong kinakain."</p>
+    <cite>— Roma 14:13,15 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Hindi sapat na huwag lang tayo humusga. <strong>Mayroon tayong positibong responsibilidad: huwag tayong maging sanhi ng pagkakasala ng ating kapatid.</strong> Ang "kalayaan" natin sa Panginoong Hesus ay hindi pahintulot para gumawa ng anumang naisin nang walang pag-iisip sa kahihinatnan nito sa ating kapwa.</p>
+    <p>Sabi sa 1 Corinto 10:23 — <em>"Lahat ay pinahintulutan sa akin, ngunit hindi lahat ay nakakatulong. Lahat ay pinahintulutan sa akin, ngunit hindi lahat ay nagtatayo ng iba."</em> Ang tanong hindi lang "maaari ba ito?" — kundi "makakatulong ba ito sa ating kapatid na lumago?"</p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Hakbang para Maiwasang Maging Sanhi ng Pagkakasala ng Iba</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">①</div>
+      <div>
+        <h4>Iwasang Maging Katisuran ng Iba</h4>
+        <p>"Huwag na kayo humatol sa isa't isa. Huwag rin tayo maging dahilan ng pagkatitisuran o pagkakasala ng ating kapatid." (Roma 14:13) Ang ating mga gawi — kahit ang mga "pinahintulutang" gawi — ay maaaring maging hadlang sa paglago ng pananampalataya ng ating kapatid. Lagi nating tanungin: <em>nagbibigay ba ito ng kaluguran sa Panginoon? Nakapagpapapuri ba ito sa Kanya?</em></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">②</div>
+      <div>
+        <h4>Pagsikapang Gawin ang mga Bagay na Nagdudulot ng Kapayapaan</h4>
+        <p>"Kaya't lagi nating pagsikapang gawin ang mga bagay na makakapagdulot ng kapayapaan at pagpapalakas sa isa't isa." (Roma 14:19) Ang sukatan ng ating mga desisyon ay hindi lamang kung tama o mali ito para sa atin — kundi kung nagtataguyod ba ito ng kapayapaan at pagpapalago ng pananampalataya sa ating kapatiran.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">③</div>
+      <div>
+        <h4>Gumawa ng Ayon sa Pinanampalatayahan</h4>
+        <p>"Pinagpala ang taong hindi sinusumbatan ng kanyang budhi kapag ginagawa niya ang mga bagay na pinaniwalaan niyang tama. Ngunit ang sinumang kumakain sa kabila ng kanyang pag-aalinlangan ay nagkakasala." (Roma 14:22–23) Ang gawa laban sa sariling konsensya ay kasalanan — kahit ang bagay mismo ay pinahintulutan ng Diyos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr orange">Halimbawa — Social Drinking at ang Batang Kristiyano</div>
+    <div class="illus-body">
+      <p>May isang mananampalataya na umiinom ng alak sa isang family gathering — "social drinking lamang," sabi niya. Hindi naman masamang intensyon. Ngunit nagkataon: may batang Kristiyano ang dumating at nakita ang kanyang tagagabay sa iglesya na may hawak na alak.</p>
+      <p>Ang iniisip ng bata: <em>"Pwede palang uminom — kahit Kristiyano."</em> At sa gayon, ang pananampalataya ng bata ay natisod — hindi dahil masamang tao ang umiinom, kundi dahil <strong>hindi naisip ang epekto ng kanyang gawi sa iba.</strong></p>
+      <p>Sabi sa Efeso 5:18 — "Huwag kayong maglalasing sapagkat mauwi iyan sa magulong pamumuhay. Sa halip, mapuspos kayo ng Banal na Espiritu." Ang kalayaan natin ay may kaakibat na pananagutan sa ating mga kapatid.</p>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr red">Paalala — Ang Konsensya at ang Dinuguan</div>
+    <div class="illus-body">
+      <p>Itinuro ng Salita (Leviticus 17:14 · Gawa 15:20) na huwag kumain ng dugo — sapagkat ang buhay ng bawat hayop ay nasa dugo. Ito ay may simbolikong kaugnayan sa dugo ng Panginoong Hesus na siyang bumili sa atin.</p>
+      <p>Kung ang isang kapatid ay nakokonsensya kumain ng dinuguan, at patuloy pa rin siyang kumain laban sa kanyang konsensya — siya ay nagkakasala. <em>Ang gawa laban sa sariling paniniwala ay kasalanan</em> — kahit ang bagay mismo ay maaaring walang kasamaan para sa iba.</p>
+      <p><strong>Huwag nating pilitin ang ating mga sarili, o ang ating mga kapatid, na labag sa kanilang konsensya.</strong> Ang konsensya ay isang regalo ng Diyos na nagbabantay sa ating pamumuhay.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">1 Corinto 10:23</div>
+    <p>"Mayroon namang magsasabi, malaya akong gumawa ng anuman. Ngunit hindi lahat ito ay nakakabuti. Malaya akong gumawa ng anuman, ngunit hindi rin lahat ng ito ay nakakatulong."</p>
+    <cite>— 1 Corinto 10:23 (ASD)</cite>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Roma 14:19</div>
+    <p>"Kaya't lagi nating pagsikapang gawin ang mga bagay na makakapagdulot ng kapayapaan at pagpapalakas sa isa't isa."</p>
+    <cite>— Roma 14:19 (ASD)</cite>
+  </div>
+
+  <div class="hl orange">
+    <p><strong>Tanong sa sarili bago kumilos:</strong> <em>"Ito ba ay nagbibigay kaluguran sa Panginoon? Nakapagpapapuri ba ito sa Kanya? O nilalabag ba nito ang konsensya ng aking kapatid?"</em> Ang kalayaan natin ay may pananagutan — tayo ay binili ng halaga ng dugo ng Panginoong Hesus. (1 Corinto 6:20)</p>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang ating "kalayaan" sa Panginoong Hesus ay hindi nangangahulugang wala tayong pananagutan sa ating kapwa. Ang bawat desisyon natin ay may potensyal na maging tulong o hadlang sa paglago ng ating kapatid. Pagsikapan ang mga bagay na nagdudulot ng kapayapaan at pagpapalakas ng pananampalataya.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 3 — TULUNGAN ANG MAHINA ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--purple);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Tulungan ng Malalakas ang Mahihina sa Pananampalataya</h2>
+      <div class="sub">Roma 15:1–6 · Filipos 2:3–4</div>
+    </div>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Tayong malalakas sa paniniwala ay dapat tumulong sa mahina at huwag ang pansariling kasiyahan lamang ang ating isipin. Sikapin nating lahat na itaguyod ang kapakanaan ng ating kapwa para sa kanyang ikakalakas."</p>
+    <cite>— Roma 15:1–2 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang ikatlong paraan ng pagtutulungan ay may malinaw na tawag sa mga matatag na sa pananampalataya: <strong>may responsibilidad kayo na tulungan ang mahihina.</strong> Hindi sapat na huwag lang sila hatulan o huwag maging katisuran — kailangan aktibong tumulong.</p>
+    <p>Hindi ito opsyonal. <em>Kalakip sa ating pamumuhay bilang mananampalataya ang pananagutang palakasin ang pananampalataya ng mga may kahinaan.</em> At ito rin ay bahagi ng ating pagsusulit sa Panginoon sa pagdating ng takdang panahon.</p>
+  </div>
+
+  <div class="sec-lbl">Dalawang Hakbang ng Pagtutulungan sa Mahihina</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">①</div>
+      <div>
+        <h4>Laging Isipin ang Kapakanaan ng Iba — Magpaubaya</h4>
+        <p>"Tayong malalakas sa paniniwala ay dapat tumulong sa mahina at huwag ang pansariling kasiyahan lamang ang ating isipin." (Roma 15:1) Huwag tayong makasarili. Huwag nating isipin na "ako ay ligtas na — sapat na." Ang ating kaligtasan ay hindi dahilan ng pagmamataas, kundi ng mas malaking responsibilidad sa ating mga kapatid.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">②</div>
+      <div>
+        <h4>Mamuhay ng may Pagkakaisa — Iisa ang Layunin sa Pananampalataya</h4>
+        <p>"Ipagkaloob nawa ng Diyos... na kayo ay mamuhay ng may pagkakaisa ayon kay Kristo Jesus, upang sa gayon, nagkakaisa kayong magpuri sa Diyos at Ama." (Roma 15:5–6) Ang ating common ground ay ang ating kaligtasan sa pamamagitan ng Panginoong Hesus lamang — at ito ang pundasyon ng ating pagkakaisa. Huwag nating palakihin ang mga minor na isyu na walang kinalaman sa ating kaligtasan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr purple">Ang Halimbawa ng Panginoong Hesus — Nagpaubaya</div>
+    <div class="illus-body">
+      <p>"Sapagkat maging si Kristoman ay hindi nang hangad ng sariling kasiyahan. Subalit nagpasakop. Tulad nang nasusulat — Ako ang binagsakan ng mga pag-alipusta na sa inyo ay ipinapatama." (Roma 15:3)</p>
+      <p>Ang Panginoong Hesus ang pinakadakilang halimbawa ng pagtulong sa mahina. Siya — na ganap na walang kasalanan — ay nagbata ng parusa na dapat nating tanggapin. <strong>Siya ang nagpaubaya para sa ating kapakanan.</strong></p>
+      <p><em>Kung ang Panginoong Hesus ay nagpaubaya para sa atin, tayo rin ay dapat magpaubaya para sa ating mga kapatid na may kahinaan sa pananampalataya.</em> Hindi ito kahinaan — ito ay kagandahang-loob na siyang pundasyon ng pagtutulungan sa iglesya.</p>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr green">Praktikal na Halimbawa — Sa Hapag ng Pagkain</div>
+    <div class="illus-body">
+      <p>Sinabi ng nagtaturo: "Sa pagkuha ng pagkain, paunahin ninyo ang mga bagong miyembro, bagong dumadalo. Sa pagbabalot, ipagbalot mo rin sila — hayaan silang maunang magbalot."</p>
+      <p>Ito ay isang simpleng halimbawa ng pagpaubaya at pagtulong sa iba. <strong>Huwag nating palaging una ang ating mga sarili.</strong> Ang pag-iisip ng kapakanaan ng iba — kahit sa maliliit na bagay — ay nagpapakita ng espiritu ng pagtutulungan na tinuturo ng Roma 15.</p>
+      <p><em>Sabi nga ng ating liderato: "Magpalugi ka na." Ang pagpapalugi para sa kapakanaan ng kapatid ay hindi kawalan — ito ay pamumuhunan sa pagkakaisa ng iglesya.</em></p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Roma 15:5–6</div>
+    <p>"Ipagkaloob nawa ng Diyos na siyang nagbibigay sa atin ng katatagan at lakas na loob na kayo ay mamuhay ng may pagkakaisa ayon kay Kristo Jesus, upang sa gayon, nagkakaisa kayong magpuri sa Diyos at Ama ng ating Panginoong Jesu-Cristo."</p>
+    <cite>— Roma 15:5–6 (ASD)</cite>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Filipos 2:3–4</div>
+    <p>"Huwag kayong gumawa ng anuman sa pag-uudyok ng pagmamataas o pagnanais na mapuri. Sa kababaang-loob, ituring ng bawat isa ang iba na higit kaysa sa kanya. Huwag hayaang mag-ukol ang bawat isa sa kanyang sariling kapakanan, kundi sa kapakanan din ng iba."</p>
+    <cite>— Filipos 2:3–4 (ASD)</cite>
+  </div>
+
+  <div class="hl purple">
+    <p><strong>Huwag tayong maging makasarili.</strong> Naborn-again tayo at napabilang sa iglesya na may layunin — hindi para mag-display lamang o pamparami ng attendance. <em>Tayo ay inilagay ng Panginoon sa ganitong kalagayan para maglingkod, magtulungan, at sabay-sabay lumago — hanggang sa araw ng Kanyang pagbabalik.</em></p>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang mga matatag sa pananampalataya ay hindi lamang para sa kanilang sarili — sila ay may responsibilidad na aktibong tumulong sa mahihina. Ang pagpaubaya, ang pag-iisip ng kapakanaan ng iba, at ang pamumuhay ng may pagkakaisa ay ang mga konkretong paraan ng pagtutulungan na tinuturo ng Roma 15.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral — July 17, 2026</div>
+      <h3>Magtulungan — Tatlong Paraan ng Pagtutulungan sa Pananampalataya</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — Huwag Hatulan ang Pananampalataya ng Iba:</strong> Iba't iba ang antas ng pag-unawa ng bawat isa sa Salita ng Diyos — at may kanya-kanyang dealing ang Panginoon sa bawat isa. Ang ating trabaho ay tanggapin ang ating mga kapatid kung nasaan sila, mabuhay para sa Diyos, at alalahanin na lahat tayo ay haharap sa hukuman ng Diyos at magbibigay-sulit. Hindi tayo ang maghahatol — ang Diyos at ang Kanyang Salita ang maghahatol.</p>
+      <p><strong>Ikalawa — Huwag Maging Sanhi ng Pagkakasala ng Iba:</strong> Ang ating kalayaan sa Panginoong Hesus ay may kaakibat na pananagutan sa ating kapwa. Iwasan ang pagiging katisuran — laging tanungin kung ang ating mga gawi ay nagdudulot ng kapayapaan at nagpapatatag ng pananampalataya ng ating kapatid. Ang gawa laban sa sariling konsensya ay kasalanan. Tayo ay binili ng halaga ng dugo ng Panginoon.</p>
+      <p><strong>Pangatlo — Tulungan ng Malalakas ang Mahihina sa Pananampalataya:</strong> Ang mga matatag sa pananampalataya ay may responsibilidad na itaguyod ang kapakanaan ng mahihina — hindi para sa pansariling kasiyahan lamang. Gaya ng halimbawa ng Panginoong Hesus na nagpaubaya para sa atin, tayo rin ay dapat magpaubaya at mag-isip ng kapakanan ng ating mga kapatid. Ang ating common ground: kaligtasan sa pamamagitan ng Panginoong Hesus lamang.</p>
+    </div>
+  </div>
+
+  <div class="sum-cards" style="margin-top:14px;">
+    <div class="sum-card">
+      <div class="sd b">1</div>
+      <div>
+        <div class="s-title">Huwag Hatulan</div>
+        <div class="s-desc">Tanggapin ang iba't ibang antas ng pananampalataya. Mabuhay para sa Diyos — at alalahanin na tayo rin ay magbibigay-sulit.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">2</div>
+      <div>
+        <div class="s-title">Huwag Maging Katisuran</div>
+        <div class="s-desc">Ang kalayaan natin ay may pananagutan. Pagsikapan ang mga bagay na nagdudulot ng kapayapaan at pagpapalakas ng pananampalataya ng ating kapatid.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">3</div>
+      <div>
+        <div class="s-title">Tulungan ang Mahina</div>
+        <div class="s-desc">Aktibong tumulong sa mga may kahinaan. Isipin ang kapakanan ng iba, magpaubaya, at mamuhay ng may pagkakaisa ayon kay Kristo Hesus.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Ang sinumang napag-isa na sa Panginoong Hesus ay tunay na malaya. Ngunit hindi ito nangangahulugan ng kalayaan upang gawin ang anumang naisin nang walang pag-iisip sa kahihinatnan nito sa ating kapwa at lalo na sa ating mga kapatid. Kaya tayo ay magtulungan."</p>
+    <cite>— Mula sa Sermon · July 17, 2026</cite>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Pangwakas na hamon:</strong> <em>Paano mo tutulungan ang iyong kapatid na lumago sa pananampalataya ngayong linggo?</em> Tumigil sa pagkipagpaligsahan at paghuhusgahan. Simulan ang aktibong pagmamahal — sa pagtanggap, sa pag-iingat sa ating mga gawi, at sa buong pusong pagtulong sa mahihina. <strong>Tayo ay magtulungan.</strong></p>
+  </div>
+
+  <div class="vbox">
+    <p>"Ipagkaloob nawa ng Diyos na siyang nagbibigay sa atin ng katatagan at lakas na loob na kayo ay mamuhay ng may pagkakaisa ayon kay Kristo Jesus, upang sa gayon, nagkakaisa kayong magpuri sa Diyos at Ama ng ating Panginoong Jesu-Cristo."</p>
+    <cite>— Roma 15:5–6 · Pangwakas na Talata</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, salamat sa pag-aaral na ito na nagpapaalala sa amin na ang buhay-Kristiyano ay hindi kanya-kanya — ito ay magkakasama. Patawad sa mga pagkakataon na nahusga namin ang aming mga kapatid sa halip na tulungan sila. Patawad sa mga sandaling naging katisuran kami sa halip na maging inspirasyon. Tulungan Mo kaming tanggapin ang bawat kapatid kung nasaan sila ngayon — at aktibong itaguyod ang kanilang paglago. Bigyan Mo kami ng pagpapakumbaba na mag-isip ng kapakanan ng iba bago ang aming sarili — gaya ng Iyong halimbawa, Panginoon, na nagpaubaya para sa amin. Nawa ang aming iglesya ay maging isang lugar ng tunay na pagtutulungan — kung saan ang bawat isa ay lumalago, nagpapalakasan, at sabay-sabay na nagpupuri sa Iyong pangalan. Sa pangalan ni Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Kalakip sa ating pamumuhay bilang mananampalataya ang pananagutang palakasin ang pananampalataya ng mga may hina sa atin. Ang hamon sa atin ay laging isaisip ang kapakanan ng iba — upang tayo ay sabay-sabay na lalago at haharap sa Panginoon."</p>
+    <cite>— Buod ng Pag-aaral · July 17, 2026</cite>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
