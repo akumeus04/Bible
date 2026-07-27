@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Magbantay at Manalangin — Marcos 13:33</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  .topbar{background:var(--purple-dark);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.18);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.7;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:16px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.6;margin-top:2px;}
+
+  .audio-bar{position:fixed;bottom:72px;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:99;padding:10px 14px;box-shadow:0 -2px 10px rgba(0,0,0,0.06);}
+  .audio-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .audio-lbl::before{content:"🎧";}
+  .audio-bar audio{width:100%;height:36px;border-radius:8px;outline:none;}
+
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--purple);}
+
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* HERO */
+  .hero{background:linear-gradient(150deg,var(--purple-dark) 0%,var(--purple) 100%);padding:24px 18px 20px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.18);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:22px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.7;margin-bottom:3px;}
+  .hero .hdate{font-size:11px;opacity:0.5;}
+
+  /* VERSE BOX */
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .vbox.blue{background:var(--blue-light);border-left-color:var(--blue);}
+  .vbox.blue p{color:var(--blue);}
+  .vbox.blue cite{color:var(--blue);}
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+  .vbox.red{background:var(--red-light);border-left-color:var(--red);}
+  .vbox.red p{color:var(--red);}
+  .vbox.red cite{color:var(--red);}
+
+  /* CARD */
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* SECTION HEADER */
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  /* HIGHLIGHT */
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.blue p{color:var(--blue);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.red p{color:var(--red);}
+
+  /* ILLUS */
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;}
+  .illus-hdr.orange{background:var(--orange-light);color:var(--orange);}
+  .illus-hdr.orange::before{background:var(--orange);}
+  .illus-hdr.blue{background:var(--blue-light);color:var(--blue);}
+  .illus-hdr.blue::before{background:var(--blue);}
+  .illus-hdr.green{background:var(--green-light);color:var(--green);}
+  .illus-hdr.green::before{background:var(--green);}
+  .illus-hdr.purple{background:var(--purple-light);color:var(--purple);}
+  .illus-hdr.purple::before{background:var(--purple);}
+  .illus-hdr.red{background:var(--red-light);color:var(--red);}
+  .illus-hdr.red::before{background:var(--red);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  /* SUP VERSE */
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  /* TRUTH BOX */
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.blue{background:var(--blue);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.dark{background:var(--green-dark);}
+  .truth.navy{background:var(--purple-dark);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  /* STEPS */
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* SUM CARDS */
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .sd.b{background:var(--blue);}
+  .sd.r{background:var(--red);}
+  .sd.n{background:var(--purple-dark);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* PWD ACRONYM BOX */
+  .pwd-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:16px;}
+  .pwd-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:13px;text-align:center;}
+  .pwd-letters{display:flex;flex-direction:column;gap:8px;}
+  .pwd-row{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.1);border-radius:9px;padding:12px 14px;}
+  .pwd-letter{font-family:'Lora',serif;font-size:32px;font-weight:700;color:#A8F0D8;flex-shrink:0;width:32px;text-align:center;line-height:1;}
+  .pwd-content{flex:1;}
+  .pwd-word{font-size:13px;font-weight:700;color:white;margin-bottom:2px;}
+  .pwd-desc{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;}
+
+  /* LORDS PRAYER ELEMENTS */
+  .lp-box{margin:14px 14px 0;display:grid;gap:8px;}
+  .lp-row{background:white;border:1px solid var(--border);border-radius:10px;padding:11px 13px;display:flex;gap:10px;align-items:flex-start;}
+  .lp-tag{font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:white;border-radius:4px;padding:3px 8px;flex-shrink:0;margin-top:2px;min-width:72px;text-align:center;}
+  .lp-tag.purple{background:var(--purple);}
+  .lp-tag.blue{background:var(--blue);}
+  .lp-tag.green{background:var(--green);}
+  .lp-tag.orange{background:var(--orange);}
+  .lp-tag.red{background:var(--red);}
+  .lp-body h5{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;}
+  .lp-body p{font-size:12px;color:var(--gray);line-height:1.5;}
+
+  /* RECAP */
+  .recap-box{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:13px 14px;}
+  .recap-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+  .recap-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:13px;color:var(--blue);}
+  .recap-item:last-child{margin-bottom:0;}
+  .ri-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+
+  /* PRAYER */
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  /* CLOSING */
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  /* CONCL */
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--purple);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · July 24, 2026</div>
+  <h1>Magbantay at Manalangin — Ito ay Kinakailangan</h1>
+  <div class="ref">Marcos 13:33 · Mateo 6:9–13 · Efeso 6:18</div>
+</div>
+
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--purple)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--blue)">P</div>
+    <div class="nl">Pray</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--orange)">W</div>
+    <div class="nl">Warn</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--green)">D</div>
+    <div class="nl">Declare</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--purple-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<div class="audio-bar">
+  <div class="audio-lbl">Pakinggan ang Sermon</div>
+  <audio controls>
+    <source src="https://archive.org/download/magbantay-at-manalangin.-3gp/Magbantay%20at%20Manalangin.3gp" type="audio/mpeg">
+    Hindi sinusuportahan ang audio sa iyong browser.
+  </audio>
+</div>
+
+<!-- ===== INTRO / SIMULA ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material · July 24, 2026</div>
+    <h2>Magbantay at Manalangin</h2>
+    <div class="href">Ito ay Kinakailangan · Marcos 13:33</div>
+    <div class="hdate">Jesus First Christian Ministries · JF5</div>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Kaya mag-ingat kayo at laging magbantay at manalangin. Dahil hindi ninyo alam kung kailan ang takdang panahon."</p>
+    <cite>— Marcos 13:33 (ASD) · "Take ye heed, watch and pray, for ye know not when the time is." (KJV)</cite>
+  </div>
+
+  <div class="card">
+    <p>Mismong sa bibig ng Panginoong Hesus ang dalawang salitang ito: <strong>Watch and Pray — Magbantay at Manalangin.</strong> At ito ang dalawang bagay na, kung taos-puso nating gagawin, ay magbabago ng ating buhay-pananampalataya at magbibigay ng lakas, direksyon, at proteksyon sa bawat araw.</p>
+    <p>Ang katotohanan: karamihan sa mga Kristiyano ay ginagawa ito — ngunit hindi konsistente. Ang layunin ngayon: simulan muli sa malinis na pisara at gawing regular na ugali ang magbantay at manalangin — hindi lang kapag may kailangan, kundi sa lahat ng okasyon. (<em>Efeso 6:18</em>)</p>
+  </div>
+
+  <div class="sec-lbl">PWD — Ang Tatlong Priyoridad ng Pagbabantay at Pananalangin</div>
+  <div class="pwd-box">
+    <div class="pwd-lbl">PWD — Impresado ng Panginoon para sa Atin</div>
+    <div class="pwd-letters">
+      <div class="pwd-row">
+        <div class="pwd-letter">P</div>
+        <div class="pwd-content">
+          <div class="pwd-word">Pray — Manalangin</div>
+          <div class="pwd-desc">Ang panalangin ang pangunahing paraan ng pakikipag-ugnayan natin sa Panginoon. Ang Banal na Espiritu ay naroroon upang gabayan at palakasin ang ating buhay-pananalangin.</div>
+        </div>
+      </div>
+      <div class="pwd-row">
+        <div class="pwd-letter">W</div>
+        <div class="pwd-content">
+          <div class="pwd-word">Warn — Magbabala</div>
+          <div class="pwd-desc">Bigyan ng babala ang iyong sarili, ang iyong mga kapatid sa Panginoon, at ang mga hindi pa nakakakilala sa kaligtasan — dahil walang nakakaalam kung kailan ang kanyang oras.</div>
+        </div>
+      </div>
+      <div class="pwd-row">
+        <div class="pwd-letter">D</div>
+        <div class="pwd-content">
+          <div class="pwd-word">Declare — Ipahayag ang Salita ng Diyos</div>
+          <div class="pwd-desc">"Nasusulat" — ito ang armas ng Panginoong Hesus laban sa tukso. Ang pagsasalita ng Salita ng Diyos nang may pananampalataya ay may kapangyarihang magbago ng mga sitwasyon.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr blue">Konteksto — Marcos 13:33 at ang Hudyong Kasal</div>
+    <div class="illus-body">
+      <p>Sa Marcos 13, nagsasalita ang Panginoong Hesus tungkol sa Kanyang pagbabalik. Sinabi Niya: <em>"Hindi ninyo alam ang araw o oras — ang Ama lamang."</em> Para sa mga Hudyong nakikinig, malinaw ang larawan: sa Hudyong kaugalian sa kasal, ang lalaking ikakasal ay bumabalik sa kanyang ama para maghanda ng bahay para sa kanyang magiging asawa.</p>
+      <p>Ang takdang araw ng pagbabalik? <strong>Hindi ito ipinaalam ng ama sa anak</strong> — hanggang hindi pa handa ang bahay, hindi papayagan ng ama na bumalik. Kaya lagi sa pag-aabang ang nobya — hindi nakakaalam ng eksaktong araw at oras. <em>Tayo rin, ang iglesya, ay nasa pag-aabang — at ang utos ng Panginoon: magbantay at manalangin.</em></p>
+    </div>
+  </div>
+
+  <div class="recap-box">
+    <div class="recap-lbl">Koneksyon sa Nakaraang Pag-aaral</div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Magtulungan (Roma 14)</strong> — Ang pagtutulungan ng iglesya ay nagsisimula sa sarili — sa personal na buhay-panalangin. Ang magbantay at manalangin ay pundasyon ng lahat.</div></div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Pagtagumpayan ang Tukso</strong> — Sabi sa Mateo 26:41 — "Magbantay at manalangin upang huwag kayong madaig ng tukso." Ang Watch and Pray ay direktang konektado sa pagtagumpay laban sa tukso.</div></div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Lumapit sa Panginoon nang may Pagtitiwala (Hebreo 4)</strong> — Ang paglalapit sa Diyos ay may konkretong paraan — at ito ay nagsisimula sa konsistenteng buhay-pananalangin.</div></div>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== P — PRAY / MANALANGIN ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--blue);">
+    <div class="snum">P</div>
+    <div>
+      <h2>Pray — Manalangin: Ang Template at ang Banal na Espiritu</h2>
+      <div class="sub">Mateo 6:9–13 · Marcos 11:24 · Efeso 6:18</div>
+    </div>
+  </div>
+
+  <div class="vbox blue">
+    <p>"Manalangin kayo sa lahat ng pagkakataon sa tulong ng Espiritu Santo. Kaya't magbantay at huwag tigilan ang panalangin para sa lahat ng mga hinirang ng Diyos."</p>
+    <cite>— Efeso 6:18 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang tinatawag na "Lord's Prayer" sa Mateo 6 ay hindi isang panalanging dapat lang bigkasin nang paulit-ulit. Ito ay isang <strong>template</strong> — isang halimbawa ng mga elemento na dapat isama sa ating panalangin. Katulad ng isang blank na CV — kailangan mo itong punan ng iyong personal na nilalaman.</p>
+    <p>Kapag nanalangin ka, hindi ka agad sasabi ng "Ama namin... Amen" na parang checklist. Ang bawat bahagi ng Lord's Prayer ay isang buong paksa ng panalangin sa sarili nito — dapat nating palalimin at gawin itong personal.</p>
+  </div>
+
+  <div class="sec-lbl">Ang mga Elemento ng Panalangin — Mateo 6:9–13 (Template)</div>
+  <div class="lp-box">
+    <div class="lp-row">
+      <div class="lp-tag purple">Papuri</div>
+      <div class="lp-body">
+        <h5>"Our Father who art in heaven, hallowed be Thy name"</h5>
+        <p>Simulan sa pagkilala sa pagkakakilanlan ng Diyos — ang Kanyang karakter, kapangyarihan, at kabanalan. <em>"You are merciful, your love endures forever, you are great and mighty, Yahweh Elohim, there is none compared to you."</em> Kausapin din ang Banal na Espiritu — siya ay nandito sa atin.</p>
+      </div>
+    </div>
+    <div class="lp-row">
+      <div class="lp-tag blue">Kaharian</div>
+      <div class="lp-body">
+        <h5>"Your kingdom come, your will be done on earth as it is in heaven"</h5>
+        <p>Ipanalangin ang pagpapalawak ng kaharian ng Diyos — sa iyong puso, sa iyong pamilya, sa iyong mga kamag-anak, sa iyong lugar ng trabaho. Ang kalooban ng Diyos ay maligtas ang lahat ng mahal mo sa buhay. Isipin: ang iyong kamag-anak bilang iyong "Judea at Samaria."</p>
+      </div>
+    </div>
+    <div class="lp-row">
+      <div class="lp-tag green">Pangangailangan</div>
+      <div class="lp-body">
+        <h5>"Give us this day our daily bread"</h5>
+        <p>Ang "tinapay" dito ay si Hesus mismo — ang Bread of Life mula sa langit. Ipanalangin ang iyong mga pangangailangan, ngunit ang pinaka-importanteng "pagkain" ay ang Salita ng Diyos at ang presensya ng Panginoon sa ating buhay araw-araw. (Salmo 23:1)</p>
+      </div>
+    </div>
+    <div class="lp-row">
+      <div class="lp-tag orange">Kapatawaran</div>
+      <div class="lp-body">
+        <h5>"Forgive us our trespasses as we forgive those who trespass against us"</h5>
+        <p>Ang "trespass" ay ang paglabag ng hangganan — paglabag sa batas ng Diyos. Humingi ng kapatawaran nang taos-puso. At mahalaga: patawarin din ang mga nagkasala sa atin. Ang hindi pagpapatawad ay nagbubukas ng pinto sa kalaban. (Mateo 18)</p>
+      </div>
+    </div>
+    <div class="lp-row">
+      <div class="lp-tag red">Proteksyon</div>
+      <div class="lp-body">
+        <h5>"Lead us not into temptation, but deliver us from the evil one"</h5>
+        <p>Ipanalangin ang proteksyon sa lahat ng tukso at sa masamang espiritu. Bilang mga may authority sa pangalan ni Hesus, maaari tayong mag-rebuke sa mga masamang espiritu na pipigil sa ating gawain at impluwensya para sa Diyos. (Marcos 16:17 · Lucas 10:19)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Ang Banal na Espiritu — Kasosyo sa Panalangin</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">①</div>
+      <div>
+        <h4>Kausapin ang Banal na Espiritu</h4>
+        <p>Ang Banal na Espiritu ay isang Persona — hindi lamang isang puwersa. Siya ay nandito sa atin sa mundo — ang ikatlong Persona ng Trinidad. Kausapin Siya. Kilalanin ang Kanyang presensya. Siya ang Spirit of Wisdom, Knowledge, Counsel, and Might — ang lahat ng kailangan natin araw-araw.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">②</div>
+      <div>
+        <h4>Manalangin sa Lahat ng Okasyon — Hindi Lang Kapag May Kailangan</h4>
+        <p>"Manalangin kayo sa lahat ng pagkakataon." (Efeso 6:18) Masaya ka — manalangin. Malungkot ka — manalangin. Nagwagi ka — manalangin. Malulusog ang lahat — manalangin. Hindi lang kapag may problema. Ang konsistenteng panalangin ang pundasyon ng matatag na buhay-Kristiyano.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--blue);">③</div>
+      <div>
+        <h4>Ang Panalangin ay Nagbabago Pati sa Nagdarasal</h4>
+        <p>Sabi ng nagtaturo: ang panalangin ay ginagamit ng Diyos para baguhin tayo — para iayon ang ating kaisipan sa Kanyang kalooban at plano. Hindi lamang para makuha natin ang gusto natin — kundi para maging katulad tayo ng ating Panginoong Hesus. Ang bawat sagot ng Diyos sa panalangin — kahit hindi sang-ayon sa ating hiniling — ay nasa Kanyang soberaniya.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr blue">Ang Pananalangin ng Panginoong Hesus — Alas Tres ng Umaga</div>
+    <div class="illus-body">
+      <p>Sinasabi ng Salita: <em>"Maaga pa, habang madilim pa, lumabas ang Panginoong Hesus at nagpunta sa isang tahimik na lugar upang manalangin."</em> Ito ang ugali Niya — <strong>unang bagay sa umaga, bago pa sumikat ang araw.</strong></p>
+      <p>Alas tres ng madaling araw ay may espesyal na kahalagahan sa kasaysayan ng Salita — ito ang oras nang dumaan ang anghel ng kamatayan sa Egipto, ito ang oras nang lumakad ang Panginoong Hesus sa tubig, at ito ang kahawig na oras nang Siya ay ipako sa krus at sabihing "Tetelestai."</p>
+      <p><em>Hamon: bigyan ng sapat na panahon ang panalangin sa umaga — bago ang lahat ng iba pang gawain sa araw. Kausapin ang Panginoon una.</em></p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Salmo 23:1</div>
+    <p>"Ang Panginoon ang aking Pastol; wala akong kulang."</p>
+    <cite>— Salmo 23:1 (ASD) · "The Lord is my shepherd, I shall not want."</cite>
+  </div>
+
+  <div class="truth blue">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang panalangin ay hindi isang ritwal — ito ay relasyon. Ang Banal na Espiritu ay nandito sa atin, handang gabayan ang bawat panalangin. Ang konsistenteng buhay-pananalangin — sa lahat ng okasyon, hindi lang kapag may kailangan — ang pundasyon ng matatag na buhay-Kristiyano at ng epektibong pagbabantay.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== W — WARN / MAGBABALA ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">W</div>
+    <div>
+      <h2>Warn — Magbabala: Sa Sarili, sa Kapatid, at sa mga Hindi Pa Naligtas</h2>
+      <div class="sub">Marcos 13:33–37 · Ezekiel 3:17–18 · Lucas 2:49</div>
+    </div>
+  </div>
+
+  <div class="vbox orange">
+    <p>"At ang sinasabi ko sa inyo ay sinasabi ko rin sa lahat: Maging handa kayo!"</p>
+    <cite>— Marcos 13:37 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang ikalawang priyoridad kapag nagbabantay at nagdarasal ay ang magbabala — <strong>sa tatlong grupo: sa sarili mo, sa iyong mga kapatid sa pananampalataya, at sa mga hindi pa nakakakilala sa kaligtasan.</strong></p>
+    <p>Walang nakakaalam kung kailan ang kanyang oras. Ito ang realidad na dapat magmotibo sa atin na maging urgente sa pagbabahagi ng Magandang Balita — at sa pag-aalaga sa espirituwal na kalagayan ng bawat isa.</p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Grupo na Kailangan ng Babala</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">①</div>
+      <div>
+        <h4>Warn Yourself — Kausapin ang Iyong Sarili</h4>
+        <p>Normal ang kausapin ang sarili — ito ay kalinisan ng isipan, hindi kalikuan. Hoy ikaw, manunood ka na naman ng maraming pelikula — bukas hindi ka makakapanalangin. Hoy, antok ka na naman sa pag-aaral — gisingin ang iyong sarili. <em>Ang pagbabantay ay nagsisimula sa sarili — sa sariling disiplina at pagkilala sa ating mga kahinaan.</em></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">②</div>
+      <div>
+        <h4>Warn the Brethren — Mag-alaga sa mga Kapatid</h4>
+        <p>Bilang mga miyembro ng iglesya, may pananagutan tayo sa isa't isa. Kapag nakikita nating humihina ang pananampalataya ng kapatid, ang responsibilidad natin ay ang mag-alaga — hindi humusga, kundi mapagmahal na ipaalaala ang Salita ng Diyos at ang importansya ng pagbabantay at pananalangin.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">③</div>
+      <div>
+        <h4>Warn the Unbeliever — Ibahagi ang Ebanghelyo</h4>
+        <p>Ang mga kamag-anak at kaibigan na hindi pa naligtas — ito ang ating "Judea, Samaria, at mga dulo ng lupa." Nagsimula ang mga apostol sa Jerusalem, lumabas sa Judea, at kumalat sa buong mundo. Ganoon din tayo — ang pamilya natin sa malapit ang ating Jerusalem, ang mga katrabaho at kababayan ang ating Judea at Samaria.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr orange">Ang Urgensya — Walang Nakakaalam Kung Kailan</div>
+    <div class="illus-body">
+      <p>Ikinuwento ng nagtaturo: sa bawat taxi at Grab driver na kinausap nila ni Sister Debbie sa bakasyon, isang tanong ang laging itinatanong: <em>"Alam ba ng tao kung kailan siya mamamatay?"</em> Lahat ng driver ay sumasagot: wala, walang nakakaalam.</p>
+      <p><strong>At doon nagsisimula ang pag-uusap tungkol sa kaligtasan.</strong> Kapag hindi mo pa nabahaginan ng Salita ng Panginoon ang iyong mga mahal sa buhay at kakilala — ito ang panahon. Huwag antayin pa ang "perpektong oras." Ang perpektong oras ay ngayon — habang may pagkakataon.</p>
+      <p><em>"Kung pumunta sila sa impiyerno at hindi mo pa sila nabahaginan ng kaligtasan — kailan ka pa pupunta para masabi mo sa kanila ang nasa loob mo?"</em></p>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr green">Ang Business ng Ama — Lucas 2:49</div>
+    <div class="illus-body">
+      <p>Nang matagpuan si Hesus sa templo bilang bata, sinabi Niya: <em>"Hindi ba ninyo alam na dapat akong mapaabalahan sa business ng aking Ama?"</em> Ang business ng Ama ay iisa: ang manalo ng mga kaluluwa para sa Panginoong Hesus.</p>
+      <p><strong>Ito rin ang ating business.</strong> Ang pagbabahagi ng Ebanghelyo ay hindi opsyonal na gawain ng mga full-time minister lamang — ito ay responsibilidad ng bawat mananampalataya. At ngayon, mas madali pa — isang click lang, maaari ka nang magbahagi ng magandang balita sa social media. Huwag hayaang mas marami tayong pinapasa na jokes kaysa sa Salita ng Diyos.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Marcos 13:37</div>
+    <p>"At ang sinasabi ko sa inyo ay sinasabi ko rin sa lahat: Maging handa kayo!"</p>
+    <cite>— Marcos 13:37 (ASD)</cite>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang pagbabantay ay aktibong responsibilidad — hindi pasibo. Kausapin ang sarili, pangalagaan ang mga kapatid, at ibahagi ang Ebanghelyo sa mga hindi pa nakakakilala sa kaligtasan. Walang nakakaalam ng oras — kaya ang urgensya ng babala ay real at kailangan ngayon.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== D — DECLARE / IPAHAYAG ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--green);">
+    <div class="snum">D</div>
+    <div>
+      <h2>Declare — Ipahayag ang Salita ng Diyos nang may Kapangyarihan</h2>
+      <div class="sub">Mateo 4:4,7,10 · Marcos 11:23–24 · Roma 4:17 · Kawikaan 18:21</div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <p>"Ang kapangyarihan ng buhay at kamatayan ay nasa dila. Ang nag-iingat nito ay makikinabang sa bunga nito."</p>
+    <cite>— Kawikaan 18:21 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang ikatlong bahagi ng pagbabantay at pananalangin ay ang <strong>aktibong pagpapahayag ng Salita ng Diyos</strong> — hindi lang ang pagbabasa o pakikinig nito, kundi ang pagsasalita nito nang may pananampalataya. Ito ang ginawa ng Panginoong Hesus nang siya ay tuksuhin ng Diablo — sa bawat tukso, ang sagot Niya ay "Nasusulat."</p>
+    <p>Ang kapangyarihan ng dila ay real. <em>Ang mga salitang lumalabas sa ating bibig — positibo man o negatibo — ay may epekto sa ating buhay at sa ating paligid.</em> Kaya ang isang Kristiyano ay dapat mag-ingat sa kanyang mga sinasabi, at sikapin na ipahayag ang Salita ng Diyos nang may pananampalataya.</p>
+  </div>
+
+  <div class="sec-lbl">Ang Halimbawa ng Panginoong Hesus — "Nasusulat"</div>
+  <div class="illus">
+    <div class="illus-hdr green">Tatlong Tukso, Iisang Sagot — Mateo 4</div>
+    <div class="illus-body">
+      <p>Tatlong beses na tinutukso ang Panginoong Hesus ng Diablo sa ilang. Sa bawat pagkakataon, hindi Siya nagreaksyon nang emosyon o nagpaliwanag nang marami. <strong>Ang sagot Niya ay simple at malakas: "Nasusulat."</strong></p>
+      <p>Katulad ng isang abogado sa hukuman — hindi siya umiiyak o nagdadahilan. Itinuturo niya sa hukuman ang naka-sulat sa batas. <em>Kung anong nasa batas, yun ang panalo.</em> Ganoon din sa atin — ang Diablo ay matatalo sa pamamagitan ng Salita ng Diyos na talagang alam natin at inihahayag natin nang may pananampalataya.</p>
+      <p>Sabi ng nagtaturo: kung sasabihin mo sa Diablo "Nasusulat" at malinaw ang iyong sinasabi dahil kabisado mo ang Salita — <em>ang Diablo ay magsasabi, "Ay, alam pala niya. Hindi pala siya mapapaniwalaan."</em></p>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Mga Paraan ng Pagpapahayag ng Salita ng Diyos</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">①</div>
+      <div>
+        <h4>Kabisahin ang Salita ng Diyos</h4>
+        <p>Ang unang hakbang ay kabisahin ang Salita — hindi kailangan libu-libo. Kahit tatlong talata bawat buwan, sa isang taon ay may 36 ka na. Isulat mo sa papel, idikit sa lugar na lagi mong nakikita. <em>Araw-araw, basahin at ibigkas mo hanggang maging bahagi na ito ng iyong puso at isipan.</em> Kasi "nanakawin" ng Diablo ang mga talatang hindi natin binibigay ng pansin.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">②</div>
+      <div>
+        <h4>Ipahayag ang Salita Laban sa mga Bundok ng Buhay</h4>
+        <p>"Sinasabi ko sa inyo, kung may pananampalataya kayo... sasabihin ninyo sa bundok na ito: lumipat ka at mahulog sa dagat, at mangyayari ito." (Marcos 11:23) Ang mga "bundok" sa ating buhay — mga sakit, problema sa trabaho, mga alalahanin — maaaring harapin natin sa pamamagitan ng pagpapahayag ng Salita ng Diyos nang may pananampalataya. "I command every obstacle in my path to be removed in the name of Jesus."</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--blue);">③</div>
+      <div>
+        <h4>Ipahayag ang mga Pangako ng Diyos sa Iyong Katawan at Buhay</h4>
+        <p>"Tinatawag ang mga bagay na wala pa na parang naroroon na." (Roma 4:17) Ipahayag nang may pananampalataya: <em>"Sa pangalan ni Hesus, lahat ng mga ugat ko ay malulusog. Ang aking katawan ay templo ng Banal na Espiritu at pinapahalagahan ko ito."</em> Hindi ito panghuhula — ito ay pananampalataya sa mga pangako ng Diyos na nakasulat sa Kanyang Salita.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">④</div>
+      <div>
+        <h4>Mag-rebuke sa mga Masamang Espiritu sa Iyong Awtoridad</h4>
+        <p>"Binibigyan ko kayo ng awtoridad na yurakan ang mga ahas at uod at upang talunin ang lahat ng kapangyarihan ng kaaway." (Lucas 10:19) Tayo bilang mga mananampalataya ay may awtoridad na ibinigay ng Panginoon. Sa umaga, bago magsimula ang araw: <em>"I rebuke every evil spirit that will cross my path today, in the mighty name of Yeshua."</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr purple">Ang Awtoridad ng mga Mananampalataya — Marcos 16:17</div>
+    <div class="illus-body">
+      <p>"At ang mga tanda na ito ay sasabayan ng mga naniniwala sa aking pangalan: magpapalabas sila ng mga demonyo, magsasalita sila sa iba't ibang wika, aahawakan nila ang mga ahas, at kung uminom sila ng anumang nakalalason ay hindi sila maaanuman, at magpapahid sila ng mga kamay sa mga maysakit at sila ay gagaling." (Marcos 16:17–18)</p>
+      <p><strong>Ang awtoridad na ito ay ibinigay sa mga naniniwala — hindi lang sa mga pastor o pastor.</strong> Ngunit ang awtoridad ay may kondisyon: ito ay naka-base sa tunay na relasyon at pamumuhay ayon sa Salita ng Diyos. <em>Katulad ng mga anak ni Sceba — "Si Hesus alam namin, si Pablo alam namin — ngunit sino ka?"</em> Ang awtoridad ay nagsisimula sa tunay na pakikipag-isa sa Panginoon.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Marcos 11:23–24</div>
+    <p>"Sinasabi ko sa inyo na ang sinumang magsabi sa bundok na ito, Lumipat ka at mahulog sa dagat, at hindi mag-aalinlangan sa kanyang puso kundi maniniwala na mangyayari ang sinabi niya, ito ay magiging katotohanan para sa kanya. Kaya sinasabi ko sa inyo: Anuman ang hingin ninyo sa panalangin, maniwala kayong natanggap na ninyo ito, at ito ay mangyayari."</p>
+    <cite>— Marcos 11:23–24 (ASD)</cite>
+  </div>
+
+  <div class="truth green">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang pagpapahayag ng Salita ng Diyos nang may pananampalataya ay may tunay na kapangyarihan — ito ang armas na ginamit ng ating Panginoong Hesus laban sa Diablo. Kabisahin ang Salita, ipahayag ito sa mga hamon ng buhay, at gamitin ang awtoridad na ibinigay sa atin ng Panginoon sa Kanyang pangalan.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral — July 24, 2026</div>
+      <h3>Magbantay at Manalangin — PWD: Pray, Warn, Declare</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>P — Pray (Manalangin):</strong> Ang panalangin ay hindi ritual — ito ay relasyon sa Diyos. Gamitin ang Lord's Prayer bilang template — punuin ito ng papuri, pagpapahayag ng kaharian ng Diyos, mga pangangailangan, paghingi ng kapatawaran, at panalangin para sa proteksyon. Kausapin ang Banal na Espiritu — siya ay naroroon. Manalangin sa lahat ng okasyon — consistent, hindi lang kapag may kailangan.</p>
+      <p><strong>W — Warn (Magbabala):</strong> Bigyan ng babala ang sarili sa pamamagitan ng sariling disiplina at pag-iingat. Pangalagaan ang mga kapatid sa pananampalataya. At ibahagi ang Ebanghelyo sa mga hindi pa naligtas — ang ating mga kamag-anak at kaibigan ay ang ating "Jerusalem, Judea, at Samaria." Walang nakakaalam ng oras — kaya ang urgensya ay real.</p>
+      <p><strong>D — Declare (Ipahayag):</strong> Kabisahin ang Salita ng Diyos at ipahayag ito nang may pananampalataya — laban sa mga hamon, tukso, at pagsubok. Ito ang ginawa ng Panginoong Hesus — "Nasusulat." Gamitin din ang awtoridad na ibinigay sa mga mananampalataya sa pangalan ni Hesus para labanan ang mga masamang espiritu at ipahayag ang mga pangako ng Diyos sa ating buhay.</p>
+    </div>
+  </div>
+
+  <div class="pwd-box" style="margin-top:14px;">
+    <div class="pwd-lbl">PWD — Mabilis na Recap</div>
+    <div class="pwd-letters">
+      <div class="pwd-row">
+        <div class="pwd-letter">P</div>
+        <div class="pwd-content">
+          <div class="pwd-word">Pray</div>
+          <div class="pwd-desc">Konsistente, sa lahat ng okasyon, gamit ang template ng Lord's Prayer, kasama ang Banal na Espiritu</div>
+        </div>
+      </div>
+      <div class="pwd-row">
+        <div class="pwd-letter">W</div>
+        <div class="pwd-content">
+          <div class="pwd-word">Warn</div>
+          <div class="pwd-desc">Sarili mo, mga kapatid sa pananampalataya, at mga hindi pa naligtas — urgent at walang tigil</div>
+        </div>
+      </div>
+      <div class="pwd-row">
+        <div class="pwd-letter">D</div>
+        <div class="pwd-content">
+          <div class="pwd-word">Declare</div>
+          <div class="pwd-desc">"Nasusulat" — kabisahin at ipahayag ang Salita ng Diyos, gamitin ang awtoridad sa pangalan ni Hesus</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Ang panalangin ay napakahalaga sa buhay ng mananampalataya at ng iglesya. Ito ang paraan ng pagdadala ng kalooban ng Diyos dito sa lupa — at ang Diyos ay gumagamit ng ating panalangin para baguhin tayo at iayon tayo sa Kanyang kalooban at plano."</p>
+    <cite>— Mula sa Sermon · July 24, 2026</cite>
+  </div>
+
+  <div class="hl purple">
+    <p><strong>Tatlong tanong para sa sarili:</strong> <em>(1) Magbibigay ka ba ng sapat na panahon sa panalangin sa Panginoon araw-araw? (2) Kakausapin mo ba ang ating Panginoon Diyos araw-araw — hindi lang kapag may pulong? (3) Pagsusumakitan mo bang maging consistent sa pananalangin sa Panginoon?</em></p>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Kaya mag-ingat kayo at laging magbantay at manalangin. Dahil hindi ninyo alam kung kailan ang takdang panahon."</p>
+    <cite>— Marcos 13:33 · Pangunahing Talata</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Ama namin sa langit, purihin ang Iyong pangalan. Ikaw ay mahabagin, mapagmahal, dakila at makapangyarihan — walang makatutulad sa Iyo. Salamat sa pag-aaral na ito na nagpapaalala sa amin na ang magbantay at manalangin ay hindi opsyonal — ito ay utos at pangangailangan. Tulungan Mo kaming maging consistent sa aming buhay-pananalangin — hindi lang kapag may kailangan, kundi sa lahat ng okasyon. Bigyan Mo kami ng lakas na kausapin ang aming mga sarili, pangalagaan ang aming mga kapatid, at ibahagi ang Iyong Magandang Balita sa mga hindi pa nakakakilala sa Iyo. At tulungan Mo kaming kabisahin at ipahayag ang Iyong Salita nang may pananampalataya — sapagkat ang Salita Mo ay batas, at walang makakatalo dito. Sa pangalan ng aming Panginoong Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Simulan muli sa malinis na pisara. Ang biyaya ng Diyos ay bago tuwing umaga. Magbantay at manalangin — hindi dahil kailangan lang, kundi dahil ito ang paraan ng pamumuhay ng mga anak ng Hari na naghihintay sa Kanyang pagbabalik."</p>
+    <cite>— Buod ng Pag-aaral · July 24, 2026</cite>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
