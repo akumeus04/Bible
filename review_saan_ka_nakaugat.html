@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Saan Ka Nakaugat? — Jeremias 17:5-8</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  .topbar{background:var(--green-dark);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:15px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.65;margin-top:2px;}
+
+  .audio-bar{position:fixed;bottom:72px;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:99;padding:10px 14px;box-shadow:0 -2px 10px rgba(0,0,0,0.06);}
+  .audio-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .audio-lbl::before{content:"🎧";}
+  .audio-bar audio{width:100%;height:36px;border-radius:8px;outline:none;}
+
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--green-dark);}
+
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  .hero{background:linear-gradient(150deg,var(--green-dark) 0%,var(--green) 100%);padding:24px 18px 22px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.18);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:21px;font-weight:700;margin-bottom:5px;line-height:1.25;}
+  .hero .href{font-size:12px;opacity:0.7;margin-bottom:3px;}
+  .hero .hdate{font-size:11px;opacity:0.5;}
+
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .vbox.blue{background:var(--blue-light);border-left-color:var(--blue);}
+  .vbox.blue p{color:var(--blue);}
+  .vbox.blue cite{color:var(--blue);}
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+  .vbox.red{background:var(--red-light);border-left-color:var(--red);}
+  .vbox.red p{color:var(--red);}
+  .vbox.red cite{color:var(--red);}
+
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:15px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.blue p{color:var(--blue);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.red p{color:var(--red);}
+
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;}
+  .illus-hdr.orange{background:var(--orange-light);color:var(--orange);}
+  .illus-hdr.orange::before{background:var(--orange);}
+  .illus-hdr.blue{background:var(--blue-light);color:var(--blue);}
+  .illus-hdr.blue::before{background:var(--blue);}
+  .illus-hdr.green{background:var(--green-light);color:var(--green);}
+  .illus-hdr.green::before{background:var(--green);}
+  .illus-hdr.purple{background:var(--purple-light);color:var(--purple);}
+  .illus-hdr.purple::before{background:var(--purple);}
+  .illus-hdr.red{background:var(--red-light);color:var(--red);}
+  .illus-hdr.red::before{background:var(--red);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.blue{background:var(--blue);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.dark{background:var(--green-dark);}
+  .truth.navy{background:var(--purple-dark);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .sd.b{background:var(--blue);}
+  .sd.r{background:var(--red);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 14px 0;}
+  .cmp-card{border-radius:11px;padding:13px;}
+  .cmp-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;}
+  .cmp-item{font-size:12px;line-height:1.65;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.07);}
+  .cmp-item:last-child{border-bottom:none;padding-bottom:0;}
+  .cmp-card.bad{background:var(--red-light);}
+  .cmp-card.bad .cmp-title{color:var(--red);}
+  .cmp-card.bad .cmp-item{color:var(--red);}
+  .cmp-card.good{background:var(--green-light);}
+  .cmp-card.good .cmp-title{color:var(--green-dark);}
+  .cmp-card.good .cmp-item{color:var(--green-dark);}
+
+  .stages-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .stages-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px;text-align:center;}
+  .stages-items{display:flex;flex-direction:column;gap:7px;}
+  .stage-row{display:flex;align-items:flex-start;gap:11px;background:rgba(255,255,255,0.1);border-radius:9px;padding:11px 13px;}
+  .stage-num{font-size:18px;font-weight:700;color:#A8F0D8;width:24px;flex-shrink:0;text-align:center;line-height:1.3;}
+  .stage-title{font-size:13px;font-weight:700;color:white;margin-bottom:3px;}
+  .stage-desc{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;}
+
+  .why-box{background:var(--green-light);border:1px solid #9FE1CB;border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .why-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--green-dark);margin-bottom:11px;text-align:center;}
+  .why-items{display:flex;flex-direction:column;gap:8px;}
+  .why-row{display:flex;align-items:flex-start;gap:10px;background:white;border-radius:8px;padding:10px 12px;border:1px solid var(--border);}
+  .why-icon{font-size:16px;flex-shrink:0;margin-top:2px;}
+  .why-title{font-size:13px;font-weight:700;color:var(--green-dark);margin-bottom:2px;}
+  .why-desc{font-size:12px;color:var(--gray);line-height:1.5;}
+
+  .reflect-box{background:var(--orange-light);border:1px solid #E6C97A;border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .reflect-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+  .reflect-lbl::before{content:"💭";font-size:12px;}
+  .reflect-q{font-size:14px;color:var(--orange-dark);line-height:1.7;padding:7px 0;border-bottom:1px solid rgba(186,117,23,0.18);}
+  .reflect-q:last-child{border-bottom:none;padding-bottom:0;}
+
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--green-dark);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · Bible Study</div>
+  <h1>Saan Ka Nakaugat?</h1>
+  <div class="ref">Jeremias 17:5–8 (ASD) · Personal na Pagbabalik-aral</div>
+</div>
+
+<div class="audio-bar">
+  <div class="audio-lbl">Pakinggan ang Sermon</div>
+  <audio controls>
+    <source src="" type="audio/mpeg">
+    Hindi sinusuportahan ang audio sa iyong browser.
+  </audio>
+</div>
+
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--green-dark)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--orange)">1</div>
+    <div class="nl">Pagtitiwala</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--purple)">2</div>
+    <div class="nl">Pag-uugat</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--blue)">3</div>
+    <div class="nl">Katatagan</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--green-dark)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+
+<!-- ===== INTRO / SIMULA ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Bible Study · Jeremias 17:5–8</div>
+    <h2>Saan Ka Nakaugat?</h2>
+    <div class="href">Ang Lihim ng Matatag at Mabungang Buhay</div>
+    <div class="hdate">Jeremias 17:5–8 (ASD)</div>
+  </div>
+
+  <div class="vbox">
+    <p>"Ngunit mapalad ang taong nagtitiwala at lubos na umaasa sa PANGINOON. Matutulad siya sa punongkahoy na itinanim sa tabi ng ilog na ang mga ugat ay umaabot sa tubig. Ang punongkahoy na ito'y hindi natatakot, dumating man ang tag-init o mahabang tag-araw. Palaging sariwa ang mga dahon nito at walang tigil ang pamumunga."</p>
+    <cite>— Jeremias 17:7–8 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Sa buhay, lahat tayo ay may pinagtitiwalaan. Kapag may problema, kanino tayo unang lumalapit? Kapag may pangangailangan, saan tayo unang umaasa? Marami ang nagtitiwala sa trabaho, ipon, kakayahan, koneksyon, o sa ibang tao.</p>
+    <p>Ngunit kapag dumating ang mga pagsubok, madalas na ang mga ito ay hindi sapat upang tayo ay manatiling matatag. Ipinapakita ng Diyos sa ating teksto na ang tunay na katatagan ay <strong>hindi nakasalalay sa panlabas na kalagayan kundi sa pinag-uugatan ng ating pagtitiwala.</strong></p>
+  </div>
+
+  <div class="sec-lbl">Dalawang Larawan — Isang Katotohanan</div>
+  <div class="compare">
+    <div class="cmp-card bad">
+      <div class="cmp-title">🌵 Nakaugat sa Tao</div>
+      <div class="cmp-item">Nasa tigang na ilang</div>
+      <div class="cmp-item">Walang magandang kinabukasan</div>
+      <div class="cmp-item">Matutuyo sa pagsubok</div>
+      <div class="cmp-item">Madaling bumagsak</div>
+    </div>
+    <div class="cmp-card good">
+      <div class="cmp-title">🌳 Nakaugat sa Diyos</div>
+      <div class="cmp-item">Nasa tabi ng ilog</div>
+      <div class="cmp-item">Ugat umaabot sa tubig</div>
+      <div class="cmp-item">Hindi natatakot sa tag-init</div>
+      <div class="cmp-item">Walang tigil na namumunga</div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Bakit Kailangan Nating Malaman Kung Saan Nakaugat ang Puso?</div>
+  <div class="why-box">
+    <div class="why-lbl">4 Dahilan Kung Bakit Mahalaga ang Pinag-uugatan ng Pagtitiwala</div>
+    <div class="why-items">
+      <div class="why-row">
+        <div class="why-icon">⛅</div>
+        <div>
+          <div class="why-title">Darating ang "tag-init" ng buhay</div>
+          <div class="why-desc">Walang taong nakatakas sa pagsubok — sakit, pagkawala, kabiguan, o kalungkutan. Hindi kung darating ito ang tanong — handa ka ba pagdating nito?</div>
+        </div>
+      </div>
+      <div class="why-row">
+        <div class="why-icon">🏚️</div>
+        <div>
+          <div class="why-title">Ang nakaugat sa tao ay madaling bumagsak</div>
+          <div class="why-desc">Kapag nawala ang trabaho, koneksyon, o inaasahan — bumabagsak din ang lahat ng nakabase doon. Ang mga panlabas na sandigan ay pansamantala at maaaring mawala sa isang kisap-mata.</div>
+        </div>
+      </div>
+      <div class="why-row">
+        <div class="why-icon">🌊</div>
+        <div>
+          <div class="why-title">Ang lalim ng ugat ang nagtatakda ng katatagan</div>
+          <div class="why-desc">Hindi lumalalim ang ugat ng puno kapag may bagyo na — dapat nakabaon na ito bago pa dumating ang storm. Ang paghahanda ay ginagawa sa panahon ng kapayapaan.</div>
+        </div>
+      </div>
+      <div class="why-row">
+        <div class="why-icon">🌱</div>
+        <div>
+          <div class="why-title">Ginagawa ng Diyos ang pinakamalalim na gawain sa mga pagsubok</div>
+          <div class="why-desc">Ang mga taong nakaugat sa Panginoon ay hindi lamang nakaligtas sa "tag-init" — lumalago pa sila. Palaging sariwa, palaging namumunga — anuman ang panahon.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Tatlong Aral — Paano Magkaroon ng Matatag na Buhay</div>
+  <div class="sum-cards">
+    <div class="sum-card">
+      <div class="sd o">1</div>
+      <div>
+        <div class="s-title">Ilagak ang buong pagtitiwala sa Panginoon kaysa sa tao</div>
+        <div class="s-desc">Ang pangunahing sandigan ng puso — hindi trabaho, hindi pera, hindi tao — kundi ang Panginoon lamang.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">2</div>
+      <div>
+        <div class="s-title">Pag-ugatin ang buhay sa Salita at presensya ng Diyos</div>
+        <div class="s-desc">Ang hindi nakikitang ugat ang nagbibigay-buhay sa puno. Ang malalim na relasyon kay Hesus ang nagbibigay-lakas sa Kristiyano.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd b">3</div>
+      <div>
+        <div class="s-title">Manatiling tapat sa Diyos sa gitna ng mga pagsubok</div>
+        <div class="s-desc">Hindi ipinangako ng Diyos ang buhay na walang "tag-init." Ngunit ipinangako Niya ang katatagan at bunga sa gitna nito.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <p>"Hindi maiiwasan ang 'tag-init' ng buhay, ngunit maaari nating piliin kung saan natin itatanim ang ating mga ugat."</p>
+    <cite>— Mula sa Sermon</cite>
+  </div>
+  <div class="sp"></div>
+</div>
+
+
+<!-- ===== PUNTO 1 ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">1</div>
+    <div>
+      <h2>Sa pamamagitan ng Paglalagak ng Buong Pagtitiwala sa Panginoon Kaysa sa Tao</h2>
+      <div class="sub">Jeremias 17:5–7 · Salmo 118:8–9 · Kawikaan 3:5–6</div>
+    </div>
+  </div>
+
+  <div class="vbox orange">
+    <p>"Ngunit mapalad ang taong nagtitiwala at lubos na umaasa sa PANGINOON."</p>
+    <cite>— Jeremias 17:7 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang unang aral ay malinaw: ang Diyos ay hindi lamang naghahanap ng paniniwala — kundi ng <strong>buong pagtitiwala.</strong> Sa Hebreo, ang salitang <em>"batach"</em> ay nangangahulugang maglagak ng buong pagtitiwala at seguridad.</p>
+    <p>Hindi ipinagbabawal ng Diyos ang tumanggap ng tulong mula sa tao — ngunit ipinagbabawal Niyang ang tao ang maging <strong>pangunahing sandigan</strong> ng ating buhay. Tinatawag Niya tayong <em>sumunod at magtiwala araw-araw</em> — hindi lamang maniwala.</p>
+  </div>
+
+  <div class="vbox red">
+    <p>"Sinabi pa ng PANGINOON: Isusumpa ko ang taong lumalayo sa akin at nagtitiwala lamang sa tao."</p>
+    <cite>— Jeremias 17:5 (ASD)</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr orange">Ano ang Ibig Sabihin ng "Nakaugat sa Tao"?</div>
+    <div class="illus-body">
+      <p>Ang pagiging "nakaugat sa tao" ay hindi lamang pagtitiwala sa ibang tao — ito ay ang paglalagay ng pangunahing pag-asa sa <strong>sariling kakayahan, karunungan, pera, katungkulan, o mga relasyon</strong> sa halip na sa Diyos.</p>
+      <p>Hindi masama ang mga ito — ngunit kapag sila ang naging pangunahing sandigan ng puso, unti-unti tayong lumalayo sa Panginoon. Kaya inihalintulad ito ng Diyos sa halamang nasa tigang na ilang: <em>madaling matuyo kapag dumating ang tagtuyot.</em></p>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Ang Taong Nakaugat sa Diyos — Apat na Katangian</div>
+  <div class="stages-box">
+    <div class="stages-lbl">Jeremias 17:7–8 — Pamumuhay ng Taong Nagtitiwala sa Panginoon</div>
+    <div class="stages-items">
+      <div class="stage-row">
+        <div class="stage-num">①</div>
+        <div>
+          <div class="stage-title">Umaasa sa Kanyang mga pangako</div>
+          <div class="stage-desc">Hindi nakasalalay sa nakikita — nagtitiwala sa sinabi ng Diyos kahit hindi pa nararamdaman ang sagot.</div>
+        </div>
+      </div>
+      <div class="stage-row">
+        <div class="stage-num">②</div>
+        <div>
+          <div class="stage-title">Sumusunod sa Kanyang Salita</div>
+          <div class="stage-desc">Ang pagtitiwala ay hindi lamang salita — ito ay makikita sa pagkilos at pamumuhay na nakasentro sa kalooban ng Diyos.</div>
+        </div>
+      </div>
+      <div class="stage-row">
+        <div class="stage-num">③</div>
+        <div>
+          <div class="stage-title">Nananalangin at umaasa sa Kanyang patnubay</div>
+          <div class="stage-desc">Sa bawat desisyon at pagsubok — ang panalangin ang unang hakbang, hindi ang sariling karunungan.</div>
+        </div>
+      </div>
+      <div class="stage-row">
+        <div class="stage-num">④</div>
+        <div>
+          <div class="stage-title">Nananatiling tapat kahit may pagsubok</div>
+          <div class="stage-desc">Inilarawan siya bilang punong nakatanim sa tabi ng tubig — hindi dahil wala siyang problema, kundi may tuloy-tuloy siyang pinagmumulan ng lakas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Salmo 118:8–9</div>
+    <p>"Mas mabuti pang manalig sa Panginoon, kaysa magtiwala sa tao. Mas mabuting pang manalig sa Panginoon, kaysa magtiwala sa mga pinuno."</p>
+    <cite>— Salmo 118:8–9</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Kawikaan 3:5–6</div>
+    <p>"Magtiwala ka nang buong puso sa Panginoon at huwag kang manalig sa iyong sariling karunungan. Alalahanin mo ang Panginoon sa lahat ng iyong ginagawa at ituturo niya sa iyo ang tamang landas."</p>
+    <cite>— Kawikaan 3:5–6</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Salmo 146:3–5</div>
+    <p>"Huwag kayong magtiwala sa mga makapangyarihang tao o kaninuman, dahil sila'y hindi makapagliligtas... Mapalad ang tao na ang tulong ay nagmumula sa Diyos ni Jacob, na ang kanyang pag-asa ay sa Panginoon."</p>
+    <cite>— Salmo 146:3–5</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr orange">Halimbawa — Si Haring Asa</div>
+    <div class="illus-body">
+      <p>Si Haring Asa ay unang nagtiwala sa Diyos at nagtagumpay (2 Cronica 14). Ngunit kalaunan ay umasa siya sa hari ng Syria sa halip na sa Panginoon (2 Cronica 16:7–9) — kaya siya ay sinaway ng Diyos.</p>
+      <p>Sa ating panahon: maaaring isipin ng isang tao na ang kanyang trabaho o ipon ang kanyang tunay na seguridad. Ngunit kapag nawala ang mga ito, saka lamang niya mapagtatanto na ang tanging hindi nawawala ay ang Diyos.</p>
+    </div>
+  </div>
+
+  <div class="reflect-box">
+    <div class="reflect-lbl">Mga Tanong para sa Personal na Pagsusuri</div>
+    <div class="reflect-q">Ano ang una mong tinatakbuhan kapag may problema — ang Diyos ba o ang tao?</div>
+    <div class="reflect-q">May bagay ba sa iyong buhay na mas pinagkakatiwalaan mo kaysa sa Diyos — trabaho, ipon, relasyon?</div>
+    <div class="reflect-q">Ang iyong pagtitiwala sa Panginoon ba ay buong puso, o kondisyonal lamang kapag convenient?</div>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang kaligtasan mismo ay hindi bunga ng ating lakas kundi ng biyaya ng Panginoong Hesus. Ang taong nakaugat sa Diyos ay nananatiling matatag sa anumang pagsubok — hindi dahil wala siyang problema, kundi dahil may tuloy-tuloy siyang pinagmumulan ng buhay at lakas.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+
+<!-- ===== PUNTO 2 ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:linear-gradient(135deg,var(--purple-dark),var(--purple));">
+    <div class="snum">2</div>
+    <div>
+      <h2>Sa pamamagitan ng Pag-uugat ng Buhay sa Salita at Presensya ng Diyos</h2>
+      <div class="sub">Jeremias 17:8 · Juan 15:4–5 · Salmo 1:2–3 · Colosas 2:6–7</div>
+    </div>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Matutulad siya sa punongkahoy na itinanim sa tabi ng ilog na ang mga ugat ay umaabot sa tubig."</p>
+    <cite>— Jeremias 17:8 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang salitang Hebreo na <em>shoresh</em> ay nangangahulugang ugat. Ang ugat ang <strong>hindi nakikita</strong> ngunit ito ang nagbibigay-buhay sa puno. Gayundin ang Kristiyano — ang lakas ng pananampalataya ay hindi nakikita sa panlabas na anyo kundi sa <em>lalim ng relasyon sa Diyos</em> sa pamamagitan ng Salita, panalangin, at pagsunod.</p>
+  </div>
+
+  <div class="hl purple">
+    <p><strong>Ang puno ay hindi nabubuhay dahil sa ganda ng dahon — kundi dahil sa lalim ng ugat.</strong> Hindi sapat ang regular na pagsisimba, maraming kaalaman, o pagiging abala sa ministeryo — kung wala tayong malalim na relasyon kay Hesus.</p>
+  </div>
+
+  <div class="sec-lbl">Paano Lumalim ang Ugat ng Pananampalataya</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">📖</div>
+      <div>
+        <h4>Araw-araw na Pagbabasa ng Salita ng Diyos</h4>
+        <p>Ang Salita ng Diyos ang tubig na nagpapalusog sa ugat. Kapag hindi tayo nagbabasa, unti-unting nauuhaw ang espirituwal na buhay.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">🙏</div>
+      <div>
+        <h4>Panalangin — Pakikipag-usap sa Diyos</h4>
+        <p>Hindi lamang pakikinig — kundi aktibong pakikipag-usap. Ang panalangin ang ugat na tumatagos sa pinakamalalim na lugar ng puso.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">✅</div>
+      <div>
+        <h4>Pagsunod sa Kanyang mga Utos</h4>
+        <p>Ang pagsunod ay patunay ng tunay na pananampalataya. Hindi sumusulong ang ugat sa salita lamang — kundi sa aktibong pagsasabuhay ng Salita ng Diyos.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">🤝</div>
+      <div>
+        <h4>Pakikipagtipon sa mga Kapwa Mananampalataya</h4>
+        <p>Ang puno ay hindi nabubuhay nang mag-isa. Ang komunidad ng pananampalataya ay nagpapatibay ng ugat — ang pakikipagtipon ay hindi opsyonal kundi mahalagang bahagi ng paglago.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--purple);">💧</div>
+      <div>
+        <h4>Pamumuhay na Nakasentro kay Hesus</h4>
+        <p>Si Hesus ang "Tubig na Buhay." Ang taong nananatili sa Kanya ay patuloy na tumatanggap ng biyaya at lakas kahit dumaraan sa pinakamainit na panahon ng buhay.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Juan 15:4–5</div>
+    <p>"Manatili kayo sa akin at ako'y mananatili sa inyo... Ang taong nananatili sa akin at ako rin sa kanya ay mamumunga nang marami. Sapagkat wala kayong magagawa kung hiwalay kayo sa akin."</p>
+    <cite>— Juan 15:4–5</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Salmo 1:2–3</div>
+    <p>"Nagagalak siyang sumunod sa mga aral mula sa Panginoon, at kanyang pinagbubulay-bulayan ang mga ito araw-gabi. Siya'y katulad ng isang punongkahoy na itinanim sa tabi ng sapa, namumunga sa takdang panahon at hindi nalalanta ang mga dahon."</p>
+    <cite>— Salmo 1:2–3</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Efeso 3:16–17</div>
+    <p>"Ipinapanalangin ko na sa kadakilaan ng kapangyarihan niya ay palakasin niya ang espirituwal ninyong pamumuhay sa pamamagitan ng kanyang Espiritu upang manahan si Kristo sa mga puso ninyo dahil sa inyong pananampalataya."</p>
+    <cite>— Efeso 3:16–17</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr purple">Halimbawa — Si Daniel</div>
+    <div class="illus-body">
+      <p>Si Daniel ay nanatiling matatag kahit ipagbawal ang pananalangin sapagkat matagal nang malalim ang kanyang relasyon sa Diyos (Daniel 6:10). Hindi siya naging matatag dahil sa sitwasyon — kundi dahil sa kanyang ugat.</p>
+      <p><strong>Gayon din ang isang puno:</strong> hindi lumalalim ang ugat kapag may bagyo na. Bago pa dumating ang bagyo, nakabaon na ito nang malalim. Ang pananampalatayang malalim ay <em>hinanda sa panahon ng kapayapaan — hindi nagmamadaling itayo sa panahon ng krisis.</em></p>
+    </div>
+  </div>
+
+  <div class="reflect-box">
+    <div class="reflect-lbl">Mga Tanong para sa Personal na Pagsusuri</div>
+    <div class="reflect-q">Lumalalim ba ang iyong relasyon sa Diyos araw-araw — o tuwing may problema lamang?</div>
+    <div class="reflect-q">Kailan mo huling nabasa ang Salita ng Diyos nang buong puso — hindi bilang tungkulin, kundi bilang pagnanais?</div>
+    <div class="reflect-q">Kung susukatin ang lalim ng iyong "ugat" ngayon — handa ka na ba sa susunod na "tag-init"?</div>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Si Hesus ang "Tubig na Buhay." Ang taong nananatili sa Kanya ay patuloy na tumatanggap ng biyaya, lakas, at buhay kahit dumaraan sa pinakamainit na panahon. Ang ugat na malalim sa Diyos — sa pamamagitan ng Salita, panalangin, at pagsunod — ang tanging garantiya ng matatag at mabungang buhay.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+
+<!-- ===== PUNTO 3 ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--blue);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Sa pamamagitan ng Pananatiling Tapat sa Diyos sa Gitna ng mga Pagsubok</h2>
+      <div class="sub">Jeremias 17:8 · Santiago 1:2–4 · Roma 5:3–5 · Job 1:20–22</div>
+    </div>
+  </div>
+
+  <div class="vbox blue">
+    <p>"Hindi natatakot, dumating man ang tag-init o mahabang tag-araw. Palaging sariwa ang mga dahon nito at walang tigil ang pamumunga."</p>
+    <cite>— Jeremias 17:8 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Hindi ipinangako ng Diyos na walang "tag-init." Ang <strong>"tag-init"</strong> ay larawan ng pagsubok, kahirapan, sakit, pag-uusig, at pagkawala. Ang kaibahan ng taong nagtitiwala sa Diyos ay <em>hindi ang kawalan ng problema</em> — kundi ang katatagan sa gitna nito.</p>
+    <p>Tulad ng punongkahoy sa tabi ng ilog: maaaring maramdaman nito ang init ng araw, ngunit hindi ito natutuyo — sapagkat ang ugat nito ay patuloy na sumisipsip ng tubig.</p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Katangian ng Matatag na Pananampalataya sa Pagsubok</div>
+  <div class="stages-box">
+    <div class="stages-lbl">Jeremias 17:8 — Mga Pangako ng Diyos sa Taong Nakaugat sa Kanya</div>
+    <div class="stages-items">
+      <div class="stage-row">
+        <div class="stage-num">①</div>
+        <div>
+          <div class="stage-title">"Hindi natatakot" — Kalayaan sa Takot</div>
+          <div class="stage-desc">Hindi ang kawalan ng pagsubok — kundi ang kawalan ng takot. Ang pananampalatayang nakaugat sa Diyos ay nagbibigay ng kapayapaang higit sa lahat ng pag-unawa, kahit sa gitna ng pinakamabigat na sitwasyon.</div>
+        </div>
+      </div>
+      <div class="stage-row">
+        <div class="stage-num">②</div>
+        <div>
+          <div class="stage-title">"Palaging sariwa ang mga dahon" — Hindi Namamalanta</div>
+          <div class="stage-desc">Kahit dumaraan sa tag-araw, ang dahon ay nananatiling berde at malusog — sapagkat ang tubig mula sa ilog ay patuloy na sumasapot sa ugat. Ang espirituwal na kasiglahan ay produkto ng malalim na koneksyon sa Diyos.</div>
+        </div>
+      </div>
+      <div class="stage-row">
+        <div class="stage-num">③</div>
+        <div>
+          <div class="stage-title">"Walang tigil ang pamumunga" — Patuloy na Nagbubunga</div>
+          <div class="stage-desc">Kahit sa panahon ng pagsubok, ang nakaugat sa Diyos ay patuloy na nagbubunga — nagbibigay ng pag-asa sa iba, naglilingkod, nagmamahal. Ang pagsubok ay hindi hadlang sa bunga — ito ang sandali ng pinaka-makabuluhang bunga.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Santiago 1:2–4</div>
+    <p>"Mga kapatid, magalak kayo sa tuwing dumaranas kayo ng iba't ibang uri ng pagsubok, sapagkat alam ninyong ang pagsubok ng inyong pananampalataya ay nagdudulot ng katatagan. Kaya dapat kayong magpakatatag hanggang wakas upang maging ganap at walang anumang pagkukulang ang buhay ninyo."</p>
+    <cite>— Santiago 1:2–4</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Roma 5:3–5</div>
+    <p>"Nagagalak din tayo kahit na dumaranas tayo ng mga paghihirap, dahil natututo tayong magtiis. Alam natin na ang pagtitiis ay nagpapabuti sa ating pagkatao. At kung mabuti ang ating pagkatao, nagbubunga ito ng pag-asa."</p>
+    <cite>— Roma 5:3–5</cite>
+  </div>
+  <div class="sup">
+    <div class="sup-lbl">Isaias 41:10</div>
+    <p>"Huwag kang mangamba, sapagkat kasama mo ako; huwag kang malungkot, sapagkat ako ang iyong Diyos. Palalakasin kita at tutulungan. Aalalayan kita sa pamamagitan ng kamay kong nagliligtas."</p>
+    <cite>— Isaias 41:10</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr blue">Halimbawa — Si Job</div>
+    <div class="illus-body">
+      <p>Si Job ay nawalan ng kayamanan, mga anak, at kalusugan — ngunit hindi niya tinalikuran ang Diyos (Job 1:20–22). Dumaan siya sa matinding "tag-init," ngunit nanatili siyang nakaugat sa Panginoon.</p>
+      <p><strong>Ang sagot ni Job sa pinaka-mabigat na pagkawala:</strong> <em>"Ang Panginoon ang nagbigay, at ang Panginoon ang kumuha. Purihin ang pangalan ng Panginoon!"</em> Ito ang pananampalatayang nakaugat nang malalim — hindi natitinag ng anumang bagyo.</p>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr green">Ang Sikreto ng Katatagan — Hindi Sitwasyon, Kundi Ugat</div>
+    <div class="illus-body">
+      <p>Ang pagkakaiba ng puno sa tigang na ilang at puno sa tabi ng ilog ay hindi ang lakas ng bagyo na kanilang hinarap — pareho silang nalantad sa tag-init. <strong>Ang pagkakaiba ay ang ugat.</strong></p>
+      <p>Hindi tayo tinatawag ng Diyos na huwag matakot sa sitwasyon — tinatawag Niya tayong <em>magtanim nang malalim</em> sa Kanya, upang kapag dumating ang pagsubok, ang ating ugat ay sapat na upang hindi tayo matuyo.</p>
+    </div>
+  </div>
+
+  <div class="reflect-box">
+    <div class="reflect-lbl">Mga Tanong para sa Personal na Pagsusuri</div>
+    <div class="reflect-q">Kapag dumating ang pagsubok — lalo ka bang lumalapit sa Diyos, o unti-unti kang lumalayo sa Kanya?</div>
+    <div class="reflect-q">Ano ang "tag-init" na pinagdadaanan mo ngayon — at paano ito nagpapalalim ng iyong ugat?</div>
+    <div class="reflect-q">Mayroon ka bang taong makikitaan mo ng katatagan sa gitna ng pagsubok? Anong lihim ang mayroon sila?</div>
+  </div>
+
+  <div class="truth blue">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Kung ang ating puso ay nakaugat kay Cristo, hindi tayo matitinag ng init ng pagsubok — sapagkat ang ating buhay ay patuloy na pinapadaluyan ng biyaya at kapangyarihan ng Diyos. "Hindi natatakot, palaging sariwa, walang tigil na namumunga" — ito ang pangako para sa taong nagtitiwala sa Panginoon.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral — Saan Ka Nakaugat?</div>
+      <h3>Tatlong Aral mula sa Jeremias 17:5–8</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — Ilagak ang buong pagtitiwala sa Panginoon:</strong> Hindi sa sariling lakas, hindi sa mga tao, hindi sa kayamanan o katungkulan. Ang Diyos ay hinahanap ang buong puso — ang <em>batach</em> na pananampalatayang naglalagak ng lahat sa Kanya. Ang taong nakaugat sa tao ay tulad ng punong nasa tigang na ilang — madaling matuyo sa pagsubok.</p>
+      <p><strong>Ikalawa — Pag-ugatin ang buhay sa Salita at presensya ng Diyos:</strong> Ang lalim ng ugat ang nagtatakda ng katatagan sa oras ng bagyo. Hindi sapat ang pagsisimba o kaalaman nang walang malalim na relasyon kay Hesus — sa pamamagitan ng Salita, panalangin, pagsunod, at pakikipagtipon.</p>
+      <p><strong>Pangatlo — Manatiling tapat sa gitna ng mga pagsubok:</strong> Hindi ipinangako ng Diyos ang buhay na walang "tag-init." Ngunit ipinangako Niya na ang nakaugat sa Kanya ay hindi matatakot, laging sariwa, at walang tigil na mamumunga — kahit sa gitna ng pinakamainit na pagsubok.</p>
+    </div>
+  </div>
+
+  <div class="sum-cards" style="margin-top:14px;">
+    <div class="sum-card">
+      <div class="sd o">1</div>
+      <div>
+        <div class="s-title">Pagtitiwala — Ilagak ang lahat sa Panginoon</div>
+        <div class="s-desc">Hindi sa tao, hindi sa kakayahan — sa Panginoon lamang. Ang <em>batach</em> na pagtitiwala ang pundasyon ng hindi matitinag na buhay.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd p">2</div>
+      <div>
+        <div class="s-title">Pag-uugat — Lumalalim sa Salita at Panalangin</div>
+        <div class="s-desc">Ang ugat ang hindi nakikita ngunit nagbibigay-buhay. Ang malalim na relasyon kay Hesus — bago pa dumating ang bagyo — ang susi sa katatagan.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd b">3</div>
+      <div>
+        <div class="s-title">Katatagan — Tapat kahit sa "tag-init"</div>
+        <div class="s-desc">Hindi natatakot, palaging sariwa, walang tigil na namumunga — ito ang pangako ng Diyos sa taong nakaugat sa Kanya sa lahat ng panahon.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Itinuturo ng Diyos na ang kalidad ng ating buhay ay nakasalalay sa pinag-uugatan ng ating pagtitiwala. Huwag ilagak ang buong pagtitiwala sa tao o sa sariling lakas — kundi sa Panginoon lamang, sapagkat Siya lamang ang pinagmumulan ng tunay na buhay, katatagan, at walang hanggang bunga."</p>
+    <cite>— Mula sa Sermon</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr green">Pangwakas na Hamon — Tatlong Tanong</div>
+    <div class="illus-body">
+      <p><strong>Una:</strong> <em>Kung tingnan mo ang iyong buhay ngayon — nasa tigang na ilang ka ba, o sa tabi ng ilog? Saan nakaugat ang iyong puso?</em></p>
+      <p><strong>Ikalawa:</strong> <em>May paparating na "tag-init" sa iyong buhay — handa ba ang iyong ugat? Lumalalim ka ba sa Diyos araw-araw, o naghihintay ka pa na may lumitaw na problema?</em></p>
+      <p><strong>Pangatlo:</strong> <em>Kung ngayon ay panahon ng "tag-init" sa iyong buhay — gamitin ito. Ang pinaka-malalim na ugat ay laging naihuhukay sa pinaka-mabigat na pagsubok. Huwag aksayahin ang pagkakataong ito na lumapit sa Diyos nang higit pa.</em></p>
+    </div>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Ang puso na nakaugat kay Cristo ay hindi matitinag ng anumang pagsubok.</strong> Piliin nating itanim ang ating mga ugat sa Panginoon — sa Kanyang Salita, sa panalangin, sa pagsunod — upang kahit dumating ang tag-init, <em>palagi tayong sariwa at walang tigil na mamumunga.</em></p>
+  </div>
+
+  <div class="vbox">
+    <p>"Ngunit mapalad ang taong nagtitiwala at lubos na umaasa sa PANGINOON. Matutulad siya sa punongkahoy na itinanim sa tabi ng ilog na ang mga ugat ay umaabot sa tubig."</p>
+    <cite>— Jeremias 17:7–8 · Pangunahing Talata</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, suriin Mo ang aming mga puso — at ipakita Mo sa amin kung saan talaga kami nakaugat. Kung natutuklasan naming ang aming tiwala ay nakalagak sa mga bagay na lumilipas — turuan Mo kaming bumalik at magtiwala nang buo sa Iyo. Palalimin Mo ang aming ugat sa Iyong Salita at presensya, upang sa tuwing dumating ang tag-init ng buhay, nananatili kaming matatag, sariwa, at namumunga para sa Iyong kaluwalhatian. At kung ngayon ay panahon ng tag-init sa aming buhay — gamitin Mo ito upang palalimin ang aming koneksyon sa Iyo. Sa pangalan ni Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Mapalad ang taong nagtitiwala at lubos na umaasa sa PANGINOON — palaging sariwa ang mga dahon nito at walang tigil ang pamumunga."</p>
+    <cite>— Jeremias 17:7–8 (ASD) · Talatang Iuunawa sa Linggo</cite>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

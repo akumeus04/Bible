@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Pananampalatayang Hindi Sumusuko — Mateo 15:21–28</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  .topbar{background:var(--blue);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:15px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.65;margin-top:2px;}
+
+  .audio-bar{position:fixed;bottom:72px;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:99;padding:10px 14px;box-shadow:0 -2px 10px rgba(0,0,0,0.06);}
+  .audio-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .audio-lbl::before{content:"🎧";}
+  .audio-bar audio{width:100%;height:36px;border-radius:8px;outline:none;}
+
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--blue);}
+
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* HERO */
+  .hero{background:linear-gradient(150deg,var(--purple-dark) 0%,var(--blue) 100%);padding:24px 18px 22px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.18);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:21px;font-weight:700;margin-bottom:5px;line-height:1.25;}
+  .hero .href{font-size:12px;opacity:0.7;margin-bottom:3px;}
+  .hero .hdate{font-size:11px;opacity:0.5;}
+
+  /* VERSE BOX */
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .vbox.blue{background:var(--blue-light);border-left-color:var(--blue);}
+  .vbox.blue p{color:var(--blue);}
+  .vbox.blue cite{color:var(--blue);}
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+  .vbox.red{background:var(--red-light);border-left-color:var(--red);}
+  .vbox.red p{color:var(--red);}
+  .vbox.red cite{color:var(--red);}
+
+  /* CARD */
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* SECTION HEADER */
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.25);color:white;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:15px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  /* HIGHLIGHT */
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.blue p{color:var(--blue);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.red p{color:var(--red);}
+
+  /* ILLUS */
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;}
+  .illus-hdr.orange{background:var(--orange-light);color:var(--orange);}
+  .illus-hdr.orange::before{background:var(--orange);}
+  .illus-hdr.blue{background:var(--blue-light);color:var(--blue);}
+  .illus-hdr.blue::before{background:var(--blue);}
+  .illus-hdr.green{background:var(--green-light);color:var(--green);}
+  .illus-hdr.green::before{background:var(--green);}
+  .illus-hdr.purple{background:var(--purple-light);color:var(--purple);}
+  .illus-hdr.purple::before{background:var(--purple);}
+  .illus-hdr.red{background:var(--red-light);color:var(--red);}
+  .illus-hdr.red::before{background:var(--red);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  /* SUP VERSE */
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  /* TRUTH BOX */
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.blue{background:var(--blue);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.dark{background:var(--green-dark);}
+  .truth.navy{background:var(--purple-dark);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  /* STEPS */
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* SUM CARDS */
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .sd.b{background:var(--blue);}
+  .sd.r{background:var(--red);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* COMPARE */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 14px 0;}
+  .cmp-card{border-radius:11px;padding:13px;}
+  .cmp-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;}
+  .cmp-item{font-size:12px;line-height:1.65;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.07);}
+  .cmp-item:last-child{border-bottom:none;padding-bottom:0;}
+  .cmp-card.bad{background:var(--red-light);}
+  .cmp-card.bad .cmp-title{color:var(--red);}
+  .cmp-card.bad .cmp-item{color:var(--red);}
+  .cmp-card.good{background:var(--green-light);}
+  .cmp-card.good .cmp-title{color:var(--green-dark);}
+  .cmp-card.good .cmp-item{color:var(--green-dark);}
+
+  /* GREAT FAITH STAGES */
+  .stages-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .stages-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px;text-align:center;}
+  .stages-items{display:flex;flex-direction:column;gap:7px;}
+  .stage-row{display:flex;align-items:flex-start;gap:11px;background:rgba(255,255,255,0.1);border-radius:9px;padding:11px 13px;}
+  .stage-num{font-size:18px;font-weight:700;color:#A8F0D8;width:24px;flex-shrink:0;text-align:center;line-height:1.3;}
+  .stage-title{font-size:13px;font-weight:700;color:white;margin-bottom:3px;}
+  .stage-desc{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;}
+
+  /* WHY BOX */
+  .why-box{background:var(--blue-light);border:1px solid #A6C9EA;border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .why-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:11px;text-align:center;}
+  .why-items{display:flex;flex-direction:column;gap:8px;}
+  .why-row{display:flex;align-items:flex-start;gap:10px;background:white;border-radius:8px;padding:10px 12px;border:1px solid var(--border);}
+  .why-icon{font-size:16px;flex-shrink:0;margin-top:2px;}
+  .why-title{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:2px;}
+  .why-desc{font-size:12px;color:var(--gray);line-height:1.5;}
+
+  /* REFLECTION */
+  .reflect-box{background:var(--orange-light);border:1px solid #E6C97A;border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .reflect-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+  .reflect-lbl::before{content:"💭";font-size:12px;}
+  .reflect-q{font-size:14px;color:var(--orange-dark);line-height:1.7;padding:7px 0;border-bottom:1px solid rgba(186,117,23,0.18);}
+  .reflect-q:last-child{border-bottom:none;padding-bottom:0;}
+
+  /* RECAP */
+  .recap-box{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:13px 14px;}
+  .recap-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+  .recap-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:13px;color:var(--blue);}
+  .recap-item:last-child{margin-bottom:0;}
+  .ri-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+
+  /* PRAYER */
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  /* CLOSING */
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  /* CONCL */
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--blue);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  .quote-box{background:var(--purple-dark);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:#A8F0D8;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.5);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · Jesus First Christian Ministries · JF5</div>
+  <h1>Pananampalatayang Hindi Sumusuko</h1>
+  <div class="ref">Juan 6:66 · Mateo 7:21–23 · Mateo 15:21–28</div>
+</div>
+
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--blue)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--purple)">1</div>
+    <div class="nl">Naka-angkla</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--orange)">2</div>
+    <div class="nl">Nagpupumilit</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--green)">3</div>
+    <div class="nl">Mapagpakumbaba</div>
+  </button>
+  <button class="nb" onclick="show('concl',this)">
+    <div class="nd" style="background:var(--blue)">✓</div>
+    <div class="nl">Buod</div>
+  </button>
+</div>
+
+<div class="audio-bar">
+  <div class="audio-lbl">Pakinggan ang Sermon</div>
+  <audio controls>
+    <source src="" type="audio/mpeg">
+    Hindi sinusuportahan ang audio sa iyong browser.
+  </audio>
+</div>
+
+<!-- ===== INTRO / SIMULA ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Jesus First Christian Ministries · JF5</div>
+    <h2>Pananampalatayang Hindi Sumusuko</h2>
+    <div class="href">Faith That Won't Give Up</div>
+    <div class="hdate">Juan 6:66 · Mateo 7:21–23 · Mateo 15:21–28</div>
+  </div>
+
+  <div class="vbox red">
+    <p>"Mula noon, marami sa kanyang mga alagad ang tumalikod at hindi na siya sinundan."</p>
+    <cite>— Juan 6:66 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Nang marinig ng maraming alagad ang mahirap na turo ni Hesus tungkol sa Kanyang laman at dugo — tumalikod sila at hindi na Siya sinundan. Ang tanong na itinatanong ng pag-aaral na ito ay simple ngunit malalim: <strong>ano ang nagpapanatiling nakatayo sa pananampalataya ang isang mananampalataya kahit mahirap ang kalagayan?</strong></p>
+    <p>Kadalasan, nandito tayo sa iglesya at iniisip nating Kristiyano na tayo. Ngunit ang totoo: <em>"If you are in Church but not in Christ, you are in danger."</em> Ang tunay na pananampalataya ay hindi nasusukat sa presensya sa simbahan — ito ay nasusukat sa lalim ng ating relasyon sa Panginoong Hesus.</p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Mapanganib na Kapalit ng Tunay na Pananampalataya</div>
+  <div class="compare">
+    <div class="cmp-card bad">
+      <div class="cmp-title">❌ Kapalit</div>
+      <div class="cmp-item">Information — hindi transformation</div>
+      <div class="cmp-item">Religion — hindi relationship</div>
+      <div class="cmp-item">Routine — hindi real encounter</div>
+    </div>
+    <div class="cmp-card good">
+      <div class="cmp-title">✓ Tunay</div>
+      <div class="cmp-item">Nababago ang buhay — transformation</div>
+      <div class="cmp-item">Personal na relasyon sa Diyos</div>
+      <div class="cmp-item">Tunay na pakikipagtagpo kay Hesus</div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr red">Mateo 7:21–23 — "Hindi Ko Kayo Nakilala"</div>
+    <div class="illus-body">
+      <p><em>"Hindi ang bawat nagsasabi sa akin, 'Panginoon, Panginoon,' ay papasok sa kaharian ng langit, kundi ang gumagawa ng kalooban ng aking Ama sa langit. Marami ang magsasabi sa akin sa araw na iyon, 'Panginoon, Panginoon, hindi ba kami nanghula sa iyong pangalan...' Kung gayon ay ipahahayag ko sa kanila, 'Hindi ko kayo nakilala. Lumayo kayo sa akin, kayong mga gumagawa ng kasamaan!'"</em> (Mateo 7:21–23)</p>
+      <p><strong>Ang pinaka-nakakatakot na bagay:</strong> posibleng aktibo sa iglesya — nanghula, nagpalayas ng demonyo, gumawa ng mga kababalaghan — ngunit ang sagot ng Panginoon sa huling araw ay "Hindi ko kayo nakilala." Ang pananampalatayang walang tunay na relasyon ay walang kabuluhan.</p>
+      <p><em>Information informs. Encounter transforms.</em> Hindi sapat na malaman ang tungkol sa Diyos — kailangan nating personal Siyang makilala.</p>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Bakit Kailangan ng Dakilang Pananampalataya?</div>
+  <div class="why-box">
+    <div class="why-lbl">4 Dahilan Kung Bakit Kailangan ng Great Faith</div>
+    <div class="why-items">
+      <div class="why-row">
+        <div class="why-icon">⚡</div>
+        <div>
+          <div class="why-title">Susubukin tayo ng buhay nang higit sa ating lakas</div>
+          <div class="why-desc">Darating ang oras na walang magagawa ang pera, koneksyon, o sariling kakayahan. May mga sitwasyong hindi kakayanin nang mag-isa — physically, emotionally, financially, relationally.</div>
+        </div>
+      </div>
+      <div class="why-row">
+        <div class="why-icon">⏳</div>
+        <div>
+          <div class="why-title">Ang naantalang sagot ay nagpapahina ng puso</div>
+          <div class="why-desc">Kapag mahina ang pananampalataya at hindi agad sumasagot ang Diyos, lalo itong lumilipas sa pagbaba. Ang dakilang pananampalataya ang nagpapanatiling nakatayo kahit walang sagot pa mula sa langit.</div>
+        </div>
+      </div>
+      <div class="why-row">
+        <div class="why-icon">🎢</div>
+        <div>
+          <div class="why-title">Ang damdamin ay hindi matatag</div>
+          <div class="why-desc">Someday mataas ang faith, someday gusto mong sumuko. Kapag nag-rely lang sa feelings, delikado — dahil mabilis itong magbago. Ang pananampalataya ay hindi feeling — ito ay pagpili na magtiwala.</div>
+        </div>
+      </div>
+      <div class="why-row">
+        <div class="why-icon">🌱</div>
+        <div>
+          <div class="why-title">Ginagawa ng Diyos ang pinakamalalim na gawain sa pinakamahirap na panahon</div>
+          <div class="why-desc">Ang breakthrough ay karaniwang proporsyonal sa lalim ng pinagdaanan. Mas malalim ang pagsubok — mas malalim din ang magiging breakthrough. At sa huli, ang Diyos ay maluluwalhati.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Ang Kwento ng Pananampalatayang Hindi Sumusuko — Mateo 15:21–28</div>
+  <div class="sum-cards">
+    <div class="sum-card">
+      <div class="sd p">1</div>
+      <div>
+        <div class="s-title">Naka-angkla sa Tunay na Pagkakakilanlan ni Hesus</div>
+        <div class="s-desc">Tinawag niya si Hesus bilang "Lord, Son of David" — alam niya kung sino ang kanyang kausap. Ang pananampalataya ay nagsisimula sa tamang pagkilala.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">2</div>
+      <div>
+        <div class="s-title">Nagpupumilit Kahit sa Katahimikan at Pagtanggi</div>
+        <div class="s-desc">Hindi sumagot si Hesus. Pinalayas siya ng mga disipulo. Sinabi ni Hesus na hindi siya para sa kanya. Ngunit patuloy siyang bumabalik — sumasamba at nagmamakaawa.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd g">3</div>
+      <div>
+        <div class="s-title">Nanatiling Mapagpakumbaba sa Kabila ng Kahihiyan</div>
+        <div class="s-desc">"Kahit ang mga aso ay kumakain ng mga mumo na nahuhulog mula sa mesa ng kanilang panginoon." Tinanggap niya ang kanyang posisyon nang may buong puso — at doon nagsimula ang pagbabago.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <p>"What if heaven's silence is not a denial but rather an invitation to ask God one more time? Baka sinasabi Niya: 'Anak, tawag ka pa.'"</p>
+    <cite>— Mula sa Sermon Outline</cite>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 1 — NAKA-ANGKLA SA TUNAY NA PAGKAKAKILANLAN NI HESUS ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:linear-gradient(135deg,var(--purple-dark),var(--purple));">
+    <div class="snum">1</div>
+    <div>
+      <h2>Ang Dakilang Pananampalataya ay Naka-angkla sa Tunay na Pagkakakilanlan ni Hesus</h2>
+      <div class="sub">Mateo 15:21–22 · Mateo 8:10 · Marcos 6:6</div>
+    </div>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Isang babaeng Canaanea mula sa lugar na iyon ay lumabas at sumigaw, 'Panginoon, Anak ni David, mahabag po kayo sa akin! Ang aking anak na babae ay inaalihan ng demonyo at siya ay nahihirapan nang husto.'"</p>
+    <cite>— Mateo 15:22 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang unang bagay na mapapansin sa babae ay ang paraan ng kanyang pagtawag kay Hesus: <em>"Lord, Son of David."</em> Siya ay isang Canaanea — hindi Hudyo — ngunit alam niya kung sino si Hesus. <strong>Ang kanyang pananampalataya ay nagsimula sa tamang pagkilala sa Panginoon.</strong></p>
+    <p>Ang tanong para sa atin: <em>Sino ba talaga si Hesus para sa iyo? Naka-anchor ba ang iyong pananampalataya sa Kanya — o sa tao lamang? Ang iyong relasyon kay Hesus ba ay biblical o cultural?</em></p>
+  </div>
+
+  <div class="sec-lbl">Dalawang Bagay na Nagpahanga kay Hesus</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">✦</div>
+      <div>
+        <h4>Great Faith — Nagsimangha si Hesus</h4>
+        <p>Senturyon (Mateo 8:10) — <em>"Talagang sinasabi ko sa inyo, wala pang nakitang ganitong kalaking pananampalataya sa Israel."</em> At ang babae sa Mateo 15 — <em>"Babae, dakila ang iyong pananampalataya!"</em> Kapag nakita ng Panginoon ang dakilang pananampalataya, nagagalak Siya at agad kumikilala.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--red);">✗</div>
+      <div>
+        <h4>Lack of Faith — Nagulat din si Hesus</h4>
+        <p>Sariling bayan (Marcos 6:6) — <em>"At nagulat siya sa kanilang kawalan ng pananampalataya."</em> Ang kawalan ng pananampalataya ay nagpigil sa Panginoon sa paggawa ng mga himala sa Kanyang sariling lugar. Ang pananampalataya — o kawalan nito — ay may tunay na epekto.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Paano Mo Kilala si Hesus?</div>
+  <div class="illus">
+    <div class="illus-hdr purple">Tatlong Katangian ni Hesus na Dapat Kilalain</div>
+    <div class="illus-body">
+      <p><strong>Omniscient (Marunong sa Lahat)</strong> — Alam Niya ang lahat ng iniisip mo. Nabasa Niya ang iyong puso. Walang lihim sa harapan Niya.</p>
+      <p><strong>Omnipotent (Makapangyarihan sa Lahat)</strong> — Walang imposible sa Kanya. Walang sakit na hindi Niya mapagaling, walang sitwasyon na lampas sa Kanyang kapangyarihan.</p>
+      <p><strong>Omnipresent (Naririto sa Lahat ng Lugar)</strong> — Kahit saan ka man naroon — sa Saudi, sa bahay, sa trabaho, sa pagsubok — nandoon si Hesus. Walang lugar na wala Siya.</p>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr orange">Handa ba Tayong Kilalain Siya Bilang Panginoon — Hindi Lang Tagapagligtas?</div>
+    <div class="illus-body">
+      <p>Madalas, gusto lang natin si Hesus bilang <em>Savior</em> — "Panginoon, ayusin mo ang aking finances; pagalingin mo ang aking pamilya; iligtas mo ako sa problema." Ngunit kilala mo ba Siya bilang <em>Lord</em> — Panginoon na may karapatang manguna sa iyong buhay?</p>
+      <p><strong>Ang pananampalatayang hindi sumusuko ay nagsisimula sa tamang pagkilala:</strong> Hindi lang si Hesus na nagbibigay ng mga biyaya — kundi si Hesus na Panginoon, Anak ng Diyos, na may karapatang mamuno sa ating buhay at puso. Kapag naka-angkla tayo sa Kanya — hindi sa tao, hindi sa simbahan, hindi sa kalagayan — ang ating pananampalataya ay hindi matitinag.</p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Mateo 7:21</div>
+    <p>"Hindi ang bawat nagsasabi sa akin, 'Panginoon, Panginoon,' ay papasok sa kaharian ng langit, kundi ang gumagawa ng kalooban ng aking Ama sa langit."</p>
+    <cite>— Mateo 7:21 (ASD)</cite>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang dakilang pananampalataya ay hindi nagsisimula sa dasal o relihiyon — nagsisimula ito sa tamang pagkilala kung sino si Hesus. Ang pananampalatayang naka-angkla sa tunay na pagkakakilanlan ni Kristo — bilang Panginoon, Anak ng Diyos, Makapangyarihan sa lahat — ang pananampalatayang hindi matitinag ng anumang pagsubok.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 2 — NAGPUPUMILIT KAHIT SA KATAHIMIKAN AT PAGTANGGI ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">2</div>
+    <div>
+      <h2>Ang Dakilang Pananampalataya ay Nagpupumilit Kahit sa Katahimikan at Pagtanggi</h2>
+      <div class="sub">Mateo 15:23–25 · Santiago 5:16 · Mateo 14:33</div>
+    </div>
+  </div>
+
+  <div class="vbox orange">
+    <p>"Ngunit hindi sumagot si Hesus ng isang salita. Kaya lumapit ang kanyang mga alagad at nakiusap sa kanya, 'Paalisin mo na siya sapagkat siya ay sumisigaw sa ating likuran.' Ngunit siya ay lumapit at sumamba sa kanya, na nagsasabing, 'Panginoon, tulungan mo ako!'"</p>
+    <cite>— Mateo 15:23,25 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Tatlong antas ng hamon ang hinarap ng babaeng ito — at sa bawat isa, ang kanyang pananampalataya ay nanatiling bukas at nagtutulak patungo sa Panginoon:</p>
+    <p><strong>(1) Hindi sumagot si Hesus — katahimikan ng langit. (2) Pinalayas siya ng mga disipulo. (3) Sinabi ni Hesus na "hindi para sa iyo ito."</strong> At sa bawat pagkakataon, hindi siya tumalikod. Sa halip, lumapit pa nang lumapit.</p>
+  </div>
+
+  <div class="sec-lbl">Tatlong Yugto ng Hamon at Tugon ng Babae</div>
+  <div class="stages-box">
+    <div class="stages-lbl">Mateo 15:22–25 — Mula sa Pagtanggi Tungo sa Tagumpay</div>
+    <div class="stages-items">
+      <div class="stage-row">
+        <div class="stage-num">①</div>
+        <div>
+          <div class="stage-title">Katahimikan — "Hindi sumagot si Hesus"</div>
+          <div class="stage-desc">Ang unang hamon: ang tahimik na langit. Ngunit ang katahimikan ng Diyos ay hindi pagtatanggi — ito ay imbitasyon na lumapit nang higit pa at manalangin nang mas taos-puso.</div>
+        </div>
+      </div>
+      <div class="stage-row">
+        <div class="stage-num">②</div>
+        <div>
+          <div class="stage-title">Pagtanggi ng Tao — "Paalisin mo na siya"</div>
+          <div class="stage-desc">Ang mga disipulo ay naging hadlang — binibiro siya na umalis. Ngunit ang tunay na pananampalataya ay hindi nasusukat sa opinyon ng tao. Patuloy siyang sumigaw.</div>
+        </div>
+      </div>
+      <div class="stage-row">
+        <div class="stage-num">③</div>
+        <div>
+          <div class="stage-title">Direktang Pagtanggi — "Hindi para sa iyo ito"</div>
+          <div class="stage-desc">Sinabi mismo ni Hesus na ang Kanyang misyon ay para sa Israel lamang. Ngunit siya ay lumapit at sumamba — nagtatag ng personal na relasyon sa Panginoon sa pamamagitan ng pagsamba.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr orange">Ang Katahimikan ng Diyos — Hindi Pagtanggi Kundi Imbitasyon</div>
+    <div class="illus-body">
+      <p>Naranasan mo na bang manalangin at parang "deadma" si Panginoon? Parang walang nagbabago, parang hindi Siya nakikinig?</p>
+      <p><strong>Ang katahimikan ng Diyos ay madalas hindi pagtanggi — ito ay pagtawag sa mas malalim na pananampalataya.</strong> Sinasabi Niya: "Anak, tawag ka pa. Lumapit ka nang higit. Hanapin mo Ako nang buong puso mo."</p>
+      <p>Maaaring hindi palaging babaguhin ng Diyos ang sitwasyon nang agad — ngunit palagi Niyang binibigyan tayo ng kakayahang tiisin ito. At naghahanap Siya ng mga taong <em>patuloy na mananalangin, patuloy na kakapit, at magpapatuloy.</em></p>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr blue">Ang Pagsamba Bilang Sandata ng Pananampalataya</div>
+    <div class="illus-body">
+      <p>Sa ikatlong pagkakataon, nang harapin niya ang direktang pagtanggi ni Hesus, ang desisyon niya ay hindi umalis — kundi <strong>sumamba.</strong> Lumuhod siya at nagsabing, "Panginoon, tulungan mo ako."</p>
+      <p>Sa pamamagitan ng pagsamba, <em>kinikilala niya na si Hesus ang tunay na Panginoon at Tagapagligtas.</em> At sa aktor ng pagsamba, nagsimula ang isang bagong relasyon — isang personal na ugnayan sa pagitan niya at ng Panginoon. "Until God opens the next door — praise Him."</p>
+      <p>Tulad din ng mga nasa bangka (Mateo 14:33) — pagkatapos ng bagyo at paglalakad ni Hesus sa tubig, <em>"sumamba sila sa kanya, na nagsasabi, 'Tunay na ikaw ang Anak ng Diyos.'"</em> Sa gitna ng bagyo, ang sagot ng pananampalataya ay pagsamba.</p>
+    </div>
+  </div>
+
+  <div class="reflect-box">
+    <div class="reflect-lbl">Mga Tanong para sa Sariling Pagninilay</div>
+    <div class="reflect-q">Paano mo hinaharap ang katahimikan ng Diyos sa iyong mga panalangin?</div>
+    <div class="reflect-q">Ano ang iyong karaniwang tugon kapag parang hindi sumasagot ang Diyos?</div>
+    <div class="reflect-q">Sa anong aspeto ng buhay mo ay tinatawag ka ng Diyos na magpumilit pa?</div>
+    <div class="reflect-q">Sumusuko ka ba sa iyong pananampalataya nang napakadali? Napapagod ka ba sa paghihintay ng sagot ng panalangin?</div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Santiago 5:16</div>
+    <p>"Ipagtapat nga ninyo ang inyong mga kasalanan sa isa't isa at idalangin ang isa't isa upang kayo ay gumaling. Malaki ang nagagawa ng taimtim na panalangin ng taong matuwid."</p>
+    <cite>— Santiago 5:16 (ASD)</cite>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang dakilang pananampalataya ay hindi tumitigil kahit sa katahimikan, kahit sa pagtanggi ng tao, kahit sa direktang hamon. Ang pagpupumilit sa panalangin — ang patuloy na pagbabalik sa Panginoon sa kabila ng lahat — ang pananampalatayang ito ang hinihanap ng Diyos at ginagantimpalaan Niya ito.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== PUNTO 3 — MAPAGPAKUMBABA AT TUMANGGAP NG HABAG ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:var(--green);">
+    <div class="snum">3</div>
+    <div>
+      <h2>Ang Dakilang Pananampalataya ay Nanatiling Mapagpakumbaba at Tumatanggap ng Habag</h2>
+      <div class="sub">Mateo 15:26–28 · Santiago 4:10</div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <p>"Sumagot siya, 'Hindi naman tama na kunin ang tinapay ng mga anak at itapon sa mga aso.' 'Tama po kayo, Panginoon,' ang sabi ng babae, 'ngunit kahit ang mga aso ay kumakain ng mga mumong nahuhulog mula sa mesa ng kanilang mga panginoon.' Pagkatapos ay sinabi sa kanya ni Hesus, 'Babae, dakila ang iyong pananampalataya! Mangyari nawa ang iyong hinihiling.' At gumaling ang kanyang anak sa sandaling iyon."</p>
+    <cite>— Mateo 15:26–28 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Ang pinakamahirap na hamon ay ang huling isa — tinawag siya ni Hesus na "aso." Sa kulturang Hudyo, ito ang pinaka-mapang-alipusta na salita para sa isang Gentil. Ngunit <strong>hindi siya nagalit, hindi siya umalis.</strong></p>
+    <p>Sa halip, ginamit niya ang salitang iyon — <em>at pinili niya ang kaagapay ng awa kahit sa ibaba ng mesa.</em> Ito ang pinaka-makabuluhang sagot ng pananampalataya sa buong kwento — at ito ang nagtulak kay Hesus na sabihin: <strong>"Babae, dakila ang iyong pananampalataya!"</strong></p>
+  </div>
+
+  <div class="sec-lbl">Bakit Nanatili Siyang may Pananampalataya Kahit sa Kahihiyan?</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">①</div>
+      <div>
+        <h4>Naunawaan Niya na si Hesus ang Tamang Diyos na Mapagkakatiwalaan</h4>
+        <p>Siya ay Canaanea — lumaki sa ibang kultura at relihiyon. Ngunit nang makilala niya si Hesus, nalaman niya: <em>ang Kanyang mga mumo ay mas masarap kaysa sa pinakamagandang hapunan ng iba pang diyos.</em> Ang limitadong biyaya ng Panginoon ay higit pa sa pinakamabuting handog ng sanlibutan.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">②</div>
+      <div>
+        <h4>Pinili Niya ang Kababaan-loob Kaysa sa Pagmamalaki</h4>
+        <p>Sa halip na ipagtanggol ang kanyang sarili o sumugal sa dignidad, tinanggap niya ang kanyang posisyon — at sa paggawa nito, nahanap niya ang daan patungo sa awa ng Panginoon. "If you humble yourself, He will lift you up." (Santiago 4:10) Ang kababaan-loob ang nagbukas ng pintuan ng himala.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--blue);">③</div>
+      <div>
+        <h4>Ang Kanyang Pananampalataya ay Pinuri ng Diyos — at Ginantimpalaan</h4>
+        <p>Ang katapatan at kababaan-loob ng kanyang pananampalataya ay hindi lamang nagbunga ng himala — pinuri pa ito ng Panginoong Hesus nang personal. Ang pananampalatayang isinasabuhay sa mga pagsubok ay lumalago tungo sa dakilang pananampalatayang pinupuri ni Hesus Mismo.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr green">Ang Aral ng Kababaan-loob — Ang Mumo ay Sapat Na</div>
+    <div class="illus-body">
+      <p>Ang babae ay hindi nanghiling ng pinakamalaking biyaya — humingi siya ng mumo lamang mula sa mesa ng Panginoon. <strong>At ang "mumo" ng Panginoon ay higit pa sa buong hapunan ng iba.</strong></p>
+      <p>Minsan, ang kasalanan ay nagpapakilos sa atin na bumalik sa ating mga dati — katulad ng aso na bumabalik sa kanyang suka. Iniligtas tayo ng Diyos ngunit madalas ay bumabalik tayo sa tsismis, sa kasinungalingan, sa mga lumang gawi. Ngunit ang grasya ng Diyos — kahit ang "mumo" nito — ay sapat para sa ating pagbabago at kagalingan.</p>
+      <p><em>Ang kababaan-loob ay hindi kahinaan — ito ay ang pinaka-malakas na posisyon sa harapan ng Diyos. Kapag inamin natin ang ating kahinaan at pangangailangan, nagbubukas tayo para sa Kanyang kapangyarihan at awa.</em></p>
+    </div>
+  </div>
+
+  <div class="reflect-box">
+    <div class="reflect-lbl">Mga Tanong para sa Personal na Pagsusuri</div>
+    <div class="reflect-q">Umaalis ka ba sa Diyos o inaakusahan Siya kapag negative ang sagot sa iyong mga panalangin?</div>
+    <div class="reflect-q">Sumusuko ka ba sa iyong pananampalataya nang napakadali?</div>
+    <div class="reflect-q">May pananampalataya ka ba katulad ng babaeng ito — na nagpupumilit at humihiling kahit parang hindi sinasagot ang panalangin?</div>
+    <div class="reflect-q">Ikaw ba ay nananalangin para sa kaligtasan ng iyong mga anak at mahal sa buhay?</div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Santiago 4:10</div>
+    <p>"Magpakababa kayo sa harapan ng Panginoon at kayo ay kanyang itataas."</p>
+    <cite>— Santiago 4:10 (ASD)</cite>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Santiago 1:2–4</div>
+    <p>"Mga kapatid ko, ituring ninyong lubos na kagalakan ang inyong pagharap sa iba't ibang uri ng pagsubok, palibhasa'y nalalaman ninyo na ang pagsubok sa inyong pananampalataya ay nagbubunga ng pagtitiis."</p>
+    <cite>— Santiago 1:2–4 (ASD)</cite>
+  </div>
+
+  <div class="truth green">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang kababaan-loob — ang pagtanggap sa ating tunay na kalagayan sa harapan ng Diyos at ang pagpili ng Kanyang awa kahit sa pinakamaliit na paraan — ang nagbubukas ng pintuan ng Kanyang kapangyarihan. "If you humble yourself, He will lift you up." Ang dakilang pananampalataya ay laging nagsisimula sa kababaan-loob.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD ===== -->
+<div class="sec" id="concl">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral — Pananampalatayang Hindi Sumusuko</div>
+      <h3>Tatlong Katangian ng Dakilang Pananampalataya — Mateo 15:21–28</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>Una — Naka-angkla sa Tunay na Pagkakakilanlan ni Hesus:</strong> Ang dakilang pananampalataya ay nagsisimula sa tamang pagkilala kung sino si Hesus — hindi lang bilang Savior na magbibigay ng biyaya, kundi bilang Lord na may karapatang manguna sa ating buhay. Ang pananampalatayang naka-angkla sa Kanya ay hindi matitinag ng anumang pagsubok.</p>
+      <p><strong>Ikalawa — Nagpupumilit Kahit sa Katahimikan at Pagtanggi:</strong> Tatlong hamon ang hinarap niya — katahimikan, pagtanggi ng tao, direktang pagtanggi ng Panginoon — at sa bawat isa, patuloy siyang bumabalik at sumamba. Ang katahimikan ng Diyos ay hindi pagtanggi — ito ay imbitasyon na lumapit nang higit pa. Huwag tigilan ang panalangin.</p>
+      <p><strong>Pangatlo — Nanatiling Mapagpakumbaba at Tumanggap ng Awa:</strong> Sa halip na umalis nang may galit o pagkapahiya, pinili niya ang kababaan-loob — tinanggap niya ang kanyang posisyon at humingi pa rin ng awa. At ang "mumo" ng Panginoon ay higit pa sa anumang hapunan ng sanlibutan. Ang kababaan-loob ang nagbukas ng pintuan ng Kanyang awa at himala.</p>
+    </div>
+  </div>
+
+  <div class="sum-cards" style="margin-top:14px;">
+    <div class="sum-card">
+      <div class="sd p">1</div>
+      <div>
+        <div class="s-title">Naka-angkla kay Hesus</div>
+        <div class="s-desc">Kilala Siya bilang Lord — hindi lang Savior. Ang tamang pagkilala kay Kristo ang pundasyon ng hindi matitinag na pananampalataya.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd o">2</div>
+      <div>
+        <div class="s-title">Nagpupumilit at Sumasamba</div>
+        <div class="s-desc">Huwag titigil sa panalangin kahit katahimikan, kahit pagtanggi. Sambahin ang Panginoon sa gitna ng pagsubok — hanggang dumating ang kasagutan.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd g">3</div>
+      <div>
+        <div class="s-title">Mapagpakumbaba at Tumatanggap</div>
+        <div class="s-desc">Ang "mumo" ng Diyos ay sapat na — higit pa sa pinakamagandang hapunan ng sanlibutan. Ang kababaan-loob ang nagbubukas ng pintuan ng Kanyang awa.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"Nawa'y pagkalooban ka ng Diyos ng ganitong uri ng pananampalataya — isang pananampalatayang hindi susuko, isang pananampalatayang nagtitiwala sa iyong Tagapagligtas, hindi bibitaw sa Kanyang mga pangako, at ligtas kang dadalhin sa Kanyang kaharian."</p>
+    <cite>— Mula sa Sermon Outline</cite>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr blue">Pangwakas na Hamon — Tatlong Tanong</div>
+    <div class="illus-body">
+      <p><strong>Una:</strong> <em>Ikaw ba ay nasa simbahan ngunit hindi kay Kristo? "If you are in Church but not in Christ, you are in danger."</em></p>
+      <p><strong>Ikalawa:</strong> <em>May pananampalataya ka ba tulad ng babaeng Canaanea — nagpupumilit, sumasamba, at nanatiling mapagpakumbaba kahit sa kabila ng pagtanggi?</em></p>
+      <p><strong>Pangatlo:</strong> <em>Kung nararamdaman mong parang nasa labas ka ng awa ng Diyos — tulad ng babaeng ito na Hentil, na lumaki sa idolatriya — alalahanin ito: ang Panginoon ay hindi limitado ng iyong pinagmulan. Lumapit ka sa Kanya ngayon, nang may buong puso.</em></p>
+    </div>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Ang grasya ng Diyos ay hindi reserve para sa mga perpekto.</strong> Binuksan Niya ang Kanyang puso para sa isang babaeng Canaanea na may simpleng kahilingan at dakilang pananampalataya. <em>Gawin nating desisyon ngayon na sumunod kay Hesus nang may matatag na pananampalatayang hindi sumusuko.</em></p>
+  </div>
+
+  <div class="vbox blue">
+    <p>"Babae, dakila ang iyong pananampalataya! Mangyari nawa ang iyong hinihiling."</p>
+    <cite>— Mateo 15:28 · Pangunahing Talata</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon Hesus, salamat sa pag-aaral na ito na nagpapaalala sa amin ng tunay na kahulugan ng pananampalataya — isang pananampalatayang hindi tumitigil kahit sa katahimikan, hindi sumusuko kahit sa pagtanggi, at nanatiling mapagpakumbaba kahit sa kahihiyan. Tulungan Mo kaming lumapit sa Iyo hindi bilang mga naghahanap ng biyaya lamang, kundi bilang mga naghahanap sa Iyo — sa Iyong presensya, sa Iyong kalooban, sa Iyong puso. Palaimin Mo ang aming pananampalataya sa mga panahon ng pagsubok. Itaas Mo ang aming mga mata mula sa aming mga kalagayan at iangkla ang aming pananampalataya sa Iyo — sa Iyong pagkakakilanlan, sa Iyong mga pangako, at sa Iyong walang hanggang pagmamahal. Ipagkaloob Mo sa amin ang pananampalatayang hindi sumusuko — hanggang sa araw na makita namin ang Iyong mukha. Sa pangalan ni Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Ang pananampalatayang hindi sumusuko ay hindi nasusukat sa pakiramdam — nasusukat ito sa patuloy na pagbabalik sa Panginoon, sa pagpupumilit sa panalangin, at sa pagpili ng kababaan-loob kahit sa mga sandali ng kahihiyan at pagtanggi."</p>
+    <cite>— Buod ng Pag-aaral · Pananampalatayang Hindi Sumusuko</cite>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
