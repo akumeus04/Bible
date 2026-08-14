@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>When the Heat Is On — Daniel 3:1–30</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+    --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#26215C;
+    --blue:#185FA5;--blue-light:#E6F1FB;
+    --orange:#BA7517;--orange-light:#FAEEDA;--orange-dark:#412402;
+    --red:#993C1D;--red-light:#FAECE7;
+    --gray:#5F5E5A;--gray-light:#F5F4F0;
+    --text:#1A1A1A;--border:#E0DED8;
+    --fire1:#B94D0C;--fire2:#7A2B00;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F7F6F2;color:var(--text);font-size:16px;line-height:1.7;padding-bottom:160px;}
+
+  .topbar{background:var(--fire2);color:white;padding:16px 16px 13px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.2);}
+  .topbar .lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:0.7;margin-bottom:2px;}
+  .topbar h1{font-family:'Lora',serif;font-size:17px;font-weight:700;line-height:1.25;}
+  .topbar .ref{font-size:11px;opacity:0.6;margin-top:2px;}
+
+  .audio-bar{position:fixed;bottom:72px;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:99;padding:10px 14px;box-shadow:0 -2px 10px rgba(0,0,0,0.06);}
+  .audio-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .audio-lbl::before{content:"🎧";}
+  .audio-bar audio{width:100%;height:36px;border-radius:8px;outline:none;}
+
+  .bnav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -3px 14px rgba(0,0,0,0.07);}
+  .nb{flex:1;padding:8px 2px 10px;text-align:center;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent;}
+  .nb:active{background:var(--gray-light);}
+  .nd{width:24px;height:24px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;}
+  .nl{font-size:8px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--gray);line-height:1.2;}
+  .nb.active .nl{color:var(--fire1);}
+
+  .sec{display:none;animation:fi 0.25s ease;}
+  .sec.active{display:block;}
+  @keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* HERO */
+  .hero{background:linear-gradient(150deg,var(--fire2) 0%,var(--fire1) 100%);padding:24px 18px 22px;text-align:center;color:white;}
+  .hero .htag{display:inline-block;background:rgba(255,255,255,0.18);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:10px;}
+  .hero h2{font-family:'Lora',serif;font-size:24px;font-weight:700;margin-bottom:5px;line-height:1.2;}
+  .hero .href{font-size:12px;opacity:0.72;margin-bottom:3px;}
+  .hero .hdate{font-size:11px;opacity:0.5;}
+
+  /* VERSE BOX */
+  .vbox{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:14px;}
+  .vbox p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.78;}
+  .vbox cite{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--green);font-style:normal;}
+  .vbox.blue{background:var(--blue-light);border-left-color:var(--blue);}
+  .vbox.blue p{color:var(--blue);}
+  .vbox.blue cite{color:var(--blue);}
+  .vbox.purple{background:var(--purple-light);border-left-color:var(--purple);}
+  .vbox.purple p{color:var(--purple-dark);}
+  .vbox.purple cite{color:var(--purple);}
+  .vbox.orange{background:var(--orange-light);border-left-color:var(--orange);}
+  .vbox.orange p{color:var(--orange-dark);}
+  .vbox.orange cite{color:var(--orange);}
+  .vbox.red{background:var(--red-light);border-left-color:var(--red);}
+  .vbox.red p{color:var(--red);}
+  .vbox.red cite{color:var(--red);}
+  .vbox.fire{background:#FDF0E8;border-left-color:var(--fire1);}
+  .vbox.fire p{color:var(--fire2);}
+  .vbox.fire cite{color:var(--fire1);}
+
+  /* CARD */
+  .card{background:white;border-radius:12px;border:1px solid var(--border);margin:14px 14px 0;padding:14px;}
+  .card p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* SECTION HEADER */
+  .shdr{border-radius:12px;margin:14px 14px 0;padding:14px;display:flex;align-items:flex-start;gap:11px;}
+  .snum{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.22);color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;}
+  .shdr h2{font-family:'Lora',serif;font-size:16px;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+  .shdr .sub{font-size:11px;color:rgba(255,255,255,0.7);}
+
+  /* HIGHLIGHT */
+  .hl{border-radius:0 10px 10px 0;margin:14px 14px 0;padding:13px 14px;}
+  .hl.green{background:var(--green-light);border-left:4px solid var(--green);}
+  .hl.blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  .hl.purple{background:var(--purple-light);border-left:4px solid var(--purple);}
+  .hl.orange{background:var(--orange-light);border-left:4px solid var(--orange);}
+  .hl.red{background:var(--red-light);border-left:4px solid var(--red);}
+  .hl.fire{background:#FDF0E8;border-left:4px solid var(--fire1);}
+  .hl p{font-size:14px;line-height:1.72;}
+  .hl.green p{color:var(--green-dark);}
+  .hl.blue p{color:var(--blue);}
+  .hl.purple p{color:var(--purple-dark);}
+  .hl.orange p{color:var(--orange-dark);}
+  .hl.red p{color:var(--red);}
+  .hl.fire p{color:var(--fire2);}
+
+  /* ILLUS */
+  .illus{background:white;border:1px solid var(--border);border-radius:12px;margin:14px 14px 0;overflow:hidden;}
+  .illus-hdr{padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+  .illus-hdr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;}
+  .illus-hdr.orange{background:var(--orange-light);color:var(--orange);}
+  .illus-hdr.orange::before{background:var(--orange);}
+  .illus-hdr.blue{background:var(--blue-light);color:var(--blue);}
+  .illus-hdr.blue::before{background:var(--blue);}
+  .illus-hdr.green{background:var(--green-light);color:var(--green);}
+  .illus-hdr.green::before{background:var(--green);}
+  .illus-hdr.purple{background:var(--purple-light);color:var(--purple);}
+  .illus-hdr.purple::before{background:var(--purple);}
+  .illus-hdr.fire{background:#FDF0E8;color:var(--fire1);}
+  .illus-hdr.fire::before{background:var(--fire1);}
+  .illus-body{padding:13px 14px;font-size:14px;color:#444;line-height:1.72;}
+  .illus-body p+p{margin-top:9px;}
+
+  /* SUP VERSE */
+  .sup{background:var(--gray-light);border-radius:10px;margin:14px 14px 0;padding:12px 14px;}
+  .sup-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+  .sup p{font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:4px;}
+  .sup cite{font-size:12px;font-weight:600;color:var(--blue);font-style:normal;}
+
+  /* TRUTH BOX */
+  .truth{border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .truth.green{background:var(--green);}
+  .truth.blue{background:var(--blue);}
+  .truth.purple{background:var(--purple);}
+  .truth.orange{background:var(--orange);}
+  .truth.fire{background:var(--fire1);}
+  .truth.dark{background:var(--fire2);}
+  .truth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+  .truth p{font-size:14px;font-weight:600;color:white;line-height:1.6;}
+
+  /* STEPS */
+  .steps{margin:14px 14px 0;display:grid;gap:9px;}
+  .step{background:white;border-radius:11px;border:1px solid var(--border);padding:12px;display:flex;gap:11px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
+  .step h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .step p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+  /* SUM CARDS */
+  .sum-cards{margin:14px 14px 0;}
+  .sum-card{background:white;border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+  .sum-card:last-child{margin-bottom:0;}
+  .sd{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+  .sd.g{background:var(--green);}
+  .sd.p{background:var(--purple);}
+  .sd.o{background:var(--orange);}
+  .sd.b{background:var(--blue);}
+  .sd.f{background:var(--fire1);}
+  .s-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .s-desc{font-size:12px;color:var(--gray);line-height:1.55;}
+
+  /* HEAT ACRONYM BOX */
+  .heat-box{background:var(--fire2);border-radius:12px;margin:14px 14px 0;padding:15px;}
+  .heat-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px;text-align:center;}
+  .heat-letters{display:flex;flex-direction:column;gap:8px;}
+  .heat-row{display:flex;align-items:flex-start;gap:13px;background:rgba(255,255,255,0.1);border-radius:9px;padding:12px 14px;}
+  .heat-letter{font-family:'Lora',serif;font-size:32px;font-weight:700;color:#FFB347;flex-shrink:0;width:28px;text-align:center;line-height:1;}
+  .heat-content{flex:1;}
+  .heat-word{font-size:13px;font-weight:700;color:white;margin-bottom:2px;}
+  .heat-verse{font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:3px;}
+  .heat-desc{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;}
+
+  /* CONTRAST BOX */
+  .contrast-box{margin:14px 14px 0;display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+  .con-card{border-radius:11px;padding:13px;}
+  .con-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;}
+  .con-item{font-size:12px;line-height:1.65;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.07);}
+  .con-item:last-child{border-bottom:none;padding-bottom:0;}
+  .con-card.bad{background:var(--red-light);}
+  .con-card.bad .con-title{color:var(--red);}
+  .con-card.bad .con-item{color:var(--red);}
+  .con-card.good{background:var(--green-light);}
+  .con-card.good .con-title{color:var(--green-dark);}
+  .con-card.good .con-item{color:var(--green-dark);}
+
+  /* FAITH CONTRAST */
+  .faith-box{background:var(--purple-dark);border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .faith-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:11px;text-align:center;}
+  .faith-row{display:flex;gap:9px;margin-bottom:8px;}
+  .faith-row:last-child{margin-bottom:0;}
+  .faith-cell{flex:1;border-radius:8px;padding:10px 12px;}
+  .faith-cell.trans{background:rgba(255,80,50,0.2);}
+  .faith-cell.rel{background:rgba(168,240,216,0.15);}
+  .faith-tag{font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:5px;}
+  .faith-cell.trans .faith-tag{color:#FFB3A0;}
+  .faith-cell.rel .faith-tag{color:#A8F0D8;}
+  .faith-cell p{font-size:12px;line-height:1.5;}
+  .faith-cell.trans p{color:rgba(255,255,255,0.75);}
+  .faith-cell.rel p{color:rgba(255,255,255,0.85);}
+
+  /* PROGRESSION */
+  .progress-box{background:var(--green-dark);border-radius:12px;margin:14px 14px 0;padding:14px;}
+  .progress-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px;text-align:center;}
+  .progress-steps{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;}
+  .prog-step{background:rgba(255,255,255,0.12);border-radius:8px;padding:7px 12px;text-align:center;}
+  .prog-step .ps-icon{font-size:16px;margin-bottom:2px;}
+  .prog-step .ps-label{font-size:11px;font-weight:700;color:white;}
+  .prog-arrow{font-size:14px;color:rgba(255,255,255,0.4);}
+
+  /* RECAP */
+  .recap-box{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;margin:14px 14px 0;padding:13px 14px;}
+  .recap-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+  .recap-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:13px;color:var(--blue);}
+  .recap-item:last-child{margin-bottom:0;}
+  .ri-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+
+  /* PRAYER */
+  .prayer{background:var(--green-light);border:1px solid #9FE1CB;border-radius:13px;margin:14px 14px 0;padding:15px;}
+  .prayer-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+  .prayer p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--green-dark);line-height:1.8;}
+
+  /* CLOSING */
+  .closing{background:var(--gray-light);border-radius:13px;margin:14px 14px 0;padding:15px;text-align:center;}
+  .closing p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:var(--gray);line-height:1.75;margin-bottom:7px;}
+  .closing cite{font-size:12px;font-weight:700;color:var(--text);font-style:normal;}
+
+  /* CONCL */
+  .concl{background:white;border-radius:13px;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;}
+  .concl-hdr{background:var(--fire1);padding:14px;}
+  .concl-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+  .concl-hdr h3{font-family:'Lora',serif;font-size:16px;color:white;font-weight:700;line-height:1.3;}
+  .concl-body{padding:14px;}
+  .concl-body p{font-size:14px;color:var(--text);line-height:1.78;margin-bottom:10px;}
+  .concl-body p:last-child{margin-bottom:0;}
+
+  .quote-box{background:var(--fire2);border-radius:10px;margin:14px 14px 0;padding:14px;text-align:center;}
+  .quote-box p{font-family:'Lora',serif;font-size:14px;font-style:italic;color:#FFD9A0;line-height:1.7;}
+  .quote-box cite{display:block;margin-top:7px;font-size:11px;color:rgba(255,255,255,0.45);font-style:normal;letter-spacing:0.05em;text-transform:uppercase;}
+
+  .sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:16px 14px 0;color:var(--gray);}
+  .sp{height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lbl">Review Material · August 14, 2026 · JF5</div>
+  <h1>When the Heat Is On</h1>
+  <div class="ref">Daniel 3:1–30 · Jesus First Christian Ministries</div>
+</div>
+
+<div class="bnav">
+  <button class="nb active" onclick="show('intro',this)">
+    <div class="nd" style="background:var(--fire1)">✦</div>
+    <div class="nl">Simula</div>
+  </button>
+  <button class="nb" onclick="show('p1',this)">
+    <div class="nd" style="background:var(--blue)">H</div>
+    <div class="nl">Hold Firm</div>
+  </button>
+  <button class="nb" onclick="show('p2',this)">
+    <div class="nd" style="background:var(--orange)">E</div>
+    <div class="nl">Entrust</div>
+  </button>
+  <button class="nb" onclick="show('p3',this)">
+    <div class="nd" style="background:var(--purple)">A</div>
+    <div class="nl">Accept</div>
+  </button>
+  <button class="nb" onclick="show('p4',this)">
+    <div class="nd" style="background:var(--green)">T</div>
+    <div class="nl">Trust</div>
+  </button>
+</div>
+
+<div class="audio-bar">
+  <div class="audio-lbl">Pakinggan ang Sermon</div>
+  <audio controls>
+    <source src="https://archive.org/download/Kapag-Matindi-na-ang-Init-ng-Sitwasyon/08-14-2026.m4a" type="audio/mpeg">
+    Hindi sinusuportahan ang audio sa iyong browser.
+  </audio>
+</div>
+
+<!-- ===== INTRO / SIMULA ===== -->
+<div class="sec active" id="intro">
+  <div class="hero">
+    <div class="htag">Review Material · August 14, 2026</div>
+    <h2>When the Heat Is On 🔥</h2>
+    <div class="href">Daniel 3:1–30 · Jesus First Christian Ministries</div>
+    <div class="hdate">WIN · TRAIN · SEND · Matthew 6:33</div>
+  </div>
+
+  <div class="vbox fire">
+    <p>"Naranasan mo na ba ang isang sitwasyon na pakiramdam mo ay sobrang bigat na ng pressure, at parang lalo pang umiinit ang iyong pinagdaraanan? — Panginoon, gaano pa karami ang kaya kong tiisin bago ako tuluyang mapagod?"</p>
+    <cite>— Controlling Question · Daniel 3:1–30</cite>
+  </div>
+
+  <div class="card">
+    <p>Hindi lang heat ng araw. Hindi heat ng kusina. Kundi ang <strong>heat ng pressure</strong> — sa trabaho, sa pamilya, sa financial difficulties, sa mga taong hindi naiintindihan ang ating pananampalataya. At minsan, ang init ay nagiging napakainit na nagsisimula tayong itanong: <em>"Nasaan ang Diyos sa lahat ng ito?"</em></p>
+    <p>Ang kwento ng tatlong Hebreo sa Daniel 3 ay nagbibigay ng malinaw na sagot: <strong>ang apoy ay hindi ang katapusan ng ating kwento — Diyos ang may hawak ng huling salita.</strong></p>
+  </div>
+
+  <!-- TEA BAG ILLUSTRATION -->
+  <div class="illus">
+    <div class="illus-hdr orange">Ilustrasyon — Ang Tea Bag Principle</div>
+    <div class="illus-body">
+      <p>Kapag inilagay mo ang tea bag sa malamig na tubig — kaunti lang ang nangyayari. Ngunit kapag inilagay mo ito sa <strong>mainit na tubig</strong> — agad lumalabas ang flavoring nito. Ang bango. Ang kulay. Ang tunay nitong nilalaman.</p>
+      <p><em>Pressure doesn't put something new inside of you — it simply forces out whatever is already there.</em></p>
+      <p><strong>When the heat is on, what flavors your life? Is it the bitterness of compromise — or the distinct aroma of Christ?</strong></p>
+    </div>
+  </div>
+
+  <!-- HEAT ACRONYM -->
+  <div class="sec-lbl">Ang H.E.A.T. — Apat na Tugon ng Kristiyano sa Pagsubok</div>
+  <div class="heat-box">
+    <div class="heat-lbl">How Should a Christian Respond When the Heat Is On?</div>
+    <div class="heat-letters">
+      <div class="heat-row">
+        <div class="heat-letter">H</div>
+        <div class="heat-content">
+          <div class="heat-word">Hold Firm to Your Convictions</div>
+          <div class="heat-verse">Daniel 3:1–12 · "We will not serve your gods…"</div>
+          <div class="heat-desc">Kapag dumating ang pressure, huwag ikompromiso ang iyong pananampalataya.</div>
+        </div>
+      </div>
+      <div class="heat-row">
+        <div class="heat-letter">E</div>
+        <div class="heat-content">
+          <div class="heat-word">Entrust Yourself to God's Power</div>
+          <div class="heat-verse">Daniel 3:13–17 · "Our God whom we serve is able…"</div>
+          <div class="heat-desc">Ipagkatiwala sa Diyos ang iyong kalagayan — alam Niya ang paraan kahit hindi mo nakikita.</div>
+        </div>
+      </div>
+      <div class="heat-row">
+        <div class="heat-letter">A</div>
+        <div class="heat-content">
+          <div class="heat-word">Accept God's Will, Whatever the Outcome</div>
+          <div class="heat-verse">Daniel 3:18 · "But even if He does not…"</div>
+          <div class="heat-desc">Ang tunay na pananampalataya ay sumusuko sa soberaniya ng Diyos — walang kondisyon.</div>
+        </div>
+      </div>
+      <div class="heat-row">
+        <div class="heat-letter">T</div>
+        <div class="heat-content">
+          <div class="heat-word">Trust His Presence in the Fire</div>
+          <div class="heat-verse">Daniel 3:19–30 · "I see four men walking around…"</div>
+          <div class="heat-desc">Ang pagdami ng init ay hindi nangangahulugang pagbaba ng presensya ng Diyos.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTEXT -->
+  <div class="sec-lbl">Background — Sino ang Tatlong Hebreo?</div>
+  <div class="sum-cards">
+    <div class="sum-card">
+      <div class="sd b">①</div>
+      <div>
+        <div class="s-title">Jewish Exiles sa Babylon</div>
+        <div class="s-desc">Nang sakupin ng Babylon ang Jerusalem, ang mga kabataang Judeo ay dinala bilang captives at pinili para sa royal service. (Daniel 1:1–4)</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd b">②</div>
+      <div>
+        <div class="s-title">Binago ang Kanilang mga Pangalan</div>
+        <div class="s-desc">Hananiah → Shadrach · Mishael → Meshach · Azariah → Abednego. Binago ang pangalan, kultura, at edukasyon — ngunit hindi ang kanilang pananampalataya.</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sd b">③</div>
+      <div>
+        <div class="s-title">Government Officials sa Babylon</div>
+        <div class="s-desc">Dahil sa karunungang ibinigay ng Diyos, sila ay na-promote ni Nebuchadnezzar bilang mga opisyal sa lalawigan ng Babylon. Hindi sila ordinaryong tao. (Daniel 2:46–49)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="recap-box">
+    <div class="recap-lbl">Koneksyon sa Nakaraang Pag-aaral</div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Pananampalatayang Hindi Sumusuko</strong> — Ang babaeng Canaanea ay hindi sumuko kahit tatlong beses itanggi si Hesus. Ang tatlong Hebreo ay hindi sumuko kahit kamatayan ang kapalit. Iisang espiritu ng hindi pagsuko.</div></div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Magbantay at Manalangin</strong> — Ang konsistenteng buhay-pananalangin ang nagpanatili ng katatagan ng tatlong Hebreo sa harap ng pinaka-makapangyarihang hari ng kanilang panahon.</div></div>
+    <div class="recap-item"><div class="ri-dot">✓</div><div><strong>Pagtagumpayan ang Tukso</strong> — Nagtayo ng boundary si Jose at tumakas. Ang tatlong Hebreo ay nagtayo rin ng boundary — ngunit nang hindi sila makaalis, tumayo silang matatag sa harapan ng furnace.</div></div>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== H — HOLD FIRM ===== -->
+<div class="sec" id="p1">
+  <div class="shdr" style="background:linear-gradient(135deg,#0D3D7A,var(--blue));">
+    <div class="snum">H</div>
+    <div>
+      <h2>Hold Firm to Your Convictions</h2>
+      <div class="sub">Daniel 3:1–12 · "We will not serve your gods…" · When pressure comes, don't compromise your faith</div>
+    </div>
+  </div>
+
+  <div class="vbox blue">
+    <p>"Shadrach, Meshach at Abednego, na inyong inilagay sa pangasiwaan ng lalawigan ng Babylon ay hindi nagbibigay pansin sa inyo, Inyong Kamahalan. Hindi sila naglilingkod sa inyong mga diyos o sumasamba sa imahen ng ginto na inyong itinayo."</p>
+    <cite>— Daniel 3:12 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Si Haring Nebuchadnezzar — ang pinaka-makapangyarihang hari ng kanyang panahon — ay nagtayo ng gintong imahen na 27 metro ang taas at nag-utos: <strong>lahat ay yumuko kapag narinig ang musika, o itatapon sa blazing furnace.</strong></p>
+    <p>Lahat yumuko. Lahat — maliban sa tatlo. At sa kanilang pagtayo, may limang bagay na nagpanatili sa kanila na nakatayo.</p>
+  </div>
+
+  <div class="sec-lbl">Limang Paraan para Manatiling Nakatayo sa Gitna ng Pressure</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--blue);">①</div>
+      <div>
+        <h4>Kilalanin ang Pressure para Ikompromiso ang Pananampalataya</h4>
+        <p>Ang utos ay pampubliko. Ang pressure ay matindi. Ang bunga ay nakakatakot. Lahat ay inaasahang sumunod. <em>"Hindi tayo natatakot sa apoy — natatakot tayong hindi makasama sa karamihan. Ang pressure na yumuko ay nagsisimula sa pressure na makibagay at mapabilang."</em></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--blue);">②</div>
+      <div>
+        <h4>Huwag Sumunod sa Karamihan</h4>
+        <p>"Nang marinig ng lahat ang musika, lahat ng bansa at tao ay nagpatirapa at sumamba." — Lahat yumuko. Ngunit hindi ang mga tao ng Diyos. <em>Ang mayorya ay hindi laging tama. Ang katanyagan ay hindi sukatan ng katotohanan.</em> "Hindi nagtatanong ang pananampalataya, 'Ano ang ginagawa ng karamihan?' Kundi, 'Ano ang nais ng Diyos na gawin ko?'"</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--blue);">③</div>
+      <div>
+        <h4>Alamin ang Iyong Paniniwala Bago Dumating ang Pressure</h4>
+        <p>Ang tatlong Hebreo ay hindi na kailangang mag-negotiate sa hari. Wala silang kailangang pag-isipan pa. Alam na nila: <em>"We will not bow."</em> Ang kanilang mga paninindigan ay natatag na bago pa sila ipinasok sa furnace. <strong>Convictions must be established before they are tested. Don't wait until temptation comes to decide what you believe.</strong></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--blue);">④</div>
+      <div>
+        <h4>Maging Handa na Tumayo nang Mag-isa</h4>
+        <p>Tatlo lamang sila laban sa libo-libo. Ngunit okay lang sa kanila na maging kakaiba. Minsan, ang pagsunod kay Kristo ay nangangahulugang <em>tumayo nang mag-isa, hindi maunawaan, mapintasan, o matanggihan.</em> <strong>"Standing alone with God is better than standing with the crowd against God."</strong></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--blue);">⑤</div>
+      <div>
+        <h4>Piliin ang Pagsunod Kaysa sa Kaginhawahan</h4>
+        <p>Alam nila na ang pagtanggi ay maaaring ikamatay nila — ngunit pinili pa rin nila ang pagsunod. Minsan, ang pagsunod sa Diyos ay magkakahalaga ng ating popularidad, oportunidad, relasyon, comfort, at reputasyon. <strong>"Never trade your convictions for temporary comfort. But obedience is worth the cost."</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr blue">Ang Pundasyon ng Kanilang Paninindigan — Exodus 20:3–5</div>
+    <div class="illus-body">
+      <p>Sigurado, alam ng tatlong Hebreo ang Sampung Utos: <em>"Huwag kang magkaroon ng ibang diyos sa harapan Ko. Huwag kang gagawa para sa iyong sarili ng anumang imahen... Huwag kang yuyuko sa kanila o sasamba sa kanila; sapagkat Ako, ang Panginoon mong Diyos, ay isang mapanibughuing Diyos."</em></p>
+      <p>Bago pa man sila mahulog sa pressure, natatag na ang kanilang paniniwala. <strong>Ang Salita ng Diyos sa puso — bago dumating ang pagsubok — ang nagpalakas sa kanila para tumayo.</strong></p>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <p>"Loyalty to God was greater than their fear of the king. Their convictions had been established before they entered the furnace."</p>
+    <cite>— Daniel 3:1–12</cite>
+  </div>
+
+  <div class="truth blue">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang mga paninindigan ay dapat natatag bago pa man dumating ang pagsubok. Huwag antayin ang tukso bago magpasya kung ano ang iyong paniniwala — kapag naroroon na ang pressure, mahirap nang mag-isip nang malinaw. Ang katapatan sa Diyos ay dapat na mas malakas kaysa sa takot sa sinumang hari.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== E — ENTRUST ===== -->
+<div class="sec" id="p2">
+  <div class="shdr" style="background:var(--orange);">
+    <div class="snum">E</div>
+    <div>
+      <h2>Entrust Yourself to God's Power</h2>
+      <div class="sub">Daniel 3:13–17 · "Our God whom we serve is able…" · You may face the fire, but God controls the outcome</div>
+    </div>
+  </div>
+
+  <div class="vbox orange">
+    <p>"Kung ihahagis kayo sa naglalagablab na hurno, ang Diyos na aming pinaglilingkuran ay kayang iligtas kami mula rito at iligtas kami mula sa inyong kamay, Inyong Kamahalan."</p>
+    <cite>— Daniel 3:17 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Galit na galit si Haring Nebuchadnezzar. Binigyan niya sila ng pangalawang pagkakataon na sumuko — "Mag-bow o masusunog." Ngunit hindi nagbago ang kanilang sagot. <strong>Limang bagay ang nagpigil sa kanila na matakot:</strong></p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">①</div>
+      <div>
+        <h4>Huwag Matakot sa Banta</h4>
+        <p>Galit na galit ang hari. Totoo ang banta. Matindi ang bunga. Binigyan sila ng isa pang pagkakataon para ikompromiso ang kanilang pananampalataya. <em>Ngunit hindi nila pinayagan ang galit ng hari na kontrolin ang kanilang tugon.</em> Ang ating katibayan ay hindi nakasalalay sa antas ng banta — kundi sa Kanya na mas dakila pa sa sinumang nagbabanta.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">②</div>
+      <div>
+        <h4>Alalahanin Kung Sino ang Iyong Pinaglilingkuran</h4>
+        <p>Sabi nila: <em>"Hindi namin kailangang ipagtanggol ang aming sarili sa harapan ninyo."</em> Alam nila ang kanilang katapatan. <strong>Naglingkod sila sa Diyos bago pa man sila naglingkod sa hari.</strong> "Your identity in GOD gives you courage when the world demands compromise." — Kapag dumating ang pressure: sino ang iyong pag-aari? Sino ang iyong pinaglilingkuran? Sino ang iyong kinakatawan?</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">③</div>
+      <div>
+        <h4>Maniwala na Kaya ng Diyos</h4>
+        <p>"Ang Diyos na aming pinaglilingkuran <em>ay kaya</em> kaming iligtas." Hindi sila nagsabi: "Kaya namin," o "Makakaalis kami." Ang kanilang kumpiyansa ay nasa kapangyarihan ng Diyos — hindi sa sarili nilang kakayahan. <strong>"Don't measure your situation by your strength; measure it by God's power."</strong></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">④</div>
+      <div>
+        <h4>Magtiwala sa Diyos Kahit Hindi Mo Makita ang Paraan</h4>
+        <p>Hindi nila alam kung paano sila ililigtas ng Diyos. Ang alam lang nila: <em>kaya Niya.</em> Hindi nila makita ang kabila ng furnace — ngunit nagtiwala sila. <strong>"I don't know how God will do it, but I know God is able."</strong> Our faith is not based only on the fact that God is able; it is rooted in the assurance that He will never leave us nor forsake us. (Hebreo 13:5)</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">⑤</div>
+      <div>
+        <h4>Ilagay ang Iyong Kumpiyansa sa Diyos, Hindi sa Kalagayan</h4>
+        <p>Ang lahat sa paligid nila ay nagsasabing: <em>"Mamamatay kayo."</em> Ngunit ang kanilang pananampalataya ay nagsasabing: <em>"Kaya ng Diyos."</em> Circumstance: "You're going into the fire." Faith: "God is able." Circumstance: "There is no way out." Faith: "God is able." Circumstance: "Bow down." Faith: <strong>"We will stand."</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="truth orange">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang Diyos na aming pinaglilingkuran ay kaya. Kahit hindi mo makita ang paraan, kahit sobrang laki ng banta, kahit kamatayang kapalit — ang ating kumpiyansa ay naka-angkla sa kapangyarihan ng Diyos, hindi sa ating mga kalagayan. You may face the fire, but God controls the outcome.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== A — ACCEPT ===== -->
+<div class="sec" id="p3">
+  <div class="shdr" style="background:linear-gradient(135deg,var(--purple-dark),var(--purple));">
+    <div class="snum">A</div>
+    <div>
+      <h2>Accept God's Will, Whatever the Outcome</h2>
+      <div class="sub">Daniel 3:18 · "But even if He does not…" · Faith says: Even if He does not…</div>
+    </div>
+  </div>
+
+  <div class="vbox purple">
+    <p>"Ngunit kahit hindi Niya ito gawin, nais naming ipaalam sa inyo, Inyong Kamahalan, na hindi kami maglilingkod sa inyong mga diyos o sasambahin ang imahen ng ginto na inyong itinayo."</p>
+    <cite>— Daniel 3:18 (ASD) · "But even if He does not…"</cite>
+  </div>
+
+  <div class="card">
+    <p>Pagkatapos nilang sabihin ang <em>"Our God is able to deliver us"</em> — agad nilang sinabi ang pinaka-matapang na salita sa buong kwento: <strong>"But even if He does not."</strong></p>
+    <p>Doon nagbago ang kanilang pananampalataya — mula sa kumpiyansa sa kapangyarihan ng Diyos tungo sa <em>pagsuko sa kalooban ng Diyos.</em> Ito ang pinakamalim na antas ng pananampalataya — ang magtiwala kahit hindi sumasagot ang Diyos sa paraan na gusto natin.</p>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr purple">Ano ang Iyong "But Even If He Does Not" Ngayon?</div>
+    <div class="illus-body">
+      <p><em>"Our God is able to heal my disease... but even if He does not, I will still trust Him."</em></p>
+      <p><em>"Our God is able to save my marriage, give me this job... but even if He does not, He is still my King."</em></p>
+      <p><em>"Our God is able to protect my reputation at work... but even if He does not, I will not bow to unethical demands."</em></p>
+      <p><strong>Meron ka ba niyang "but even if He does not" — Lord, kahit hindi mo sagutin ito, hindi pa rin ako gagawa ng sarili kong diskarte. Gagawin ko pa rin ang nais Mo sa aking buhay.</strong></p>
+    </div>
+  </div>
+
+  <!-- TRANSACTIONAL vs RELATIONAL FAITH -->
+  <div class="sec-lbl">Transactional Faith vs. Relational Faith</div>
+  <div class="faith-box">
+    <div class="faith-lbl">Dalawang Uri ng Pananampalataya</div>
+    <div class="faith-row">
+      <div class="faith-cell trans">
+        <div class="faith-tag">❌ Transactional Faith</div>
+        <p>"Susunod ako sa Diyos — kaya kailangan Niyang protektahan ang aking kalusugan, finances, at comfort."</p>
+      </div>
+      <div class="faith-cell rel">
+        <div class="faith-tag">✓ Relational Faith</div>
+        <p>"Susunod ako sa Diyos dahil Siya ang aking Diyos — anuman ang mangyayari sa aking buhay."</p>
+      </div>
+    </div>
+    <div class="faith-row">
+      <div class="faith-cell trans">
+        <div class="faith-tag">❌ Kapag hindi sinagot ang dasal</div>
+        <p>Unti-unting bumabagsak ang pananampalataya. Nagde-deviate sa Diyos.</p>
+      </div>
+      <div class="faith-cell rel">
+        <div class="faith-tag">✓ Kahit hindi sinagot ang dasal</div>
+        <p>Nanatiling tapat. Nanalig pa rin. Ang pananampalataya ay naka-angkla sa kung sino ang Diyos — hindi sa kung ano ang ginagawa Niya para sa atin.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hl purple">
+    <p><strong>Ang tunay na pananampalataya ay hindi nagsasabing:</strong> <em>"Susunod ako sa Iyo kung ibibigay Mo ang hinihiling ko."</em> Sa halip, sinasabi nito: <em>"Susunod ako sa Iyo dahil Ikaw ang aking Diyos, anuman ang mangyari."</em></p>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr purple">Dalawang Pangunahing Katotohan ng "Even If" na Pananampalataya</div>
+    <div class="illus-body">
+      <p><strong>True faith does not bargain with God.</strong> Sumusuko ito sa Kanyang soberaniya nang walang safety net. Walang kondisyon sa ating Panginoon.</p>
+      <p><strong>Real identity is forged in the "Even If."</strong> Sinuman ay maaaring magpuri sa Diyos kapag garantisado ang resulta. Ngunit ang lalim ng iyong identity bilang Kristiyano ay nasusukat sa iyong ginagawa kapag mahal na ang presyo ng pagsunod. <em>Madaling sabihin na "Nagtitiwala ako sa Diyos" kapag maayos ang lahat. Ngunit ang tunay na pananampalataya ay nahuhubog at nahahayag kapag kaya nating sabihin: "Kahit na hindi mangyari ang inaasahan ko, mananatili pa rin akong tapat sa Diyos."</em></p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">1 Juan 5:14</div>
+    <p>"Ito ang kapanatagan natin sa paglapit natin sa Diyos: pakikinggan niya tayo sa anumang hilingin natin ayon sa kanyang kalooban."</p>
+    <cite>— 1 Juan 5:14 (ASD)</cite>
+  </div>
+
+  <div class="truth purple">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang pananampalatayang nagsasabing "But even if He does not" ay ang pinakamalalim na antas ng pagtitiwala sa Diyos. Ito ang nagtatanggal ng lahat ng kondisyon sa ating pagsunod — at nagbubunyag ng tunay na relasyon sa Diyos na hindi nakasalalay sa mga kalagayan.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== T — TRUST HIS PRESENCE ===== -->
+<div class="sec" id="p4">
+  <div class="shdr" style="background:linear-gradient(135deg,var(--green-dark),var(--green));">
+    <div class="snum">T</div>
+    <div>
+      <h2>Trust His Presence in the Fire</h2>
+      <div class="sub">Daniel 3:19–30 · "I see four men walking around…" · God is with you in the fire</div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <p>"Tumingin siya at nagsabi, 'Nakikita ko ang apat na lalaki, naglalakad sa gitna ng apoy na walang pinsala, at ang anyo ng ikaapat ay tulad ng anak ng mga diyos!'"</p>
+    <cite>— Daniel 3:25 (ASD)</cite>
+  </div>
+
+  <div class="card">
+    <p>Nagalit si Nebuchadnezzar at iniutos niyang pitong beses na palakasin ang init ng furnace. Namatay pa ang mga sundalong nagtapon sa kanila — nasunog ng init bago pa makabalik. Ngunit ang tatlong Hebreo ay pumasok sa apoy — <strong>at hindi sila nag-iisa.</strong></p>
+    <p>Tumayo si Nebuchadnezzar nang gulat at nagtanong: <em>"Hindi ba tatlo lang ang ating itinapon? Ngunit nakikita ko ang apat na lalaki — naglalakad — walang pinsala — at ang ikaapat ay tulad ng anak ng mga diyos."</em></p>
+  </div>
+
+  <div class="sec-lbl">Limang Bagay na Ginagawa ng Diyos sa Gitna ng Apoy</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">①</div>
+      <div>
+        <h4>Nandito ang Diyos Kahit Tumitindi ang Init</h4>
+        <p>Nang lumalala ang kalagayan — pitong beses na pinainiitan ang furnace — hindi ibig sabihing lumayo ang Diyos. <strong>"The increase of the heat does not mean the decrease of God's presence."</strong> Ang nababawasan sa mga pagsubok ay ang ating pagtitiwala at pananampalataya — hindi ang kapangyarihan ng Diyos. Huwag i-assume na iniwana ka ng Diyos kapag lumala ang sitwasyon.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">②</div>
+      <div>
+        <h4>Kasama Ka ng Diyos sa Apoy</h4>
+        <p>Itinapon sila sa apoy — ngunit hindi sila nag-iisa sa apoy. Alam nila ang Isaiah 43:2: <em>"Kapag lumakad ka sa apoy, hindi ka masusunog; ang apoy ay hindi magniningas sa iyo."</em> Hindi tayo exempted sa mga suliranin — ngunit ang Diyos ay sumasamahan sa atin habang dinadaanan natin ang mga ito. At dahil kasama Niya tayo, makakalabas tayo sa kabilang dulo.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">③</div>
+      <div>
+        <h4>Ginagawa ng Diyos ang Lugar ng Panganib na Lugar ng Pakikipag-isa</h4>
+        <p>Sila ay naglalakad sa loob ng apoy — hindi nakahiga nang walang buhay sa lupa. Ang lugar na inilaan para sa kanilang kamatayan ay naging lugar ng fellowship sa Panginoon. <strong>Minsan, hindi agad inaalis ng Diyos ang pagsubok — sa halip, binibigyan Niya tayo ng Kanyang presensya sa gitna nito. "The furnace can become the place where you discover God more deeply."</strong></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">④</div>
+      <div>
+        <h4>Sinisira ng Diyos ang Nagtatanggal sa Iyo</h4>
+        <p>Pumasok sila sa furnace na nakatali — ngunit nang makita sila ni Nebuchadnezzar, sila ay <em>nakalaya at walang pinsala.</em> Ang apoy ay nasunog ng kanilang mga tanikala — ngunit hindi ang kanilang mga katawan. Ang nais ng apoy na sirain sila ay naging instrumento ng Diyos para palayain sila. Ang ating pagsubok ay nag-eexpose ng ating takot, dependence sa tao, unhealthy attachments, pride, at misplaced trust — at <strong>ginagamit ng Diyos ang apoy para matanggal ang mga bagay na pumipigil sa atin.</strong></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">⑤</div>
+      <div>
+        <h4>Ginagawa ng Diyos ang Iyong Pagsubok na Testimonya</h4>
+        <p>Nasaksihan ni Nebuchadnezzar ang ginawa ng Diyos. Ang pagsubok ng tatlong Hebreo ay naging testimonya sa hari — at sila ay na-promote. <em>"What you are going through may become the testimony someone else needs to hear."</em> <strong>"The fire may touch you, but it does not have the final authority over you."</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESSION -->
+  <div class="sec-lbl">Ang Progression ng Kanilang Kwento</div>
+  <div class="progress-box">
+    <div class="progress-lbl">Pressure → Furnace → Presence → Deliverance → Testimony</div>
+    <div class="progress-steps">
+      <div class="prog-step">
+        <div class="ps-icon">🔥</div>
+        <div class="ps-label">Pressure</div>
+      </div>
+      <div class="prog-arrow">→</div>
+      <div class="prog-step">
+        <div class="ps-icon">⛓️</div>
+        <div class="ps-label">Furnace</div>
+      </div>
+      <div class="prog-arrow">→</div>
+      <div class="prog-step">
+        <div class="ps-icon">✨</div>
+        <div class="ps-label">Presence</div>
+      </div>
+      <div class="prog-arrow">→</div>
+      <div class="prog-step">
+        <div class="ps-icon">🕊️</div>
+        <div class="ps-label">Deliverance</div>
+      </div>
+      <div class="prog-arrow">→</div>
+      <div class="prog-step">
+        <div class="ps-icon">📣</div>
+        <div class="ps-label">Testimony</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="illus">
+    <div class="illus-hdr green">Ang Resulta — Daniel 3:27–30</div>
+    <div class="illus-body">
+      <p>Nang lumabas ang tatlo, nagsipalibot sa kanila ang mga satrapa, prepekto, gobernador, at mga tagapayo. Nakita nila: <strong>ang apoy ay hindi nakapinsala sa kanilang mga katawan, ni ang isang sinulid ng kanilang buhok ay hindi nasunog, hindi nasira ang kanilang damit, at walang amoy ng sunog sa kanila.</strong></p>
+      <p>Nagsalita si Nebuchadnezzar: <em>"Purihin ang Diyos ni Shadrach, Meshach, at Abednego na nagsugo ng Kanyang anghel at iniligtas ang Kanyang mga lingkod."</em> At pagkatapos — <strong>na-promote ang tatlo sa lalawigan ng Babylon.</strong></p>
+      <p><em>Ang kanilang katapatan ay nagdala ng glorya sa Diyos sa harap ng pinakamakapangyarihang hari ng kanilang panahon. A mess into a message.</em></p>
+    </div>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">Isaias 43:2</div>
+    <p>"Kapag lumakad ka sa tubig, sasamahan kita; at kapag tumawid ka sa mga ilog, hindi sila lalampas sa iyo; kapag lumakad ka sa apoy, hindi ka masusunog, ni ang apoy ay magniningas sa iyo."</p>
+    <cite>— Isaias 43:2 (ASD)</cite>
+  </div>
+
+  <div class="sup">
+    <div class="sup-lbl">1 Corinto 10:13</div>
+    <p>"Kaya kung dumaranas kayo ng pagsubok, gagawa Siya ng paraan upang mapagtagumpayan ninyo ito."</p>
+    <cite>— 1 Corinto 10:13 (ASD)</cite>
+  </div>
+
+  <div class="truth green">
+    <div class="truth-lbl">Pangunahing Katotohanan</div>
+    <p>Ang tatlong Hebreo ay hindi nakaranas ng presensya ng Diyos dahil iniiwasan nila ang apoy — nakaranas sila ng Kanyang presensya dahil nanatili silang tapat habang dinadaanan nito. Huwag ilagay ang kumpiyansa sa kawalan ng apoy — ilagay ang kumpiyansa sa presensya ng Diyos sa gitna ng apoy.</p>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<!-- ===== BUOD — walang ika-5 tab kaya ginawa kong full-section summary ===== -->
+<!-- Note: 5-tab limit reached so Buod is at bottom of T tab via scroll — adding as a pseudo-section triggered by button -->
+
+<script>
+// Add a hidden buod that can be accessed by holding last button
+</script>
+
+<!-- Buod content appended to T section via JavaScript reveal -->
+<div id="buod-section" style="display:none;">
+
+  <div class="concl">
+    <div class="concl-hdr">
+      <div class="concl-tag">Buod ng Pag-aaral · August 14, 2026</div>
+      <h3>When the Heat Is On — H.E.A.T.</h3>
+    </div>
+    <div class="concl-body">
+      <p><strong>H — Hold Firm to Your Convictions (Daniel 3:1–12):</strong> Kapag dumating ang pressure, huwag ikompromiso ang iyong pananampalataya. Kilalanin ang pressure. Huwag sumunod sa karamihan. Alamin ang iyong paniniwala bago pa dumating ang pagsubok. Maging handang tumayo nang mag-isa. Piliin ang pagsunod kaysa kaginhawahan. Ang katapatan sa Diyos ay dapat na mas malakas kaysa sa takot sa sinumang hari.</p>
+      <p><strong>E — Entrust Yourself to God's Power (Daniel 3:13–17):</strong> Huwag matakot sa banta. Alalahanin kung sino ang iyong pinaglilingkuran. Maniwala na kaya ng Diyos. Magtiwala kahit hindi mo makita ang paraan. Ilagay ang kumpiyansa sa Diyos — hindi sa kalagayan. You may face the fire, but God controls the outcome.</p>
+      <p><strong>A — Accept God's Will, Whatever the Outcome (Daniel 3:18):</strong> "But even if He does not — we will not bow." Relational faith — hindi transactional. Ang iyong katapatan kay Kristo ay hindi kondisyonal sa iyong mga kalagayan. True faith does not bargain with God. Real identity is forged in the "Even If."</p>
+      <p><strong>T — Trust His Presence in the Fire (Daniel 3:19–30):</strong> God is present kahit tumitindi ang init. Hindi ka nag-iisa sa apoy. Ginagawa ng Diyos ang lugar ng panganib na lugar ng fellowship. Sinisira Niya ang nagtatanggal sa iyo. At ang iyong pagsubok ay magiging testimonya — a mess into a message.</p>
+    </div>
+  </div>
+
+  <div class="heat-box" style="margin-top:14px;">
+    <div class="heat-lbl">Mabilis na Recap — H.E.A.T.</div>
+    <div class="heat-letters">
+      <div class="heat-row">
+        <div class="heat-letter">H</div>
+        <div class="heat-content">
+          <div class="heat-word">Hold Firm</div>
+          <div class="heat-desc">Convictions before pressure comes · Stand alone · Obedience over comfort</div>
+        </div>
+      </div>
+      <div class="heat-row">
+        <div class="heat-letter">E</div>
+        <div class="heat-content">
+          <div class="heat-word">Entrust</div>
+          <div class="heat-desc">God is able · Trust without seeing · Confidence in God not circumstances</div>
+        </div>
+      </div>
+      <div class="heat-row">
+        <div class="heat-letter">A</div>
+        <div class="heat-content">
+          <div class="heat-word">Accept</div>
+          <div class="heat-desc">"But even if He does not" · Relational not transactional · Submit to His sovereignty</div>
+        </div>
+      </div>
+      <div class="heat-row">
+        <div class="heat-letter">T</div>
+        <div class="heat-content">
+          <div class="heat-word">Trust</div>
+          <div class="heat-desc">Not alone in the fire · Fellowship in the furnace · Trial into testimony</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:14px;">
+    <p>"The worst this world can do to you is throw you into a furnace — but the best your God will do is walk through the flames right beside you."</p>
+    <cite>— Conclusion · Daniel 3 · August 14, 2026</cite>
+  </div>
+
+  <div class="hl green">
+    <p><strong>Pangwakas na hamon:</strong> Do not bend. Do not buckle. Do not sell out your identity in Christ for a moment of worldly comfort. If you stand alone, stand tall. If you are thrown into the fire, stand true. <em>When the heat is on, may your faith speak louder than your fear, your obedience be stronger than the pressure, and your life become a testimony that even in the fire, God is still with His people.</em></p>
+  </div>
+
+  <div class="vbox fire">
+    <p>"When the heat is on, don't put your confidence in the absence of the fire — put your confidence in the presence of God. When the heat is on, remember your H.E.A.T."</p>
+    <cite>— Daniel 3:1–30 · Pangunahing Talata</cite>
+  </div>
+
+  <div class="prayer">
+    <div class="prayer-lbl">Panalangin para sa Pagbabalik-aral</div>
+    <p>"Panginoon, salamat sa salitang ito mula sa Daniel 3 na nagpapaalala sa amin na ang apoy ay hindi ang katapusan ng aming kwento — Ikaw ang may hawak ng huling salita. Sa mga sandaling sobrang init na ng aming pinagdaraanan — kapag hindi na namin makita ang paraan, kapag parang iniwanan Mo na kami — turuan Mo kaming huwag sukatan ang aming sitwasyon sa aming lakas, kundi sa Iyong kapangyarihan. Palakasin Mo ang aming mga paninindigan bago pa dumating ang pagsubok. Tulungan Mo kaming maniwala na kaya Mo — kahit hindi pa namin nakikita kung paano. At bigyan Mo kami ng pusong handang sabihing: 'Kahit hindi Mo ito gawin — hindi pa rin kami yuyuko.' Salamat na hindi Mo kami iniwan sa apoy — kasama Mo kami sa bawat isa. Sa pangalan ng aming Panginoong Hesus, Amen."</p>
+  </div>
+
+  <div class="closing">
+    <p>"Do not bend. Do not buckle. Do not sell out your identity in Christ for a moment of worldly comfort. Because the worst this world can do is throw you into a furnace — but the best your God will do is walk through the flames right beside you."</p>
+    <cite>— Buod ng Pag-aaral · When the Heat Is On · August 14, 2026</cite>
+  </div>
+  <div class="sp"></div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  // Hide buod by default when switching tabs
+  document.getElementById('buod-section').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Double-tap the T (last) button to reveal Buod section
+let lastTap=0;
+document.querySelectorAll('.nb')[4].addEventListener('click',function(){
+  let now=Date.now();
+  if(now-lastTap<400){
+    let b=document.getElementById('buod-section');
+    b.style.display=b.style.display==='none'?'block':'none';
+    if(b.style.display==='block') b.scrollIntoView({behavior:'smooth'});
+  }
+  lastTap=now;
+});
+</script>
+</body>
+</html>
